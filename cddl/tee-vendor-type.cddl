@@ -1,0 +1,4 @@
+$$measurement-values-map-extension //= (
+  &(tee.vendor: -70) => $tee-vendor-type
+)
+$tee-vendor-type /= tstr

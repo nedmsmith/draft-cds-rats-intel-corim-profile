@@ -1,9 +1,8 @@
 ---
-title: Intel profile for CoRIM
-abbrev: "Intel profile for CoRIM"
+title: Intel Verifier profile for CoRIM
+abbrev: "Intel Verifier profile for CoRIM"
 category: info
-
-docname: draft-cds-rats-intel-corim-profile-latest
+docname: draft-draper-rats-intel-verifier-profile-latest
 submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
 number:
 date:
@@ -20,11 +19,12 @@ venue:
   type: "Working Group"
   mail: "rats@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/rats/"
-  github: "nedmsmith/draft-cds-rats-intel-corim-profile"
-  latest: "https://nedmsmith.github.io/draft-cds-rats-intel-corim-profile/draft-cds-rats-intel-corim-profile.html"
+  github: "intel-sandbox/standards.draft-draper-rats-intel-verifier-profile"
+  latest: "https://github.com/intel-sandbox/standards.draft-draper-rats-intel-verifier-profile.html"
 
 stand_alone: yes
 pi:
+
   rfcedstyle: yes
   toc: yes
   tocindent: yes
@@ -873,8 +873,7 @@ TODO Security
 
 # IANA Considerations
 
-This document has no IANA actions.
-
+Maching expression is tagged, and the tag value needs to be registered with IANA as a CBOR tag.
 
 --- back
 
@@ -888,3 +887,6 @@ This document has no IANA actions.
 {:numbered="false"}
 
 TODO acknowledge.
+
+
+[def]: ttps://www.rfc-editor.org/rfc/rfc933

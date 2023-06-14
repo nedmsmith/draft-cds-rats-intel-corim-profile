@@ -1,0 +1,41 @@
+/ concise-mid-tag / {
+  / tag-identity / 1 : {
+    / tag-id / 0 : "Sample SGX QE reference tag"
+  },
+  / triples / 4 : {
+      / reference-triples / 0 : [
+        [
+          / environment-map / {
+           / class / 0 : {
+             / class-id / 0 :
+              / tagged-oid-type / 111(h'6086480186F84D0102030401'), / 2.16.840.1.113741.1.2.3.4.1 - <OID-for-SGX-QE-TCB>/
+              / vendor / 1 : "Intel Corporation",
+              / model / 2 : "SGX QE TCB"
+           }
+          },
+          / measurement-map / {
+            / mval / 1 : { / *** measurement-values-map *** /
+              / tcb-eval-num / -86 : 60010([ / op.ge / 2, 11 ]), 
+              / miscselect / -81 : 60010([ / mask-eq / 1, h'C0000000', h'FBFF0000' ]),
+              / mrsigner / -84 : 60010([ / op.member / 6, 
+                / digests-type / [
+                  [
+                    / hash-alg-id / 1, / sha256 /
+                    / hash-value / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+                  ],
+                  [
+                    / hash-alg-id / 8, / sha512 /
+                    / hash-value / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6AA314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+                  ]
+                ]
+              ]),
+              / isvprodid / -85 : 1
+            },
+            / authorized-by / 2 : [
+              / tagged-pkix-base64-key-type / 554("base64_key_X")
+            ]
+          }
+        ]
+      ]
+  }
+}

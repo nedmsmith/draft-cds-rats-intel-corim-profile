@@ -1,0 +1,7 @@
+member = 6
+not-member = 7
+
+set-type = [ * any ]
+set-operator = member / not-member
+set-expression = [ set-operator, set-type ]
+tagged-set-expression = #6.60010( set-expression )

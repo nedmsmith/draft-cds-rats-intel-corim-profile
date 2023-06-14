@@ -1,0 +1,4 @@
+$$measurement-values-map-extension //= (
+  &(tee.isvprodid: -85) => $tee-isvprodid-type
+)
+$tee-isvprodid-type /= uint

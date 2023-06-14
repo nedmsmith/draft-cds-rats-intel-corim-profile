@@ -1,0 +1,100 @@
+/ concise-mid-tag / {
+  / tag-identity / 1 : {
+    / tag-id / 0 : "ESE SPDM mapper use case 2 - Endorsements"
+  },
+  / triples / 4 : {
+    / identity-triples / 2 : [
+      / identity-triple-record / [
+        / environment-map / {
+          / ** env0 ** /
+          / comid.class / 0 : {
+            / comid.vendor / 1 : "ACME.example",
+            / comid.model / 2 : "MAX.example",
+            / comid.class-id / 0 : 551(0) /** SPDM ROM  type **/
+          }
+        },
+        / crypto-key-type-choice / [
+          / agged-pkix-base64-key-type / 554("base64_key_ACME_MAX")
+        ]
+      ]
+    ],
+    / endorsed-triples / 1 : [
+      / endorsed-triple-record / [
+        / environment-map / {
+          / ** env6 ** /
+          / comid.class / 0 : {
+            / comid.vendor / 1 : "ACME.example",
+            / comid.model / 2 : "MAX.example",
+            / comid.index / 4 : 1, /*** SPDM index ***/
+            / comid.class-id / 0 : 551(6) /** SPDM version type **/
+          }
+        },
+        / measurement-map / {
+          / mval / 1 : {
+            / version-map / 0 : {
+              / comid.version / 0 : "1.3.0"
+            }
+          }
+        }
+      ],
+      / endorsed-triple-record / [
+        / environment-map / {
+          / ** env7 ** /
+          / comid.class / 0 : {
+            / comid.vendor / 1 : "ACME.example",
+            / comid.model / 2 : "MAX.example",
+            / comid.index / 4 : 2, /*** SPDM index ***/
+            / comid.class-id / 0 : 551(7) /** SPDM svn type **/
+          }
+        },
+        / measurement-map / {
+          / mval / 1 : {
+            / comid.svn / 1 : 552(37)
+          }
+        }
+      ]
+    ],
+    / membership-triples / 5 : [
+      [ 
+        / domain / "ACME MAX",
+        [
+          / environment-map / {
+            / ** env0 ** /
+            / comid.class / 0 : {
+              / comid.vendor / 1 : "ACME.example",
+              / comid.model / 2 : "MAX.example",
+              / comid.class-id / 0 : 551(0) /** ROM **/
+            }
+          },
+          / environment-map / {
+            / ** env1 ** /
+            / comid.class / 0 : {
+              / comid.vendor / 1 : "ACME.example",
+              / comid.model / 2 : "MAX.example",
+              / comid.index / 4 : 0, /*** SPDM index ***/
+              / comid.class-id / 0 : 551(1) /*** DMTFSpecMeasurementValueType - firmware ***/
+            }
+          },
+          / environment-map / {
+            / ** env6 ** /
+            / comid.class / 0 : {
+              / comid.vendor / 1 : "ACME.example",
+              / comid.model / 2 : "MAX.example",
+              / comid.index / 4 : 1, /*** SPDM index ***/
+              / comid.class-id / 0 : 551(6) /*** DMTFSpecMeasurementValueType - version ***/
+            }
+          },
+          / environment-map / {
+            / ** env7 ** /
+            / comid.class / 0 : {
+              / comid.vendor / 1 : "ACME.example",
+              / comid.model / 2 : "MAX.example",
+              / comid.index / 4 : 2, /*** SPDM index ***/
+              / comid.class-id / 0 : 551(7) /*** DMTFSpecMeasurementValueType - svn ***/
+            }
+          }
+        ]
+      ]
+    ]
+  }
+}

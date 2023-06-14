@@ -1,0 +1,172 @@
+/ concise-mid-tag / {
+  / tag-identity / 1 : {
+    / tag-id / 0 : "Example SGX TCBINFO"
+  },  
+  / entity / 2 : [ {
+    / entity-name / 0 : "INTEL",
+    / reg-id / 1 : 32("https://intel.com"),
+    / role / 2 : [ 1,0,2 ] / creator, tag-creator, maintainer /
+  } ],
+  / triples / 4 : {
+    / reference-triples / 0 : [
+      [
+        / environment-map / {
+          / class / 0 : {
+            / class-id / 0 :
+              / tagged-oid-type / 111(h'6086480186F84D0102030404'), / 2.16.840.1.113741.1.2.3.4.4 - SGX-platform-TCB /
+            / vendor / 1 : "Intel Corporation",
+            / model / 2 : "0123456789ABCDEF" /** CPUID[0x01].EAX.FMSP & 0x0FFF0FF0 **/
+          }
+        },
+        / measurement-map / {
+          / mval / 1 : {
+            / version-map / 0 : {
+              / version / 0 : "2"
+            }
+          }
+        }
+      ]
+    ],
+    / conditional-endorsement-series-triples / 8 : [
+      [
+        / stateless-environment-record / [
+          / environment-map / {
+            / class / 0 : {
+              / class-id / 0 :
+                / tagged-oid-type / 111(h'6086480186F84D0102030404'), / 2.16.840.1.113741.1.2.3.4.4 - SGX-platform-TCB /
+              / vendor / 1 : "Intel Corporation",
+              / model / 2 : "0123456789ABCDEF" /** CPUID[0x01].EAX.FMSP & 0x0FFF0FF0 **/
+            }
+          },
+          / measurement-map / {
+            / mval / 1 : / measurement-values-map / {
+              / fmspc / -75 : h'10806F000000',
+              / sgx-type / -76 : 0,
+              / pceid / -80 : "0000",
+              / flags mask / -82 : 60010([ / op.mask-eq / 1, h'0003', h'0003' ])
+            },
+            / authorized-by / 2 : [
+              / tagged-pkix-base64-key-type / 554("base64_key_for-RIM-creator")
+            ]
+          }
+        ],
+        [  / *** triple object - conditional endorsed record series *** /
+          [ / *** record 1 *** / 
+            / refv: measurement-values-map / {
+              / tcb-comp-svn / -79 : [ 
+                60010([2,2]), 
+                60010([2,2]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]),
+                60010([2,0]),
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]) 
+              ],
+              / pcesvn / -74 : 60010([ /op.ge/ 2, 10 ])
+            },
+            / endv: measurement-values-map / {
+              / tcbdate / -72 : 0("2022-11-09T00:00:00Z"),
+              / tcbstatus / -88 : [ "UpToDate" ],
+              / tcb-eval-num / -86 : 5
+            }
+          ],
+          [ / *** record 2 *** / 
+            / refv: measurement-values-map / {
+              / tcb-comp-svn / -79 : [ 
+                60010([2,1]), 
+                60010([2,1]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]),
+                60010([2,0]),
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]) 
+              ],
+              / pcesvn / -74 : 60010([ /op.ge/ 2, 9 ])
+            },
+            / endv: measurement-values-map / {
+              / tcbdate / -72 : 0("2020-03-22T00:00:00Z"),
+              / tcbstatus / -88 : [ "OutOfDate" ],
+              / tcb-eval-num / -86 : 5
+            }
+          ],
+          [ / *** record 3 *** / 
+            / refv: measurement-values-map / {
+              / tcb-comp-svn / -79 : [ 
+                60010([2,1]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]),
+                60010([2,0]),
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]) 
+              ],
+              / pcesvn / -74 : 60010([ /op.ge/ 2, 1 ]) 
+            },
+            / endv: measurement-values-map / {
+              / tcbdate / -72 : 0("2019-01-01T00:00:00Z"),
+              / tcbstatus / -88 : [ "OutOfDate", "ConfigurationNeeded" ],
+              / advisory-ids / -89 : [ "INTEL-SA-00079" ],
+              / tcb-eval-num / -86 : 5
+            }
+          ],
+          [ / *** record 4 *** /
+            / refv: measurement-values-map / {
+              / tcb-comp-svn / -79 : [ 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]),
+                60010([2,0]),
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]) 
+              ],
+              / pcesvn / -74 : 60010([ /op.ge/ 2, 0 ])
+            },
+            / endv: measurement-values-map / {
+              /  tcbdate / -72 : 0("2018-01-01T00:00:00Z"),
+              / tcbstatus / -88 : [ "OutOfDate", "ConfigurationNeeded" ],
+              /  advisory-ids / -89 : [ "INTEL-SA-00078", "INTEL-SA-00077" ],
+              / tcb-eval-num / -86 : 5
+            }
+          ]
+        ]
+      ]
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+tee-concise-evidence = tee-concise-evidence-map
+tee-concise-evidence-map = {
+  &(tce.ev-triples: 0) => tee-ev-triples-map
+  ? &(tce.evidence-id: 1) => $tee-evidence-id-type-choice
+  * $$tee-concise-evidence-map-extension
+}
+$tee-evidence-id-type-choice /= tagged-uuid-type
+
+tee-ev-triples-map = non-empty < {
+  ? &(evidence-triples: 0) => [ + reference-triple-record ] ; see comid schema
+  ? &(identity-triples: 1) => [ + identity-triple-record ] ; see comid schema
+  ? &(dependency-triples: 2) => [ + domain-dependency-triple-record ] ; see comid schema
+  ? &(domain-membership-triples: 3) => [ + domain-membership-triple-record ] ; see comid schema
+  ? &(coswid-triples: 4) => [ + tee-ev-coswid-triple-record ] 
+  ? &(attest-key-triples: 5) => [ + attest-key-triple-record ] ; see comid schema
+  * $$ev-triples-map-extension
+} > 
+
+tee-ev-coswid-triple-record = [ 
+  environment-map, ; see comid schema
+  [ + tee-ev-coswid-evidence-map ]
+]
+
+tee-ev-coswid-evidence-map = { 
+  ? &(coswid-tag-id: 0) => concise-swid-tag-id ; see comid schema
+    &(coswid-evidence: 1) => evidence-entry ; see coswid schema
+  ? &(authorized-by: 2) => [ + $crypto-key-type-choice ] ; see comid schema
+}

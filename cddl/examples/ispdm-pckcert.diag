@@ -1,0 +1,49 @@
+/ spdm-toc / 570( 
+  / toc-map / {
+    / spdm.tagged-evidence / 0 : [
+      571( 
+        / concise-evidence-map / {
+          / ce.ev-triples / 0 : {
+            / ce.identity-triples / 1 : [
+              [ /** uses comid identity-triple-record schema **/
+                / environment-map / {
+                  / class / 0 : {
+                    / class-id / 0 :
+                      / tagged-oid-type / 111(h'6086480186F84D0102030405')  / 2.16.840.1.113741.1.2.3.4.5 - <OID-for-SGX-platform-Identity>/
+                  }
+                },
+                [ 
+                  / tagged-pkix-base64-key-type / 554("base64_key_Z")
+                ]
+              ]
+            ],
+            / ce.evidence-triples / 0 : [
+              [ /** uses reference-triple-record schema **/
+                / environment-map / {
+                  / class / 0 : {
+                    / class-id / 0 :
+                      / tagged-oid-type / 111(h'6086480186F84D0102030406') / 2.16.840.1.113741.1.2.3.4.6 - <OID-for-SGX-platform-TCB> /
+                  }
+                }, 
+                / measurement-map / {
+                  / mval / 1 : {
+                    / fmspc / -75 : h'00706E470000',
+                    / sgx-type / -76 : 0,
+                    / instance-id / -77 : 0,
+                    / ppid / -78 : 0,
+                    / pceid / -80 : "0000",
+                    / tcb-comp-svn / -79 : [ 10, 10, 2, 2, 2, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                    / pcesvn / -74 : 11
+                  },
+                  / authorized-by / 2 : [
+                    / tagged-pkix-base64-key-type / 554("base64_key_X")
+                  ]
+                }
+              ]
+            ]
+          }
+        } 
+      )
+    ]
+  } 
+)

@@ -1,0 +1,5 @@
+$$measurement-values-map-extension //= (
+  &(tee.attributes: -82) => $tee-attributes-type
+)
+$tee-attributes-type /= mask-type
+$tee-attributes-type /= tagged-exp-mask-eq

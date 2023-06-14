@@ -1,0 +1,8 @@
+gt = 1
+ge = 2
+lt = 3
+le = 4
+numeric-type = integer / unsigned / float
+numeric-operator = gt / ge / lt / le
+numeric-expression = [ numeric-operator, numeric-type ]
+tagged-numeric-expression = #6.60010(numeric-expression)

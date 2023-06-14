@@ -1,0 +1,5 @@
+$$measurement-values-map-extension //= (
+  &(tee.advisory-ids: -89) => $tee-advisory-ids-type
+)
+$tee-advisory-ids-type /= ([ + tstr  ])
+$tee-advisory-ids-type /= tagged-exp-disjoint

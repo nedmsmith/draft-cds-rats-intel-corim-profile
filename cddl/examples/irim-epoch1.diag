@@ -1,0 +1,25 @@
+/ concise-mid-tag / {
+  / tag-identity / 1 : {
+    / tag-id / 0 : "Epoch Example 1"
+  },
+  / triples / 4 : {
+    / reference-triples / 0 : [
+      / reference-triple-record / [
+        / environment-map / {
+          / comid.class / 0 : {
+            / comid.vendor / 1 : "ACME.example",
+            / comid.model / 2 : "MAX.example",
+            / comid.index / 4 : 1
+          }
+        },
+        / measurement-map / {
+          / mval / 1 : {
+            / epoch / -90 : 60010(
+              [ / gt / 1, / grace period seconds / 120 ]
+            )
+          }
+        }
+      ]
+    ]
+  }
+}

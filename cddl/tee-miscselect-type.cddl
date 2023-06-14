@@ -1,0 +1,5 @@
+$$measurement-values-map-extension //= (
+  &(tee.miscselect: -81) => $tee-miscselect-type
+)
+$tee-miscselect-type /= mask-type
+$tee-miscselect-type /= tagged-exp-mask-eq

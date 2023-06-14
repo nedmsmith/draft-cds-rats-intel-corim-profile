@@ -1,0 +1,15 @@
+tagged-exp-epoch-gt = #6.60010([
+    gt .within epoch-operator
+    grace-period: epoch-seconds-type ])
+
+tagged-exp-epoch-ge = #6.60010([
+    ge .within epoch-operator
+    grace-period: epoch-seconds-type ])
+
+tagged-exp-epoch-lt = #6.60010([
+    lt .within epoch-operator
+    grace-period: epoch-seconds-type ])
+
+tagged-exp-epoch-le = #6.60010([
+    le .within epoch-operator
+    grace-period: epoch-seconds-type ])

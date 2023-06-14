@@ -1,0 +1,48 @@
+/ concise-mid-tag / {
+  / tag-identity / 1 : {
+    / tag-id / 0 : "Sample tcbdate tag"
+  },
+  / triples / 4 : {
+    / reference-triples / 0 : [
+      [
+        / environment-map / {
+          / class / 0 : {
+            / class-id / 0 :
+              / tagged-uuid-type / 37(h'e5c51cb6a7fe11ed89f400155d09de30')
+          }
+        }, 
+        / measurement-map / {
+          / mval / 1 : {
+            / tcbdate / -72 : 0("2023-02-15T00:00:00Z")
+          }
+        }
+      ],
+      [
+        / environment-map / {
+          / class / 0 : {
+            / class-id / 0 :
+              / tagged-uuid-type / 37(h'e5c51cb6a7fe11ed89f400155d09de31')
+          }
+        }, 
+        / measurement-map / {
+          / mval / 1 : {
+            / tcbdate / -72 : 60010([ 2, 0("2023-02-15T01:00:00Z")]) / *** tagged-exp-tdate-ge *** /
+          }
+        }
+      ],
+      [
+        / environment-map / {
+          / class / 0 : {
+            / class-id / 0 :
+              / tagged-uuid-type / 37(h'e5c51cb6a7fe11ed89f400155d09de32')
+          }
+        }, 
+        / measurement-map / {
+          / mval / 1 : {
+            / tcbdate / -72 : 60010([ 2, -3600]) / *** tagged-exp-epoch-ge *** /
+          }
+        }
+      ]
+    ]
+  }
+}

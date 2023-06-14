@@ -1,0 +1,149 @@
+/ concise-mid-tag / {
+  / tag-identity / 1 : {
+    / tag-id / 0 : "Example SEAM conditional endorsement series triple in CORIM format"
+  },
+  / triples / 4 : {
+    / conditional-endorsement-series-triples / 8 : [
+      [
+        [ / *** triple subject *** /
+          / environment-map / {
+            / class / 0 : {
+              / class-id / 0 :
+                / tagged-oid-type / 111(h'6086480186F84D0102030403') / 2.16.840.1.113741.1.2.3.4.3 - <OID-for-TDX-SEAM>/
+            }
+          }, 
+          / measurement-map / {
+            / mval / 1 : / measurement-values-map / {
+              / vendor / -70 : "Intel Corporation",
+              / model / -71 : "TDX SEAM",
+              / attributes / -82 : 60010([ 1, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000']), / *** 16 bytes *** /
+              / isvprodid / -85 : 1,
+              / isvsvn / -73 : 60010([ /op.ge/ 2, 6 ]),
+              / mrsigner / -84 : [
+                / hash-alg-id / 1, / sha256 /
+                / hash-value / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+              ]
+            },
+            / authorized-by / 2 : [
+              / tagged-pkix-base64-key-type / 554("base64_key_X")
+            ]
+          }
+        ],
+        [ / *** triple object - reference endorsed record series *** /
+          [ / *** record 1 *** / 
+            / refv: measurement-values-map / {
+              / tcb-comp-svn / -79 : [ 
+                60010([2,10]), 
+                60010([2,10]), 
+                60010([2,2]), 
+                60010([2,2]), 
+                60010([2,2]),
+                60010([2,1]),
+                60010([2,4]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]) 
+              ],
+              / pcesvn / -74 : 60010([ /op.ge/ 2, 11 ])
+            },
+            / endv: measurement-values-map / {
+              / tcbdate / -72 : 0("2021-06-09T00:00:00Z"),
+              / tcbstatus / -88 : [ "UpToDate" ],
+              / tcb-eval-num / -86 : 11
+            }
+          ],
+          [ / *** record 2 *** / 
+            / refv: measurement-values-map / {
+              / tcb-comp-svn / -79 : [ 
+                60010([2,10]), 
+                60010([2,10]), 
+                60010([2,2]), 
+                60010([2,2]), 
+                60010([2,2]),
+                60010([2,1]),
+                60010([2,4]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]) 
+              ],
+              / pcesvn / -74 : 60010([ /op.ge/ 2, 10 ])
+            },
+            / endv: measurement-values-map / {
+              / tcbdate / -72 : 0("2020-11-11T00:00:00Z"),
+              / tcbstatus / -88 : [ "OutOfDate" ],
+              / tcb-eval-num / -86 : 11
+            }
+          ],
+          [ / *** record 3 *** / 
+            / refv: measurement-values-map / {
+              / tcb-comp-svn / -79 : [ 
+                60010([2,10]), 
+                60010([2,10]), 
+                60010([2,2]), 
+                60010([2,2]), 
+                60010([2,2]),
+                60010([2,1]),
+                60010([2,4]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]) 
+              ],
+              / pcesvn / -74 : 60010([ /op.ge/ 2, 11 ])
+            },
+            / endv: measurement-values-map / {
+              / tcbdate / -72 : 0("2021-06-09T00:00:00Z"),
+              / tcbstatus / -88 : [ "ConfigurationNeeded" ],
+              / tcb-eval-num / -86 : 11
+            }
+          ],
+          [ / *** record 4 *** /
+            / refv: measurement-values-map / {
+              / tcb-comp-svn / -79 : [ 
+                60010([2,10]), 
+                60010([2,10]), 
+                60010([2,2]), 
+                60010([2,2]), 
+                60010([2,2]),
+                60010([2,1]),
+                60010([2,4]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]), 
+                60010([2,0]) 
+              ],
+              / pcesvn / -74 : 60010([ /op.ge/ 2, 1 ])
+            },
+            / endv: measurement-values-map / {
+              / tcbdate / -72 : 0("2020-11-11T00:00:00Z"),
+              / tcbstatus / -88 : [ "OutOfDate", "ConfigurationNeeded" ],
+              / tcb-eval-num / -86 : 11
+            }
+          ]
+        ]
+      ]
+    ]
+  }
+}

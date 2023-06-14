@@ -1,0 +1,22 @@
+/ concise-mid-tag / {
+  / tag-identity / 1 : {
+    / tag-id / 0 : "ESE SPDM mapper use case 3 - Endorsements"
+  },
+  / triples / 4 : {
+    / identity-triples / 2 : [
+      / identity-triple-record / [
+        / environment-map / {
+          / ** env0 ** /
+          / comid.class / 0 : {
+            / comid.vendor / 1 : "ACME.example",
+            / comid.model / 2 : "MAX.example",
+            / comid.class-id / 0 : 551(0) /** SPDM ROM  type **/
+          }
+        },
+        / crypto-key-type-choice / [
+          / agged-pkix-base64-key-type / 554("base64_key_ACME_MAX")
+        ]
+      ]
+    ]
+  }
+}

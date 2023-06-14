@@ -1,0 +1,8 @@
+$$measurement-values-map-extension //= (
+  &(tee.mrenclave: -83) => $tee-digest-type
+)
+$$measurement-values-map-extension //= (
+  &(tee.mrsigner: -84) => $tee-digest-type
+)
+$tee-digest-type /= hash-entry .within set-type
+$tee-digest-type /= tagged-exp-member

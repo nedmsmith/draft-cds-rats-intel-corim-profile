@@ -1,0 +1,49 @@
+/ concise-evidence-map / {
+  / ce.ev-triples / 0 : {
+    / ce.identity-triples / 1 : [
+      [ /** uses comid identity-triple-record schema **/
+        / environment-map / {
+          / class / 0 : {
+            / class-id / 0 :
+              / tagged-oid-type / 111(h'6086480186F84D0102030402'),  / 2.16.840.1.113741.1.2.3.4.2 - <OID-for-SGX-QE-IDENTITY>/
+            / vendor / 1 : "Intel Corporation"
+          }
+        },
+        [ 
+          / tagged-pkix-base64-key-type / 554("base64_key_Y")
+        ]
+      ]
+    ],
+    / ce.evidence-triples / 0 : [
+      [ /** uses reference-triple-record schema **/
+        / environment-map / {
+          / class / 0 : {
+            / class-id / 0 :
+              / tagged-oid-type / 111(h'6086480186F84D0102030401'), / 2.16.840.1.113741.1.2.3.4.1 - <OID-for-SGX-QE-TCB> /
+            / vendor / 1 : "Intel Corporation",
+            / model / 2 : "SGX QE TCB"
+          }
+        },
+        / measurement-map / {
+          / mval / 1 : {
+            / miscselect / -81 : h'00000000', / *** 4 bytes *** /
+            / isvprodid / -85 : 1,
+            / mrsigner / -84 : [
+              / hash-alg-id / 1, / sha256 /
+              / hash-value / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+            ],
+            / attributes / -82 : h'C0000000000000000000000000000000', / *** 16 bytes *** /
+            / mrenclave / -83 : [
+              / hash-alg-id / 1, / sha256 /
+              / hash-value / h'B2F5EB1CB5529E7A6B6BC6787594057396E6B3F569CD50FD5DDB5E2CCB0E3C7B'
+            ], / not expected to match ref val /
+            / isvsvn / -73 : 2
+          },
+          / authorized-by / 2 : [
+            / tagged-pkix-base64-key-type / 554("base64_key_X")
+          ]
+        }
+      ]
+    ]
+  }
+} 

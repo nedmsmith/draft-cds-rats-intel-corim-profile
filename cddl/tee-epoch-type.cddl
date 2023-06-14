@@ -1,0 +1,5 @@
+$$measurement-values-map-extension //= (
+  &(tee.epoch: -90) => $tee-epoch-type
+)
+$tee-epoch-type /= $epoch-timestamp-type
+$tee-epoch-type /= tagged-exp-epoch-gt

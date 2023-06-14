@@ -1,0 +1,26 @@
+/ concise-evidence-map / {
+  / ce.ev-triples / 0 : {
+    / ce.evidence-triples / 0 : [
+      [ /** uses reference-triple-record schema **/
+        / environment-map / {
+          / ** env2 ** /
+          / comid.class / 0 : {
+            / comid.vendor / 1 : "ACME.example",
+            / comid.model / 2 : "MAX.example",
+            / comid.index / 4 : 2
+          }
+        },
+        / measurement-map / {
+          / mval / 1 : {
+            / comid.digests / 2 : [
+              / digest / [
+              / alg: / 7, / SHA384 /
+              / val: / h'3D90B6BF003DA2D94EA5463F97FB3C53DDC51CFBA1E3E38EEF7AF071A67986595D22729131DF9FE80F5451EEF154F85E'
+              ]
+            ]
+          }
+        }
+      ]
+    ]
+  }
+} 

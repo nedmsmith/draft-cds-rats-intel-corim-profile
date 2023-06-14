@@ -1,0 +1,4 @@
+$$measurement-values-map-extension //= (
+  &(tee.ppid: -78) => $tee-ppid-type
+)
+$tee-ppid-type /= uint

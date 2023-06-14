@@ -1,0 +1,4 @@
+$$measurement-values-map-extension //= (
+  &(tee.model: -71) => $tee-model-type
+)
+$tee-model-type /= tstr

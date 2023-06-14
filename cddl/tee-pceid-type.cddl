@@ -1,0 +1,4 @@
+$$measurement-values-map-extension //= (
+  &(tee.pceid: -80) => $tee-pceid-type
+)
+$tee-pceid-type /= tstr

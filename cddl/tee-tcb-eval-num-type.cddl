@@ -1,0 +1,5 @@
+$$measurement-values-map-extension //= (
+  &(tee-tcb-eval-num: -86) => $tee-tcb-eval-num-type
+)
+$tee-tcb-eval-num-type /= uint .within numeric-type
+$tee-tcb-eval-num-type /= tagged-numeric-ge
