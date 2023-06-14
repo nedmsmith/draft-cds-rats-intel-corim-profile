@@ -9,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "Security"
+workgroup: "Remote ATtestation ProcedureS"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "Remote ATtestation ProcedureS"
+  type: "Working Group"
+  mail: "rats@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/rats/"
+  github: "nedmsmith/draft-cds-rats-intel-corim-profile"
+  latest: "https://nedmsmith.github.io/draft-cds-rats-intel-corim-profile/draft-cds-rats-intel-corim-profile.html"
 
 author:
  -
