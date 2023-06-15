@@ -882,11 +882,16 @@ TODO Security
 This document uses the IANA CBOR tag registry. See {{-iana-cbor}}
 
 The document requests reservation of the following CBOR tag:
-Requested tag: 60010
-Data item: array
-Semantics: a CBOR encoded array
-Point of contact: ned.smith&intel.com
-Description of semantics: this document
+
+- Requested tag: 60010
+
+- Data item: array
+
+- Semantics: a CBOR encoded array
+
+- Point of contact: ned.smith&intel.com
+
+- Description of semantics: this document
 
 --- back
 
