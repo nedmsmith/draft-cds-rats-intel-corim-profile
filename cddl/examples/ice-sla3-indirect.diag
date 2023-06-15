@@ -11,14 +11,8 @@
         },
         / measurement-map / {
           / mval / 1 : {
-            / comid.digests / 2 : [
-              / digest / [
-              / alg: / 7, / SHA384 /
-              / val: / h'3D90B6BF003DA2D94EA5463F97FB3C53DDC51CFBA1E3E38EEF7AF071A67986595D22729131DF9FE80F5451EEF154F85E'
-              ]
-            ],
             / comid.spdm-indirect / 12 : {
-              / index / 0 : [2, 1, 0]
+              / index / 0 : [ /digest/ 2, / svn / 1, / version / 0]
             }
           }
         }
