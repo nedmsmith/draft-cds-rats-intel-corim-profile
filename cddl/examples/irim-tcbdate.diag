@@ -39,7 +39,7 @@
         }, 
         / measurement-map / {
           / mval / 1 : {
-            / tcbdate / -72 : 60010([ 2, -3600]) / *** tagged-exp-epoch-ge *** /
+            / tcbdate / -72 : 60010([ 2, 3600]) / *** tagged-exp-epoch-ge *** /
           }
         }
       ]
