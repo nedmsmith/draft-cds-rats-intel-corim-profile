@@ -1,5 +1,5 @@
 epoch-operator = numeric-operator
-epoch-seconds-type = uint
+epoch-seconds-type = int
 epoch-expression = [ 
     epoch-operator,
     grace-period: epoch-seconds-type,

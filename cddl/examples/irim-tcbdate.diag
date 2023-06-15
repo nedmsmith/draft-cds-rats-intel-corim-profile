@@ -42,6 +42,19 @@
             / tcbdate / -72 : 60010([ 2, 3600]) / *** tagged-exp-epoch-ge *** /
           }
         }
+      ],
+      [
+        / environment-map / {
+          / class / 0 : {
+            / class-id / 0 :
+              / tagged-uuid-type / 37(h'e5c51cb6a7fe11ed89f400155d09de33')
+          }
+        }, 
+        / measurement-map / {
+          / mval / 1 : {
+            / tcbdate / -72 : 60010([ 2, -3600]) / *** tagged-exp-epoch-ge *** /
+          }
+        }
       ]
     ]
   }
