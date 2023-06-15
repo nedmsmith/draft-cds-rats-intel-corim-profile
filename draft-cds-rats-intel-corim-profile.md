@@ -1,6 +1,6 @@
 ---
-title: Intel profile for CoRIM
-abbrev: "Intel profile for CoRIM"
+title: Intel Profile for CoRIM
+abbrev: "Intel profile"
 category: info
 
 docname: draft-cds-rats-intel-corim-profile-latest
@@ -36,6 +36,10 @@ pi:
   docmapping: yes
 
 author:
+ -  ins: S. Cen
+    fullname: Shanwei Cen
+    organization: Intel Corporation
+    email: shanwei.cen@intel.com
  -  ins: A. Draper
     fullname: Andrew Draper
     organization: Intel Corporation
@@ -44,10 +48,6 @@ author:
     fullname: Ned Smith
     organization: Intel Corporation
     email: ned.smith@intel.com
- -  ins: S. Cen
-    fullname: Shanwei Cen
-    organization: Intel Corporation
-    email: shanwei.cen@intel.com
 
 normative:
   I-D.ietf-rats-corim: corim
@@ -75,7 +75,7 @@ normative:
     seriesinfo: Version 1.0, Revision 0.19
     date: July 2020
     target: https://trustedcomputinggroup.org/wp-content/uploads/DICE-Layering-Architecture-r19_pub.pdf
-  TCG.Concise Evidence:
+  TCG.concise-evidence:
     -: tcg-ce
     title: TCG DICE Concise Evidence Binding for SPDM
     author:
@@ -84,6 +84,13 @@ normative:
     date: June 2023
   I-D.ftbs-rats-msg-wrap: cmw
   I-D.ietf-sacm-coswid: coswid
+  IANA.CBOR:
+   -: iana-cbor
+   title: Concise Binary Object Representation (CBOR) Tags
+   author:
+     org: Internet Assigned Numbers Authority (IANA)
+   date: September 2013
+   target: https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml
 
 informative:
   RFC9334: rats-arch
@@ -833,7 +840,7 @@ CoRIM schema extensions defined by this profile are inherited by `tagged-concise
 The concise evidence schema is defined as follows:
 
 ~~~ cddl
-{::include cddl/tee-concise-evidence.cddl}
+{::include concise-evidence/concise-evidence.cddl}
 ~~~
 
 # Intel Verifier Profile {#sec-intel-verifier-profile}
@@ -870,11 +877,16 @@ that the Relying Party and Verifier both support the schema extensions defined i
 
 TODO Security
 
-
 # IANA Considerations
 
-This document has no IANA actions.
+This document uses the IANA CBOR tag registry. See {{-iana-cbor}}
 
+The document requests reservation of the following CBOR tag:
+Requested tag: 60010
+Data item: array
+Semantics: a CBOR encoded array
+Point of contact: ned.smith&intel.com
+Description of semantics: this document
 
 --- back
 

@@ -13,7 +13,6 @@ PROFILE_FRAGS += time-expr.cddl
 PROFILE_FRAGS += time-type.cddl
 PROFILE_FRAGS += epoch-expr.cddl
 PROFILE_FRAGS += epoch-type.cddl
-PROFILE_FRAGS += ar-tag.cddl
 PROFILE_FRAGS += tee-advisory-ids-type.cddl
 PROFILE_FRAGS += tee-attributes-type.cddl
 PROFILE_FRAGS += tee-date-type.cddl
