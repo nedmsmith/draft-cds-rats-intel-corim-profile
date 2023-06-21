@@ -118,20 +118,19 @@ informative:
 --- abstract
 
 This document describes extensions to the CoRIM schema that support Intel specific Attester implementations.
-Multiple Evidence formats are compatible with base CoRIM. The extensions defined in this profile may serve as a
-guide for extending Evidence schemas that preserves compatibility.
+Multiple Evidence formats are compatible with base CoRIM, but extensions to evidence formats may be required to
+fully support the CoMID schema extensions defined in this profile.
+The concise evidence definition uses the CoMID schema such that extensions to CoMID are inherited by concise evidence.
 Reference Value Providers may use this profile to author mainifests containing Reference Values and Endorsements.
-RATS Verifiers that recognize this CoRIM profile, as defined by it's profile identifier, implement support for the
-schema extentions and the documented verifier behavior.
+RATS Verifiers recognize this profile by it's profile identifier and implement support for the extentions defined.
 
 --- middle
 
 # Introduction {#sec-introduction}
 
 This profile describes extensions and restrictions placed on Reference Values, Endorsements, and Evidence
-that support attestation capabilities of Intel products including Intel(r) SGX(tm), and products that contain
-a DICE {{-dice}} root of trust, DICE layers {{-dice-layer}}, or modules that implement SPDM {{-spdm}} endpoints,
-namely SpdmRequestor and SpdmResponder.
+that support attestation capabilities of Intel products including Intel(R) SGX(TM), and products that contain
+a DICE {{-dice}} root of trust, DICE layers {{-dice-layer}}, or modules that implement SPDM {{-spdm}} endpoints.
 
 The CoMID schema {{-dice-corim}} and data model {{-corim}} is a baseline for Reference Values that expects Evidence is matched
 using values that are identical. This profile anticipates Reference Values that are a set or range of values where an Evidence
@@ -203,39 +202,49 @@ Reference Values, and Endorsed Values.
 
 ## Expressions {#sec-expressions}
 
-Expressions are used to specify richer Reference Values measurements that require non-exact matching semantics.
+Expressions are used to specify richer Reference Values measurements that expect non-exact matching semantics.
 The Reference Value expression instructs the Verifier regarding matching parameters,
-such as greater-than or less-than, ranges, sets, etc.
+such as greater-than or less-than, ranges, sets, etc. Typically, the Evidence value is one operand of an expression
+and the Reference Value contains the operator and additional operands.
 
-Expressions define an operator followed by one or more operands as part of the Reference Value measurement.
+The operator and remaining operands are contained in an array.
+Expression arrays have an operator followed by one or more operands.
 
-The Verifier creates an evaluatable expression using Evidence as one operand and a Reference Values expression
-that consists of an operator and one or more additional operands.
-In *infix* notation, *operand_1* is obtained from Evidence. The *operator*, *operand_2*,
-and additional operands, if any, are contained in a Reference Values expression record.
+A Verifier forms an expression using Evidence as the first operand, obtains the operator from the first entry in
+the expression array, and the remaining array entries are operands. Reference Values expression
+that consists of an operator and one or more additional operands. The definition of an operator includes defining
+the number and position of operands.
+
+This document describes operations using *infix* notation where the first operand, *operand_1*, is obtained from Evidence,
+followed by the operator, followed by the remaining operands: *operand_2*, *operand_3*, etc...
 
 For example:
 
-* `operand_1` from Evidence, `[ operator, operand_2, operand_3, ... ]` from Reference Values.
+* From Evidence: `operand_1`, from Reference Values: `[ operator, operand_2, operand_3, ... ]`.
 
 Expression records are CBOR tagged to indicate the following CBOR is to be evaluated as an expression.
 Expression statements found in Reference Values informs the Verifier that Evidence is needed to complete
 the expression equation. Appraisal processing MUST evaluate the expression.
 
-This profile uses the CBOR tag `#6.60010` to identify expression statements.
+This profile anticipates use of the CBOR tag `#6.60010` to identify expression arrays. See {{sec-iana-considerations}}
+
+For example:
+
+* `#6.60010([ operator, operand_2, operand_3, ... ])`.
+
 
 ### Expression Operators {#sec-expression-operators}
 
-The expression operators are as follows:
+There are several classes of operators as follows:
 
-1. Numeric: The `numeric` operand can be an integer, unsigned integer, or floading point value.
-1. Set: The `set` operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
+1. **Numeric**: The `numeric` operand can be an integer, unsigned integer, or floading point value.
+1. **Set**: The `set` operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
 The position of the items in a set is unordered, while the position of items in an array within a set
 is ordered.
-1. Date-Time: The date-time operators compare two date-time values,
+1. **Date-Time**: The date-time operators compare two date-time values,
 while the `epoch` operators determine if a date-time value
 is within a range defined by an epoch and a grece period relative to the epoch.
-1. Mask: The `mask` operator compares two bit fields where a bit-field is compared to
+1. **Mask**: The `mask` operator compares two bit fields where a bit-field is compared to
 a second bit-field using a bit-field-mask that selects the bits to be compared.
 The bit-field may contain a sequence of bytes of any length.
 The bit-field-mask should be the same length as the bit-field.
@@ -250,10 +259,10 @@ Evidence values are identical to Reference Values.
 Numeric operators apply to values that are integers, unsigned integers or floating point numbers.
 There are four numeric operators:
 
-1.  greater-than (gt),
-1.  greater-than-or-equal (ge),
-1.  less-than (lt), and
-1.  less-than-or-equal (le).
+1.  **greater-than** (gt),
+1.  **greater-than-or-equal** (ge),
+1.  **less-than** (lt), and
+1.  **less-than-or-equal** (le).
 
 The equals operator is not defined because an exact match rule is the default rule when an Evidence value is identical to a Reference Value.
 
@@ -269,8 +278,12 @@ The operand contains a numeric Reference Value that is matched with a numeric Ev
 Evidence and Reference Values MUST be the same numeric type. For example, if a Reference Value numeric type is
 `unsigned`, then the Evidence numeric value must also be `unsigned`.
 
-This profile defines four (4) macro numeric expressions, one for each defined numeric operator,
-`tagged-numeric-gt`, `tagged-numeric-ge`, `tagged-numeric-lt`, and `tagged-numeric-le`.
+This profile defines four macro numeric expressions, one for each numeric operator:
+
+* `tagged-numeric-gt`,
+* `tagged-numeric-ge`,
+* `tagged-numeric-lt`, and
+* `tagged-numeric-le`.
 
 In each case, the numeric operator is used to evaluate a Reference Value operand against an Evidence value operand
 that is obtained from Evidence.
@@ -294,14 +307,19 @@ Set operators allow Reference Values, that are expressed as a set, to be compare
 is expressed as either a primitive value or a set.
 
 Set expression statements have two forms:
+
 1. A binary relation between a primitive object 'O' and a set 'S', and
 1. A binary relation between two sets, an Evidence set 'S1' and a Reference Values set 'S2'.
 
-The first form has two operators, `member` and `not-member`,
-where the Evidence object is evaluated with the Reference Values set 'S'.
+The first form, relation between an object and a set, has two operators:
+
+* **member** and
+* **not-member**.
+
+The Evidence object 'O' is evaluated with the Reference Values set 'S'.
 
 The `op.member` and `op.not-member` operators expect a Reverence Value set as *operand_2* and a primitive Evidence
-value as *operand_1*. Evaluation tests whether or not *operand_1* is a member of the *operand_2* set.
+value as *operand_1*. Evaluation tests whether *operand_1* is a member of the set *operand_2*.
 
 Example:
 
@@ -313,8 +331,8 @@ The set data type definitions are defined as follows:
 {::include cddl/set-type.cddl}
 ~~~
 
-A set expression record contins a set operator followed by a Reference Value, set of values,
-that is defined by `set-type`.
+A set expression array contins a set operator followed by a set of Reference Values.
+The set is defined by `set-type`.
 
 The set expression type definitions are as follows:
 
@@ -332,8 +350,13 @@ The Evidence object MUST NOT be nil.
 
 The Reference Values set MUST NOT be the empty set.
 
-The second form has three operators, `subset`, `superset`, and `disjoint`,
-where the fist set S1 is Evidence and set S2 is the Reference Values set.
+The second form, a relation between two sets, has three operators:
+
+* **subset**,
+* **superset**, and
+* **disjoint**.
+
+The fist set, S1 is Evidence and set, S2 is the Reference Values set.
 
 The `op.subset`, `op.superset`, and `op.disjoint` operators test whether a singleton Evidence or Endorsed value
 is satisfies a set operation given a Reverence Value set.
@@ -348,7 +371,7 @@ Examples:
 
 Both the Reference Values and Evidence sets MUST NOT be the empty set.
 
-The set-of-sets data type definitions are as follows:
+The set of sets data type definitions are as follows:
 
 ~~~ cddl
 {::include cddl/set-of-set-type.cddl}
@@ -364,7 +387,7 @@ A successful result produces the set 'S1'.
 For `disjoint`, every member in the Evidence set 'S1' MUST NOT map to any member in the Reference Values
 set 'S2'. A successful result produces the empty set.
 
-The set-of-sets expression definitions are as follows:
+The set of sets expression definitions are as follows:
 
 ~~~ cddl
 {::include cddl/set-of-set-expr.cddl}
@@ -375,15 +398,15 @@ The set-of-sets expression definitions are as follows:
 #### Date-Time Expressions {#sec-date-time-expressions}
 
 Date-time can be expressed in both string `tdate` or numeric `time` formats.
-There are four (4) operators that are defined for date-time expressions:
+There are four operators that are defined for date-time expressions:
 
-1.  `lt` determines if a date-time Evidence value is less than a Reference Values date-time.
+1.  **lt** determines if a date-time Evidence value is less than a Reference Values date-time.
 
-1.  `le` determines if a date-time Evidence value is less than or equal to a Reference Values date-time.
+1.  **le** determines if a date-time Evidence value is less than or equal to a Reference Values date-time.
 
-1.  `gt` determines if a data-time Evidence value is greater than a Reference Values date-time.
+1.  **gt** determines if a data-time Evidence value is greater than a Reference Values date-time.
 
-1.  `ge` determines if a data-time Evidence value is greater than or equal to a Reference Values date-time.
+1.  **ge** determines if a data-time Evidence value is greater than or equal to a Reference Values date-time.
 
 The date-time operators are in fact numeric. Expressions involving string date-time values must be converted to numeric format before the numeric comparison
 operator can be applied.
@@ -418,8 +441,8 @@ The `le` expression compares a date-time value contained in Evidence to a Refere
 If the Evidence date-time value is less-than-or-equal to the Reference Value,
 then the Evidence value is accepted.
 
-In 'infix' notation, a date-time value reported as Evidence in operand_1.
-The Reference Value expression contains an time comparison operator, and operand_2 contains a reference date-time.
+In *infix* notation, a date-time value reported as Evidence in *operand_1*.
+The Reference Value expression contains a time comparison operator and *operand_2* contains a reference date-time.
 
 Example:
 
@@ -451,7 +474,7 @@ The epoch data type definitions are as follows:
 {::include cddl/epoch-type.cddl}
 ~~~
 
-An `epoch-expression` is an array containing an `epoch-operator` followed by a grace period and optionally followed
+An epoch expression array contains an `epoch-operator` followed by a grace period in seconds that is optionally followed
 by a `$tagged-epoch-id`. Epoch operators can be: `gt`, `ge`, `lt`, or `le`. The operator defines the position of
 the grace window relative to the epoch and `epoch-grace-seconds` defines the size of the window in seconds.
 If the default epoch type is not used, `$tagged-epoch-id` defines the alternate epoch scheme.
@@ -471,7 +494,7 @@ A variety of epoch expressions can be defined that convenently constrain epoch d
 The `tagged-exp-epoch-gt` expression defines an epoch window that is greater than the current date and time
 by the supplied grace period.
 
-In 'infix' notation, the timestamp value is within an epoch window that is defined by the current time,
+In *infix* notation, the timestamp value is within an epoch window that is defined by the current time,
 plus the grace period, and where the `epoch-operator` defines the shape of the epoch window.
 
 Example epoch expression:
@@ -505,8 +528,8 @@ the shorter length bit field is padded with zeros to accommodate the larger bit 
 
 The `tagged-exp-mask-eq` expression defines a tagged expression that applies the mask equivalence  operator to an Evidence value and a Reference Value using the supplied mask.
 
-In 'infix' notation, the Evidence value is operand_1, followed by the mask operator, followed by a
-Reference Value, operand_2, followed by the mask, operand_3.
+In *infix* notation, the Evidence value is *operand_1*, followed by the mask operator, followed by a
+Reference Value, *operand_2*, followed by the mask, *operand_3*.
 
 Example:
 
@@ -877,7 +900,7 @@ that the Relying Party and Verifier both support the schema extensions defined i
 
 TODO Security
 
-# IANA Considerations
+# IANA Considerations {#sec-iana-considerations}
 
 This document uses the IANA CBOR tag registry. See {{-iana-cbor}}
 
@@ -899,6 +922,10 @@ The document requests reservation of the following CBOR tag:
 
 ~~~ cddl
 {::include cddl/profile-autogen.cddl}
+~~~
+
+~~~ cddl
+{::include concise-evidence/concise-evidence.cddl}
 ~~~
 
 # Acknowledgments
