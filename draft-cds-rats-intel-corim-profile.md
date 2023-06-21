@@ -137,7 +137,7 @@ using values that are identical. This profile anticipates Reference Values that 
 value is within the reference set or range. This document describes schema and data model extensions for matching based on
 membership in a set, masked values, and numeric ranges.
 
-The baseline CoRIM schema defines a spartan set of measurement values that are etended to better support Intel(r) products.
+The baseline CoRIM schema defines a spartan set of measurement values that are etended by this profile to better support Intel(r) products.
 However, the defined extensions may be generally useful such that implementation of the Intel profile need not imply the
 Attester, Verifier, Relying Party, Reference Value Provider, or Endorser must be Intel products.
 
@@ -148,7 +148,8 @@ a numeric operator 'greater-than' instructs the Verifier to match a numeric Evid
 one or more numeric Reference Values.
 
 This profile follows the Verifier behavior defined by {{-corim}} and extends Verifier behavior to include non-exact matching as
-indicated by a supplied operator. If no operator is specified by Reference Value statements, the Verifier defaults to exact match matching.
+indicated by a supplied operator.
+If no operator is specified by Reference Value statements, the Verifier defaults to exact matching.
 If Evidence matches Reference Values and Endorsements apply, endorsed values are added to the the accetped measurements.
 When all Evidence and Endorsements are processed, the Verifier's set of accepted measurements is used to produce Attestation Results.
 
@@ -208,15 +209,13 @@ such as greater-than or less-than, ranges, sets, etc. Typically, the Evidence va
 and the Reference Value contains the operator and additional operands.
 
 The operator and remaining operands are contained in an array.
-Expression arrays have an operator followed by one or more operands.
-
+Expression arrays have an operator followed by zero or more operands.
+The operator definition identifies the additional operands and their data types.
 A Verifier forms an expression using Evidence as the first operand, obtains the operator from the first entry in
-the expression array, and the remaining array entries are operands. Reference Values expression
-that consists of an operator and one or more additional operands. The definition of an operator includes defining
-the number and position of operands.
+the expression array, and any remaining array entries are operands.
 
 This document describes operations using *infix* notation where the first operand, *operand_1*, is obtained from Evidence,
-followed by the operator, followed by the remaining operands: *operand_2*, *operand_3*, etc...
+followed by the operator, followed by any remaining operands: *operand_2*, *operand_3*, etc...
 
 For example:
 
@@ -276,7 +275,7 @@ A numeric expression is an array containing a numeric operator and a numeric ope
 The operand contains a numeric Reference Value that is matched with a numeric Evidence value.
 
 Evidence and Reference Values MUST be the same numeric type. For example, if a Reference Value numeric type is
-`unsigned`, then the Evidence numeric value must also be `unsigned`.
+`integer`, then the Evidence numeric value must also be `integer`.
 
 This profile defines four macro numeric expressions, one for each numeric operator:
 
@@ -342,13 +341,13 @@ The set expression type definitions are as follows:
 
 Examples:
 
-* <`evidence_bject`> <`member`> <`reference_set`>
+* <`evidence_object`> <`member`> <`reference_set`>
 
 * <`evidence_object`> <`not-member`> <`reference_set`>
 
 The Evidence object MUST NOT be nil.
 
-The Reference Values set MUST NOT be the empty set.
+The Reference Values set may be the empty set.
 
 The second form, a relation between two sets, has three operators:
 
@@ -358,8 +357,8 @@ The second form, a relation between two sets, has three operators:
 
 The fist set, S1 is Evidence and set, S2 is the Reference Values set.
 
-The `op.subset`, `op.superset`, and `op.disjoint` operators test whether a singleton Evidence or Endorsed value
-is satisfies a set operation given a Reverence Value set.
+The `subset`, `superset`, and `disjoint` operators test whether an Evidence set value
+satisfies a set operation, given a Reverence Value set.
 
 Examples:
 
@@ -369,7 +368,7 @@ Examples:
 
 * <`evidence_set`> <`disjoint`> <`reference_set`>
 
-Both the Reference Values and Evidence sets MUST NOT be the empty set.
+The Reference Values and Evidence sets may be the empty set.
 
 The set of sets data type definitions are as follows:
 
@@ -501,6 +500,9 @@ Example epoch expression:
 
 * <`evidence_timestamp`> <`epoch-operator`> <`grace_period`> <`current_time`>
 
+The Verifier adds `grace_period` to `current_time` to obtain the epoch window then applies the operator to
+determine if the `evidence_timestamp` is within the window.
+
 ### Mask Expression {#sec-mask-expression}
 
 Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
@@ -560,12 +562,12 @@ Expected Verifier behavior is defined in {{sec-intel-verifier-profile}}
 The `tee.advisory-ids` extension allows the Attester to report known security advisories and a
 Reference Values Provider (RVP) to assert updated security advisories.
 
-The `$tee-advisory-ids-type` is used to specify a set of security advisories identified by a string identifier.
+The `$tee-advisory-ids-type` is used to specify a set of security advisories, where each is identified by a string identifier.
 Evidence may report a set of advisories the Attester believes are relevant. The set of advisories are constrained
 by the `set-of-set-type` structure.
 
 A Reference Values expression record is defined for this extension that applies the disjoint set operation
-to determine if there are advisories outstanding. If no advisories are outstanding then the empty set signiifies
+to determine if there are advisories outstanding. If no advisories are outstanding, then the empty set signifies
 successful matching.
 
 The `$tee-advisory-ids-type` is a list of advisories when used as Endorsements or Evidence and a disjoint set
@@ -622,15 +624,15 @@ of the Reference Values set.
 
 ### The tee-epoch-type Measurement Extension {#sec-tee-epoch-type}
 
-The `tee.epoch` extension enables the Attester to report an epoch Evidence measurement and an epoch Reference Value.
+The `tee.epoch` extension enables the Attester to report an epoch Evidence measurement,
+and a RVP to assert an epoch Reference Value.
 
 As Evidence, the `$tee-epoch-type` is a `tdate` timestamp.
 
-As Reference Value, the `$tee-epoch-type` is a grace period, in seconds,
-relative to the Verifier's current date and time
-and an epoch operator: `gt`, `ge`, `lt`, or `le`. The Verifier evaluates whether the timestamp is within
-the grace period relative to the current date and time. The current date and time is implicit
-and is assumed to be in `tdate` format.
+As a Reference Value, the `$tee-epoch-type` is a grace period, in seconds, that is relative to the
+Verifier's current date and time, and an epoch operator: `gt`, `ge`, `lt`, or `le`.
+The Verifier evaluates whether the timestamp is within the grace period relative to the current date and time.
+The current date and time is implicit, and is assumed to be in `tdate` format.
 
 The `$tee-epoch-type` is an `$epoch-timestamp-type` when used as Evidence or Endorsement
 and a `$tagged-epoch-expression` when used as a Reference Value.
@@ -836,15 +838,15 @@ Verifiers that support this profile can consistently apply a common schema acros
 
 Evidence hierarchy refers to SGX layering where the SGX Platform Services Enclave (PSE) collects measurements of the
 Quoting Enclave (QE) and the Quoting Enclaves collect measurments of their respective ISV enclaves (ISVE).
-A hierarchy of Evidence consisting of a single PCE quote, one or more QE quotes and one or more ISVE quotes for each QE respectively.
+A hierarchy of Evidence consisting of one PCE Evidence, one QE Evidence and one ISVE Evidence.
 
 A complex device may have multiple roots of trust, such as {{-dice}}, each contributing an evidence hierarchy that results in
 several Evidence "chains", that together, constitute a complete Evidence hierarchy for the Attester device.
 
 The Evidence hierarchy should form a spanning tree that contains all Attester Evidence. All Attesting Environments
-for the device should produce the spanning tree. CoRIM manifests should contain Reference Values for the spanning tree so that
-Verifiers do not assume the spanning tree is defined by Evidence as a failure or comporomise within the Attester device could
-result in a portion of the spanning tree being omitted.
+within the device produce the spanning tree. CoRIM manifests contain Reference Values for the spanning tree so that
+Verifiers do not assume the spanning tree is defined by Evidence.
+Note that a failure or comporomise within the Attester device could result in a portion of the spanning tree being omitted.
 
 Example spanning tree:
 
@@ -874,7 +876,7 @@ The Intel verifier profile builds on the verifier defined in Section 5 of {{-cor
 the expressions operator extensions defined by this profile. For example, if a reference numeric value of 15, the expressions
 operator representation is a CBOR tagged array containing the operator, `gt`, which is CBOR encoded as `1`,
 followed by the reference value `15`, which is a `numeric-type`.
-The reference value might be: `#6.60010[ 1, 15]`, while the evidence value is simply a `numeric-type`, such as '14'.
+The reference value might be: `#6.60010([ 1, 15])`, while the evidence value is simply a `numeric-type`, such as '14'.
 The verifier compares `14` to `15`, evaluating whether `14` is greater-than `15`.
 
 ## Complex Expressions {#sec-complex-expressions}
