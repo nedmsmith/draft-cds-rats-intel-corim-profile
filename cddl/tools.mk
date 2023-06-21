@@ -4,6 +4,7 @@
 cddl ?= $(shell command -v cddl)
 ifeq ($(strip $(cddl)),)
 $(error cddl not found. To install cddl: 'gem install cddl')
+gem install cddl
 endif
 
 curl ?= $(shell command -v curl)
