@@ -1,6 +1,6 @@
 # Intel Profile for CoRIM
 
-This is the working area for the individual Internet-Draft, "TODO - Your title".
+This is the working area for the individual Internet-Draft, "Intel Profile for CoRIM".
 
 * [Editor's Copy](https://nedmsmith.github.io/draft-cds-rats-intel-corim-profile/#go.draft-cds-rats-intel-corim-profile.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-cds-rats-intel-corim-profile)
