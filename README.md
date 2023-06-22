@@ -1,4 +1,4 @@
-# TODO - Your title
+# Intel Profile for CoRIM
 
 This is the working area for the individual Internet-Draft, "TODO - Your title".
 
