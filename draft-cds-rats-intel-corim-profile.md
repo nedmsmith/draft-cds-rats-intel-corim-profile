@@ -836,7 +836,7 @@ Verifiers that support this profile can consistently apply a common schema acros
 
 ## Evidence Hierarchy {#sec-evidence-hierarchy}
 
-Evidence hierarchy refers to SGX layering where the SGX Platform Services Enclave (PSE) collects measurements of the
+Evidence hierarchy refers to SGX layering where the SGX Platform Certification Enclave (PCE) collects measurements of the
 Quoting Enclave (QE) and the Quoting Enclaves collect measurments of their respective ISV enclaves (ISVE).
 A hierarchy of Evidence consisting of one PCE Evidence, one QE Evidence and one ISVE Evidence.
 
