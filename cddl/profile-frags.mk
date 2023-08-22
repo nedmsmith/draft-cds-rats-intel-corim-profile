@@ -15,6 +15,7 @@ PROFILE_FRAGS += epoch-expr.cddl
 PROFILE_FRAGS += epoch-type.cddl
 PROFILE_FRAGS += tee-advisory-ids-type.cddl
 PROFILE_FRAGS += tee-attributes-type.cddl
+PROFILE_FRAGS += tee-cryptokey-type.cddl
 PROFILE_FRAGS += tee-date-type.cddl
 PROFILE_FRAGS += tee-digest-type.cddl
 PROFILE_FRAGS += tee-epoch-type.cddl

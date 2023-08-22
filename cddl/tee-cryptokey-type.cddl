@@ -1,0 +1,4 @@
+$$measurement-values-map-extension //= (
+  &(tee.cryptokeys: -91) => [ + $tee-cryptokey-type ]
+)
+$tee-cryptokey-type /= $crypto-key-type-choice
