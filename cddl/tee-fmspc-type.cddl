@@ -1,4 +1,0 @@
-$$measurement-values-map-extension //= (
-  &(tee.fmspc: -75) => $tee-fmspc-type
-)
-$tee-fmspc-type /= bstr .size 6
