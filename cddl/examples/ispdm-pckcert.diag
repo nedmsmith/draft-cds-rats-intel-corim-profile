@@ -28,7 +28,6 @@
                 / measurement-map / {
                   / mval / 1 : {
                     / fmspc / -75 : h'00706E470000',
-                    / sgx-type / -76 : 0,
                     / instance-id / -77 : 0,
                     / ppid / -78 : 0,
                     / pceid / -80 : "0000",

@@ -1,4 +1,0 @@
-$$measurement-values-map-extension //= (
-  &(tee.sgx-type: -76) => $tee-sgx-type
-)
-$tee-sgx-type /= uint
