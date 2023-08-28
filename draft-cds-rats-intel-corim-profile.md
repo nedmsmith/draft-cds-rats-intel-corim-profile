@@ -720,19 +720,6 @@ The `$tee-pceid-type` is an exact match measurement.
 {::include cddl/tee-pceid-type.cddl}
 ~~~
 
-### The tee-ppid-type Measurement Extension {#sec-tee-ppid-type}
-
-The `tee.ppid` extension enables the Attester to report the (TDB:ppid-description) as Evidence
-and the RVP to assert an exact-match Reference Value.
-
-The `$tee-ppid-type` is an unsigned integer.
-
-The `$tee-ppid-type` is an exact match measurement.
-
-~~~ cddl
-{::include cddl/tee-ppid-type.cddl}
-~~~
-
 ### The tee-sgx-type Measurement Extension {#sec-tee-sgx-type}
 
 The `tee.sgx-type` extension enables the Attester to report the (TDB:sgx-type-description) as Evidence
