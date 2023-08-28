@@ -592,6 +592,16 @@ and a tuple containing the reference and mask when used as a Reference Value.
 {::include cddl/tee-attributes-type.cddl}
 ~~~
 
+### The tee-cryptokey-type Measurement Extension {#sec-tee-cryptokey-type}
+
+The `tee.cryptokeys` extension identifies cryptographic keys associated with a Target Environment.
+If multiple `$crypto-key-type-choice` measurements are supplied, array position disambiguates each entry.
+Appraisal compares values indexed by array position.
+
+~~~ cddl
+{::include cddl/tee-cryptokey-type.cddl}
+~~~
+
 ### The tee-date-type Measurement Extension {#sec-tee-date-type}
 
 The `tee.tcbdate` extension enables the Attester or Endorser to report the TEE date attribute
