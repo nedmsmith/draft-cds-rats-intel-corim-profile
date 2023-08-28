@@ -761,9 +761,6 @@ The `$tee-sgx-type` is an exact match measurement.
 The `tee.isvsvn` extension enables the Attester to report the SVN for the independent software vendor supplied
 component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.
 
-The `tee.pcesvn` extension enables the Attester to report the SVN for the supplied TCB
-component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.
-
 The `$tee-svn-type` is either an unsigned integer when reported as Evidence, or a tagged numeric expression
 that contains an SVN and a numeric greater-than-or-equal operator. The Verifier ensures the Evidence value is
 greater-that-or-equal to the Reference Value.
