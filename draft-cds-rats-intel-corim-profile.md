@@ -717,19 +717,6 @@ The `$tee-pceid-type` is an exact match measurement.
 {::include cddl/tee-pceid-type.cddl}
 ~~~
 
-### The tee-sgx-type Measurement Extension {#sec-tee-sgx-type}
-
-The `tee.sgx-type` extension enables the Attester to report the (TDB:sgx-type-description) as Evidence
-and the RVP to assert an exact-match Reference Value.
-
-The `$tee-sgx-type` is an unsigned integer.
-
-The `$tee-sgx-type` is an exact match measurement.
-
-~~~ cddl
-{::include cddl/tee-sgx-type.cddl}
-~~~
-
 ### The tee-svn-type Measurement Extension {#sec-tee-svn-type}
 
 The `tee.isvsvn` extension enables the Attester to report the SVN for the independent software vendor supplied

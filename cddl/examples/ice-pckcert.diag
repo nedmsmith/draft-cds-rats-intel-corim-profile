@@ -23,7 +23,6 @@
         }, 
         / measurement-map / {
           / mval / 1 : {
-            / sgx-type / -76 : 0,
             / instance-id / -77 : 0,
             / pceid / -80 : "0000",
             / tcb-comp-svn / -79 : [ 10, 10, 2, 2, 2, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
