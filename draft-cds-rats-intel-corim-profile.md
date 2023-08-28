@@ -641,19 +641,6 @@ and a `$tagged-epoch-expression` when used as a Reference Value.
 {::include cddl/tee-epoch-type.cddl}
 ~~~
 
-### The tee-fmspc-type Measurement Extension {#sec-tee-fmspc-type}
-
-The `tee.fmspc` extension enables the Attester to report the (TBD:fmspc-description) Evidence value
-and the RVP to assert an exact-match Reference Value.
-
-The `$tee-fmspc-type` is a 6 byte word.
-
-The `$tee-fmspc-type` is an exact match measurement.
-
-~~~ cddl
-{::include cddl/tee-fmspc-type.cddl}
-~~~
-
 ### The tee-instance-id-type Measurement Extension {#sec-tee-instance-id-type}
 
 The `tee.instance-id` extension enables the Attester to report the (TBD:instance-id-description) Evidence value

@@ -40,7 +40,6 @@
           },
           / measurement-map / {
             / mval / 1 : / measurement-values-map / {
-              / fmspc / -75 : h'10806F000000',
               / sgx-type / -76 : 0,
               / pceid / -80 : "0000",
               / flags mask / -82 : 60010([ / op.mask-eq / 1, h'0003', h'0003' ])
