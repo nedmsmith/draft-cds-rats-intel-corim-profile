@@ -1,6 +1,6 @@
 / concise-mid-tag / {
   / tag-identity / 1 : {
-    / tag-id / 0 : "Reference for SPDM Lead Attester 4"
+    / tag-id / 0 : "Reference for SPDM Lead Attester 3"
   },
   / triples / 4 : {
     / reference-triples / 0 : [
@@ -38,7 +38,7 @@
           }
         },
         / crypto-key-type-choice / [
-          / agged-pkix-base64-key-type / 554("base64_key_ACME_MAX")
+          / tagged-pkix-base64-key-type / 554("base64_key_ACME_MAX")
         ]
       ]
     ]

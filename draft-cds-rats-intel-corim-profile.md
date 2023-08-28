@@ -592,6 +592,16 @@ and a tuple containing the reference and mask when used as a Reference Value.
 {::include cddl/tee-attributes-type.cddl}
 ~~~
 
+### The tee-cryptokey-type Measurement Extension {#sec-tee-cryptokey-type}
+
+The `tee.cryptokeys` extension identifies cryptographic keys associated with a Target Environment.
+If multiple `$crypto-key-type-choice` measurements are supplied, array position disambiguates each entry.
+Appraisal compares values indexed by array position.
+
+~~~ cddl
+{::include cddl/tee-cryptokey-type.cddl}
+~~~
+
 ### The tee-date-type Measurement Extension {#sec-tee-date-type}
 
 The `tee.tcbdate` extension enables the Attester or Endorser to report the TEE date attribute
@@ -639,19 +649,6 @@ and a `$tagged-epoch-expression` when used as a Reference Value.
 
 ~~~ cddl
 {::include cddl/tee-epoch-type.cddl}
-~~~
-
-### The tee-fmspc-type Measurement Extension {#sec-tee-fmspc-type}
-
-The `tee.fmspc` extension enables the Attester to report the (TBD:fmspc-description) Evidence value
-and the RVP to assert an exact-match Reference Value.
-
-The `$tee-fmspc-type` is a 6 byte word.
-
-The `$tee-fmspc-type` is an exact match measurement.
-
-~~~ cddl
-{::include cddl/tee-fmspc-type.cddl}
 ~~~
 
 ### The tee-instance-id-type Measurement Extension {#sec-tee-instance-id-type}
@@ -720,25 +717,9 @@ The `$tee-pceid-type` is an exact match measurement.
 {::include cddl/tee-pceid-type.cddl}
 ~~~
 
-### The tee-ppid-type Measurement Extension {#sec-tee-ppid-type}
-
-The `tee.ppid` extension enables the Attester to report the (TDB:ppid-description) as Evidence
-and the RVP to assert an exact-match Reference Value.
-
-The `$tee-ppid-type` is an unsigned integer.
-
-The `$tee-ppid-type` is an exact match measurement.
-
-~~~ cddl
-{::include cddl/tee-ppid-type.cddl}
-~~~
-
 ### The tee-svn-type Measurement Extension {#sec-tee-svn-type}
 
 The `tee.isvsvn` extension enables the Attester to report the SVN for the independent software vendor supplied
-component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.
-
-The `tee.pcesvn` extension enables the Attester to report the SVN for the supplied TCB
 component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.
 
 The `$tee-svn-type` is either an unsigned integer when reported as Evidence, or a tagged numeric expression
