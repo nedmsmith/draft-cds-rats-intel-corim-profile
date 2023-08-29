@@ -51,7 +51,7 @@
         [  / *** triple object - conditional endorsed record series *** /
           [ / *** record 1 *** / 
             / refv: measurement-values-map / {
-              / tcb-comp-svn / -79 : [ 
+              / tcb-comp-svn / -125 : [ 
                 60010([2,2]), 
                 60010([2,2]), 
                 60010([2,0]), 
@@ -78,7 +78,7 @@
           ],
           [ / *** record 2 *** / 
             / refv: measurement-values-map / {
-              / tcb-comp-svn / -79 : [ 
+              / tcb-comp-svn / -125 : [ 
                 60010([2,1]), 
                 60010([2,1]), 
                 60010([2,0]), 
@@ -105,7 +105,7 @@
           ],
           [ / *** record 3 *** / 
             / refv: measurement-values-map / {
-              / tcb-comp-svn / -79 : [ 
+              / tcb-comp-svn / -125 : [ 
                 60010([2,1]), 
                 60010([2,0]), 
                 60010([2,0]), 
@@ -133,7 +133,7 @@
           ],
           [ / *** record 4 *** /
             / refv: measurement-values-map / {
-              / tcb-comp-svn / -79 : [ 
+              / tcb-comp-svn / -125 : [ 
                 60010([2,0]), 
                 60010([2,0]), 
                 60010([2,0]), 

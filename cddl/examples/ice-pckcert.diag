@@ -25,7 +25,7 @@
           / mval / 1 : {
             / instance-id / -77 : 0,
             / pceid / -80 : "0000",
-            / tcb-comp-svn / -79 : [ 10, 10, 2, 2, 2, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+            / tcb-comp-svn / -125 : [ 10, 10, 2, 2, 2, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
           },
           / authorized-by / 2 : [
             / tagged-pkix-base64-key-type / 554("base64_key_X")
