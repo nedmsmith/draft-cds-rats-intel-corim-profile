@@ -2,3 +2,4 @@ $$measurement-values-map-extension //= (
   &(tee.instance-id: -77) => $tee-instance-id-type
 )
 $tee-instance-id-type /= uint
+$tee-instance-id-type /= bstr .size 16
