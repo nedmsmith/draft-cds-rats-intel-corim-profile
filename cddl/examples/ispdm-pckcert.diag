@@ -27,7 +27,7 @@
                 }, 
                 / measurement-map / {
                   / mval / 1 : {
-                    / instance-id / -77 : 0,
+                    / instance-id / -77 : h'00112233445566778899aabbccddeeff', / ** 16 bytes ** /
                     / pceid / -80 : "0000",
                     / tcb-comp-svn / -125 : [ 10, 10, 2, 2, 2, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
                   },
