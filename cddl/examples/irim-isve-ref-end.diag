@@ -16,14 +16,14 @@
             / isvsvn / -73 : 60010([ / op.ge / 2, 6 ]),
             / attributes / -82 : 60010([ 1, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000' ]),
             / mrsigner / -84 : 60010([ / op.member / 6, 
-              / digests-type / [
-                [
-                  / hash-alg-id / 1, / sha256 /
-                  / hash-value / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+              [
+                [ / digest-type / 
+                  / alg-id / 1, / sha256 /
+                  / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
                 ],
                 [
-                  / hash-alg-id / 8, / sha512 /
-                  / hash-value / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6AA314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+                  / alg-id / 8, / sha512 /
+                  / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6AA314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
                 ]
               ]
             ]),

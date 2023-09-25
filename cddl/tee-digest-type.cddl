@@ -1,8 +1,9 @@
 $$measurement-values-map-extension //= (
-  &(tee.mrenclave: -83) => $tee-digest-type
+  &(tee.mrtee: -83) => $tee-digest-type
 )
 $$measurement-values-map-extension //= (
   &(tee.mrsigner: -84) => $tee-digest-type
 )
-$tee-digest-type /= digest .within set-type
+$tee-digest-type /= digest
+$tee-digest-type /= [ + digest ]
 $tee-digest-type /= tagged-exp-member
