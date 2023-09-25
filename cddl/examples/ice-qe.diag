@@ -29,13 +29,13 @@
             / miscselect / -81 : h'00000000', / *** 4 bytes *** /
             / isvprodid / -85 : 1,
             / mrsigner / -84 : [
-              / hash-alg-id / 1, / sha256 /
-              / hash-value / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+              / alg-id / 1, / sha256 /
+              / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
             ],
             / attributes / -82 : h'C0000000000000000000000000000000', / *** 16 bytes *** /
             / mrtee / -83 : [
-              / hash-alg-id / 1, / sha256 /
-              / hash-value / h'B2F5EB1CB5529E7A6B6BC6787594057396E6B3F569CD50FD5DDB5E2CCB0E3C7B'
+              / alg-id / 1, / sha256 /
+              / digest / h'B2F5EB1CB5529E7A6B6BC6787594057396E6B3F569CD50FD5DDB5E2CCB0E3C7B'
             ], / not expected to match ref val /
             / isvsvn / -73 : 2
           },
