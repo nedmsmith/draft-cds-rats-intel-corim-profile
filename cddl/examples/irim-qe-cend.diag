@@ -45,8 +45,8 @@
               / mrsigner / -84 : 60010([ / op.member / 6, 
                 / digests-type / [
                   [
-                    / hash-alg-id / 1, / sha256 /
-                    / hash-value / h'8C4F5775D796503E96137F77C68A829A0056AC8DED70140B081B094490C57BFF'
+                    / alg-id / 1, / sha256 /
+                    / digest / h'8C4F5775D796503E96137F77C68A829A0056AC8DED70140B081B094490C57BFF'
                   ]
                 ]
               ]),

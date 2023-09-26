@@ -16,8 +16,12 @@
         },
         / measurement-map / {
           / mval / 1 : {
-            / comid.digests / 2 : [
-              / digest / [
+            / mrtee / -83 : [
+              [
+              / alg: / 1, / SHA256 /
+              / val: / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+              ],
+              [
               / alg: / 7, / SHA384 /
               / val: / h'3D90B6BF003DA2D94EA5463F97FB3C53DDC51CFBA1E3E38EEF7AF071A67986595D22729131DF9FE80F5451EEF154F85E'
               ]
