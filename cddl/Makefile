@@ -126,3 +126,5 @@ clean-extra: clean ; $(MAKE) -C $(CE_DIR) clean ; $(MAKE) -C $(CE_CORIM_DIR) cle
 cbor-tags.txt: $(wildcard *.cddl) ; grep -h '#6\.5' *cddl | sort -u -t'=' -k2 > $@
 
 debug: ; echo irim ; echo $(IRIM_FRAGS) ; echo ce-frags ; echo $(CE_FRAGS) ; echo ce-deps ; echo $(CE_DEPS)
+
+code-pts: $(wildcard *.cddl) ; grep -v '^;' *.cddl | grep -E -h -o ': \-[0-9]{1,3}|= \-[0-9]{1,3}' | uniq | sort -u -t':' -t'='
