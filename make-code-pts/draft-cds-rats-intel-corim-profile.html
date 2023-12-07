@@ -16,26 +16,26 @@ The concise evidence definition uses the CoMID schema such that extensions to Co
 Reference Value Providers may use this profile to author mainifests containing Reference Values and Endorsements.
 RATS Verifiers recognize this profile by it's profile identifier and implement support for the extentions defined. 
     " name="description">
-<meta content="xml2rfc 3.18.0" name="generator">
+<meta content="xml2rfc 3.18.2" name="generator">
 <meta content="attestation" name="keyword">
 <meta content="profile" name="keyword">
 <meta content="corim" name="keyword">
 <meta content="draft-cds-rats-intel-corim-profile-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.0
-    Python 3.11.4
+  xml2rfc 3.18.2
+    Python 3.11.6
     ConfigArgParse 1.5.3
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.10.0
+    platformdirs 4.1.0
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.31.0
     setuptools 67.7.2
     six 1.16.0
-    wcwidth 0.2.6
+    wcwidth 0.2.12
 -->
 <link href="draft-cds-rats-intel-corim-profile.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -658,7 +658,7 @@ sub, sup {
 }
 #toc nav li {
   line-height: 1.3em;
-  margin: 0.75em 0;
+  margin: 2px 0;
   padding-left: 1.2em;
   text-indent: -1.2em;
 }
@@ -751,7 +751,7 @@ hr.addr {
     z-index: 2;
     top: 0;
     right: 0;
-    padding: 0;
+    padding: 1px 0 0 0;
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
@@ -875,16 +875,13 @@ hr.addr {
     border-top: none;
     padding-top: 0;
   }
-  figure, pre {
+  figure, pre, .vcard {
     page-break-inside: avoid;
-  }
-  figure {
-    overflow: scroll;
   }
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
   }
-  h2+*, h3+*, h4+*, h5+*, h6+* {
+  :is(h2, h3, h4, h5, h6)+*, dd {
     page-break-before: avoid;
   }
   pre {
@@ -897,6 +894,9 @@ hr.addr {
   }
   td {
     border-top: 1px solid #ddd;
+  }
+  .toplink {
+    display: none;
   }
 }
 
@@ -998,28 +998,6 @@ address div.right {
   text-align: right;
 }
 
-/* Give the table caption label the same styling as the figcaption */
-
-@media print {
-  .toplink {
-    display: none;
-  }
-
-  /* avoid overwriting the top border line with the ToC header */
-  #toc {
-    padding-top: 1px;
-  }
-
-  /* Avoid page breaks inside dl and author address entries */
-  dd {
-    page-break-before: avoid;
-  }
-  .vcard {
-    page-break-inside: avoid;
-  }
-
-}
-
 /* Dark mode. */
 @media (prefers-color-scheme: dark) {
 :root {
@@ -1056,11 +1034,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Intel profile</td>
-<td class="right">August 2023</td>
+<td class="right">December 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Cen, et al.</td>
-<td class="center">Expires 29 February 2024</td>
+<td class="center">Expires 9 June 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1073,12 +1051,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-cds-rats-intel-corim-profile-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-08-28" class="published">28 August 2023</time>
+<time datetime="2023-12-07" class="published">7 December 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-02-29">29 February 2024</time></dd>
+<dd class="expires"><time datetime="2024-06-09">9 June 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1141,7 +1119,7 @@ RATS Verifiers recognize this profile by it's profile identifier and implement s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 February 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 9 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1215,49 +1193,46 @@ RATS Verifiers recognize this profile by it's profile identifier and implement s
                     <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-the-tee-attributes-type-mea" class="internal xref">The tee-attributes-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.3">
-                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-the-tee-date-type-measureme" class="internal xref">The tee-date-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-the-tee-cryptokey-type-meas" class="internal xref">The tee-cryptokey-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.4">
-                    <p id="section-toc.1-1.5.2.2.2.4.1"><a href="#section-5.2.4" class="auto internal xref">5.2.4</a>.  <a href="#name-the-tee-digest-type-measure" class="internal xref">The tee-digest-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.4.1"><a href="#section-5.2.4" class="auto internal xref">5.2.4</a>.  <a href="#name-the-tee-date-type-measureme" class="internal xref">The tee-date-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.5">
-                    <p id="section-toc.1-1.5.2.2.2.5.1"><a href="#section-5.2.5" class="auto internal xref">5.2.5</a>.  <a href="#name-the-tee-epoch-type-measurem" class="internal xref">The tee-epoch-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.5.1"><a href="#section-5.2.5" class="auto internal xref">5.2.5</a>.  <a href="#name-the-tee-digest-type-measure" class="internal xref">The tee-digest-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.6">
-                    <p id="section-toc.1-1.5.2.2.2.6.1"><a href="#section-5.2.6" class="auto internal xref">5.2.6</a>.  <a href="#name-the-tee-instance-id-type-me" class="internal xref">The tee-instance-id-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.6.1"><a href="#section-5.2.6" class="auto internal xref">5.2.6</a>.  <a href="#name-the-tee-epoch-type-measurem" class="internal xref">The tee-epoch-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.7">
-                    <p id="section-toc.1-1.5.2.2.2.7.1"><a href="#section-5.2.7" class="auto internal xref">5.2.7</a>.  <a href="#name-the-tee-isvprodid-type-meas" class="internal xref">The tee-isvprodid-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.7.1"><a href="#section-5.2.7" class="auto internal xref">5.2.7</a>.  <a href="#name-the-tee-instance-id-type-me" class="internal xref">The tee-instance-id-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.8">
-                    <p id="section-toc.1-1.5.2.2.2.8.1"><a href="#section-5.2.8" class="auto internal xref">5.2.8</a>.  <a href="#name-the-tee-miscselect-type-mea" class="internal xref">The tee-miscselect-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.8.1"><a href="#section-5.2.8" class="auto internal xref">5.2.8</a>.  <a href="#name-the-tee-isvprodid-type-meas" class="internal xref">The tee-isvprodid-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.9">
-                    <p id="section-toc.1-1.5.2.2.2.9.1"><a href="#section-5.2.9" class="auto internal xref">5.2.9</a>.  <a href="#name-the-tee-model-type-measurem" class="internal xref">The tee-model-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.9.1"><a href="#section-5.2.9" class="auto internal xref">5.2.9</a>.  <a href="#name-the-tee-miscselect-type-mea" class="internal xref">The tee-miscselect-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.10">
-                    <p id="section-toc.1-1.5.2.2.2.10.1"><a href="#section-5.2.10" class="auto internal xref">5.2.10</a>. <a href="#name-the-tee-pceid-type-measurem" class="internal xref">The tee-pceid-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.10.1"><a href="#section-5.2.10" class="auto internal xref">5.2.10</a>. <a href="#name-the-tee-model-type-measurem" class="internal xref">The tee-model-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.11">
-                    <p id="section-toc.1-1.5.2.2.2.11.1"><a href="#section-5.2.11" class="auto internal xref">5.2.11</a>. <a href="#name-the-tee-ppid-type-measureme" class="internal xref">The tee-ppid-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.11.1"><a href="#section-5.2.11" class="auto internal xref">5.2.11</a>. <a href="#name-the-tee-pceid-type-measurem" class="internal xref">The tee-pceid-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.12">
-                    <p id="section-toc.1-1.5.2.2.2.12.1"><a href="#section-5.2.12" class="auto internal xref">5.2.12</a>. <a href="#name-the-tee-sgx-type-measuremen" class="internal xref">The tee-sgx-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.12.1"><a href="#section-5.2.12" class="auto internal xref">5.2.12</a>. <a href="#name-the-tee-svn-type-measuremen" class="internal xref">The tee-svn-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.13">
-                    <p id="section-toc.1-1.5.2.2.2.13.1"><a href="#section-5.2.13" class="auto internal xref">5.2.13</a>. <a href="#name-the-tee-svn-type-measuremen" class="internal xref">The tee-svn-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.13.1"><a href="#section-5.2.13" class="auto internal xref">5.2.13</a>. <a href="#name-the-tee-tcb-comp-svn-type-m" class="internal xref">The tee-tcb-comp-svn-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.14">
-                    <p id="section-toc.1-1.5.2.2.2.14.1"><a href="#section-5.2.14" class="auto internal xref">5.2.14</a>. <a href="#name-the-tee-tcb-comp-svn-type-m" class="internal xref">The tee-tcb-comp-svn-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.14.1"><a href="#section-5.2.14" class="auto internal xref">5.2.14</a>. <a href="#name-the-tee-tcb-eval-num-type-m" class="internal xref">The tee-tcb-eval-num-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.15">
-                    <p id="section-toc.1-1.5.2.2.2.15.1"><a href="#section-5.2.15" class="auto internal xref">5.2.15</a>. <a href="#name-the-tee-tcb-eval-num-type-m" class="internal xref">The tee-tcb-eval-num-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.15.1"><a href="#section-5.2.15" class="auto internal xref">5.2.15</a>. <a href="#name-the-tee-tcbstatus-type-meas" class="internal xref">The tee-tcbstatus-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.16">
-                    <p id="section-toc.1-1.5.2.2.2.16.1"><a href="#section-5.2.16" class="auto internal xref">5.2.16</a>. <a href="#name-the-tee-tcbstatus-type-meas" class="internal xref">The tee-tcbstatus-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.17">
-                    <p id="section-toc.1-1.5.2.2.2.17.1"><a href="#section-5.2.17" class="auto internal xref">5.2.17</a>. <a href="#name-the-tee-vendor-type-measure" class="internal xref">The tee-vendor-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.16.1"><a href="#section-5.2.16" class="auto internal xref">5.2.16</a>. <a href="#name-the-tee-vendor-type-measure" class="internal xref">The tee-vendor-type Measurement Extension</a></p>
 </li>
                 </ul>
 </li>
@@ -1419,7 +1394,8 @@ the expression array, and any remaining array entries are operands.<a href="#sec
 followed by the operator, followed by any remaining operands: <em>operand_2</em>, <em>operand_3</em>, etc...<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 <p id="section-5.1-4">For example:<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1-5.1">From Evidence: <code>operand_1</code>, from Reference Values: <code>[ operator, operand_2, operand_3, ... ]</code>.<a href="#section-5.1-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1-5.1">
+            <p id="section-5.1-5.1.1">From Evidence: <code>operand_1</code>, from Reference Values: <code>[ operator, operand_2, operand_3, ... ]</code>.<a href="#section-5.1-5.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-5.1-6">Expression records are CBOR tagged to indicate the following CBOR is to be evaluated as an expression.
@@ -1429,7 +1405,7 @@ the expression equation. Appraisal processing <span class="bcp14">MUST</span> ev
 <p id="section-5.1-8">For example:<a href="#section-5.1-8" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.1-9.1">
-            <code>#6.60010([ operator, operand_2, operand_3, ... ])</code>.<a href="#section-5.1-9.1" class="pilcrow">¶</a>
+            <p id="section-5.1-9.1.1"><code>#6.60010([ operator, operand_2, operand_3, ... ])</code>.<a href="#section-5.1-9.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div id="sec-expression-operators">
@@ -1440,23 +1416,23 @@ the expression equation. Appraisal processing <span class="bcp14">MUST</span> ev
 <p id="section-5.1.1-1">There are several classes of operators as follows:<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.1.1-2">
 <li id="section-5.1.1-2.1">
-              <strong>Numeric</strong>: The <code>numeric</code> operand can be an integer, unsigned integer, or floading point value.<a href="#section-5.1.1-2.1" class="pilcrow">¶</a>
+              <p id="section-5.1.1-2.1.1"><strong>Numeric</strong>: The <code>numeric</code> operand can be an integer, unsigned integer, or floading point value.<a href="#section-5.1.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.1.1-2.2">
-              <strong>Set</strong>: The <code>set</code> operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
+              <p id="section-5.1.1-2.2.1"><strong>Set</strong>: The <code>set</code> operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
 The position of the items in a set is unordered, while the position of items in an array within a set
-is ordered.<a href="#section-5.1.1-2.2" class="pilcrow">¶</a>
+is ordered.<a href="#section-5.1.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.1.1-2.3">
-              <strong>Date-Time</strong>: The date-time operators compare two date-time values,
+              <p id="section-5.1.1-2.3.1"><strong>Date-Time</strong>: The date-time operators compare two date-time values,
 while the <code>epoch</code> operators determine if a date-time value
-is within a range defined by an epoch and a grece period relative to the epoch.<a href="#section-5.1.1-2.3" class="pilcrow">¶</a>
+is within a range defined by an epoch and a grece period relative to the epoch.<a href="#section-5.1.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.1.1-2.4">
-              <strong>Mask</strong>: The <code>mask</code> operator compares two bit fields where a bit-field is compared to
+              <p id="section-5.1.1-2.4.1"><strong>Mask</strong>: The <code>mask</code> operator compares two bit fields where a bit-field is compared to
 a second bit-field using a bit-field-mask that selects the bits to be compared.
 The bit-field may contain a sequence of bytes of any length.
-The bit-field-mask should be the same length as the bit-field.<a href="#section-5.1.1-2.4" class="pilcrow">¶</a>
+The bit-field-mask should be the same length as the bit-field.<a href="#section-5.1.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 <div id="sec-equivalance-operator">
@@ -1479,16 +1455,16 @@ Evidence values are identical to Reference Values.<a href="#section-5.1.1.1-1" c
 There are four numeric operators:<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.1.2-2">
 <li id="section-5.1.2-2.1">
-              <strong>greater-than</strong> (gt),<a href="#section-5.1.2-2.1" class="pilcrow">¶</a>
+              <p id="section-5.1.2-2.1.1"><strong>greater-than</strong> (gt),<a href="#section-5.1.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.1.2-2.2">
-              <strong>greater-than-or-equal</strong> (ge),<a href="#section-5.1.2-2.2" class="pilcrow">¶</a>
+              <p id="section-5.1.2-2.2.1"><strong>greater-than-or-equal</strong> (ge),<a href="#section-5.1.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.1.2-2.3">
-              <strong>less-than</strong> (lt), and<a href="#section-5.1.2-2.3" class="pilcrow">¶</a>
+              <p id="section-5.1.2-2.3.1"><strong>less-than</strong> (lt), and<a href="#section-5.1.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.1.2-2.4">
-              <strong>less-than-or-equal</strong> (le).<a href="#section-5.1.2-2.4" class="pilcrow">¶</a>
+              <p id="section-5.1.2-2.4.1"><strong>less-than-or-equal</strong> (le).<a href="#section-5.1.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 <p id="section-5.1.2-3">The equals operator is not defined because an exact match rule is the default rule when an Evidence value is identical to a Reference Value.<a href="#section-5.1.2-3" class="pilcrow">¶</a></p>
@@ -1512,16 +1488,16 @@ The operand contains a numeric Reference Value that is matched with a numeric Ev
 <p id="section-5.1.2-8">This profile defines four macro numeric expressions, one for each numeric operator:<a href="#section-5.1.2-8" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.1.2-9.1">
-              <code>tagged-numeric-gt</code>,<a href="#section-5.1.2-9.1" class="pilcrow">¶</a>
+              <p id="section-5.1.2-9.1.1"><code>tagged-numeric-gt</code>,<a href="#section-5.1.2-9.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.1.2-9.2">
-              <code>tagged-numeric-ge</code>,<a href="#section-5.1.2-9.2" class="pilcrow">¶</a>
+              <p id="section-5.1.2-9.2.1"><code>tagged-numeric-ge</code>,<a href="#section-5.1.2-9.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.1.2-9.3">
-              <code>tagged-numeric-lt</code>, and<a href="#section-5.1.2-9.3" class="pilcrow">¶</a>
+              <p id="section-5.1.2-9.3.1"><code>tagged-numeric-lt</code>, and<a href="#section-5.1.2-9.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.1.2-9.4">
-              <code>tagged-numeric-le</code>.<a href="#section-5.1.2-9.4" class="pilcrow">¶</a>
+              <p id="section-5.1.2-9.4.1"><code>tagged-numeric-le</code>.<a href="#section-5.1.2-9.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.1.2-10">In each case, the numeric operator is used to evaluate a Reference Value operand against an Evidence value operand
@@ -1530,7 +1506,8 @@ that is obtained from Evidence.<a href="#section-5.1.2-10" class="pilcrow">¶</a
 followed by the Reference Value operand.<a href="#section-5.1.2-11" class="pilcrow">¶</a></p>
 <p id="section-5.1.2-12">Example:<a href="#section-5.1.2-12" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.2-13.1">&lt;<code>evidence_numeric</code>&gt; &lt;<code>le</code>&gt; &lt;<code>reference_numeric</code>&gt;<a href="#section-5.1.2-13.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.2-13.1">
+              <p id="section-5.1.2-13.1.1">&lt;<code>evidence_numeric</code>&gt; &lt;<code>le</code>&gt; &lt;<code>reference_numeric</code>&gt;<a href="#section-5.1.2-13.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.1.2-14">The numeric expression definitions are as follows:<a href="#section-5.1.2-14" class="pilcrow">¶</a></p>
@@ -1561,18 +1538,20 @@ tagged-numeric-le = #6.60010( [
 is expressed as either a primitive value or a set.<a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.1.3-2">Set expression statements have two forms:<a href="#section-5.1.3-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.1.3-3">
-<li id="section-5.1.3-3.1">A binary relation between a primitive object 'O' and a set 'S', and<a href="#section-5.1.3-3.1" class="pilcrow">¶</a>
+<li id="section-5.1.3-3.1">
+              <p id="section-5.1.3-3.1.1">A binary relation between a primitive object 'O' and a set 'S', and<a href="#section-5.1.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.3-3.2">A binary relation between two sets, an Evidence set 'S1' and a Reference Values set 'S2'.<a href="#section-5.1.3-3.2" class="pilcrow">¶</a>
+            <li id="section-5.1.3-3.2">
+              <p id="section-5.1.3-3.2.1">A binary relation between two sets, an Evidence set 'S1' and a Reference Values set 'S2'.<a href="#section-5.1.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 <p id="section-5.1.3-4">The first form, relation between an object and a set, has two operators:<a href="#section-5.1.3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.1.3-5.1">
-              <strong>member</strong> and<a href="#section-5.1.3-5.1" class="pilcrow">¶</a>
+              <p id="section-5.1.3-5.1.1"><strong>member</strong> and<a href="#section-5.1.3-5.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.1.3-5.2">
-              <strong>not-member</strong>.<a href="#section-5.1.3-5.2" class="pilcrow">¶</a>
+              <p id="section-5.1.3-5.2.1"><strong>not-member</strong>.<a href="#section-5.1.3-5.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.1.3-6">The Evidence object 'O' is evaluated with the Reference Values set 'S'.<a href="#section-5.1.3-6" class="pilcrow">¶</a></p>
@@ -1580,7 +1559,8 @@ is expressed as either a primitive value or a set.<a href="#section-5.1.3-1" cla
 value as <em>operand_1</em>. Evaluation tests whether <em>operand_1</em> is a member of the set <em>operand_2</em>.<a href="#section-5.1.3-7" class="pilcrow">¶</a></p>
 <p id="section-5.1.3-8">Example:<a href="#section-5.1.3-8" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-9.1">&lt;<code>evidence-value</code>&gt; &lt;<code>set-operator</code>&gt; &lt;<code>reference-set</code>&gt;<a href="#section-5.1.3-9.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.3-9.1">
+              <p id="section-5.1.3-9.1.1">&lt;<code>evidence-value</code>&gt; &lt;<code>set-operator</code>&gt; &lt;<code>reference-set</code>&gt;<a href="#section-5.1.3-9.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.1.3-10">The set data type definitions are defined as follows:<a href="#section-5.1.3-10" class="pilcrow">¶</a></p>
@@ -1609,9 +1589,11 @@ tagged-exp-not-member = #6.60010([
 </div>
 <p id="section-5.1.3-15">Examples:<a href="#section-5.1.3-15" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-16.1">&lt;<code>evidence_object</code>&gt; &lt;<code>member</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-16.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.3-16.1">
+              <p id="section-5.1.3-16.1.1">&lt;<code>evidence_object</code>&gt; &lt;<code>member</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-16.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-16.2">&lt;<code>evidence_object</code>&gt; &lt;<code>not-member</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-16.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.1.3-16.2">
+              <p id="section-5.1.3-16.2.1">&lt;<code>evidence_object</code>&gt; &lt;<code>not-member</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-16.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.1.3-17">The Evidence object <span class="bcp14">MUST NOT</span> be nil.<a href="#section-5.1.3-17" class="pilcrow">¶</a></p>
@@ -1619,13 +1601,13 @@ tagged-exp-not-member = #6.60010([
 <p id="section-5.1.3-19">The second form, a relation between two sets, has three operators:<a href="#section-5.1.3-19" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.1.3-20.1">
-              <strong>subset</strong>,<a href="#section-5.1.3-20.1" class="pilcrow">¶</a>
+              <p id="section-5.1.3-20.1.1"><strong>subset</strong>,<a href="#section-5.1.3-20.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.1.3-20.2">
-              <strong>superset</strong>, and<a href="#section-5.1.3-20.2" class="pilcrow">¶</a>
+              <p id="section-5.1.3-20.2.1"><strong>superset</strong>, and<a href="#section-5.1.3-20.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.1.3-20.3">
-              <strong>disjoint</strong>.<a href="#section-5.1.3-20.3" class="pilcrow">¶</a>
+              <p id="section-5.1.3-20.3.1"><strong>disjoint</strong>.<a href="#section-5.1.3-20.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.1.3-21">The fist set, S1 is Evidence and set, S2 is the Reference Values set.<a href="#section-5.1.3-21" class="pilcrow">¶</a></p>
@@ -1633,11 +1615,14 @@ tagged-exp-not-member = #6.60010([
 satisfies a set operation, given a Reverence Value set.<a href="#section-5.1.3-22" class="pilcrow">¶</a></p>
 <p id="section-5.1.3-23">Examples:<a href="#section-5.1.3-23" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-24.1">&lt;<code>evidence_set</code>&gt; &lt;<code>subset</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-24.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.3-24.1">
+              <p id="section-5.1.3-24.1.1">&lt;<code>evidence_set</code>&gt; &lt;<code>subset</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-24.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-24.2">&lt;<code>evidence_set</code>&gt; &lt;<code>superset</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-24.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.1.3-24.2">
+              <p id="section-5.1.3-24.2.1">&lt;<code>evidence_set</code>&gt; &lt;<code>superset</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-24.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-24.3">&lt;<code>evidence_set</code>&gt; &lt;<code>disjoint</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-24.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.1.3-24.3">
+              <p id="section-5.1.3-24.3.1">&lt;<code>evidence_set</code>&gt; &lt;<code>disjoint</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-24.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.1.3-25">The Reference Values and Evidence sets may be the empty set.<a href="#section-5.1.3-25" class="pilcrow">¶</a></p>
@@ -1689,16 +1674,16 @@ tagged-exp-disjoint = #6.60010([
 There are four operators that are defined for date-time expressions:<a href="#section-5.1.4.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.1.4.1-2">
 <li id="section-5.1.4.1-2.1">
-                <strong>lt</strong> determines if a date-time Evidence value is less than a Reference Values date-time.<a href="#section-5.1.4.1-2.1" class="pilcrow">¶</a>
+                <p id="section-5.1.4.1-2.1.1"><strong>lt</strong> determines if a date-time Evidence value is less than a Reference Values date-time.<a href="#section-5.1.4.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-5.1.4.1-2.2">
-                <strong>le</strong> determines if a date-time Evidence value is less than or equal to a Reference Values date-time.<a href="#section-5.1.4.1-2.2" class="pilcrow">¶</a>
+                <p id="section-5.1.4.1-2.2.1"><strong>le</strong> determines if a date-time Evidence value is less than or equal to a Reference Values date-time.<a href="#section-5.1.4.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-5.1.4.1-2.3">
-                <strong>gt</strong> determines if a data-time Evidence value is greater than a Reference Values date-time.<a href="#section-5.1.4.1-2.3" class="pilcrow">¶</a>
+                <p id="section-5.1.4.1-2.3.1"><strong>gt</strong> determines if a data-time Evidence value is greater than a Reference Values date-time.<a href="#section-5.1.4.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-5.1.4.1-2.4">
-                <strong>ge</strong> determines if a data-time Evidence value is greater than or equal to a Reference Values date-time.<a href="#section-5.1.4.1-2.4" class="pilcrow">¶</a>
+                <p id="section-5.1.4.1-2.4.1"><strong>ge</strong> determines if a data-time Evidence value is greater than or equal to a Reference Values date-time.<a href="#section-5.1.4.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
 <p id="section-5.1.4.1-3">The date-time operators are in fact numeric. Expressions involving string date-time values must be converted to numeric format before the numeric comparison
@@ -1736,7 +1721,8 @@ then the Evidence value is accepted.<a href="#section-5.1.4.1-12" class="pilcrow
 The Reference Value expression contains a time comparison operator and <em>operand_2</em> contains a reference date-time.<a href="#section-5.1.4.1-13" class="pilcrow">¶</a></p>
 <p id="section-5.1.4.1-14">Example:<a href="#section-5.1.4.1-14" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.4.1-15.1">&lt;<code>evidence_date_time</code>&gt; &lt;<code>gt</code>&gt; &lt;<code>reference_date_time</code>&gt;<a href="#section-5.1.4.1-15.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.4.1-15.1">
+                <p id="section-5.1.4.1-15.1.1">&lt;<code>evidence_date_time</code>&gt; &lt;<code>gt</code>&gt; &lt;<code>reference_date_time</code>&gt;<a href="#section-5.1.4.1-15.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 <p id="section-5.1.4.1-16">The numeric date-time expression definitions are as follows:<a href="#section-5.1.4.1-16" class="pilcrow">¶</a></p>
@@ -1839,7 +1825,8 @@ by the supplied grace period.<a href="#section-5.1.4.2-10" class="pilcrow">¶</a
 plus the grace period, and where the <code>epoch-operator</code> defines the shape of the epoch window.<a href="#section-5.1.4.2-11" class="pilcrow">¶</a></p>
 <p id="section-5.1.4.2-12">Example epoch expression:<a href="#section-5.1.4.2-12" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.4.2-13.1">&lt;<code>evidence_timestamp</code>&gt; &lt;<code>epoch-operator</code>&gt; &lt;<code>grace_period</code>&gt; &lt;<code>current_time</code>&gt;<a href="#section-5.1.4.2-13.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.4.2-13.1">
+                <p id="section-5.1.4.2-13.1.1">&lt;<code>evidence_timestamp</code>&gt; &lt;<code>epoch-operator</code>&gt; &lt;<code>grace_period</code>&gt; &lt;<code>current_time</code>&gt;<a href="#section-5.1.4.2-13.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 <p id="section-5.1.4.2-14">The Verifier adds <code>grace_period</code> to <code>current_time</code> to obtain the epoch window then applies the operator to
@@ -1881,7 +1868,8 @@ the shorter length bit field is padded with zeros to accommodate the larger bit 
 Reference Value, <em>operand_2</em>, followed by the mask, <em>operand_3</em>.<a href="#section-5.1.5-8" class="pilcrow">¶</a></p>
 <p id="section-5.1.5-9">Example:<a href="#section-5.1.5-9" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.5-10.1">&lt;<code>evidence_value</code>&gt; &lt;<code>mask-eq</code>&gt; &lt;<code>reference_value</code>&gt; &lt;<code>mask</code>&gt;<a href="#section-5.1.5-10.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.5-10.1">
+              <p id="section-5.1.5-10.1.1">&lt;<code>evidence_value</code>&gt; &lt;<code>mask-eq</code>&gt; &lt;<code>reference_value</code>&gt; &lt;<code>mask</code>&gt;<a href="#section-5.1.5-10.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.1.5-11">If each bit in Evidence has a corresponding matching bit in the Reference Value, then the Evidence
@@ -1930,8 +1918,8 @@ of advisories when used as a Reference Value.<a href="#section-5.2.1-4" class="p
 $$measurement-values-map-extension //= (
   &amp;(tee.advisory-ids: -89) =&gt; $tee-advisory-ids-type
 )
-$tee-advisory-ids-type /= ([ + tstr  ])
-$tee-advisory-ids-type /= tagged-exp-disjoint
+$tee-advisory-ids-type /= set-type
+$tee-advisory-ids-type /= tagged-exp-not-member
 </pre><a href="#section-5.2.1-5" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1958,17 +1946,35 @@ $tee-attributes-type /= tagged-exp-mask-eq
 </div>
 </section>
 </div>
-<div id="sec-tee-date-type">
+<div id="sec-tee-cryptokey-type">
 <section id="section-5.2.3">
-          <h4 id="name-the-tee-date-type-measureme">
-<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-the-tee-date-type-measureme" class="section-name selfRef">The tee-date-type Measurement Extension</a>
+          <h4 id="name-the-tee-cryptokey-type-meas">
+<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-the-tee-cryptokey-type-meas" class="section-name selfRef">The tee-cryptokey-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.3-1">The <code>tee.tcbdate</code> extension enables the Attester or Endorser to report the TEE date attribute
-and a RVP to assert a valid TEE matching operation.<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.3-2">The <code>$tee-date-type</code> is a date-time string when used for Evidence or Endorsement.
+<p id="section-5.2.3-1">The <code>tee.cryptokeys</code> extension identifies cryptographic keys associated with a Target Environment.
+If multiple <code>$crypto-key-type-choice</code> measurements are supplied, array position disambiguates each entry.
+Appraisal compares values indexed by array position.<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.3-2">
+<pre>
+$$measurement-values-map-extension //= (
+  &amp;(tee.cryptokeys: -91) =&gt; [ + $tee-cryptokey-type ]
+)
+$tee-cryptokey-type /= $crypto-key-type-choice
+</pre><a href="#section-5.2.3-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="sec-tee-date-type">
+<section id="section-5.2.4">
+          <h4 id="name-the-tee-date-type-measureme">
+<a href="#section-5.2.4" class="section-number selfRef">5.2.4. </a><a href="#name-the-tee-date-type-measureme" class="section-name selfRef">The tee-date-type Measurement Extension</a>
+          </h4>
+<p id="section-5.2.4-1">The <code>tee.tcbdate</code> extension enables the Attester or Endorser to report the TEE date attribute
+and a RVP to assert a valid TEE matching operation.<a href="#section-5.2.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.4-2">The <code>$tee-date-type</code> is a date-time string when used for Evidence or Endorsement.
 When used for a Reference Value, either a <code>tagged-tdate-expression</code> or a <code>tagged-epoch-expression</code> describes
-the TCB validity.<a href="#section-5.2.3-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.3-3">
+the TCB validity.<a href="#section-5.2.4-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.4-3">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbdate: -72) =&gt; $tee-date-type
@@ -1976,311 +1982,270 @@ $$measurement-values-map-extension //= (
 $tee-date-type /= tdate
 $tee-date-type /= tagged-exp-tdate-ge
 $tee-date-type /= tagged-exp-epoch-ge
-</pre><a href="#section-5.2.3-3" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.4-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2.3-4"><code>tdate</code> strings must be converted to numeric <code>time</code> before the <code>tdate-operator</code>, which is a numeric operator,
-can be applied.<a href="#section-5.2.3-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.4-4"><code>tdate</code> strings must be converted to numeric <code>time</code> before the <code>tdate-operator</code>, which is a numeric operator,
+can be applied.<a href="#section-5.2.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-digest-type">
-<section id="section-5.2.4">
+<section id="section-5.2.5">
           <h4 id="name-the-tee-digest-type-measure">
-<a href="#section-5.2.4" class="section-number selfRef">5.2.4. </a><a href="#name-the-tee-digest-type-measure" class="section-name selfRef">The tee-digest-type Measurement Extension</a>
+<a href="#section-5.2.5" class="section-number selfRef">5.2.5. </a><a href="#name-the-tee-digest-type-measure" class="section-name selfRef">The tee-digest-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.4-1">The <code>tee.mrenclave</code> and <code>tee.mrsigner</code> extensions enable the Attester to report digests for the SGX enclave,
-a.k.a., Target Environment, and the signer, a.k.a., Attesting Environment, of the enclave digest.<a href="#section-5.2.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.4-2">The <code>$tee-digest-type</code> is a record that contains the hash algorithm identifier and the digest value when used
+<p id="section-5.2.5-1">The <code>tee.mrenclave</code> and <code>tee.mrsigner</code> extensions enable the Attester to report digests for the SGX enclave,
+a.k.a., Target Environment, and the signer, a.k.a., Attesting Environment, of the enclave digest.<a href="#section-5.2.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.5-2">The <code>$tee-digest-type</code> is a record that contains the hash algorithm identifier and the digest value when used
 as Evidence.
 When used as Reference Values, a set of digests can be asserted. The Evidence digest record must be a member
-of the Reference Values set.<a href="#section-5.2.4-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.4-3">
+of the Reference Values set.<a href="#section-5.2.5-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.5-3">
 <pre>
 $$measurement-values-map-extension //= (
-  &amp;(tee.mrenclave: -83) =&gt; $tee-digest-type
+  &amp;(tee.mrtee: -83) =&gt; $tee-digest-type
 )
 $$measurement-values-map-extension //= (
   &amp;(tee.mrsigner: -84) =&gt; $tee-digest-type
 )
-$tee-digest-type /= hash-entry .within set-type
+$tee-digest-type /= digest
+$tee-digest-type /= [ + digest ]
 $tee-digest-type /= tagged-exp-member
-</pre><a href="#section-5.2.4-3" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.5-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-epoch-type">
-<section id="section-5.2.5">
+<section id="section-5.2.6">
           <h4 id="name-the-tee-epoch-type-measurem">
-<a href="#section-5.2.5" class="section-number selfRef">5.2.5. </a><a href="#name-the-tee-epoch-type-measurem" class="section-name selfRef">The tee-epoch-type Measurement Extension</a>
+<a href="#section-5.2.6" class="section-number selfRef">5.2.6. </a><a href="#name-the-tee-epoch-type-measurem" class="section-name selfRef">The tee-epoch-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.5-1">The <code>tee.epoch</code> extension enables the Attester to report an epoch Evidence measurement,
-and a RVP to assert an epoch Reference Value.<a href="#section-5.2.5-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.5-2">As Evidence, the <code>$tee-epoch-type</code> is a <code>tdate</code> timestamp.<a href="#section-5.2.5-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.5-3">As a Reference Value, the <code>$tee-epoch-type</code> is a grace period, in seconds, that is relative to the
+<p id="section-5.2.6-1">The <code>tee.epoch</code> extension enables the Attester to report an epoch Evidence measurement,
+and a RVP to assert an epoch Reference Value.<a href="#section-5.2.6-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.6-2">As Evidence, the <code>$tee-epoch-type</code> is a <code>tdate</code> timestamp.<a href="#section-5.2.6-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.6-3">As a Reference Value, the <code>$tee-epoch-type</code> is a grace period, in seconds, that is relative to the
 Verifier's current date and time, and an epoch operator: <code>gt</code>, <code>ge</code>, <code>lt</code>, or <code>le</code>.
 The Verifier evaluates whether the timestamp is within the grace period relative to the current date and time.
-The current date and time is implicit, and is assumed to be in <code>tdate</code> format.<a href="#section-5.2.5-3" class="pilcrow">¶</a></p>
-<p id="section-5.2.5-4">The <code>$tee-epoch-type</code> is an <code>$epoch-timestamp-type</code> when used as Evidence or Endorsement
-and a <code>$tagged-epoch-expression</code> when used as a Reference Value.<a href="#section-5.2.5-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.5-5">
+The current date and time is implicit, and is assumed to be in <code>tdate</code> format.<a href="#section-5.2.6-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.6-4">The <code>$tee-epoch-type</code> is an <code>$epoch-timestamp-type</code> when used as Evidence or Endorsement
+and a <code>$tagged-epoch-expression</code> when used as a Reference Value.<a href="#section-5.2.6-4" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.6-5">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.epoch: -90) =&gt; $tee-epoch-type
 )
 $tee-epoch-type /= $epoch-timestamp-type
 $tee-epoch-type /= tagged-exp-epoch-gt
-</pre><a href="#section-5.2.5-5" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.6-5" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-instance-id-type">
-<section id="section-5.2.6">
+<section id="section-5.2.7">
           <h4 id="name-the-tee-instance-id-type-me">
-<a href="#section-5.2.6" class="section-number selfRef">5.2.6. </a><a href="#name-the-tee-instance-id-type-me" class="section-name selfRef">The tee-instance-id-type Measurement Extension</a>
+<a href="#section-5.2.7" class="section-number selfRef">5.2.7. </a><a href="#name-the-tee-instance-id-type-me" class="section-name selfRef">The tee-instance-id-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.6-1">The <code>tee.instance-id</code> extension enables the Attester to report the (TBD:instance-id-description) Evidence value
-and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.6-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.6-2">The <code>$tee-instance-id-type</code> is an unsigned integer.<a href="#section-5.2.6-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.6-3">The <code>$tee-instance-type</code> is an exact match measurement.<a href="#section-5.2.6-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.6-4">
+<p id="section-5.2.7-1">The <code>tee.instance-id</code> extension enables the Attester to report the (TBD:instance-id-description) Evidence value
+and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.7-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.7-2">The <code>$tee-instance-id-type</code> is an unsigned integer.<a href="#section-5.2.7-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.7-3">The <code>$tee-instance-type</code> is an exact match measurement.<a href="#section-5.2.7-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.7-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.instance-id: -77) =&gt; $tee-instance-id-type
 )
 $tee-instance-id-type /= uint
-</pre><a href="#section-5.2.6-4" class="pilcrow">¶</a>
+$tee-instance-id-type /= bstr
+</pre><a href="#section-5.2.7-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-isvprodid-type">
-<section id="section-5.2.7">
+<section id="section-5.2.8">
           <h4 id="name-the-tee-isvprodid-type-meas">
-<a href="#section-5.2.7" class="section-number selfRef">5.2.7. </a><a href="#name-the-tee-isvprodid-type-meas" class="section-name selfRef">The tee-isvprodid-type Measurement Extension</a>
+<a href="#section-5.2.8" class="section-number selfRef">5.2.8. </a><a href="#name-the-tee-isvprodid-type-meas" class="section-name selfRef">The tee-isvprodid-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.7-1">The <code>tee.isvprodid</code> extension enables the Attester to report the ISV product identifier Evidence value
-and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.7-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.7-2">The <code>$tee-isvprodid-type</code> is an unsigned integer.<a href="#section-5.2.7-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.7-3">The <code>$tee-isvprodid-type</code> is an exact match measurement.<a href="#section-5.2.7-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.7-4">
+<p id="section-5.2.8-1">The <code>tee.isvprodid</code> extension enables the Attester to report the ISV product identifier Evidence value
+and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.8-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.8-2">The <code>$tee-isvprodid-type</code> is an unsigned integer.<a href="#section-5.2.8-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.8-3">The <code>$tee-isvprodid-type</code> is an exact match measurement.<a href="#section-5.2.8-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.8-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.isvprodid: -85) =&gt; $tee-isvprodid-type
 )
 $tee-isvprodid-type /= uint
-</pre><a href="#section-5.2.7-4" class="pilcrow">¶</a>
+$tee-isvprodid-type /= bstr
+</pre><a href="#section-5.2.8-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-miscselect-type">
-<section id="section-5.2.8">
+<section id="section-5.2.9">
           <h4 id="name-the-tee-miscselect-type-mea">
-<a href="#section-5.2.8" class="section-number selfRef">5.2.8. </a><a href="#name-the-tee-miscselect-type-mea" class="section-name selfRef">The tee-miscselect-type Measurement Extension</a>
+<a href="#section-5.2.9" class="section-number selfRef">5.2.9. </a><a href="#name-the-tee-miscselect-type-mea" class="section-name selfRef">The tee-miscselect-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.8-1">The <code>tee.miscselect</code> extension enables the Attester to report the (TBD:miscselect-description) Evidence value
-and the RVP to assert a Reference Value and mask.<a href="#section-5.2.8-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.8-2">The <code>$tee-miscselect-type</code> is a 4 byte value and mask.<a href="#section-5.2.8-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.8-3">The <code>$tee-miscselect-type</code> is a singleton <code>mask-type</code> value when used as Endorsement or Evidence
-and a <code>tagged-mask-expression</code> when used a Reference Value.<a href="#section-5.2.8-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.8-4">
+<p id="section-5.2.9-1">The <code>tee.miscselect</code> extension enables the Attester to report the (TBD:miscselect-description) Evidence value
+and the RVP to assert a Reference Value and mask.<a href="#section-5.2.9-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.9-2">The <code>$tee-miscselect-type</code> is a 4 byte value and mask.<a href="#section-5.2.9-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.9-3">The <code>$tee-miscselect-type</code> is a singleton <code>mask-type</code> value when used as Endorsement or Evidence
+and a <code>tagged-mask-expression</code> when used a Reference Value.<a href="#section-5.2.9-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.9-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.miscselect: -81) =&gt; $tee-miscselect-type
 )
 $tee-miscselect-type /= mask-type
 $tee-miscselect-type /= tagged-exp-mask-eq
-</pre><a href="#section-5.2.8-4" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.9-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-model-type">
-<section id="section-5.2.9">
+<section id="section-5.2.10">
           <h4 id="name-the-tee-model-type-measurem">
-<a href="#section-5.2.9" class="section-number selfRef">5.2.9. </a><a href="#name-the-tee-model-type-measurem" class="section-name selfRef">The tee-model-type Measurement Extension</a>
+<a href="#section-5.2.10" class="section-number selfRef">5.2.10. </a><a href="#name-the-tee-model-type-measurem" class="section-name selfRef">The tee-model-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.9-1">The <code>tee.model</code> extension enables the Attester to report the TEE model string as Evidence
-and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.9-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.9-2">The <code>$tee-model-type</code> is a string.<a href="#section-5.2.9-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.9-3">The <code>$tee-model-type</code> is an exact match measurement.<a href="#section-5.2.9-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.9-4">
+<p id="section-5.2.10-1">The <code>tee.model</code> extension enables the Attester to report the TEE model string as Evidence
+and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.10-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.10-2">The <code>$tee-model-type</code> is a string.<a href="#section-5.2.10-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.10-3">The <code>$tee-model-type</code> is an exact match measurement.<a href="#section-5.2.10-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.10-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.model: -71) =&gt; $tee-model-type
 )
 $tee-model-type /= tstr
-</pre><a href="#section-5.2.9-4" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.10-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-pceid-type">
-<section id="section-5.2.10">
+<section id="section-5.2.11">
           <h4 id="name-the-tee-pceid-type-measurem">
-<a href="#section-5.2.10" class="section-number selfRef">5.2.10. </a><a href="#name-the-tee-pceid-type-measurem" class="section-name selfRef">The tee-pceid-type Measurement Extension</a>
+<a href="#section-5.2.11" class="section-number selfRef">5.2.11. </a><a href="#name-the-tee-pceid-type-measurem" class="section-name selfRef">The tee-pceid-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.10-1">The <code>tee.pceid</code> extension enables the Attester to report the (TBD:pceid-description) as Evidence
-and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.10-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.10-2">The <code>$tee-pceid-type</code> is a string.<a href="#section-5.2.10-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.10-3">The <code>$tee-pceid-type</code> is an exact match measurement.<a href="#section-5.2.10-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.10-4">
+<p id="section-5.2.11-1">The <code>tee.pceid</code> extension enables the Attester to report the (TBD:pceid-description) as Evidence
+and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.11-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.11-2">The <code>$tee-pceid-type</code> is a string.<a href="#section-5.2.11-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.11-3">The <code>$tee-pceid-type</code> is an exact match measurement.<a href="#section-5.2.11-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.11-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.pceid: -80) =&gt; $tee-pceid-type
 )
 $tee-pceid-type /= tstr
-</pre><a href="#section-5.2.10-4" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="sec-tee-ppid-type">
-<section id="section-5.2.11">
-          <h4 id="name-the-tee-ppid-type-measureme">
-<a href="#section-5.2.11" class="section-number selfRef">5.2.11. </a><a href="#name-the-tee-ppid-type-measureme" class="section-name selfRef">The tee-ppid-type Measurement Extension</a>
-          </h4>
-<p id="section-5.2.11-1">The <code>tee.ppid</code> extension enables the Attester to report the (TDB:ppid-description) as Evidence
-and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.11-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.11-2">The <code>$tee-ppid-type</code> is an unsigned integer.<a href="#section-5.2.11-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.11-3">The <code>$tee-ppid-type</code> is an exact match measurement.<a href="#section-5.2.11-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.11-4">
-<pre>
-$$measurement-values-map-extension //= (
-  &amp;(tee.ppid: -78) =&gt; $tee-ppid-type
-)
-$tee-ppid-type /= uint
 </pre><a href="#section-5.2.11-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
-<div id="sec-tee-sgx-type">
-<section id="section-5.2.12">
-          <h4 id="name-the-tee-sgx-type-measuremen">
-<a href="#section-5.2.12" class="section-number selfRef">5.2.12. </a><a href="#name-the-tee-sgx-type-measuremen" class="section-name selfRef">The tee-sgx-type Measurement Extension</a>
-          </h4>
-<p id="section-5.2.12-1">The <code>tee.sgx-type</code> extension enables the Attester to report the (TDB:sgx-type-description) as Evidence
-and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.12-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.12-2">The <code>$tee-sgx-type</code> is an unsigned integer.<a href="#section-5.2.12-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.12-3">The <code>$tee-sgx-type</code> is an exact match measurement.<a href="#section-5.2.12-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.12-4">
-<pre>
-$$measurement-values-map-extension //= (
-  &amp;(tee.sgx-type: -76) =&gt; $tee-sgx-type
-)
-$tee-sgx-type /= uint
-</pre><a href="#section-5.2.12-4" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
 <div id="sec-tee-svn-type">
-<section id="section-5.2.13">
+<section id="section-5.2.12">
           <h4 id="name-the-tee-svn-type-measuremen">
-<a href="#section-5.2.13" class="section-number selfRef">5.2.13. </a><a href="#name-the-tee-svn-type-measuremen" class="section-name selfRef">The tee-svn-type Measurement Extension</a>
+<a href="#section-5.2.12" class="section-number selfRef">5.2.12. </a><a href="#name-the-tee-svn-type-measuremen" class="section-name selfRef">The tee-svn-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.13-1">The <code>tee.isvsvn</code> extension enables the Attester to report the SVN for the independent software vendor supplied
-component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.<a href="#section-5.2.13-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.13-2">The <code>tee.pcesvn</code> extension enables the Attester to report the SVN for the supplied TCB
-component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.<a href="#section-5.2.13-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.13-3">The <code>$tee-svn-type</code> is either an unsigned integer when reported as Evidence, or a tagged numeric expression
+<p id="section-5.2.12-1">The <code>tee.isvsvn</code> extension enables the Attester to report the SVN for the independent software vendor supplied
+component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.<a href="#section-5.2.12-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.12-2">The <code>$tee-svn-type</code> is either an unsigned integer when reported as Evidence, or a tagged numeric expression
 that contains an SVN and a numeric greater-than-or-equal operator. The Verifier ensures the Evidence value is
-greater-that-or-equal to the Reference Value.<a href="#section-5.2.13-3" class="pilcrow">¶</a></p>
-<p id="section-5.2.13-4">The <code>$tee-svn-type</code> is a numeric when used as Endorsement or Evidence and a <code>tagged-numeric-expression</code> when
-used as a Reference Value.<a href="#section-5.2.13-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.13-5">
+greater-that-or-equal to the Reference Value.<a href="#section-5.2.12-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.12-3">The <code>$tee-svn-type</code> is a numeric when used as Endorsement or Evidence and a <code>tagged-numeric-expression</code> when
+used as a Reference Value.<a href="#section-5.2.12-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.12-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.isvsvn: -73) =&gt; $tee-svn-type
 )
-
-$$measurement-values-map-extension //= (
-  &amp;(tee.pcesvn: -74) =&gt; $tee-svn-type
-)
 $tee-svn-type /= numeric-type
 $tee-svn-type /= tagged-numeric-ge
-</pre><a href="#section-5.2.13-5" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.12-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-tcb-comp-svn-type">
-<section id="section-5.2.14">
+<section id="section-5.2.13">
           <h4 id="name-the-tee-tcb-comp-svn-type-m">
-<a href="#section-5.2.14" class="section-number selfRef">5.2.14. </a><a href="#name-the-tee-tcb-comp-svn-type-m" class="section-name selfRef">The tee-tcb-comp-svn-type Measurement Extension</a>
+<a href="#section-5.2.13" class="section-number selfRef">5.2.13. </a><a href="#name-the-tee-tcb-comp-svn-type-m" class="section-name selfRef">The tee-tcb-comp-svn-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.14-1">The <code>tee.tcb-comp-svn</code> extension enables the Attester to report an array of SVN values for the TCB when asserted
-as Evidence and an array of <code>tagged-numeric-ge</code> entries when asserted as a Reference Value.<a href="#section-5.2.14-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.14-2">The <code>$tee-tcb-comp-svn-type</code> is an array containing 16 SVN values when reported as Evidence and an array of 16
+<p id="section-5.2.13-1">The <code>tee.tcb-comp-svn</code> extension enables the Attester to report an array of SVN values for the TCB when asserted
+as Evidence and an array of <code>tagged-numeric-ge</code> entries when asserted as a Reference Value.<a href="#section-5.2.13-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.13-2">The <code>$tee-tcb-comp-svn-type</code> is an array containing 16 SVN values when reported as Evidence and an array of 16
 expression records each containing the numeric <code>ge</code> operator and a reference SVN value.
 The Verifier evaluates each SVN in the Evidence array with the corresponding reference expression,
 by array position.
 If all Evidence values match their respective expressions, evaluation is successful.
-The array of SVN Evidence is accepted.<a href="#section-5.2.14-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.14-3">
+The array of SVN Evidence is accepted.<a href="#section-5.2.13-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.13-3">
 <pre>
 $$measurement-values-map-extension //= (
-  &amp;(tee.tcb-comp-svn: -79) =&gt; $tee-tcb-comp-svn-type
+  &amp;(tee.tcb-comp-svn: -125) =&gt; $tee-tcb-comp-svn-type
 )
 $tee-tcb-comp-svn-type /=
   [ 16*16 svn-type .within numeric-type ]
 $tee-tcb-comp-svn-type /=
   [ 16*16 tagged-numeric-ge ]
-</pre><a href="#section-5.2.14-3" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.13-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-tcb-eval-num-type">
-<section id="section-5.2.15">
+<section id="section-5.2.14">
           <h4 id="name-the-tee-tcb-eval-num-type-m">
-<a href="#section-5.2.15" class="section-number selfRef">5.2.15. </a><a href="#name-the-tee-tcb-eval-num-type-m" class="section-name selfRef">The tee-tcb-eval-num-type Measurement Extension</a>
+<a href="#section-5.2.14" class="section-number selfRef">5.2.14. </a><a href="#name-the-tee-tcb-eval-num-type-m" class="section-name selfRef">The tee-tcb-eval-num-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.15-1">The <code>tee.tcb-eval-num</code> extension enables the Attester to report a (TBD:tcb-eval-num-description)
+<p id="section-5.2.14-1">The <code>tee.tcb-eval-num</code> extension enables the Attester to report a (TBD:tcb-eval-num-description)
 as Evidence and the RVP to assert a Reference Value expression that compares the (TBD:tcb-eval-num-description) Evidence
-to the Reference Value (TBD:tcb-eval-num-description) using the greater-than-or-equal operator.<a href="#section-5.2.15-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.15-2">The <code>$tee-tcb-eval-num-type</code> is an unsigned integer when reported as Evidence and a tagged numeric expression when
-asserted as Reference Values.<a href="#section-5.2.15-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.15-3">
+to the Reference Value (TBD:tcb-eval-num-description) using the greater-than-or-equal operator.<a href="#section-5.2.14-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.14-2">The <code>$tee-tcb-eval-num-type</code> is an unsigned integer when reported as Evidence and a tagged numeric expression when
+asserted as Reference Values.<a href="#section-5.2.14-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.14-3">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee-tcb-eval-num: -86) =&gt; $tee-tcb-eval-num-type
 )
 $tee-tcb-eval-num-type /= uint .within numeric-type
 $tee-tcb-eval-num-type /= tagged-numeric-ge
-</pre><a href="#section-5.2.15-3" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.14-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-tcbstatus-type">
-<section id="section-5.2.16">
+<section id="section-5.2.15">
           <h4 id="name-the-tee-tcbstatus-type-meas">
-<a href="#section-5.2.16" class="section-number selfRef">5.2.16. </a><a href="#name-the-tee-tcbstatus-type-meas" class="section-name selfRef">The tee-tcbstatus-type Measurement Extension</a>
+<a href="#section-5.2.15" class="section-number selfRef">5.2.15. </a><a href="#name-the-tee-tcbstatus-type-meas" class="section-name selfRef">The tee-tcbstatus-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.16-1">The <code>tee.tcb-status</code> extension enables the Attester to report the status of the TEE trusted computing base (TCB) as
+<p id="section-5.2.15-1">The <code>tee.tcb-status</code> extension enables the Attester to report the status of the TEE trusted computing base (TCB) as
 an array of status strings, as Evidence, and the RVP to assert an array of status arrays as Reference Values where
-the Evidence array is a subset of the reference status arrays.<a href="#section-5.2.16-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.16-2">The <code>$tee-tcbstatus-type</code> is a status array with a set expressions containing the <code>subset</code> operator when used as Evidence.
-When used as a Reference Value it is an array of status arrays.<a href="#section-5.2.16-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.16-3">
+the Evidence array is a subset of the reference status arrays.<a href="#section-5.2.15-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.15-2">The <code>$tee-tcbstatus-type</code> is a status array with a set expressions containing the <code>subset</code> operator when used as Evidence.
+When used as a Reference Value it is an array of status arrays.<a href="#section-5.2.15-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.15-3">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbstatus: -88) =&gt; $tee-tcbstatus-type
 )
-$tee-tcbstatus-type /= ([ + tstr ])
-$tee-tcbstatus-type /= tagged-exp-subset
-</pre><a href="#section-5.2.16-3" class="pilcrow">¶</a>
+$tee-tcbstatus-type /= set-type
+$tee-tcbstatus-type /= tagged-exp-member
+</pre><a href="#section-5.2.15-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-vendor-type">
-<section id="section-5.2.17">
+<section id="section-5.2.16">
           <h4 id="name-the-tee-vendor-type-measure">
-<a href="#section-5.2.17" class="section-number selfRef">5.2.17. </a><a href="#name-the-tee-vendor-type-measure" class="section-name selfRef">The tee-vendor-type Measurement Extension</a>
+<a href="#section-5.2.16" class="section-number selfRef">5.2.16. </a><a href="#name-the-tee-vendor-type-measure" class="section-name selfRef">The tee-vendor-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.17-1">The <code>tee.vendor</code> extension enables the Attester to report the TEE vendor name as Evidence and for the RVP to assert
-the TEE vendor name.<a href="#section-5.2.17-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.17-2">The <code>$tee-vendor-type</code> is a string containing the vendor name as a string. The vendor string in Evidence must
-exactly match the vendor string in Reference Values.<a href="#section-5.2.17-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.17-3">The <code>$tee-vendor-type</code> is an exact match measurement.<a href="#section-5.2.17-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.17-4">
+<p id="section-5.2.16-1">The <code>tee.vendor</code> extension enables the Attester to report the TEE vendor name as Evidence and for the RVP to assert
+the TEE vendor name.<a href="#section-5.2.16-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.16-2">The <code>$tee-vendor-type</code> is a string containing the vendor name as a string. The vendor string in Evidence must
+exactly match the vendor string in Reference Values.<a href="#section-5.2.16-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.16-3">The <code>$tee-vendor-type</code> is an exact match measurement.<a href="#section-5.2.16-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-5.2.16-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.vendor: -70) =&gt; $tee-vendor-type
 )
 $tee-vendor-type /= tstr
-</pre><a href="#section-5.2.17-4" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.16-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2317,11 +2282,13 @@ Verifiers do not assume the spanning tree is defined by Evidence.
 Note that a failure or comporomise within the Attester device could result in a portion of the spanning tree being omitted.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 <p id="section-6.1-4">Example spanning tree:<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.1-5.1">A DICE certificate chain with a DiceTcbInfo extension, a DiceTcbInfoSeq extension, and a <code>ConceptualMessageWrapper</code> (CMW)
-<span>[<a href="#I-D.ftbs-rats-msg-wrap" class="cite xref">I-D.ftbs-rats-msg-wrap</a>]</span> extension containing a CBOR-encoded <code>tagged-concise-evidence</code>.<a href="#section-6.1-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-6.1-5.1">
+            <p id="section-6.1-5.1.1">A DICE certificate chain with a DiceTcbInfo extension, a DiceTcbInfoSeq extension, and a <code>ConceptualMessageWrapper</code> (CMW)
+<span>[<a href="#I-D.ftbs-rats-msg-wrap" class="cite xref">I-D.ftbs-rats-msg-wrap</a>]</span> extension containing a CBOR-encoded <code>tagged-concise-evidence</code>.<a href="#section-6.1-5.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-6.1-5.2">An SPMD alias intermediate certification chain containing a CMW extension, and an SPDM measurement manifest containing
-<code>tagged-concise-evidence</code>.<a href="#section-6.1-5.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-6.1-5.2">
+            <p id="section-6.1-5.2.1">An SPMD alias intermediate certification chain containing a CMW extension, and an SPDM measurement manifest containing
+<code>tagged-concise-evidence</code>.<a href="#section-6.1-5.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -2429,15 +2396,20 @@ that the Relying Party and Verifier both support the schema extensions defined i
 <p id="section-10-1">This document uses the IANA CBOR tag registry. See <span>[<a href="#IANA.CBOR" class="cite xref">IANA.CBOR</a>]</span><a href="#section-10-1" class="pilcrow">¶</a></p>
 <p id="section-10-2">The document requests reservation of the following CBOR tag:<a href="#section-10-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-10-3.1">Requested tag: 60010<a href="#section-10-3.1" class="pilcrow">¶</a>
+<li class="normal" id="section-10-3.1">
+          <p id="section-10-3.1.1">Requested tag: 60010<a href="#section-10-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-10-3.2">Data item: array<a href="#section-10-3.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-10-3.2">
+          <p id="section-10-3.2.1">Data item: array<a href="#section-10-3.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-10-3.3">Semantics: a CBOR encoded array<a href="#section-10-3.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-10-3.3">
+          <p id="section-10-3.3.1">Semantics: a CBOR encoded array<a href="#section-10-3.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-10-3.4">Point of contact: ned.smith&amp;intel.com<a href="#section-10-3.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-10-3.4">
+          <p id="section-10-3.4.1">Point of contact: ned.smith&amp;intel.com<a href="#section-10-3.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-10-3.5">Description of semantics: this document<a href="#section-10-3.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-10-3.5">
+          <p id="section-10-3.5.1">Description of semantics: this document<a href="#section-10-3.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -2446,6 +2418,7 @@ that the Relying Party and Verifier both support the schema extensions defined i
       <h2 id="name-references">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
 <section id="section-11.1">
         <h3 id="name-normative-references">
 <a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
@@ -2465,11 +2438,11 @@ that the Relying Party and Verifier both support the schema extensions defined i
 <dd class="break"></dd>
 <dt id="I-D.ftbs-rats-msg-wrap">[I-D.ftbs-rats-msg-wrap]</dt>
         <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Smith, N.</span>, <span class="refAuthor">Fossati, T.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"RATS Conceptual Messages Wrapper"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ftbs-rats-msg-wrap-03</span>, <time datetime="2023-06-15" class="refDate">15 June 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ftbs-rats-msg-wrap-03">https://datatracker.ietf.org/doc/html/draft-ftbs-rats-msg-wrap-03</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Smith, N.</span>, <span class="refAuthor">Fossati, T.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"RATS Conceptual Messages Wrapper"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ftbs-rats-msg-wrap-05</span>, <time datetime="2023-11-07" class="refDate">7 November 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ftbs-rats-msg-wrap-05">https://datatracker.ietf.org/doc/html/draft-ftbs-rats-msg-wrap-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-rats-corim">[I-D.ietf-rats-corim]</dt>
         <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Deshpande, Y.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Concise Reference Integrity Manifest"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-corim-02</span>, <time datetime="2023-07-10" class="refDate">10 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-02">https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-02</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Deshpande, Y.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Concise Reference Integrity Manifest"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-corim-03</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-03">https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-sacm-coswid">[I-D.ietf-sacm-coswid]</dt>
         <dd>
@@ -2493,6 +2466,8 @@ that the Relying Party and Verifier both support the schema extensions defined i
 <dd class="break"></dd>
 </dl>
 </section>
+</div>
+<div id="sec-informative-references">
 <section id="section-11.2">
         <h3 id="name-informative-references">
 <a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
@@ -2508,11 +2483,11 @@ that the Relying Party and Verifier both support the schema extensions defined i
 <dd class="break"></dd>
 <dt id="I-D.birkholz-rats-epoch-markers">[I-D.birkholz-rats-epoch-markers]</dt>
         <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Pan, W.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Epoch Markers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-birkholz-rats-epoch-markers-05</span>, <time datetime="2023-07-10" class="refDate">10 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-birkholz-rats-epoch-markers-05">https://datatracker.ietf.org/doc/html/draft-birkholz-rats-epoch-markers-05</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Pan, W.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Epoch Markers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-birkholz-rats-epoch-markers-06</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-birkholz-rats-epoch-markers-06">https://datatracker.ietf.org/doc/html/draft-birkholz-rats-epoch-markers-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-rats-ar4si">[I-D.ietf-rats-ar4si]</dt>
         <dd>
-<span class="refAuthor">Voit, E.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Hardjono, T.</span>, <span class="refAuthor">Fossati, T.</span>, and <span class="refAuthor">V. Scarlata</span>, <span class="refTitle">"Attestation Results for Secure Interactions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-ar4si-04</span>, <time datetime="2023-03-02" class="refDate">2 March 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-ar4si-04">https://datatracker.ietf.org/doc/html/draft-ietf-rats-ar4si-04</a>&gt;</span>. </dd>
+<span class="refAuthor">Voit, E.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Hardjono, T.</span>, <span class="refAuthor">Fossati, T.</span>, and <span class="refAuthor">V. Scarlata</span>, <span class="refTitle">"Attestation Results for Secure Interactions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-ar4si-05</span>, <time datetime="2023-08-30" class="refDate">30 August 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-ar4si-05">https://datatracker.ietf.org/doc/html/draft-ietf-rats-ar4si-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5280">[RFC5280]</dt>
         <dd>
@@ -2528,6 +2503,7 @@ that the Relying Party and Verifier both support the schema extensions defined i
 <dd class="break"></dd>
 </dl>
 </section>
+</div>
 </section>
 <div id="full-intel-profile-cddl">
 <section id="appendix-A">
@@ -2669,14 +2645,19 @@ $epoch-timestamp-type /= $tagged-epoch-id
 $$measurement-values-map-extension //= (
   &amp;(tee.advisory-ids: -89) =&gt; $tee-advisory-ids-type
 )
-$tee-advisory-ids-type /= ([ + tstr  ])
-$tee-advisory-ids-type /= tagged-exp-disjoint
+$tee-advisory-ids-type /= set-type
+$tee-advisory-ids-type /= tagged-exp-not-member
 
 $$measurement-values-map-extension //= (
   &amp;(tee.attributes: -82) =&gt; $tee-attributes-type
 )
 $tee-attributes-type /= mask-type
 $tee-attributes-type /= tagged-exp-mask-eq
+
+$$measurement-values-map-extension //= (
+  &amp;(tee.cryptokeys: -91) =&gt; [ + $tee-cryptokey-type ]
+)
+$tee-cryptokey-type /= $crypto-key-type-choice
 
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbdate: -72) =&gt; $tee-date-type
@@ -2686,12 +2667,13 @@ $tee-date-type /= tagged-exp-tdate-ge
 $tee-date-type /= tagged-exp-epoch-ge
 
 $$measurement-values-map-extension //= (
-  &amp;(tee.mrenclave: -83) =&gt; $tee-digest-type
+  &amp;(tee.mrtee: -83) =&gt; $tee-digest-type
 )
 $$measurement-values-map-extension //= (
   &amp;(tee.mrsigner: -84) =&gt; $tee-digest-type
 )
-$tee-digest-type /= hash-entry .within set-type
+$tee-digest-type /= digest
+$tee-digest-type /= [ + digest ]
 $tee-digest-type /= tagged-exp-member
 
 $$measurement-values-map-extension //= (
@@ -2704,11 +2686,13 @@ $$measurement-values-map-extension //= (
   &amp;(tee.instance-id: -77) =&gt; $tee-instance-id-type
 )
 $tee-instance-id-type /= uint
+$tee-instance-id-type /= bstr
 
 $$measurement-values-map-extension //= (
   &amp;(tee.isvprodid: -85) =&gt; $tee-isvprodid-type
 )
 $tee-isvprodid-type /= uint
+$tee-isvprodid-type /= bstr
 
 $$measurement-values-map-extension //= (
   &amp;(tee.miscselect: -81) =&gt; $tee-miscselect-type
@@ -2727,27 +2711,13 @@ $$measurement-values-map-extension //= (
 $tee-pceid-type /= tstr
 
 $$measurement-values-map-extension //= (
-  &amp;(tee.ppid: -78) =&gt; $tee-ppid-type
-)
-$tee-ppid-type /= uint
-
-$$measurement-values-map-extension //= (
-  &amp;(tee.sgx-type: -76) =&gt; $tee-sgx-type
-)
-$tee-sgx-type /= uint
-
-$$measurement-values-map-extension //= (
   &amp;(tee.isvsvn: -73) =&gt; $tee-svn-type
-)
-
-$$measurement-values-map-extension //= (
-  &amp;(tee.pcesvn: -74) =&gt; $tee-svn-type
 )
 $tee-svn-type /= numeric-type
 $tee-svn-type /= tagged-numeric-ge
 
 $$measurement-values-map-extension //= (
-  &amp;(tee.tcb-comp-svn: -79) =&gt; $tee-tcb-comp-svn-type
+  &amp;(tee.tcb-comp-svn: -125) =&gt; $tee-tcb-comp-svn-type
 )
 $tee-tcb-comp-svn-type /=
   [ 16*16 svn-type .within numeric-type ]
@@ -2763,8 +2733,8 @@ $tee-tcb-eval-num-type /= tagged-numeric-ge
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbstatus: -88) =&gt; $tee-tcbstatus-type
 )
-$tee-tcbstatus-type /= ([ + tstr ])
-$tee-tcbstatus-type /= tagged-exp-subset
+$tee-tcbstatus-type /= set-type
+$tee-tcbstatus-type /= tagged-exp-member
 
 $$measurement-values-map-extension //= (
   &amp;(tee.vendor: -70) =&gt; $tee-vendor-type

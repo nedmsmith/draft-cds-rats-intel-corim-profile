@@ -5,8 +5,8 @@
 Remote ATtestation ProcedureS                                     S. Cen
 Internet-Draft                                                 A. Draper
 Intended status: Informational                                  N. Smith
-Expires: 23 March 2024                                 Intel Corporation
-                                                       20 September 2023
+Expires: 9 June 2024                                   Intel Corporation
+                                                         7 December 2023
 
 
                         Intel Profile for CoRIM
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 March 2024.
+   This Internet-Draft will expire on 9 June 2024.
 
 Copyright Notice
 
@@ -831,12 +831,13 @@ Table of Contents
    digest record must be a member of the Reference Values set.
 
    $$measurement-values-map-extension //= (
-     &(tee.mrenclave: -83) => $tee-digest-type
+     &(tee.mrtee: -83) => $tee-digest-type
    )
    $$measurement-values-map-extension //= (
      &(tee.mrsigner: -84) => $tee-digest-type
    )
-   $tee-digest-type /= digest .within set-type
+   $tee-digest-type /= digest
+   $tee-digest-type /= [ + digest ]
    $tee-digest-type /= tagged-exp-member
 
 5.2.6.  The tee-epoch-type Measurement Extension
@@ -877,6 +878,7 @@ Table of Contents
      &(tee.instance-id: -77) => $tee-instance-id-type
    )
    $tee-instance-id-type /= uint
+   $tee-instance-id-type /= bstr
 
 5.2.8.  The tee-isvprodid-type Measurement Extension
 
@@ -1230,16 +1232,16 @@ Table of Contents
    [I-D.ftbs-rats-msg-wrap]
               Birkholz, H., Smith, N., Fossati, T., and H. Tschofenig,
               "RATS Conceptual Messages Wrapper", Work in Progress,
-              Internet-Draft, draft-ftbs-rats-msg-wrap-03, 15 June 2023,
-              <https://datatracker.ietf.org/doc/html/draft-ftbs-rats-
-              msg-wrap-03>.
+              Internet-Draft, draft-ftbs-rats-msg-wrap-05, 7 November
+              2023, <https://datatracker.ietf.org/doc/html/draft-ftbs-
+              rats-msg-wrap-05>.
 
    [I-D.ietf-rats-corim]
               Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
-              Progress, Internet-Draft, draft-ietf-rats-corim-02, 10
-              July 2023, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-rats-corim-02>.
+              Progress, Internet-Draft, draft-ietf-rats-corim-03, 23
+              October 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-corim-03>.
 
    [I-D.ietf-sacm-coswid]
               Birkholz, H., Fitzgerald-McKay, J., Schmidt, C., and D.
@@ -1287,9 +1289,9 @@ Table of Contents
    [I-D.birkholz-rats-epoch-markers]
               Birkholz, H., Fossati, T., Pan, W., and C. Bormann, "Epoch
               Markers", Work in Progress, Internet-Draft, draft-
-              birkholz-rats-epoch-markers-05, 10 July 2023,
+              birkholz-rats-epoch-markers-06, 23 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-birkholz-
-              rats-epoch-markers-05>.
+              rats-epoch-markers-06>.
 
    [I-D.ietf-rats-ar4si]
               Voit, E., Birkholz, H., Hardjono, T., Fossati, T., and V.
@@ -1471,12 +1473,13 @@ Appendix A.  Full Intel Profile CDDL
    $tee-date-type /= tagged-exp-epoch-ge
 
    $$measurement-values-map-extension //= (
-     &(tee.mrenclave: -83) => $tee-digest-type
+     &(tee.mrtee: -83) => $tee-digest-type
    )
    $$measurement-values-map-extension //= (
      &(tee.mrsigner: -84) => $tee-digest-type
    )
-   $tee-digest-type /= digest .within set-type
+   $tee-digest-type /= digest
+   $tee-digest-type /= [ + digest ]
    $tee-digest-type /= tagged-exp-member
 
    $$measurement-values-map-extension //= (
@@ -1489,6 +1492,7 @@ Appendix A.  Full Intel Profile CDDL
      &(tee.instance-id: -77) => $tee-instance-id-type
    )
    $tee-instance-id-type /= uint
+   $tee-instance-id-type /= bstr
 
    $$measurement-values-map-extension //= (
      &(tee.isvprodid: -85) => $tee-isvprodid-type
