@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-07T01:05:03.314953+00:00",
+  "timestamp": "2023-12-10T01:09:12.587597+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -81,7 +81,7 @@
       "comments": [
         {
           "author": "williamcroberts",
-          "authorAssociation": "COLLABORATOR",
+          "authorAssociation": "NONE",
           "body": "LGTM",
           "createdAt": "2023-06-20T13:53:22Z",
           "updatedAt": "2023-06-20T13:53:22Z"
@@ -152,7 +152,7 @@
             "abbreviatedOid": "5d9a349"
           },
           "author": "williamcroberts",
-          "authorAssociation": "COLLABORATOR",
+          "authorAssociation": "NONE",
           "state": "APPROVED",
           "body": "My limited knowledge, lgtm. The comment changes were helpful.",
           "createdAt": "2023-06-21T13:56:22Z",
@@ -878,6 +878,50 @@
           "body": "looks good.",
           "createdAt": "2023-09-26T17:48:05Z",
           "updatedAt": "2023-09-26T17:48:05Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOJvkHy85hdFem",
+      "title": "Update Makefile",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/22",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "added target that scans in-use code points.",
+      "createdAt": "2023-12-07T18:54:51Z",
+      "updatedAt": "2023-12-07T21:10:25Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "33fb118390d7ba4553eb6cdef2c41363c5fa27bd",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "make-code-pts",
+      "headRefOid": "795c30f7c24d208072adfb0b0efc2d218083cb1f",
+      "closedAt": "2023-12-07T21:10:25Z",
+      "mergedAt": "2023-12-07T21:10:25Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "9660fdeceddce6b92b42fe06a683d1bf24564d65"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85pkVxy",
+          "commit": {
+            "abbreviatedOid": "795c30f"
+          },
+          "author": "jdbeaney",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-12-07T21:09:12Z",
+          "updatedAt": "2023-12-07T21:09:12Z",
           "comments": []
         }
       ]
