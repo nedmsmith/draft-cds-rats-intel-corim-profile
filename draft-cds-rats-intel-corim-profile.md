@@ -36,15 +36,19 @@ pi:
   docmapping: yes
 
 author:
- -  ins: S. Cen
-    fullname: Shanwei Cen
+ -  ins: J. Beaney
+    fullname: James D. Beaney
     organization: Intel Corporation
-    email: shanwei.cen@intel.com
+    email: james.d.beaney@intel.com
  -  ins: A. Draper
     fullname: Andrew Draper
     organization: Intel Corporation
     email: andrew.draper@intel.com
- -  ins: N. Smith
+-  ins: V. Scarlata
+    fullname: Vincent R. Scarlata
+    organization: Intel Corporation
+    email: vincent.r.scarlata@intel.com
+-  ins: N. Smith
     fullname: Ned Smith
     organization: Intel Corporation
     email: ned.smith@intel.com
