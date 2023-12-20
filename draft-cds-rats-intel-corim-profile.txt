@@ -2,11 +2,12 @@
 
 
 
-Remote ATtestation ProcedureS                                     S. Cen
+Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                                 A. Draper
-Intended status: Informational                                  N. Smith
-Expires: 9 June 2024                                   Intel Corporation
-                                                         7 December 2023
+Intended status: Informational                               V. Scarlata
+Expires: 22 June 2024                                           N. Smith
+                                                       Intel Corporation
+                                                        20 December 2023
 
 
                         Intel Profile for CoRIM
@@ -58,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 June 2024.
+   This Internet-Draft will expire on 22 June 2024.
 
 Copyright Notice
 
@@ -1584,14 +1585,19 @@ Acknowledgments
 
 Authors' Addresses
 
-   Shanwei Cen
+   James D. Beaney
    Intel Corporation
-   Email: shanwei.cen@intel.com
+   Email: james.d.beaney@intel.com
 
 
    Andrew Draper
    Intel Corporation
    Email: andrew.draper@intel.com
+
+
+   Vincent R. Scarlata
+   Intel Corporation
+   Email: vincent.r.scarlata@intel.com
 
 
    Ned Smith
