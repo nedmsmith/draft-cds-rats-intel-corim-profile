@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-19T01:04:35.205751+00:00",
+  "timestamp": "2023-12-21T01:03:31.597200+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -931,7 +931,7 @@
       "id": "PR_kwDOJvkHy85iTTLd",
       "title": "Update draft-cds-rats-intel-corim-profile.md",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/23",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -940,17 +940,19 @@
       "labels": [],
       "body": "updated authors list - fixed formatting errrors",
       "createdAt": "2023-12-18T20:08:34Z",
-      "updatedAt": "2023-12-18T20:08:47Z",
+      "updatedAt": "2023-12-20T19:04:51Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "1681ed3a7d2d0875af6acb1ad161924ce1b0c5a1",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "upd-authors",
       "headRefOid": "ecb5fd983d7df813c67ab19f05140985fb390984",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-12-20T19:04:51Z",
+      "mergedAt": "2023-12-20T19:04:51Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "21f5b59cd4d97dbb77e4cfc4d223c7cabce5d171"
+      },
       "comments": [],
       "reviews": []
     }
