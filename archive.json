@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-22T01:00:03.780955+00:00",
+  "timestamp": "2024-02-25T01:04:32.113144+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -961,7 +961,7 @@
       "id": "PR_kwDOJvkHy85nkgVM",
       "title": "Fix cddl v10 6",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/24",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -970,19 +970,35 @@
       "labels": [],
       "body": "Updated tooling",
       "createdAt": "2024-02-21T20:21:49Z",
-      "updatedAt": "2024-02-21T20:22:05Z",
+      "updatedAt": "2024-02-22T01:29:53Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "e56cb12c61048796cbc4e253e7f68f0739068006",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "fix-cddl-v10-6",
       "headRefOid": "1ed086bcdbb7b38d27d85a0d548783541c6c418b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-02-22T01:29:53Z",
+      "mergedAt": "2024-02-22T01:29:53Z",
+      "mergedBy": "vinscarlata",
+      "mergeCommit": {
+        "oid": "f70ef859e51995b3b117fd4055159017d99bcd06"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85w7tub",
+          "commit": {
+            "abbreviatedOid": "1ed086b"
+          },
+          "author": "vinscarlata",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-22T01:29:48Z",
+          "updatedAt": "2024-02-22T01:29:48Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
