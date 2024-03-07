@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-05T01:00:28.956901+00:00",
+  "timestamp": "2024-03-07T00:50:39.831536+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "Hi @nedmsmith . I am Ding from [Confidential Containers](https://github.com/confidential-containers) which aiming to provide cloud native way to leverage TEE ability for containerized workload. Now I am working on the reference value publishment and consumption of the components running inside TEE (like kernel, guest firmware, ..., e.g. `mr_td`, `rtmr`s for TDX, etc.).\r\n\r\nTwo aims from my side\r\n- Use a standard format as carrier of reference values. CoRIM is from IETF RATS and I'd like to use it first.\r\n- The format should be extensible for different platforms, aiming for SGX/TDX/SNP/CCA/...\r\n\r\nI have read the slides about [CoRIM based attestation framework](https://github.com/CCC-Attestation/meetings/blob/main/materials/ShanweiCen_CORIM_based_Attestation_Framework.pdf) which follows the `measurement-values-map-extension` fields defined in this repo. This could help SGX to give reference values for fields like `MRENCLAVE`. \r\n\r\nMy question is how to apply this standard on TDX and other platforms? Is there anything I ignored or do you have any plan?\r\n\r\nThanks a lot!",
       "createdAt": "2024-03-04T09:18:44Z",
-      "updatedAt": "2024-03-04T16:51:45Z",
+      "updatedAt": "2024-03-06T16:59:39Z",
       "closedAt": null,
       "comments": [
         {
@@ -71,6 +71,20 @@
           "body": "There are examples in https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/tree/main/cddl/examples that show Reference Values in cbor diag format. MRENCLAVE is modeled as a digest type. The Intel profile uses a different name from `mrenclave`. Instead, it is `tee.mrtee` (see -83). The name change allows sgx and tdx to use consistent naming.",
           "createdAt": "2024-03-04T16:51:43Z",
           "updatedAt": "2024-03-04T16:51:43Z"
+        },
+        {
+          "author": "Xynnn007",
+          "authorAssociation": "NONE",
+          "body": "Thanks for your reply @nedmsmith \r\n\r\nThere is a practical problem. If I want to give a reference value manifest for `tdx-module`, I found there is [an example](https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/blob/main/cddl/examples/irim-seam-crs.diag)\r\n\r\n```\r\n          / measurement-map / {\r\n            / mval / 1 : / measurement-values-map / {\r\n              / vendor / -70 : \"Intel Corporation\",\r\n              / model / -71 : \"TDX SEAM\",\r\n              / attributes / -82 : 60010([ 1, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000']), / *** 16 bytes *** /\r\n              / isvprodid / -85 : 1,\r\n              / isvsvn / -73 : 60010([ /op.ge/ 2, 6 ]),\r\n              / mrsigner / -84 : [\r\n                / alg-id / 1, / sha256 /\r\n                / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'\r\n              ]\r\n            },\r\n            / authorized-by / 2 : [\r\n              / tagged-pkix-base64-key-type / 554(\"base64_key_X\")\r\n            ]\r\n```\r\nAnd also quote.body format for TDX defined in DCAP\r\n```\r\ntypedef struct _sgx_report2_body_t {\r\n    tee_tcb_svn_t       tee_tcb_svn;          ///<  0:  TEE_TCB_SVN Array\r\n    tee_measurement_t   mr_seam;              ///< 16:  Measurement of the SEAM module\r\n    tee_measurement_t   mrsigner_seam;        ///< 64:  Measurement of a 3rd party SEAM module\u2019s signer (SHA384 hash). \r\n                                              ///       The value is 0\u2019ed for Intel SEAM module\r\n    tee_attributes_t    seam_attributes;      ///< 112: MBZ: TDX 1.0\r\n    tee_attributes_t    td_attributes;        ///< 120: TD's attributes\r\n    tee_attributes_t    xfam;                 ///< 128: TD's XFAM\r\n    tee_measurement_t   mr_td;                ///< 136: Measurement of the initial contents of the TD\r\n    tee_measurement_t   mr_config_id;         ///< 184: Software defined ID for non-owner-defined configuration on the guest TD. e.g., runtime or OS configuration\r\n    tee_measurement_t   mr_owner;             ///< 232: Software defined ID for the guest TD's owner\r\n    tee_measurement_t   mr_owner_config;      ///< 280: Software defined ID for owner-defined configuration of the guest TD, e.g., specific to the workload rather than the runtime or OS\r\n    tee_measurement_t   rt_mr[4];             ///< 328: Array of 4(TDX1: NUM_RTMRS is 4) runtime extendable measurement registers\r\n    tee_report_data_t   report_data;          ///< 520: Additional report data\r\n}sgx_report2_body_t;\r\n```\r\n\r\nSo the implied mapping here is\r\n- `mval.attributes` -> `quote.body.seam_attributes`\r\n- `mval.mrsigner` -> `quote.body.mrsigner_seam`\r\n- `mval.isvsvn` -> `quote.body.tee_tcb_svn`\r\n\r\nRight?",
+          "createdAt": "2024-03-05T09:56:06Z",
+          "updatedAt": "2024-03-05T09:56:06Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "I believe that is a correct mapping. The thing to note is the profile relies on `environment-map` to disambiguate the object to which measurements apply. The DCAP usage encodes or implies the object in the measurement name. For example \"mrsigner_seam\" implies the seam object has the mrsigner measurement.",
+          "createdAt": "2024-03-06T16:59:38Z",
+          "updatedAt": "2024-03-06T16:59:38Z"
         }
       ]
     }
