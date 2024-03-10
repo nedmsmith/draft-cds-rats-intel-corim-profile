@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-07T00:50:39.831536+00:00",
+  "timestamp": "2024-03-10T01:04:42.956282+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "Hi @nedmsmith . I am Ding from [Confidential Containers](https://github.com/confidential-containers) which aiming to provide cloud native way to leverage TEE ability for containerized workload. Now I am working on the reference value publishment and consumption of the components running inside TEE (like kernel, guest firmware, ..., e.g. `mr_td`, `rtmr`s for TDX, etc.).\r\n\r\nTwo aims from my side\r\n- Use a standard format as carrier of reference values. CoRIM is from IETF RATS and I'd like to use it first.\r\n- The format should be extensible for different platforms, aiming for SGX/TDX/SNP/CCA/...\r\n\r\nI have read the slides about [CoRIM based attestation framework](https://github.com/CCC-Attestation/meetings/blob/main/materials/ShanweiCen_CORIM_based_Attestation_Framework.pdf) which follows the `measurement-values-map-extension` fields defined in this repo. This could help SGX to give reference values for fields like `MRENCLAVE`. \r\n\r\nMy question is how to apply this standard on TDX and other platforms? Is there anything I ignored or do you have any plan?\r\n\r\nThanks a lot!",
       "createdAt": "2024-03-04T09:18:44Z",
-      "updatedAt": "2024-03-06T16:59:39Z",
+      "updatedAt": "2024-03-07T09:31:41Z",
       "closedAt": null,
       "comments": [
         {
@@ -85,6 +85,13 @@
           "body": "I believe that is a correct mapping. The thing to note is the profile relies on `environment-map` to disambiguate the object to which measurements apply. The DCAP usage encodes or implies the object in the measurement name. For example \"mrsigner_seam\" implies the seam object has the mrsigner measurement.",
           "createdAt": "2024-03-06T16:59:38Z",
           "updatedAt": "2024-03-06T16:59:38Z"
+        },
+        {
+          "author": "Xynnn007",
+          "authorAssociation": "NONE",
+          "body": "Thanks very much. Do you have any plan inside Intel to publish reference values of TDX stack using CoRIM?",
+          "createdAt": "2024-03-07T09:31:40Z",
+          "updatedAt": "2024-03-07T09:31:40Z"
         }
       ]
     }
