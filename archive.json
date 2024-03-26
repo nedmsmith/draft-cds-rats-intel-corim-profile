@@ -1,0 +1,1050 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-03-26T01:01:08.754632+00:00",
+  "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 25,
+      "id": "I_kwDOJvkHy86BH_Rb",
+      "title": "CoRIM standard for TDX",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/25",
+      "state": "OPEN",
+      "author": "Xynnn007",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi @nedmsmith . I am Ding from [Confidential Containers](https://github.com/confidential-containers) which aiming to provide cloud native way to leverage TEE ability for containerized workload. Now I am working on the reference value publishment and consumption of the components running inside TEE (like kernel, guest firmware, ..., e.g. `mr_td`, `rtmr`s for TDX, etc.).\r\n\r\nTwo aims from my side\r\n- Use a standard format as carrier of reference values. CoRIM is from IETF RATS and I'd like to use it first.\r\n- The format should be extensible for different platforms, aiming for SGX/TDX/SNP/CCA/...\r\n\r\nI have read the slides about [CoRIM based attestation framework](https://github.com/CCC-Attestation/meetings/blob/main/materials/ShanweiCen_CORIM_based_Attestation_Framework.pdf) which follows the `measurement-values-map-extension` fields defined in this repo. This could help SGX to give reference values for fields like `MRENCLAVE`. \r\n\r\nMy question is how to apply this standard on TDX and other platforms? Is there anything I ignored or do you have any plan?\r\n\r\nThanks a lot!",
+      "createdAt": "2024-03-04T09:18:44Z",
+      "updatedAt": "2024-03-07T09:31:41Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "There are examples in https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/tree/main/cddl/examples that show Reference Values in cbor diag format. MRENCLAVE is modeled as a digest type. The Intel profile uses a different name from `mrenclave`. Instead, it is `tee.mrtee` (see -83). The name change allows sgx and tdx to use consistent naming.",
+          "createdAt": "2024-03-04T16:51:43Z",
+          "updatedAt": "2024-03-04T16:51:43Z"
+        },
+        {
+          "author": "Xynnn007",
+          "authorAssociation": "NONE",
+          "body": "Thanks for your reply @nedmsmith \r\n\r\nThere is a practical problem. If I want to give a reference value manifest for `tdx-module`, I found there is [an example](https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/blob/main/cddl/examples/irim-seam-crs.diag)\r\n\r\n```\r\n          / measurement-map / {\r\n            / mval / 1 : / measurement-values-map / {\r\n              / vendor / -70 : \"Intel Corporation\",\r\n              / model / -71 : \"TDX SEAM\",\r\n              / attributes / -82 : 60010([ 1, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000']), / *** 16 bytes *** /\r\n              / isvprodid / -85 : 1,\r\n              / isvsvn / -73 : 60010([ /op.ge/ 2, 6 ]),\r\n              / mrsigner / -84 : [\r\n                / alg-id / 1, / sha256 /\r\n                / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'\r\n              ]\r\n            },\r\n            / authorized-by / 2 : [\r\n              / tagged-pkix-base64-key-type / 554(\"base64_key_X\")\r\n            ]\r\n```\r\nAnd also quote.body format for TDX defined in DCAP\r\n```\r\ntypedef struct _sgx_report2_body_t {\r\n    tee_tcb_svn_t       tee_tcb_svn;          ///<  0:  TEE_TCB_SVN Array\r\n    tee_measurement_t   mr_seam;              ///< 16:  Measurement of the SEAM module\r\n    tee_measurement_t   mrsigner_seam;        ///< 64:  Measurement of a 3rd party SEAM module\u2019s signer (SHA384 hash). \r\n                                              ///       The value is 0\u2019ed for Intel SEAM module\r\n    tee_attributes_t    seam_attributes;      ///< 112: MBZ: TDX 1.0\r\n    tee_attributes_t    td_attributes;        ///< 120: TD's attributes\r\n    tee_attributes_t    xfam;                 ///< 128: TD's XFAM\r\n    tee_measurement_t   mr_td;                ///< 136: Measurement of the initial contents of the TD\r\n    tee_measurement_t   mr_config_id;         ///< 184: Software defined ID for non-owner-defined configuration on the guest TD. e.g., runtime or OS configuration\r\n    tee_measurement_t   mr_owner;             ///< 232: Software defined ID for the guest TD's owner\r\n    tee_measurement_t   mr_owner_config;      ///< 280: Software defined ID for owner-defined configuration of the guest TD, e.g., specific to the workload rather than the runtime or OS\r\n    tee_measurement_t   rt_mr[4];             ///< 328: Array of 4(TDX1: NUM_RTMRS is 4) runtime extendable measurement registers\r\n    tee_report_data_t   report_data;          ///< 520: Additional report data\r\n}sgx_report2_body_t;\r\n```\r\n\r\nSo the implied mapping here is\r\n- `mval.attributes` -> `quote.body.seam_attributes`\r\n- `mval.mrsigner` -> `quote.body.mrsigner_seam`\r\n- `mval.isvsvn` -> `quote.body.tee_tcb_svn`\r\n\r\nRight?",
+          "createdAt": "2024-03-05T09:56:06Z",
+          "updatedAt": "2024-03-05T09:56:06Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "I believe that is a correct mapping. The thing to note is the profile relies on `environment-map` to disambiguate the object to which measurements apply. The DCAP usage encodes or implies the object in the measurement name. For example \"mrsigner_seam\" implies the seam object has the mrsigner measurement.",
+          "createdAt": "2024-03-06T16:59:38Z",
+          "updatedAt": "2024-03-06T16:59:38Z"
+        },
+        {
+          "author": "Xynnn007",
+          "authorAssociation": "NONE",
+          "body": "Thanks very much. Do you have any plan inside Intel to publish reference values of TDX stack using CoRIM?",
+          "createdAt": "2024-03-07T09:31:40Z",
+          "updatedAt": "2024-03-07T09:31:40Z"
+        }
+      ]
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOJvkHy85THIbX",
+      "title": "change seconds-type to int",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/1",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "change seconds-type to int to allow negative seconds.",
+      "createdAt": "2023-06-15T15:40:36Z",
+      "updatedAt": "2023-06-20T13:53:23Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "dee7467c7fa9dc39e62064cfe1464caae70c0519",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fix-epoch-seconds",
+      "headRefOid": "c296dc81a3623c1cf7b3c811a0028b74348a70d6",
+      "closedAt": "2023-06-15T17:33:36Z",
+      "mergedAt": "2023-06-15T17:33:36Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "b52e30815ab59dac7909eede65292a299029e8d2"
+      },
+      "comments": [
+        {
+          "author": "williamcroberts",
+          "authorAssociation": "NONE",
+          "body": "LGTM",
+          "createdAt": "2023-06-20T13:53:22Z",
+          "updatedAt": "2023-06-20T13:53:22Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOJvkHy85TI6SO",
+      "title": "Example cleanup",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/2",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-06-15T22:41:56Z",
+      "updatedAt": "2023-06-15T22:43:52Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "b52e30815ab59dac7909eede65292a299029e8d2",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "example-cleanup",
+      "headRefOid": "0a2b6bef8f36ffcb6b4dfc45ce11d6cdf3c3f6c1",
+      "closedAt": "2023-06-15T22:43:47Z",
+      "mergedAt": "2023-06-15T22:43:47Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "1709e66789170f8701c049b23678ef38a21b947e"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOJvkHy85TfBt-",
+      "title": "Update draft-cds-rats-intel-corim-profile.md",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/3",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "misc cleanup",
+      "createdAt": "2023-06-20T23:10:52Z",
+      "updatedAt": "2023-06-21T15:51:14Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "f6f7da2e8eaaf2fecb8ed450391b4c1ee6e981cd",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "ned-edits",
+      "headRefOid": "5d9a3494267c266a4c71b6c40d377822508c614d",
+      "closedAt": "2023-06-21T15:51:09Z",
+      "mergedAt": "2023-06-21T15:51:09Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "d4209f10ae3228cbd041cd93e932415334693233"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85Y2_5T",
+          "commit": {
+            "abbreviatedOid": "5d9a349"
+          },
+          "author": "williamcroberts",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "My limited knowledge, lgtm. The comment changes were helpful.",
+          "createdAt": "2023-06-21T13:56:22Z",
+          "updatedAt": "2023-06-21T13:56:22Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOJvkHy85TlC8O",
+      "title": "Update draft-cds-rats-intel-corim-profile.md",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/4",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Various wording, spelling, and grammar fixes.",
+      "createdAt": "2023-06-21T18:37:32Z",
+      "updatedAt": "2023-06-21T18:38:14Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "d4209f10ae3228cbd041cd93e932415334693233",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "scen-nms-cleanup",
+      "headRefOid": "836b4fb5f4d14a1b50b0e2a96b0f240280bd1f07",
+      "closedAt": "2023-06-21T18:38:10Z",
+      "mergedAt": "2023-06-21T18:38:10Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "b8d621ba463f1afb44dc74873af437cbafd20ab0"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOJvkHy85TnutM",
+      "title": "add a Gemfile with the CDDL tooling",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/5",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-06-22T06:21:47Z",
+      "updatedAt": "2023-06-22T14:43:20Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "3e817004e048f198744989c90125e2586498a1ea",
+      "headRepository": "thomas-fossati/draft-cds-rats-intel-corim-profile",
+      "headRefName": "main",
+      "headRefOid": "47a640fd9723c51e68e8e89b3162f6214efd8c22",
+      "closedAt": "2023-06-22T14:43:19Z",
+      "mergedAt": "2023-06-22T14:43:19Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "df8c8ca394187faf2b994bee1886631824a25756"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85ZAiZ6",
+          "commit": {
+            "abbreviatedOid": "59eb899"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-22T14:17:45Z",
+          "updatedAt": "2023-06-22T14:17:45Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy85ZAvQz",
+          "commit": {
+            "abbreviatedOid": "47a640f"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-22T14:41:34Z",
+          "updatedAt": "2023-06-22T14:41:34Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOJvkHy85TrPa6",
+      "title": "Update README.md",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/6",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Added instruction for updating submodules",
+      "createdAt": "2023-06-22T16:33:54Z",
+      "updatedAt": "2023-08-28T23:51:58Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "df8c8ca394187faf2b994bee1886631824a25756",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "readme-fix",
+      "headRefOid": "4d52c7fe7ef76ab1a4181af21874bb585307afd6",
+      "closedAt": "2023-06-22T16:35:13Z",
+      "mergedAt": "2023-06-22T16:35:13Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "ad8327a59ffd0a196cea62f04eb86b50d1c9d639"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOJvkHy85TrStt",
+      "title": "a proper title for the README.md",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/7",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-06-22T16:46:13Z",
+      "updatedAt": "2023-06-22T17:59:29Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "ad8327a59ffd0a196cea62f04eb86b50d1c9d639",
+      "headRepository": "thomas-fossati/draft-cds-rats-intel-corim-profile",
+      "headRefName": "patch-1",
+      "headRefOid": "913da58056c654270ecbf4856b3baac26e983291",
+      "closedAt": "2023-06-22T17:59:29Z",
+      "mergedAt": "2023-06-22T17:59:29Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "1dc38c3ed4c969ee5c17d363f735f966b563777d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85ZCLPB",
+          "commit": {
+            "abbreviatedOid": "913da58"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-22T17:59:23Z",
+          "updatedAt": "2023-06-22T17:59:23Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOJvkHy85VuqPD",
+      "title": "Change PSE to PCE",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/8",
+      "state": "MERGED",
+      "author": "shnwc",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-07-18T01:15:30Z",
+      "updatedAt": "2023-07-18T15:27:11Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "19745c59355b6b48b294404b5b5350902a60e33b",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "shnwc-patch-1",
+      "headRefOid": "e7ca4de8af698d115f1e9642dec9ecb5f475fe84",
+      "closedAt": "2023-07-18T15:27:11Z",
+      "mergedAt": "2023-07-18T15:27:11Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "ddc0d4510f4fdff028c746cf781e9288a9d46cad"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85bgudZ",
+          "commit": {
+            "abbreviatedOid": "e7ca4de"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-07-18T15:26:00Z",
+          "updatedAt": "2023-07-18T15:26:00Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOJvkHy85YiA3n",
+      "title": "added cryptokeys measurement extension",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/9",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Cryptokeys measurement extension describes keys that are neither identity or attestation keys. They are simply keys associated with a Target Environment.",
+      "createdAt": "2023-08-22T19:29:50Z",
+      "updatedAt": "2023-08-28T23:43:30Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "ddc0d4510f4fdff028c746cf781e9288a9d46cad",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "cryptokeys",
+      "headRefOid": "cfb2d33bf9a4a0e0565303ca45b4b95101d6f545",
+      "closedAt": "2023-08-28T23:43:23Z",
+      "mergedAt": "2023-08-28T23:43:23Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "401a2141aa32faba8c13860e894035f36c900e53"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85fUtYm",
+          "commit": {
+            "abbreviatedOid": "cfb2d33"
+          },
+          "author": "vinscarlata",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-28T23:35:31Z",
+          "updatedAt": "2023-08-28T23:35:31Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOJvkHy85Y1VJY",
+      "title": "Update tee-digest-type.cddl",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/10",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "changed hash-entry to digest (from corim schema)",
+      "createdAt": "2023-08-25T22:55:30Z",
+      "updatedAt": "2023-08-28T23:44:21Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "09560b6baef888f2c7021ce724306ecdbf8ce103",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fix-hash-entry",
+      "headRefOid": "0d7c52987c85fd46b2cd5d6d0743f50b2709f49f",
+      "closedAt": "2023-08-28T23:44:17Z",
+      "mergedAt": "2023-08-28T23:44:17Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "d20a3a4694988d3e9cb9233a5faf1f83e6b3b851"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85fUsN3",
+          "commit": {
+            "abbreviatedOid": "0d7c529"
+          },
+          "author": "vinscarlata",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-28T23:28:15Z",
+          "updatedAt": "2023-08-28T23:28:15Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOJvkHy85Y-nSx",
+      "title": "removed pcesvn",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/11",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "pcesvn type and examples removed",
+      "createdAt": "2023-08-28T22:14:58Z",
+      "updatedAt": "2023-08-28T23:44:50Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "09560b6baef888f2c7021ce724306ecdbf8ce103",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "remove-pcesvn",
+      "headRefOid": "be3c38872bb5da360014af370b2c1df044337aa7",
+      "closedAt": "2023-08-28T23:44:46Z",
+      "mergedAt": "2023-08-28T23:44:46Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "cabf9f887ca2019e093c931cc3a0c3c27c50f9b9"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85fUsn1",
+          "commit": {
+            "abbreviatedOid": "be3c388"
+          },
+          "author": "vinscarlata",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-28T23:30:48Z",
+          "updatedAt": "2023-08-28T23:30:48Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOJvkHy85Y-qs6",
+      "title": "removed fmspc",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/12",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "removed fmspc measurement type.",
+      "createdAt": "2023-08-28T22:30:28Z",
+      "updatedAt": "2023-08-28T23:51:55Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "09560b6baef888f2c7021ce724306ecdbf8ce103",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "remove-fmspc",
+      "headRefOid": "2316d04487c20a0a46f409ece89480c9a8187c19",
+      "closedAt": "2023-08-28T23:45:11Z",
+      "mergedAt": "2023-08-28T23:45:11Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "5c2a0327493450cb96daf103e74aff61a3116747"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85fUs1S",
+          "commit": {
+            "abbreviatedOid": "2316d04"
+          },
+          "author": "vinscarlata",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "fmspc will appear in the environment map, not as evidence, so it will not need a codepoint.",
+          "createdAt": "2023-08-28T23:32:11Z",
+          "updatedAt": "2023-08-28T23:32:11Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOJvkHy85Y-y5T",
+      "title": "removed sgx-type",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/13",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "removed sgx-type measurement.",
+      "createdAt": "2023-08-28T23:16:03Z",
+      "updatedAt": "2023-08-28T23:49:41Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "c4adf9da23ab9b6779ff506d3f790626d6b79390",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "remove-sgx-type",
+      "headRefOid": "17a0139ba45c99a467898ccc2d6a337c98204eee",
+      "closedAt": "2023-08-28T23:49:36Z",
+      "mergedAt": "2023-08-28T23:49:36Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "23bc715d146f4245b9ee9f3328ae310ffd566245"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85fUtBh",
+          "commit": {
+            "abbreviatedOid": "7dc4848"
+          },
+          "author": "vinscarlata",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "sgx-type was moved into a flags field with other related values. individual codepoint not needed.",
+          "createdAt": "2023-08-28T23:33:10Z",
+          "updatedAt": "2023-08-28T23:33:10Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOJvkHy85Y-0JQ",
+      "title": "removed ppid",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/14",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "removed the ppid measurement type",
+      "createdAt": "2023-08-28T23:23:41Z",
+      "updatedAt": "2023-08-28T23:50:56Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "09560b6baef888f2c7021ce724306ecdbf8ce103",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "removed-ppid",
+      "headRefOid": "9b13117737c812191d6763e001b0d6d0eda0c511",
+      "closedAt": "2023-08-28T23:45:30Z",
+      "mergedAt": "2023-08-28T23:45:30Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "c4adf9da23ab9b6779ff506d3f790626d6b79390"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85fUtN1",
+          "commit": {
+            "abbreviatedOid": "9b13117"
+          },
+          "author": "vinscarlata",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "PPID will be deprecated in this timeframe. Users looking for a unique id with similar properties can use instance_id.",
+          "createdAt": "2023-08-28T23:34:16Z",
+          "updatedAt": "2023-08-28T23:34:16Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOJvkHy85ZFCZ6",
+      "title": "changed tcb-comp-svn code point",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/15",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "using a different code point value.",
+      "createdAt": "2023-08-29T21:32:45Z",
+      "updatedAt": "2023-08-30T22:05:24Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "23bc715d146f4245b9ee9f3328ae310ffd566245",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "tcb-svn-cp",
+      "headRefOid": "41ce8efbad962668cc2679e48eb0deed8edfc521",
+      "closedAt": "2023-08-30T22:05:20Z",
+      "mergedAt": "2023-08-30T22:05:20Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "fc8c795e310170cbab735e17ac7d63d10df9e97f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85fk7vM",
+          "commit": {
+            "abbreviatedOid": "41ce8ef"
+          },
+          "author": "jdbeaney",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-30T21:21:30Z",
+          "updatedAt": "2023-08-30T21:21:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOJvkHy85ZLhKD",
+      "title": "Add bstr as a prodid",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/16",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Adding bstr as a possible product identifier type.",
+      "createdAt": "2023-08-30T21:53:59Z",
+      "updatedAt": "2023-08-30T22:24:36Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "23bc715d146f4245b9ee9f3328ae310ffd566245",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "isvprodid",
+      "headRefOid": "043f3b150ee3a925232a70cda89ebf95d41e86ce",
+      "closedAt": "2023-08-30T22:24:36Z",
+      "mergedAt": "2023-08-30T22:24:36Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "e6dcb6d31c9025460a087d6c88aae96132cf3634"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOJvkHy85ZSYaQ",
+      "title": "Misc cleanup",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/17",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "miscellaneous cleanup items.",
+      "createdAt": "2023-08-31T23:32:16Z",
+      "updatedAt": "2023-09-22T20:15:13Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "d86037c10bddc5f4c04a8bd088dfeabe27a6b0ec",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "misc-cleanup",
+      "headRefOid": "a6fac390d9fc785a138e11f6f24898506cc4fa27",
+      "closedAt": "2023-09-22T20:15:06Z",
+      "mergedAt": "2023-09-22T20:15:06Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "7a8cb74649bd735af728ba41e8c637193aa07c5f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85hyS70",
+          "commit": {
+            "abbreviatedOid": "a6fac39"
+          },
+          "author": "jdbeaney",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-09-22T20:04:28Z",
+          "updatedAt": "2023-09-22T20:04:28Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOJvkHy85a0_4I",
+      "title": "Update tee-tcbstatus-type.cddl",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/18",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "fix use of set-type and set-type operator",
+      "createdAt": "2023-09-20T22:53:55Z",
+      "updatedAt": "2023-09-21T16:24:28Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "b6d6d850f3f68c279fd84a3b0aa926fa0214e1aa",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fix-tcbstatus",
+      "headRefOid": "b9d577d038ad078271614b6df1a882d893aec6df",
+      "closedAt": "2023-09-20T22:55:43Z",
+      "mergedAt": "2023-09-20T22:55:43Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "a24499fef52d45eee75674b3391a629ebcd58131"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOJvkHy85a1Bu2",
+      "title": "Update tee-advisory-ids-type.cddl",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/19",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "make use of set-type and set-type operators consistent",
+      "createdAt": "2023-09-20T23:06:09Z",
+      "updatedAt": "2023-09-21T16:24:17Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "a24499fef52d45eee75674b3391a629ebcd58131",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fix-advisoryids",
+      "headRefOid": "3cf2edc1942639d0d237504b0ae8432d997870f3",
+      "closedAt": "2023-09-20T23:10:06Z",
+      "mergedAt": "2023-09-20T23:10:06Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "d86037c10bddc5f4c04a8bd088dfeabe27a6b0ec"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOJvkHy85a6JvB",
+      "title": "Added bstr as a possible instance-id-type",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/20",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "instance-id-type can be uint or bstr .size 16. Updated test example.",
+      "createdAt": "2023-09-21T16:18:16Z",
+      "updatedAt": "2023-09-22T20:18:15Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "7a8cb74649bd735af728ba41e8c637193aa07c5f",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fix-instance-ids",
+      "headRefOid": "59a3cdcce5c8169ac6ffdabfacb3b02a16fbbdeb",
+      "closedAt": "2023-09-22T20:18:11Z",
+      "mergedAt": "2023-09-22T20:18:11Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "211b3c3ba3027e6cdafaad0d64c75addd89cb7dc"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85hySS_",
+          "commit": {
+            "abbreviatedOid": "a4c115d"
+          },
+          "author": "jdbeaney",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-09-22T20:02:17Z",
+          "updatedAt": "2023-09-22T20:02:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOJvkHy85bLGVu",
+      "title": "update digest-type defn",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/21",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Adds array of digest, moves mrenclave to mrtee. Diag files can use either a singleton digest or an array of digest.",
+      "createdAt": "2023-09-25T23:15:34Z",
+      "updatedAt": "2023-09-26T17:54:03Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "211b3c3ba3027e6cdafaad0d64c75addd89cb7dc",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "digest-type-33",
+      "headRefOid": "7221c69209bb7b72d636bec4ff6e84599697db27",
+      "closedAt": "2023-09-26T17:53:57Z",
+      "mergedAt": "2023-09-26T17:53:57Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "33fb118390d7ba4553eb6cdef2c41363c5fa27bd"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85iCre_",
+          "commit": {
+            "abbreviatedOid": "7221c69"
+          },
+          "author": "vinscarlata",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "looks good.",
+          "createdAt": "2023-09-26T17:48:05Z",
+          "updatedAt": "2023-09-26T17:48:05Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOJvkHy85hdFem",
+      "title": "Update Makefile",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/22",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "added target that scans in-use code points.",
+      "createdAt": "2023-12-07T18:54:51Z",
+      "updatedAt": "2023-12-07T21:10:25Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "33fb118390d7ba4553eb6cdef2c41363c5fa27bd",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "make-code-pts",
+      "headRefOid": "795c30f7c24d208072adfb0b0efc2d218083cb1f",
+      "closedAt": "2023-12-07T21:10:25Z",
+      "mergedAt": "2023-12-07T21:10:25Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "9660fdeceddce6b92b42fe06a683d1bf24564d65"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85pkVxy",
+          "commit": {
+            "abbreviatedOid": "795c30f"
+          },
+          "author": "jdbeaney",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-12-07T21:09:12Z",
+          "updatedAt": "2023-12-07T21:09:12Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOJvkHy85iTTLd",
+      "title": "Update draft-cds-rats-intel-corim-profile.md",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/23",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "updated authors list - fixed formatting errrors",
+      "createdAt": "2023-12-18T20:08:34Z",
+      "updatedAt": "2023-12-20T19:04:51Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "1681ed3a7d2d0875af6acb1ad161924ce1b0c5a1",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "upd-authors",
+      "headRefOid": "ecb5fd983d7df813c67ab19f05140985fb390984",
+      "closedAt": "2023-12-20T19:04:51Z",
+      "mergedAt": "2023-12-20T19:04:51Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "21f5b59cd4d97dbb77e4cfc4d223c7cabce5d171"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOJvkHy85nkgVM",
+      "title": "Fix cddl v10 6",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/24",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Updated tooling",
+      "createdAt": "2024-02-21T20:21:49Z",
+      "updatedAt": "2024-02-22T01:29:53Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "e56cb12c61048796cbc4e253e7f68f0739068006",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fix-cddl-v10-6",
+      "headRefOid": "1ed086bcdbb7b38d27d85a0d548783541c6c418b",
+      "closedAt": "2024-02-22T01:29:53Z",
+      "mergedAt": "2024-02-22T01:29:53Z",
+      "mergedBy": "vinscarlata",
+      "mergeCommit": {
+        "oid": "f70ef859e51995b3b117fd4055159017d99bcd06"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85w7tub",
+          "commit": {
+            "abbreviatedOid": "1ed086b"
+          },
+          "author": "vinscarlata",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-22T01:29:48Z",
+          "updatedAt": "2024-02-22T01:29:48Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
