@@ -5,9 +5,9 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                                 A. Draper
 Intended status: Informational                               V. Scarlata
-Expires: 24 August 2024                                         N. Smith
+Expires: 27 December 2024                                       N. Smith
                                                        Intel Corporation
-                                                        21 February 2024
+                                                            25 June 2024
 
 
                         Intel Profile for CoRIM
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 August 2024.
+   This Internet-Draft will expire on 27 December 2024.
 
 Copyright Notice
 
@@ -1240,9 +1240,9 @@ Table of Contents
    [I-D.ietf-rats-corim]
               Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
-              Progress, Internet-Draft, draft-ietf-rats-corim-03, 23
-              October 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-corim-03>.
+              Progress, Internet-Draft, draft-ietf-rats-corim-04, 4
+              March 2024, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-rats-corim-04>.
 
    [I-D.ietf-sacm-coswid]
               Birkholz, H., Fitzgerald-McKay, J., Schmidt, C., and D.
@@ -1290,17 +1290,16 @@ Table of Contents
    [I-D.birkholz-rats-epoch-markers]
               Birkholz, H., Fossati, T., Pan, W., and C. Bormann, "Epoch
               Markers", Work in Progress, Internet-Draft, draft-
-              birkholz-rats-epoch-markers-06, 23 October 2023,
+              birkholz-rats-epoch-markers-07, 24 April 2024,
               <https://datatracker.ietf.org/doc/html/draft-birkholz-
-              rats-epoch-markers-06>.
+              rats-epoch-markers-07>.
 
    [I-D.ietf-rats-ar4si]
               Voit, E., Birkholz, H., Hardjono, T., Fossati, T., and V.
               Scarlata, "Attestation Results for Secure Interactions",
               Work in Progress, Internet-Draft, draft-ietf-rats-ar4si-
-              05, 30 August 2023,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              ar4si-05>.
+              06, 4 March 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-ar4si-06>.
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
