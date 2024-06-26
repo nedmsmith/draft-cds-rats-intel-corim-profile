@@ -209,7 +209,7 @@ The profile identifier for this profile is the OID:
 
 # CoMID Extensions {#sec-comid-extensions}
 
-This profile extencs the baseline CoMID for Reference Values with an expression that informs Verifiers about non-exact-match matching semantics that include: ranges, sets, masks.
+This profile extends the baseline CoMID for Reference Values with an expression that informs Verifiers about non-exact-match matching semantics that include: ranges, sets, and masks.
 It extends `measurement-values-map` which is used by Evidence, Reference Values, and Endorsed Values.
 
 ## Expressions {#sec-expressions}
