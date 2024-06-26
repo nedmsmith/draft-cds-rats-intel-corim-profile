@@ -245,11 +245,11 @@ Table of Contents
 
 5.  CoMID Extensions
 
-   This profile extencs the baseline CoMID for Reference Values with an
+   This profile extends the baseline CoMID for Reference Values with an
    expression that informs Verifiers about non-exact-match matching
-   semantics that include: ranges, sets, masks.  It extends measurement-
-   values-map which is used by Evidence, Reference Values, and Endorsed
-   Values.
+   semantics that include: ranges, sets, and masks.  It extends
+   measurement-values-map which is used by Evidence, Reference Values,
+   and Endorsed Values.
 
 5.1.  Expressions
 
