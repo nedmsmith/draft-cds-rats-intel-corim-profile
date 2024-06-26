@@ -87,8 +87,8 @@ normative:
     seriesinfo: Version 1.0, Revision 0.54
     date: January 2024
     target: https://trustedcomputinggroup.org/wp-content/uploads/TCG-DICE-Concise-Evidence-Binding-for-SPDM-Version-1.0-Revision-54_pub.pdf
-  I-D.ftbs-rats-msg-wrap: cmw
-  I-D.ietf-sacm-coswid: coswid
+  I-D.ietf-rats-msg-wrap: cmw
+  RFC9393: coswid
   IANA.CBOR:
    -: iana-cbor
    title: Concise Binary Object Representation (CBOR) Tags
@@ -120,10 +120,11 @@ informative:
     date: March 2018
     target: https://trustedcomputinggroup.org/wp-content/uploads/Hardware-Requirements-for-Device-Identifier-Composition-Engine-r78_For-Publication.pdf
   I-D.kdyxy-rats-tdx-eat-profile: tdx-eat-profile
+  I-D.ietf-rats-endorsements: rats-endorsements
 
 --- abstract
 
-This document describes extensions to the CoRIM schema that support Intel-specific Attester implementations and corresponding Endorsements and Reference Values.
+This document describes extensions to CoRIM that support Intel-specific Attester implementations and corresponding Endorsements and Reference Values.
 Multiple Evidence formats are anticipated, but all anticipated Evidence can be mapped to Reference Values expressions based on CoRIM and the CoRIM extensions found in this profile.
 The Evidence to Reference Values mappings are either documented by industry specifications or by this profile.
 Reference Value Providers may use this profile to author mainifests containing Reference Values and Endorsements.
@@ -143,19 +144,19 @@ Additionally, this profile defines Reference Values extensions that express refe
 Evidence may be a value that is a subset or within the range specified by Reference Values extensions.
 This profile defines extensions to CoRIM that support matching based on set membership, masked values, and numeric ranges.
 
-The baseline CoRIM schema, as defined by {{-dice-corim}} is a subset of this profile.
+The baseline CoRIM, as defined by {{-dice-corim}} is a subset of this profile.
 Intel products that implement exclusively to the baseline CoRIM may not rely upon this profile.
 However, the defined extensions may be generally useful such that implementation of the Intel profile need not imply the
 Attester, Verifier, Relying Party, Reference Value Provider, or Endorser role implementations must be Intel products.
 
-This profile extends CoMID schema `measurement-values-map`, as defined by {{-dice-corim}}, with measurement types that are unique to Intel products.
+This profile extends CoMID `measurement-values-map`, as defined by {{-dice-corim}} (see also {{-corim}}), with measurement types that are unique to Intel products.
 Some measurement types are specific to Reference Values where multiple reference states may be included in reference manifests.
-Schema extensions use an CBOR tagged value that defines a comparison operator and operands that instructs Verifiers regarding subset, range, and masked values matching semantics.
+Intel profile extensions use a CBOR tagged value that defines a comparison operator and operands that instruct Verifiers regarding subset, range, and masked values matching semantics.
 For example, a numeric operator 'greater-than' instructs the Verifier to match a numeric Evidence value if it is greater than a numeric range operand.
 
 This profile follows the Verifier behavior defined by {{-dice-corim}} and extends Verifier behavior to include operator-operand matching.
 If no operator is specified by Reference Values statements, the Verifier defaults to baseline {{-dice-corim}} matching semantics.
-If Evidence matches Reference Values and Endorsements apply, endorsed values may be added to the accetped claims set.
+If Evidence matches Reference Values and Endorsements apply, Endorsed Values may be added to the accetped claims set.
 When all Evidence and Endorsements are processed, the Verifier's set of accepted claims is available for Attestation Results computations.
 This profile doesn't define Attestation Results.
 Rather, an Attestation Results profile, such as {{-tdx-eat-profile}} may be referenced instead.
@@ -167,22 +168,28 @@ It describes considerations when mapping Evidence formats to CoRIM {{-dice-corim
 
 {::boilerplate bcp14-tagged}
 
-The reader is assumed to be familiar with the terms defined in Section 4 of {{-rats-arch}}.
+The reader is assumed to be familiar with the terms defined in Section 4 of {{-rats-arch}} and {{-rats-endorsements}}.
 
 # Background {#sec-background}
 
 Complex platforms may contain a variety of hardware components, several of which may contain a hardware root of trust.
-The root of trust may anchor one or more layers {{-dice-layer}} resulting in multiple instances of attestation Evidence.
-Evidence may be protected by an wrapping structure, such as a certificate {{-dice-attest}} or a secure transport over a
-bus interface {{-spdm}} may provide integrity protection. For example, a system bus may allow dynamically configured
-peripheral devices that have attestation capabilities. Confidential computing environments, such as SGX, may extend an
-initial boundary to include a peripheral, or a peer enclave, that together forms a network of trustworthy nodes that a remote
+Each root of trust may anchor one or more layers {{-dice-layer}} resulting in multiple instances of attestation Evidence.
+Evidence may be integrity protected by digital signatures, such as certificates {{-dice-attest}}, tokens {{-cwt}} or by a secure transport {{-spdm}}.
+For example, a system bus may allow dynamically configured peripheral devices that have attestation capabilities.
+Confidential computing environments, such as SGX, may extend an initial boundary to include a peripheral, or a peer enclave, that together forms a network of trustworthy nodes that a remote
 attestation Verifier may need to appraise.
+Multiple Evidence blocks may be combined into a composite Evidence block {{-cmw}} that is more easily conveyed.
+Complex platforms may have one or more lead Attester endpoints that communicate with a remote Verifier to convey composite Evidence.
+The composition of the complex platform is partially represented in the composite Evidence.
 
-Such a complex platform may rely one or more endpoints that communicate with a remote Verifier to convey a structure that
-is a conglomeration of Evidence instances. A complex platform may consist of multiple instances of a subsystem, such as multiple
-network adapters, storage controllers, or processors. Even though they may be identical copies, each instance should have its
-own Evidence instance. Insertion and removal of a configurable component may affect the composition  of Evidence.
+However, composite Evidence may not fully describe platform composition.
+A complex platform may consist of multiple subsystems, such as network adapters, storage controllers, memory controllers, special purpose processors, etc.
+The various sub-subsystem components vendors may create hardware bills of material (HBOM) that describe sub-system composition.
+A complex platform vendor may assemble various sub-system components whose composition is described by a platform HBOM.
+Although CoRIM may be used to create HBOMs, use of this profile for HBOM creation is unanticipated.
+
+Nevertheless, a complex system may contain multiple identical instances of sub-sytem components that produce identical Evidence blocks.
+Additionally, dynamic insertion or removal of a component may result in composite Evidence blocks that reflect this dynamism.
 
 # Profile Identifier {#sec-profile-identifier}
 
@@ -200,13 +207,10 @@ The profile identifier for this profile is the OID:
 
 `2.16.840.1.113741.1.16.1`
 
-# CoMID Schema Extensions {#sec-comid-schema-extensions}
+# CoMID Extensions {#sec-comid-extensions}
 
-The baseline CoMID schema for Reference Values is extended with an attribute that informs a Verifier as to which matching
-semantics to apply, whether they are equivalance, range, or set membership semantics.
-
-This profile extends `measurement-values-map` with additional measurements that are used by Evidence,
-Reference Values, and Endorsed Values.
+This profile extencs the baseline CoMID for Reference Values with an expression that informs Verifiers about non-exact-match matching semantics that include: ranges, sets, masks.
+It extends `measurement-values-map` which is used by Evidence, Reference Values, and Endorsed Values.
 
 ## Expressions {#sec-expressions}
 
@@ -267,7 +271,7 @@ There are four numeric operators:
 
 1.  **greater-than** (gt),
 1.  **greater-than-or-equal** (ge),
-1.  **less-than** (lt), and
+1.  **less-than** (lt),
 1.  **less-than-or-equal** (le).
 
 The equals operator is not defined because an exact match rule is the default rule when an Evidence value is identical to a Reference Value.
@@ -288,7 +292,7 @@ This profile defines four macro numeric expressions, one for each numeric operat
 
 * `tagged-numeric-gt`,
 * `tagged-numeric-ge`,
-* `tagged-numeric-lt`, and
+* `tagged-numeric-lt`,
 * `tagged-numeric-le`.
 
 In each case, the numeric operator is used to evaluate a Reference Value operand against an Evidence value operand
@@ -359,7 +363,7 @@ The Reference Values set may be the empty set.
 The second form, a relation between two sets, has three operators:
 
 * **subset**,
-* **superset**, and
+* **superset**,
 * **disjoint**.
 
 The fist set, S1 is Evidence and set, S2 is the Reference Values set.
@@ -562,7 +566,7 @@ supplied with the Reference Values, see {{sec-expression-operators}}.
 
 In cases where Evidence does not exactly match Reference Values, the operator definition determines the
 expected data types of the operands.
-Expected Verifier behavior is defined in {{sec-intel-verifier-profile}}
+Expected Verifier behavior is defined in {{sec-intel-appraisal-algorithm}}
 
 ### The tee-advisory-ids-type Measurement Extension {#sec-tee-advisory-ids-type}
 
@@ -803,10 +807,11 @@ Evidence contained in a certificate may be encoded using `DiceTcbInfo` and `Dice
 be encoded using the SPDM `Measurement Block` {{-spdm}}. Evidence may be formatted as `concise-evidence` {{-tcg-ce}} and
 included in an alias certificate or an SPDM Measurement Manifest.
 
-The `DiceTcbInfo` and SPDM Evidence formats can be translated to the CoMID schema. The concise evidence format is native to CoMID {{-corim}}.
-This profile documents evidence mapping from `DiceTcbInfo` and SPDM `Measurement Block` to the CoMID schema, as defined by {{-corim}}.
+The `DiceTcbInfo` and SPDM Evidence formats can be translated to CoMID.
+The concise evidence format is native to CoMID.
+This profile documents evidence mapping from `DiceTcbInfo` and SPDM `Measurement Block` to CoMID, as defined by {{-dice-corim}}.
 
-The CoMID schema extensions defined by this profile, see {{sec-measurement-extensions}}, are applied to `concise-evidence` so that
+The CoMID extensions defined by this profile, see {{sec-measurement-extensions}}, are applied to `concise-evidence` so that
 Verifiers that support this profile can consistently apply a common schema across Evidence, Reference Values, and Endorsements.
 
 ## Evidence Hierarchy {#sec-evidence-hierarchy}
@@ -832,34 +837,35 @@ Example spanning tree:
 
 ## Concise Evidence {#sec-concise-evidence}
 
-Concise evidence is a CDDL representation of an evidence schema that extends CoMID and CoSWID {{-coswid}} schemas.
-Nevertheless, evidence describes the actual state of the Attester. `tagged-concise-evidence` is a CBOR tag for a
-concise evidence {{-tcg-ce}}. This profile is compatible with `tagged-concise-evicence`.
-CoRIM schema extensions defined by this profile are inherited by `tagged-concise-evidence` through `measurement-values-map` extensions.
+Concise evidence is a CDDL representation of Evidence that is derived from CoMID and CoSWID {{-coswid}}.
+Evidence describes the actual state of the Attester.
+`tagged-concise-evidence` uses a CBOR tag to identify `concise-evidence` {{-tcg-ce}}.
+This profile is compatible with `tagged-concise-evicence`.
+CoRIM extensions, defined by this profile, are used by `tagged-concise-evidence` by extending `measurement-values-map`.
 
-The concise evidence schema is defined as follows:
+The `concise-evidence` structure is defined as follows:
 
 ~~~ cddl
 {::include concise-evidence/concise-evidence.cddl}
 ~~~
 
-# Intel Verifier Profile {#sec-intel-verifier-profile}
+# Intel Appraisal Algorithm {#sec-intel-appraisal-algorithm}
 
-The verifier algorithm in this document describes the actions of a simplified Verifier that may lack performance optimizations. A verifier implementation that appears outwardly identical to the Verifier described here is treated as meeting this profile.
-
-The Intel verifier profile builds on the verifier defined in Section 5 of {{-corim}}. This profile extends the verifier to recognize
-the expressions operator extensions defined by this profile. For example, if a reference numeric value of 15, the expressions
-operator representation is a CBOR tagged array containing the operator, `gt`, which is CBOR encoded as `1`,
-followed by the reference value `15`, which is a `numeric-type`.
-The reference value might be: `#6.60010([ 1, 15])`, while the evidence value is simply a `numeric-type`, such as '14'.
-The verifier compares `14` to `15`, evaluating whether `14` is greater-than `15`.
+The Intel profile anticipates appraisal algorithms will be based on the appraisal algorithm defined in {{-corim}}.
+This profile extends the appraisal algorithm to recognize profile extensions that form equations.
+An Evidence measurement forms one of the operands: (evidence operand).
+A Reference Value forms the operator and remaining operands: [(expression operator), (reference value operand), ...].
+For example, if a numeric reference value is 14, and the expressions operator is `gt` the Reference Value might contain the Claim: `#6.60010([ 1, 14])`.
+Evidence might contain the measurement: '15'.
+In infix construction, the equation would be: (`15`) (`gt`) (`14`).
+The Verifier evaluates whether `15` is greater-than `14`.
 
 ## Complex Expressions {#sec-complex-expressions}
 
-Complex expressions assess whether the Target Environment is in a particular actual state before asserting additional claims.
+Complex expressions can be used to assess whether the Target Environment is in a particular state before certain Endorsement claims can be asserted.
 For example, if an SGX enclave has an `svn` value that is less than the prescribed minimum svn, the enclave status may be
 considered "OutOfDate" or may have a known security advisory. The CoMID `conditional-endorsement-triples` or
-`conditional-endorsement-series-triples` describe complex expressions.
+`conditional-endorsement-series-triples` describe complex Endorsement expressions.
 
 This profile uses these triples with the reference measurement values extensions described in {{sec-measurement-extensions}}.
 
@@ -871,19 +877,19 @@ This profile does not define an attestation results format.
 The Relying Party should specify suitable Attestation Results formats such as {{-ar4si}} or {{-tdx-eat-profile}}.
 
 The precise Attestation Results format used, if negotiated by Verifier and Relying Party, should reference this profile to acknowledge
-that the Relying Party and Verifier both support the schema extensions defined in this document.
+that the Relying Party and Verifier both support the extensions defined in this document.
 
 # Security Considerations {#sec-security-considerations}
 
-TODO Security
+The security of this profile depends on the security considerations of the various normative references.
 
 # IANA Considerations {#sec-iana-considerations}
 
 This document uses the IANA CBOR tag registry. See {{-iana-cbor}}
 
-The document requests reservation of the following CBOR tag:
+The following CBOR tag has been assigned:
 
-- Requested tag: 60010
+- CBOR tag: 60010
 
 - Data item: array
 
@@ -897,7 +903,7 @@ The document requests reservation of the following CBOR tag:
 
 # Acknowledgments
 
-The authors wish to thank Shanwei Cen for early contributions.
+The authors wish to thank Shanwei Cen for valuable contributions.
 
 # Full Intel Profile CDDL
 
