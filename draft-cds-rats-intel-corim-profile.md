@@ -68,9 +68,9 @@ normative:
     title: DICE Attestation Architecture
     author:
       org: Trusted Computing Group (TCG)
-    seriesinfo: Version 1.00, Revision 0.23
-    date: March 2021
-    target: https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-r23-final.pdf
+    seriesinfo: Version 1.1, Revision 18
+    date: January 2024
+    target: https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-Version-1.1-Revision-18_pub.pdf
   DICE.layer:
     -: dice-layer
     title: DICE Layering Architecture
@@ -84,8 +84,9 @@ normative:
     title: TCG DICE Concise Evidence Binding for SPDM
     author:
       org: Trusted Computing Group (TCG)
-    seriesinfo: Version 1.0, Revision 0.53
-    date: June 2023
+    seriesinfo: Version 1.0, Revision 0.54
+    date: January 2024
+    target: https://trustedcomputinggroup.org/wp-content/uploads/TCG-DICE-Concise-Evidence-Binding-for-SPDM-Version-1.0-Revision-54_pub.pdf
   I-D.ftbs-rats-msg-wrap: cmw
   I-D.ietf-sacm-coswid: coswid
   IANA.CBOR:
@@ -118,47 +119,49 @@ informative:
     seriesinfo: Family "2.0", Level 00 Revision 78
     date: March 2018
     target: https://trustedcomputinggroup.org/wp-content/uploads/Hardware-Requirements-for-Device-Identifier-Composition-Engine-r78_For-Publication.pdf
+  I-D.kdyxy-rats-tdx-eat-profile: tdx-eat-profile
 
 --- abstract
 
-This document describes extensions to the CoRIM schema that support Intel specific Attester implementations.
-Multiple Evidence formats are compatible with base CoRIM, but extensions to evidence formats may be required to
-fully support the CoMID schema extensions defined in this profile.
-The concise evidence definition uses the CoMID schema such that extensions to CoMID are inherited by concise evidence.
+This document describes extensions to the CoRIM schema that support Intel-specific Attester implementations and corresponding Endorsements and Reference Values.
+Multiple Evidence formats are anticipated, but all anticipated Evidence can be mapped to Reference Values expressions based on CoRIM and the CoRIM extensions found in this profile.
+The Evidence to Reference Values mappings are either documented by industry specifications or by this profile.
 Reference Value Providers may use this profile to author mainifests containing Reference Values and Endorsements.
-RATS Verifiers recognize this profile by it's profile identifier and implement support for the extentions defined.
+Verifiers will recognize this profile by it's profile identifier and implement support for the extentions defined or may identify a suitable Verifier, or will refuse to process inputs.
 
 --- middle
 
 # Introduction {#sec-introduction}
 
 This profile describes extensions and restrictions placed on Reference Values, Endorsements, and Evidence
-that support attestation capabilities of Intel products including Intel(R) SGX(TM), and products that contain
-a DICE {{-dice}} root of trust, DICE layers {{-dice-layer}}, or modules that implement SPDM {{-spdm}} endpoints.
+that support attestation capabilities of Intel products containing Intel(R) SGX(TM) or Intel(R) TDX(TM) technology, or Intel(R) products that contain
+DICE {{-dice}} root of trust, DICE layers {{-dice-layer}}, or modules that implement SPDM {{-spdm}}.
 
-The CoMID schema {{-dice-corim}} and data model {{-corim}} is a baseline for Reference Values that expects Evidence is matched
-using values that are identical. This profile anticipates Reference Values that are a set or range of values where an Evidence
-value is within the reference set or range. This document describes schema and data model extensions for matching based on
-membership in a set, masked values, and numeric ranges.
+CoRIM {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements that form the foundation for the extensions defined in this profile.
+CoRIM is also the foundation for Evidence definitions as specified by {{-dice-attest}}, {{-tcg-ce}}, and {{-spdm}} such that Evidence must be mapped to Reference Values defined by {{-dice-corim}} and {{-corim}}.
+Additionally, this profile defines Reference Values extensions that express reference state that is super set or range of values.
+Evidence may be a value that is a subset or within the range specified by Reference Values extensions.
+This profile defines extensions to CoRIM that support matching based on set membership, masked values, and numeric ranges.
 
-The baseline CoRIM schema defines a spartan set of measurement values that are etended by this profile to better support Intel(r) products.
+The baseline CoRIM schema, as defined by {{-dice-corim}} is a subset of this profile.
+Intel products that implement exclusively to the baseline CoRIM may not rely upon this profile.
 However, the defined extensions may be generally useful such that implementation of the Intel profile need not imply the
-Attester, Verifier, Relying Party, Reference Value Provider, or Endorser must be Intel products.
+Attester, Verifier, Relying Party, Reference Value Provider, or Endorser role implementations must be Intel products.
 
-This profile extends CoMID schema `measurement-values-map`, as defined by {{-corim}}, with measurements that may be unique to
-Intel products or are not defined anywhere else. Some measurement definitions are specific to Reference Values such that multiple
-Reference Values may be specified and an operator instructs Verifiers regarding the matching algorithm to apply. For example,
-a numeric operator 'greater-than' instructs the Verifier to match a numeric Evidence value if it is greater than
-one or more numeric Reference Values.
+This profile extends CoMID schema `measurement-values-map`, as defined by {{-dice-corim}}, with measurement types that are unique to Intel products.
+Some measurement types are specific to Reference Values where multiple reference states may be included in reference manifests.
+Schema extensions use an CBOR tagged value that defines a comparison operator and operands that instructs Verifiers regarding subset, range, and masked values matching semantics.
+For example, a numeric operator 'greater-than' instructs the Verifier to match a numeric Evidence value if it is greater than a numeric range operand.
 
-This profile follows the Verifier behavior defined by {{-corim}} and extends Verifier behavior to include non-exact matching as
-indicated by a supplied operator.
-If no operator is specified by Reference Value statements, the Verifier defaults to exact matching.
-If Evidence matches Reference Values and Endorsements apply, endorsed values are added to the the accetped measurements.
-When all Evidence and Endorsements are processed, the Verifier's set of accepted measurements is used to produce Attestation Results.
+This profile follows the Verifier behavior defined by {{-dice-corim}} and extends Verifier behavior to include operator-operand matching.
+If no operator is specified by Reference Values statements, the Verifier defaults to baseline {{-dice-corim}} matching semantics.
+If Evidence matches Reference Values and Endorsements apply, endorsed values may be added to the accetped claims set.
+When all Evidence and Endorsements are processed, the Verifier's set of accepted claims is available for Attestation Results computations.
+This profile doesn't define Attestation Results.
+Rather, an Attestation Results profile, such as {{-tdx-eat-profile}} may be referenced instead.
 
-This profile is compatible with multiple Evidence formats, as defined by {{-dice-attest}} and
-SPDM {{-spdm}}. It describes considerations when mapping Evidence formats to CoRIM that a Verifier may use when doing matching.
+This profile is compatible with multiple Evidence formats, as defined by {{-dice-attest}}, {{-tcg-ce}}, and {{-spdm}}.
+It describes considerations when mapping Evidence formats to CoRIM {{-dice-corim}} that a Verifier may use when performig appraisals.
 
 # Conventions and Definitions
 
@@ -862,10 +865,10 @@ This profile uses these triples with the reference measurement values extensions
 
 # Reporting Attestation Results {#sec-intel-reporting-attestation-results}
 
-Attestation verification can be performed by a pipeline consisting of multiple stages where each input manifest demarks a stage. The final stage
-prepares Attestation Results according to Relying Party specifications. This profile expects the Relying Party will, in some fashion, negotiate
-the expected results format. The Attestation Results format may expect a summary result such as {{-ar4si}} only, or may expect the `accepted-claims`
-in its entirety.
+Attestation verification can be performed by a pipeline consisting of multiple stages where each input manifest demarks a stage.
+The final stage prepares Attestation Results according to Relying Party specifications.
+This profile does not define an attestation results format.
+The Relying Party should specify suitable Attestation Results formats such as {{-ar4si}} or {{-tdx-eat-profile}}.
 
 The precise Attestation Results format used, if negotiated by Verifier and Relying Party, should reference this profile to acknowledge
 that the Relying Party and Verifier both support the schema extensions defined in this document.
@@ -892,6 +895,10 @@ The document requests reservation of the following CBOR tag:
 
 --- back
 
+# Acknowledgments
+
+The authors wish to thank Shanwei Cen for early contributions.
+
 # Full Intel Profile CDDL
 
 ~~~ cddl
@@ -902,7 +909,3 @@ The document requests reservation of the following CBOR tag:
 {::include concise-evidence/concise-evidence.cddl}
 ~~~
 
-# Acknowledgments
-{:numbered="false"}
-
-TODO acknowledge.
