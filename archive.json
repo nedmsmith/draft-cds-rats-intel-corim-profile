@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-25T01:08:32.924468+00:00",
+  "timestamp": "2024-06-27T01:08:58.558153+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -1042,6 +1042,185 @@
           "body": "",
           "createdAt": "2024-02-22T01:29:48Z",
           "updatedAt": "2024-02-22T01:29:48Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOJvkHy85zilrH",
+      "title": "Update draft-cds-rats-intel-corim-profile.md",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/26",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Updated references and other minor changes",
+      "createdAt": "2024-06-25T19:28:39Z",
+      "updatedAt": "2024-06-26T15:43:40Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "f70ef859e51995b3b117fd4055159017d99bcd06",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "new-rev",
+      "headRefOid": "775754ad85f9626077d35b3919cb0f990995cad4",
+      "closedAt": "2024-06-26T15:43:34Z",
+      "mergedAt": "2024-06-26T15:43:34Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "be8e7c759fdf1f3dc47ceb2b063289006183e6ba"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85_pceT",
+          "commit": {
+            "abbreviatedOid": "775754a"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-26T11:54:18Z",
+          "updatedAt": "2024-06-26T11:54:18Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOJvkHy85zqwl8",
+      "title": "Update draft-cds-rats-intel-corim-profile.md",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/27",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Updates references, intro, background prose and fixes paragraphs with sentences broken by returns. Various other wording changes.",
+      "createdAt": "2024-06-26T18:00:43Z",
+      "updatedAt": "2024-06-26T18:36:35Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "be8e7c759fdf1f3dc47ceb2b063289006183e6ba",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "redo-intro",
+      "headRefOid": "52adeaaa06db50eff19f150c73bf8c41efdba7d5",
+      "closedAt": "2024-06-26T18:36:27Z",
+      "mergedAt": "2024-06-26T18:36:27Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "47f8a6cc0265a08dd4451a326ff1e1a9df71dde2"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy85_tbTR",
+          "commit": {
+            "abbreviatedOid": "354d954"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-26T18:05:23Z",
+          "updatedAt": "2024-06-26T18:08:00Z",
+          "comments": [
+            {
+              "originalPosition": 99,
+              "body": "spelling of extends",
+              "createdAt": "2024-06-26T18:05:23Z",
+              "updatedAt": "2024-06-26T18:08:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy85_tdvh",
+          "commit": {
+            "abbreviatedOid": "354d954"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-26T18:08:52Z",
+          "updatedAt": "2024-06-26T18:08:52Z",
+          "comments": [
+            {
+              "originalPosition": 99,
+              "body": "I'm confused. Is `extencs` a word?",
+              "createdAt": "2024-06-26T18:08:52Z",
+              "updatedAt": "2024-06-26T18:08:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy85_tfp1",
+          "commit": {
+            "abbreviatedOid": "354d954"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-26T18:11:00Z",
+          "updatedAt": "2024-06-26T18:11:00Z",
+          "comments": [
+            {
+              "originalPosition": 99,
+              "body": "I agree with the rest of the change.\r\n",
+              "createdAt": "2024-06-26T18:11:00Z",
+              "updatedAt": "2024-06-26T18:11:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy85_tgjO",
+          "commit": {
+            "abbreviatedOid": "354d954"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-26T18:12:09Z",
+          "updatedAt": "2024-06-26T18:12:40Z",
+          "comments": [
+            {
+              "originalPosition": 99,
+              "body": "```suggestion\r\nThis profile extends the baseline CoMID for Reference Values with an expression that informs Verifiers about non-exact-match matching semantics that include: ranges, sets, and masks.\r\n```",
+              "createdAt": "2024-06-26T18:12:09Z",
+              "updatedAt": "2024-06-26T18:12:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy85_tiVc",
+          "commit": {
+            "abbreviatedOid": "52adeaa"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-26T18:14:42Z",
+          "updatedAt": "2024-06-26T18:14:42Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy85_tn9q",
+          "commit": {
+            "abbreviatedOid": "52adeaa"
+          },
+          "author": "jdbeaney",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-26T18:28:09Z",
+          "updatedAt": "2024-06-26T18:28:09Z",
           "comments": []
         }
       ]
