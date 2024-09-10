@@ -2,9 +2,9 @@
 	path = draft-ietf-rats-corim
 	url = https://github.com/ietf-rats-wg/draft-ietf-rats-corim
 	branch = main
-	update = rebase
+	update = merge 
 [submodule "concise-evidence"]
 	path = concise-evidence
 	url = https://github.com/TrustedComputingGroup/concise-evidence
 	branch = main
-	update = rebase
+	update = merge 
