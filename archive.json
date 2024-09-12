@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-10T01:17:08.112130+00:00",
+  "timestamp": "2024-09-12T01:16:34.072898+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -1224,6 +1224,34 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOJvkHy857E9ME",
+      "title": "Apply CoRIM updates",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/28",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Changes to CoRIM resulted in some examples breaking.",
+      "createdAt": "2024-09-10T23:47:01Z",
+      "updatedAt": "2024-09-10T23:47:40Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "47f8a6cc0265a08dd4451a326ff1e1a9df71dde2",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "corim-update-2024-09-10",
+      "headRefOid": "805cf9927a467aa010db8630612c3fc256ae4dbe",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
