@@ -2325,7 +2325,9 @@ $evidence-id-type-choice /= tagged-uuid-type
 ; additional evidence identifier types may be added here
 
 ev-triples-map = non-empty&lt; {
-  ? &amp;(ce.evidence-triples: 0) =&gt; [ + reference-triple-record ]
+  ;? &amp;(ce.evidence-triples: 0) =&gt; [ + reference-triple-record ]
+  ; temporary workaround to non-speccompliant reference-triple-record
+  ? &amp;(ce.evidence-triples: 0) =&gt; [ + ce.evidence-triple-record ]
   ? &amp;(ce.identity-triples: 1) =&gt; [ + identity-triple-record ]
   ? &amp;(ce.dependency-triples: 2) =&gt; [ + domain-dependency-triple-record ]
   ? &amp;(ce.domain-membership-triples: 3) =&gt; [ + domain-membership-triple-record ]
@@ -2344,6 +2346,12 @@ ev-coswid-evidence-map = {
     &amp;(ce.coswid-evidence: 1) =&gt; evidence-entry
   ? &amp;(ce.authorized-by: 2) =&gt; [ + $crypto-key-type-choice ] ; see comid schema
 }
+
+; temporary workaround
+ce.evidence-triple-record = [
+  environment-map
+  [ + measurement-map ]
+]
 </pre><a href="#section-6.2-3" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2784,7 +2792,9 @@ $evidence-id-type-choice /= tagged-uuid-type
 ; additional evidence identifier types may be added here
 
 ev-triples-map = non-empty&lt; {
-  ? &amp;(ce.evidence-triples: 0) =&gt; [ + reference-triple-record ]
+  ;? &amp;(ce.evidence-triples: 0) =&gt; [ + reference-triple-record ]
+  ; temporary workaround to non-speccompliant reference-triple-record
+  ? &amp;(ce.evidence-triples: 0) =&gt; [ + ce.evidence-triple-record ]
   ? &amp;(ce.identity-triples: 1) =&gt; [ + identity-triple-record ]
   ? &amp;(ce.dependency-triples: 2) =&gt; [ + domain-dependency-triple-record ]
   ? &amp;(ce.domain-membership-triples: 3) =&gt; [ + domain-membership-triple-record ]
@@ -2803,6 +2813,12 @@ ev-coswid-evidence-map = {
     &amp;(ce.coswid-evidence: 1) =&gt; evidence-entry
   ? &amp;(ce.authorized-by: 2) =&gt; [ + $crypto-key-type-choice ] ; see comid schema
 }
+
+; temporary workaround
+ce.evidence-triple-record = [
+  environment-map
+  [ + measurement-map ]
+]
 </pre><a href="#appendix-B-2" class="pilcrow">¶</a>
 </div>
 </section>
