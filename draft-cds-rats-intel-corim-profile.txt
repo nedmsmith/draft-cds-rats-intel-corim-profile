@@ -5,9 +5,9 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                                 A. Draper
 Intended status: Informational                               V. Scarlata
-Expires: 28 December 2024                                       N. Smith
+Expires: 20 March 2025                                          N. Smith
                                                        Intel Corporation
-                                                            26 June 2024
+                                                       16 September 2024
 
 
                         Intel Profile for CoRIM
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 December 2024.
+   This Internet-Draft will expire on 20 March 2025.
 
 Copyright Notice
 
@@ -1249,16 +1249,16 @@ Table of Contents
    [I-D.ietf-rats-corim]
               Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
-              Progress, Internet-Draft, draft-ietf-rats-corim-04, 4
-              March 2024, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-rats-corim-04>.
+              Progress, Internet-Draft, draft-ietf-rats-corim-05, 8 July
+              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              rats-corim-05>.
 
    [I-D.ietf-rats-msg-wrap]
               Birkholz, H., Smith, N., Fossati, T., and H. Tschofenig,
               "RATS Conceptual Messages Wrapper (CMW)", Work in
-              Progress, Internet-Draft, draft-ietf-rats-msg-wrap-05, 13
-              June 2024, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-rats-msg-wrap-05>.
+              Progress, Internet-Draft, draft-ietf-rats-msg-wrap-08, 2
+              September 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-msg-wrap-08>.
 
    [IANA.CBOR]
               Internet Assigned Numbers Authority (IANA), "Concise
@@ -1307,23 +1307,24 @@ Table of Contents
    [I-D.birkholz-rats-epoch-markers]
               Birkholz, H., Fossati, T., Pan, W., and C. Bormann, "Epoch
               Markers", Work in Progress, Internet-Draft, draft-
-              birkholz-rats-epoch-markers-07, 24 April 2024,
+              birkholz-rats-epoch-markers-08, 22 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-birkholz-
-              rats-epoch-markers-07>.
+              rats-epoch-markers-08>.
 
    [I-D.ietf-rats-ar4si]
               Voit, E., Birkholz, H., Hardjono, T., Fossati, T., and V.
               Scarlata, "Attestation Results for Secure Interactions",
               Work in Progress, Internet-Draft, draft-ietf-rats-ar4si-
-              06, 4 March 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-ar4si-06>.
+              07, 2 September 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
+              ar4si-07>.
 
    [I-D.ietf-rats-endorsements]
               Thaler, D., Birkholz, H., and T. Fossati, "RATS
               Endorsements", Work in Progress, Internet-Draft, draft-
-              ietf-rats-endorsements-01, 12 June 2024,
+              ietf-rats-endorsements-03, 23 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              endorsements-01>.
+              endorsements-03>.
 
    [I-D.kdyxy-rats-tdx-eat-profile]
               Kostal, G., Dittakavi, S., Yeluri, R., Xia, H., and J. Yu,
