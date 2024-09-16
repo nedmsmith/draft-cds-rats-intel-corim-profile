@@ -4,11 +4,11 @@
       [ /** uses reference-triple-record schema **/
         / environment-map / {
           / ** env1 ** /
-          / comid.class / 0 : {
-            / comid.vendor / 1 : "ACME.example",
-            / comid.model / 2 : "MAX.example",
-            / comid.index / 4 : 0,
-            / comid.class-id / 0 : 551(1) /** SPDM firmware **/
+          / class-map / 0 : {
+            / vendor / 1 : "ACME.example",
+            / model / 2 : "MAX.example",
+            / index / 4 : 0,
+            / class-id / 0 : 560(h'0001') /** SPDM firmware **/
           }
         },
         / measurement-map / {

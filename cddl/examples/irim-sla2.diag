@@ -7,11 +7,11 @@
       / reference-triple-record / [
         / environment-map / {
           / ** env1 ** /
-          / comid.class / 0 : {
-            / comid.vendor / 1 : "ACME.example",
-            / comid.model / 2 : "MAX.example",
-            / comid.index / 4 : 0,
-            / comid.class-id / 0 : 551(1) /** SPDM firmware **/
+          / class-map / 0 : {
+            / vendor / 1 : "ACME.example",
+            / model / 2 : "MAX.example",
+            / index / 4 : 0,
+            / class-id / 0 : 560(h'0001') /** SPDM firmware **/
           }
         },
         / measurement-map / {
@@ -37,7 +37,7 @@
           / comid.class / 0 : {
             / comid.vendor / 1 : "ACME.example",
             / comid.model / 2 : "MAX.example",
-            / comid.class-id / 0 : 551(0) /** SPDM ROM  type **/
+            / class-id / 0 : 560(h'0001') /** SPDM firmware **/
           }
         },
         / crypto-key-type-choice / [
@@ -53,7 +53,7 @@
             / comid.vendor / 1 : "ACME.example",
             / comid.model / 2 : "MAX.example",
             / comid.index / 4 : 1, /*** SPDM index ***/
-            / comid.class-id / 0 : 551(6) /** SPDM version type **/
+            / class-id / 0 : 560(h'0001') /** SPDM firmware **/
           }
         },
         / measurement-map / {
@@ -71,7 +71,7 @@
             / comid.vendor / 1 : "ACME.example",
             / comid.model / 2 : "MAX.example",
             / comid.index / 4 : 2, /*** SPDM index ***/
-            / comid.class-id / 0 : 551(7) /** SPDM svn type **/
+            / class-id / 0 : 560(h'0007') /** SPDM firmware **/
           }
         },
         / measurement-map / {
@@ -90,7 +90,7 @@
             / comid.class / 0 : {
               / comid.vendor / 1 : "ACME.example",
               / comid.model / 2 : "MAX.example",
-              / comid.class-id / 0 : 551(0) /** ROM **/
+              / class-id / 0 : 560(h'0000') /** ROM **/
             }
           },
           / environment-map / {
@@ -99,7 +99,7 @@
               / comid.vendor / 1 : "ACME.example",
               / comid.model / 2 : "MAX.example",
               / comid.index / 4 : 0, /*** SPDM index ***/
-              / comid.class-id / 0 : 551(1) /*** DMTFSpecMeasurementValueType - firmware ***/
+              / class-id / 0 : 560(h'0001') /*** DMTFSpecMeasurementValueType - firmware ***/
             }
           },
           / environment-map / {
@@ -108,7 +108,7 @@
               / comid.vendor / 1 : "ACME.example",
               / comid.model / 2 : "MAX.example",
               / comid.index / 4 : 1, /*** SPDM index ***/
-              / comid.class-id / 0 : 551(6) /*** DMTFSpecMeasurementValueType - version ***/
+              / class-id / 0 : 560(h'0006') /*** DMTFSpecMeasurementValueType - version ***/
             }
           },
           / environment-map / {
@@ -117,7 +117,7 @@
               / comid.vendor / 1 : "ACME.example",
               / comid.model / 2 : "MAX.example",
               / comid.index / 4 : 2, /*** SPDM index ***/
-              / comid.class-id / 0 : 551(7) /*** DMTFSpecMeasurementValueType - svn ***/
+              / class-id / 0 : 560(h'0007') /*** DMTFSpecMeasurementValueType - svn ***/
             }
           }
         ]
