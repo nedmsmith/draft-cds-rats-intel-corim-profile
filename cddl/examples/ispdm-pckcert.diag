@@ -25,16 +25,18 @@
                       / tagged-oid-type / 111(h'6086480186F84D0102030406') / 2.16.840.1.113741.1.2.3.4.6 - <OID-for-SGX-platform-TCB> /
                   }
                 }, 
-                / measurement-map / {
-                  / mval / 1 : {
-                    / instance-id / -77 : h'00112233445566778899aabbccddeeff', / ** 16 bytes ** /
-                    / pceid / -80 : "0000",
-                    / tcb-comp-svn / -125 : [ 10, 10, 2, 2, 2, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-                  },
-                  / authorized-by / 2 : [
-                    / tagged-pkix-base64-key-type / 554("base64_key_X")
-                  ]
-                }
+                [
+                  / measurement-map / {
+                    / mval / 1 : {
+                      / instance-id / -77 : h'00112233445566778899aabbccddeeff', / ** 16 bytes ** /
+                      / pceid / -80 : "0000",
+                      / tcb-comp-svn / -125 : [ 10, 10, 2, 2, 2, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                    },
+                    / authorized-by / 2 : [
+                      / tagged-pkix-base64-key-type / 554("base64_key_X")
+                    ]
+                  }
+                ]
               ]
             ]
           }

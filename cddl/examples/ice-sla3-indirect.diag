@@ -9,13 +9,15 @@
             / comid.model / 2 : "MAX.example"
           }
         },
-        / measurement-map / {
-          / mval / 1 : {
-            / comid.spdm-indirect / 12 : {
-              / index / 0 : [ /digest/ 2, / svn / 1, / version / 0]
+        [
+          / measurement-map / {
+            / mval / 1 : {
+              / comid.spdm-indirect / 12 : {
+                / index / 0 : [ /digest/ 2, / svn / 1, / version / 0]
+              }
             }
           }
-        }
+        ]
       ]
     ]
   }
