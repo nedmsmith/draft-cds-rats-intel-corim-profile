@@ -24,27 +24,25 @@
             / model / 2 : "SGX QE TCB"
           }
         },
-        [
-          / measurement-map / {
-            / mval / 1 : {
-              / isvprodid / -85 : 1,
-              / attributes / -82 : h'C0000000000000000000000000000000', / *** 16 bytes *** /
-              / miscselect / -81 : h'00000000', / *** 4 bytes *** /
-              / mrsigner / -84 : [
-                / alg-id / 1, / sha256 /
-                / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
-              ],
-              / svn / -73 : 2,
-              / mrtee / -83 : [
-                / alg-id / 1, / sha256 /
-                / digest / h'B2F5EB1CB5529E7A6B6BC6787594057396E6B3F569CD50FD5DDB5E2CCB0E3C7B'
-              ] / not expected to match ref val /
-            },
-            / authorized-by / 2 : [
-              / tagged-pkix-base64-key-type / 554("base64_key_X")
-            ]
-          }
-        ]
+        / measurement-map / {
+          / mval / 1 : {
+            / isvprodid / -85 : 1,
+            / attributes / -82 : h'C0000000000000000000000000000000', / *** 16 bytes *** /
+            / miscselect / -81 : h'00000000', / *** 4 bytes *** /
+            / mrsigner / -84 : [
+              / alg-id / 1, / sha256 /
+              / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+            ],
+            / svn / -73 : 2,
+            / mrtee / -83 : [
+              / alg-id / 1, / sha256 /
+              / digest / h'B2F5EB1CB5529E7A6B6BC6787594057396E6B3F569CD50FD5DDB5E2CCB0E3C7B'
+            ] / not expected to match ref val /
+          },
+          / authorized-by / 2 : [
+            / tagged-pkix-base64-key-type / 554("base64_key_X")
+          ]
+        }
       ]
     ]
   }
