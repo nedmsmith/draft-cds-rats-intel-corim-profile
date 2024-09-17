@@ -6,5 +6,3 @@
 [submodule "concise-evidence"]
 	path = concise-evidence
 	url = https://github.com/TrustedComputingGroup/concise-evidence
-	branch = main
-	update = merge 
