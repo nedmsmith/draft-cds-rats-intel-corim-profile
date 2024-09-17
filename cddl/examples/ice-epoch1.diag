@@ -10,11 +10,13 @@
             / comid.index / 4 : 1
           }
         },
-        / measurement-map / {
-          / mval / 1 : {
-            / epoch / -90 : 0("2023-06-09T00:00:00Z")
+        [
+          / measurement-map / {
+            / mval / 1 : {
+              / epoch / -90 : 0("2023-06-09T00:00:00Z")
+            }
           }
-        }
+        ]
       ]
     ]
   }

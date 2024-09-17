@@ -25,7 +25,7 @@ $(drafts_html):: $(CDDL_DIR)$(1)-autogen.cddl
 $(drafts_txt):: $(CDDL_DIR)$(1)-autogen.cddl
 
 $(CDDL_DIR)$(1)-autogen.cddl: $(2) 
-	$(MAKE) -C $(CDDL_DIR) check-$(1)
+	$(MAKE) -C $(CDDL_DIR)
 
 endef # cddl_targets
 
