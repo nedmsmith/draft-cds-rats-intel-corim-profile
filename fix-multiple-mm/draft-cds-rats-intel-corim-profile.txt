@@ -5,9 +5,9 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                                 A. Draper
 Intended status: Informational                               V. Scarlata
-Expires: 20 March 2025                                          N. Smith
+Expires: 21 March 2025                                          N. Smith
                                                        Intel Corporation
-                                                       16 September 2024
+                                                       17 September 2024
 
 
                         Intel Profile for CoRIM
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 March 2025.
+   This Internet-Draft will expire on 21 March 2025.
 
 Copyright Notice
 
