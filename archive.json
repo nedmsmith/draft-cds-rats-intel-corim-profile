@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-15T01:24:39.180997+00:00",
+  "timestamp": "2024-09-17T01:04:33.638069+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -1230,7 +1230,7 @@
       "id": "PR_kwDOJvkHy857E9ME",
       "title": "Apply CoRIM updates",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/28",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -1239,13 +1239,117 @@
       "labels": [],
       "body": "Changes to CoRIM resulted in some examples breaking.",
       "createdAt": "2024-09-10T23:47:01Z",
-      "updatedAt": "2024-09-10T23:47:40Z",
+      "updatedAt": "2024-09-16T20:19:05Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "47f8a6cc0265a08dd4451a326ff1e1a9df71dde2",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "corim-update-2024-09-10",
       "headRefOid": "805cf9927a467aa010db8630612c3fc256ae4dbe",
+      "closedAt": "2024-09-16T20:19:01Z",
+      "mergedAt": "2024-09-16T20:19:01Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "a4c338461a87fb48d2a345812a849029d5c64f56"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86JetBF",
+          "commit": {
+            "abbreviatedOid": "805cf99"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-16T12:39:37Z",
+          "updatedAt": "2024-09-16T12:39:38Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "Looking at version 5 of https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim , I can't find comid.class, comid.vendor, etc.\r\nI see the class-map definition above matches what I expected, but not the comid.* below. \r\n\r\nAre all the comid.* still OK to use?",
+              "createdAt": "2024-09-16T12:39:37Z",
+              "updatedAt": "2024-09-16T12:39:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86Jh01p",
+          "commit": {
+            "abbreviatedOid": "805cf99"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-16T17:55:10Z",
+          "updatedAt": "2024-09-16T17:55:10Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "Anything between / comment / in a CBOR.diag file is a comment and is removed. Hence, it's still ok to include the comid. string.",
+              "createdAt": "2024-09-16T17:55:10Z",
+              "updatedAt": "2024-09-16T17:55:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86JiDLU",
+          "commit": {
+            "abbreviatedOid": "805cf99"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-16T18:18:30Z",
+          "updatedAt": "2024-09-16T18:18:30Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "Right, my bad. \r\nThe other changes look fine. Can you update the comments to remove .comid?\r\n",
+              "createdAt": "2024-09-16T18:18:30Z",
+              "updatedAt": "2024-09-16T18:18:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86JjQSU",
+          "commit": {
+            "abbreviatedOid": "805cf99"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-16T20:18:30Z",
+          "updatedAt": "2024-09-16T20:18:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "PR_kwDOJvkHy857rqXD",
+      "title": "Fixed measurement-map multiplicity on evidence",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/29",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Fixed examples to anticipate multiplicity on measurement-map; also modified Makefile to build all dependencies.",
+      "createdAt": "2024-09-16T22:37:22Z",
+      "updatedAt": "2024-09-17T00:02:43Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "a4c338461a87fb48d2a345812a849029d5c64f56",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fix-multiple-mm",
+      "headRefOid": "dc18eb7bd877bef2bece049ad961929bf62702bc",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
