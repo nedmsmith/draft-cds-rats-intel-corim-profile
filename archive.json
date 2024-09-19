@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-17T01:04:33.638069+00:00",
+  "timestamp": "2024-09-19T01:18:12.375039+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -1334,7 +1334,7 @@
       "id": "PR_kwDOJvkHy857rqXD",
       "title": "Fixed measurement-map multiplicity on evidence",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/29",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -1343,19 +1343,35 @@
       "labels": [],
       "body": "Fixed examples to anticipate multiplicity on measurement-map; also modified Makefile to build all dependencies.",
       "createdAt": "2024-09-16T22:37:22Z",
-      "updatedAt": "2024-09-17T00:02:43Z",
+      "updatedAt": "2024-09-17T14:52:04Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "a4c338461a87fb48d2a345812a849029d5c64f56",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "fix-multiple-mm",
       "headRefOid": "dc18eb7bd877bef2bece049ad961929bf62702bc",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-09-17T14:52:00Z",
+      "mergedAt": "2024-09-17T14:52:00Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "6b927d4d02ebed86835f79a97e4509aa51fba11c"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86Jq4f8",
+          "commit": {
+            "abbreviatedOid": "dc18eb7"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-17T13:11:44Z",
+          "updatedAt": "2024-09-17T13:11:44Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
