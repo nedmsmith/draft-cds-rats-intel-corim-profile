@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-12T01:18:36.350932+00:00",
+  "timestamp": "2024-11-14T01:20:13.700481+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -92,6 +92,30 @@
           "body": "Thanks very much. Do you have any plan inside Intel to publish reference values of TDX stack using CoRIM?",
           "createdAt": "2024-03-07T09:31:40Z",
           "updatedAt": "2024-03-07T09:31:40Z"
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "I_kwDOJvkHy86eVynA",
+      "title": "Prefer mkey over redefining measurement values types?",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/30",
+      "state": "OPEN",
+      "author": "deeglaze",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Given that we've restored multiplicity to measurements, it seems prudent to avoid re-specifying types of measurements for measured fields and instead use mkey numbers to represent the field, no?\r\n\r\nThinking from the perspective of tooling, it would be much simpler to give insights about reference values if folks stick to the standard types, and we can just have a mapping of class-id + mkey => colloquial measured field name, and visualization of particular values would not need any further enlightenment.\r\n\r\nI'm wondering if we can try to avoid new profiles for every kind of attestation technology when they're not expressing fundamentally new concepts. The expression language you have here is something else.\r\n\r\nExample:\r\n\r\n```\r\n$$measurement-values-map-extension //= (\r\n     &(tee.pceid: -80) => $tee-pceid-type\r\n   )\r\n   $tee-pceid-type /= tstr\r\n```\r\ncould be\r\n\r\n> tee.pceid from TDQUOTE is transformed to\r\n```\r\n[/ mkey: / 0: 80, / mval: / 1: {/ name: / 11: tee.pceid}]\r\n```",
+      "createdAt": "2024-11-13T19:15:44Z",
+      "updatedAt": "2024-11-13T22:17:29Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "Yes, that would be a way to reduce dependence on the mvm extensions, however, that might only work for evidence as reference values (for at least several measurements) uses non-exact match semantics, so we might still need the extension points. There is also the matter of timing profiles with product releases.\r\n\r\nA possible way forward is to work on a second profile that models some alternatives that make better use of base types. ",
+          "createdAt": "2024-11-13T22:17:03Z",
+          "updatedAt": "2024-11-13T22:17:29Z"
         }
       ]
     }
