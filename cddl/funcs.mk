@@ -49,7 +49,7 @@ exp-$(1): $(3)$(1).cddl
 
 .PHONY: exp-$(1)
 
-$(EXPORTS_DIR)$(1).cddl: $(2)
+$(3)$(1).cddl: $(2)
 	
 	@for f in $$^ ; do \
 		( grep -v '^;' $$$$f ; echo ) ; \
