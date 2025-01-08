@@ -18,28 +18,30 @@
             / model / 2 : "SGX QE TCB"
           }
         }, 
-        / measurement-map / {
-          / mval / 1 : { / *** measurement-values-map *** /
-            / flags mask / -82 : 60010([ / op.mask-eq / 1, h'0003', h'0003' ]),
-            / tcb-eval-num / -86 : 60010([ / op.ge / 2, 11 ]),
-            / mrsigner / -84 : 60010([ / op.member / 6, 
-              / digests-type / [
-                [
-                  / alg-id / 1, / sha256 /
-                  / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
-                ],
-                [
-                  / alg-id / 8, / sha512 /
-                  / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6AA314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+        [
+          / measurement-map / {
+            / mval / 1 : { / *** measurement-values-map *** /
+              / flags mask / -82 : 60010([ / op.mask-eq / 1, h'0003', h'0003' ]),
+              / tcb-eval-num / -86 : 60010([ / op.ge / 2, 11 ]),
+              / mrsigner / -84 : 60010([ / op.member / 6, 
+                / digests-type / [
+                  [
+                    / alg-id / 1, / sha256 /
+                    / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+                  ],
+                  [
+                    / alg-id / 8, / sha512 /
+                    / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6AA314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+                  ]
                 ]
-              ]
-            ]),
-            / isvprodid / -85 : 1
-          },
-          / authorized-by / 2 : [
-            / tagged-pkix-base64-key-type / 554("base64_key_X")
-          ]
-        }
+              ]),
+              / isvprodid / -85 : 1
+            },
+            / authorized-by / 2 : [
+              / tagged-pkix-base64-key-type / 554("base64_key_X")
+            ]
+          }
+        ]
       ]
     ]
   }

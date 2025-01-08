@@ -12,13 +12,15 @@
             / comid.index / 4 : 1
           }
         },
-        / measurement-map / {
-          / mval / 1 : {
-            / epoch / -90 : 60010(
-              [ / gt / 1, / grace period seconds / 120 ]
-            )
+        [
+          / measurement-map / {
+            / mval / 1 : {
+              / epoch / -90 : 60010(
+                [ / gt / 1, / grace period seconds / 120 ]
+              )
+            }
           }
-        }
+        ]
       ]
     ]
   }

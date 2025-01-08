@@ -1,5 +1,5 @@
 / *** COSE-Sign1-corim.payload ***/
-/ tagged-corim / 500(
+/ corim / 500(
   / tagged-corim-map / 501(
     {
       / corim.id / 0 : h'284e6c3e5d9f4f6b851f5a4247f243a6',

@@ -18,18 +18,20 @@
             / model / 2 : "0123456789ABCDEF" /** CPUID[0x01].EAX.FMSP & 0x0FFF0FF0 **/
           }
         },
-        / measurement-map / {
-          / mval / 1 : {
-            / version-map / 0 : {
-              / version / 0 : "2"
+        [
+          / measurement-map / {
+            / mval / 1 : {
+              / version-map / 0 : {
+                / version / 0 : "2"
+              }
             }
           }
-        }
+        ]
       ]
     ],
     / conditional-endorsement-series-triples / 8 : [
       [
-        / stateless-environment-record / [
+        / stateful-environment-record / [
           / environment-map / {
             / class / 0 : {
               / class-id / 0 :
@@ -38,126 +40,160 @@
               / model / 2 : "0123456789ABCDEF" /** CPUID[0x01].EAX.FMSP & 0x0FFF0FF0 **/
             }
           },
-          / measurement-map / {
-            / mval / 1 : / measurement-values-map / {
-              / pceid / -80 : "0000",
-              / flags mask / -82 : 60010([ / op.mask-eq / 1, h'0003', h'0003' ])
-            },
-            / authorized-by / 2 : [
-              / tagged-pkix-base64-key-type / 554("base64_key_for-RIM-creator")
-            ]
-          }
-        ],
-        [  / *** triple object - conditional endorsed record series *** /
-          [ / *** record 1 *** / 
-            / refv: measurement-values-map / {
-              / tcb-comp-svn / -125 : [ 
-                60010([2,2]), 
-                60010([2,2]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]),
-                60010([2,0]),
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]) 
+          [
+            / measurement-map / {
+              / mval / 1 : / measurement-values-map / {
+                / pceid / -80 : "0000",
+                / flags mask / -82 : 60010([ / op.mask-eq / 1, h'0003', h'0003' ])
+              },
+              / authorized-by / 2 : [
+                / tagged-pkix-base64-key-type / 554("base64_key_for-RIM-creator")
               ]
-            },
-            / endv: measurement-values-map / {
-              / tcbdate / -72 : 0("2022-11-09T00:00:00Z"),
-              / tcbstatus / -88 : [ "UpToDate" ],
-              / tcb-eval-num / -86 : 5
             }
+          ]
+        ],
+        [  / *** series records *** /
+          [ / *** record 1 *** / 
+            [ / selection /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcb-comp-svn / -125 : [ 
+                    60010([2,2]), 
+                    60010([2,2]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]),
+                    60010([2,0]),
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]) 
+                  ]
+                }
+              }
+            ],
+            [ / addition /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcbdate / -72 : 0("2022-11-09T00:00:00Z"),
+                  / tcbstatus / -88 : [ "UpToDate" ],
+                  / tcb-eval-num / -86 : 5
+                }
+              }
+            ]
           ],
           [ / *** record 2 *** / 
-            / refv: measurement-values-map / {
-              / tcb-comp-svn / -125 : [ 
-                60010([2,1]), 
-                60010([2,1]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]),
-                60010([2,0]),
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]) 
-              ]
-            },
-            / endv: measurement-values-map / {
-              / tcbdate / -72 : 0("2020-03-22T00:00:00Z"),
-              / tcbstatus / -88 : [ "OutOfDate" ],
-              / tcb-eval-num / -86 : 5
-            }
+            [ / selection / 
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcb-comp-svn / -125 : [ 
+                    60010([2,1]), 
+                    60010([2,1]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]),
+                    60010([2,0]),
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]) 
+                  ]
+                }
+              }
+            ],
+            [ / addition /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcbdate / -72 : 0("2020-03-22T00:00:00Z"),
+                  / tcbstatus / -88 : [ "OutOfDate" ],
+                  / tcb-eval-num / -86 : 5
+                }
+              }
+            ]
           ],
-          [ / *** record 3 *** / 
-            / refv: measurement-values-map / {
-              / tcb-comp-svn / -125 : [ 
-                60010([2,1]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]),
-                60010([2,0]),
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]) 
-              ]
-            },
-            / endv: measurement-values-map / {
-              / tcbdate / -72 : 0("2019-01-01T00:00:00Z"),
-              / tcbstatus / -88 : [ "OutOfDate", "ConfigurationNeeded" ],
-              / advisory-ids / -89 : [ "INTEL-SA-00079" ],
-              / tcb-eval-num / -86 : 5
-            }
+          [ / *** record 3 *** /
+            [ / selection / 
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcb-comp-svn / -125 : [ 
+                    60010([2,1]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]),
+                    60010([2,0]),
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]) 
+                  ]
+                }
+              }
+            ],
+            [ / addition /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcbdate / -72 : 0("2019-01-01T00:00:00Z"),
+                  / tcbstatus / -88 : [ "OutOfDate", "ConfigurationNeeded" ],
+                  / advisory-ids / -89 : [ "INTEL-SA-00079" ],
+                  / tcb-eval-num / -86 : 5
+                }
+              }
+            ]
           ],
           [ / *** record 4 *** /
-            / refv: measurement-values-map / {
-              / tcb-comp-svn / -125 : [ 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]),
-                60010([2,0]),
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]), 
-                60010([2,0]) 
-              ]
-            },
-            / endv: measurement-values-map / {
-              /  tcbdate / -72 : 0("2018-01-01T00:00:00Z"),
-              / tcbstatus / -88 : [ "OutOfDate", "ConfigurationNeeded" ],
-              /  advisory-ids / -89 : [ "INTEL-SA-00078", "INTEL-SA-00077" ],
-              / tcb-eval-num / -86 : 5
-            }
+            [ / selection / 
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcb-comp-svn / -125 : [ 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]),
+                    60010([2,0]),
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]), 
+                    60010([2,0]) 
+                  ]
+                }
+              }
+            ],
+            [ / addition /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcbdate / -72 : 0("2018-01-01T00:00:00Z"),
+                  / tcbstatus / -88 : [ "OutOfDate", "ConfigurationNeeded" ],
+                  / advisory-ids / -89 : [ "INTEL-SA-00078", "INTEL-SA-00077" ],
+                  / tcb-eval-num / -86 : 5
+                }
+              }
+            ]
           ]
         ]
       ]
