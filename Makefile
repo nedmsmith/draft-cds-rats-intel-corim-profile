@@ -11,8 +11,6 @@ else
 endif
 
 CDDL_DIR := cddl/
-#CE_DIR := concise-evidence/
-#CORIM_DIR := draft-ietf-rats-corim/cddl/
 
 # Import profile frags - no dependencies
 include $(CDDL_DIR)profile-frags.mk
@@ -20,9 +18,9 @@ PROFILE_DEPS := $(addprefix $(CDDL_DIR), $(PROFILE_FRAGS))
 
 define cddl_targets
 
-$(drafts_xml):: $(CDDL_DIR)$(1)-autogen.cddl
-$(drafts_html):: $(CDDL_DIR)$(1)-autogen.cddl
-$(drafts_txt):: $(CDDL_DIR)$(1)-autogen.cddl
+$(drafts_xml): $(CDDL_DIR)$(1)-autogen.cddl
+$(drafts_html): $(CDDL_DIR)$(1)-autogen.cddl
+$(drafts_txt): $(CDDL_DIR)$(1)-autogen.cddl
 
 $(CDDL_DIR)$(1)-autogen.cddl: $(2) 
 	$(MAKE) -C $(CDDL_DIR)
