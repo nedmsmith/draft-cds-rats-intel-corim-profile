@@ -1,0 +1,229 @@
+tagged-numeric-gt = #6.60010( [
+    greater-than: gt .within numeric-operator,
+    reference-value: numeric-type ] )
+tagged-numeric-ge = #6.60010( [
+    greater-than: ge .within numeric-operator,
+    reference-value: numeric-type ] )
+tagged-numeric-lt = #6.60010( [
+    greater-than: lt .within numeric-operator,
+    reference-value: numeric-type ] )
+tagged-numeric-le = #6.60010( [
+    greater-than: le .within numeric-operator,
+    reference-value: numeric-type ] )
+
+gt = 1
+ge = 2
+lt = 3
+le = 4
+numeric-type = integer / unsigned / float
+numeric-operator = gt / ge / lt / le
+numeric-expression = [ numeric-operator, numeric-type ]
+tagged-numeric-expression = #6.60010(numeric-expression)
+
+member = 6
+not-member = 7
+
+set-type = [ * any ]
+set-operator = member / not-member
+set-expression = [ set-operator, set-type ]
+tagged-set-expression = #6.60010( set-expression )
+
+tagged-exp-member = #6.60010([
+    member .within set-operator, set-type ])
+    
+tagged-exp-not-member = #6.60010([
+    not-member .within set-operator, set-type ])
+
+subset = 8
+superset = 9
+disjoint = 10
+set-of-set-type = [ * [ + any ]]
+set-of-set-operator = subset / superset / disjoint
+set-of-set-expression = [ set-of-set-operator, set-of-set-type ]
+tagged-set-of-set-expression = #6.60010(set-of-set-expression)
+
+tagged-exp-subset = #6.60010([
+    subset .within set-of-set-operator, set-of-set-type ])
+
+tagged-exp-superset = #6.60010([
+    superset .within set-of-set-operator, set-of-set-type ])
+    
+tagged-exp-disjoint = #6.60010([
+    disjoint .within set-of-set-operator, set-of-set-type ])
+
+mask-eq = 1
+mask-operator = mask-eq
+mask-type = bstr
+mask-expression = [ mask-operator, value: mask-type, mask: mask-type ]
+tagged-mask-expression = #6.60010( mask-expression )
+
+tagged-exp-mask-eq = #6.60010([
+    mask-eq .within mask-operator, 
+    value: mask-type, mask: mask-type ] )
+
+tagged-exp-tdate-gt = #6.60010([ 
+    gt .within tdate-operator,
+    tdate ])
+
+tagged-exp-tdate-ge = #6.60010([ 
+    ge .within tdate-operator,
+    tdate ])
+
+tagged-exp-tdate-lt = #6.60010([
+    lt .within tdate-operator,
+    tdate ])
+
+tagged-exp-tdate-le = #6.60010([
+    le .within tdate-operator,
+    tdate ])
+
+tdate-operator = numeric-operator ; converts tdate to numeric
+tdate-expression = [ tdate-operator, tdate ] ;#6.0(string)
+tagged-tdate-expression = #6.60010( tdate-expression )
+
+tagged-exp-time-gt = #6.60010([ 
+    gt .within time-operator,
+    time ])
+
+tagged-exp-time-ge = #6.60010([ 
+    ge .within time-operator,
+    time ])
+
+tagged-exp-time-lt = #6.60010([
+    lt .within time-operator,
+    time ])
+
+tagged-exp-time-le = #6.60010([
+    le .within time-operator,
+    time ])
+
+time-operator = numeric-operator
+time-expression = [ time-operator, time ] ;#6.1(number)
+tagged-time-expression = #6.60010( time-expression )
+
+tagged-exp-epoch-gt = #6.60010([
+    gt .within epoch-operator
+    grace-period: epoch-seconds-type ])
+
+tagged-exp-epoch-ge = #6.60010([
+    ge .within epoch-operator
+    grace-period: epoch-seconds-type ])
+
+tagged-exp-epoch-lt = #6.60010([
+    lt .within epoch-operator
+    grace-period: epoch-seconds-type ])
+
+tagged-exp-epoch-le = #6.60010([
+    le .within epoch-operator
+    grace-period: epoch-seconds-type ])
+
+epoch-operator = numeric-operator
+epoch-seconds-type = int
+epoch-expression = [ 
+    epoch-operator,
+    grace-period: epoch-seconds-type,
+    ? $tagged-epoch-id
+]
+tagged-epoch-expression = #6.60010( epoch-expression )
+$tagged-epoch-id /= tdate
+$epoch-timestamp-type /= $tagged-epoch-id
+
+$$measurement-values-map-extension //= (
+  &(tee.advisory-ids: -89) => $tee-advisory-ids-type
+)
+$tee-advisory-ids-type /= set-type
+$tee-advisory-ids-type /= tagged-exp-not-member
+
+$$measurement-values-map-extension //= (
+  &(tee.attributes: -82) => $tee-attributes-type
+)
+$tee-attributes-type /= mask-type
+$tee-attributes-type /= tagged-exp-mask-eq
+
+$$measurement-values-map-extension //= (
+  &(tee.cryptokeys: -91) => [ + $tee-cryptokey-type ]
+)
+$tee-cryptokey-type /= $crypto-key-type-choice
+
+$$measurement-values-map-extension //= (
+  &(tee.tcbdate: -72) => $tee-date-type
+)
+$tee-date-type /= tdate
+$tee-date-type /= tagged-exp-tdate-ge
+$tee-date-type /= tagged-exp-epoch-ge
+
+$$measurement-values-map-extension //= (
+  &(tee.mrtee: -83) => $tee-digest-type
+)
+$$measurement-values-map-extension //= (
+  &(tee.mrsigner: -84) => $tee-digest-type
+)
+$tee-digest-type /= digest
+$tee-digest-type /= [ + digest ]
+$tee-digest-type /= tagged-exp-member
+
+$$measurement-values-map-extension //= (
+  &(tee.epoch: -90) => $tee-epoch-type
+)
+$tee-epoch-type /= $epoch-timestamp-type
+$tee-epoch-type /= tagged-exp-epoch-gt
+
+$$measurement-values-map-extension //= (
+  &(tee.instance-id: -77) => $tee-instance-id-type
+)
+$tee-instance-id-type /= uint
+$tee-instance-id-type /= bstr
+
+$$measurement-values-map-extension //= (
+  &(tee.isvprodid: -85) => $tee-isvprodid-type
+)
+$tee-isvprodid-type /= uint
+$tee-isvprodid-type /= bstr
+
+$$measurement-values-map-extension //= (
+  &(tee.miscselect: -81) => $tee-miscselect-type
+)
+$tee-miscselect-type /= mask-type
+$tee-miscselect-type /= tagged-exp-mask-eq
+
+$$measurement-values-map-extension //= (
+  &(tee.model: -71) => $tee-model-type
+)
+$tee-model-type /= tstr
+
+$$measurement-values-map-extension //= (
+  &(tee.pceid: -80) => $tee-pceid-type
+)
+$tee-pceid-type /= tstr
+
+$$measurement-values-map-extension //= (
+  &(tee.isvsvn: -73) => $tee-svn-type
+)
+$tee-svn-type /= numeric-type
+$tee-svn-type /= tagged-numeric-ge
+
+$$measurement-values-map-extension //= (
+  &(tee.tcb-comp-svn: -125) => $tee-tcb-comp-svn-type
+)
+$tee-tcb-comp-svn-type /= 
+  [ 16*16 svn-type .within numeric-type ]
+$tee-tcb-comp-svn-type /= 
+  [ 16*16 tagged-numeric-ge ]
+
+$$measurement-values-map-extension //= (
+  &(tee-tcb-eval-num: -86) => $tee-tcb-eval-num-type
+)
+$tee-tcb-eval-num-type /= uint .within numeric-type
+$tee-tcb-eval-num-type /= tagged-numeric-ge
+
+$$measurement-values-map-extension //= (
+  &(tee.tcbstatus: -88) => $tee-tcbstatus-type
+)
+$tee-tcbstatus-type /= set-type
+$tee-tcbstatus-type /= tagged-exp-member
+
+$$measurement-values-map-extension //= (
+  &(tee.vendor: -70) => $tee-vendor-type
+)
+$tee-vendor-type /= tstr
+

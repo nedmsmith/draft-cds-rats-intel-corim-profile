@@ -11,8 +11,8 @@ else
 endif
 
 CDDL_DIR := cddl/
-CE_DIR := concise-evidence/
-CORIM_DIR := draft-ietf-rats-corim/cddl/
+#CE_DIR := concise-evidence/
+#CORIM_DIR := draft-ietf-rats-corim/cddl/
 
 # Import profile frags - no dependencies
 include $(CDDL_DIR)profile-frags.mk
@@ -35,7 +35,5 @@ $(eval $(call cddl_targets,ice,$(PROFILE_DEPS)))
 $(eval $(call cddl_targets,ispdm,$(PROFILE_DEPS)))
 
 clean:: ; $(MAKE) -C $(CDDL_DIR) clean
-
-clean-extra:: clean ; $(MAKE) -C $(CDDL_DIR) clean-extra
 
 debug:: ; echo $(drafts_xml) $(drafts_html) $(drafts_txt)
