@@ -21,6 +21,6 @@ draft-cds-rats-intel-corim-profile.xml
 package-lock.json
 report.xml
 !requirements.txt
-cddl/imports/*-imports.cddl
 cddl/imports/ce-import.cddl
 cddl/imports/corim-import.cddl
+exports/intel-profile.cddl

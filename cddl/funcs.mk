@@ -45,12 +45,12 @@ endef # cddl_check_template
 define cddl_exp_template
 
 exp-$(1): $(3)$(1).cddl
-	echo ">>> Creating exportable cddl file" ;
+	echo ">>> Creating exportable cddl file" $(3)$(1)".cddl from:" $(2) ;
 
 .PHONY: exp-$(1)
 
 $(3)$(1).cddl: $(2)
-	
+	echo ">>> writing exports to" $$@
 	@for f in $$^ ; do \
 		( grep -v '^;' $$$$f ; echo ) ; \
 	done > $$@
@@ -65,13 +65,14 @@ endef # cddl_exp_template
 define cddl_imports_template
 
 import-$(1): $(1)-$(2).cddl
+	echo "Creating sym link imports" $(1) $(2) ;
+
+.PHONY: import-$(1)
 
 $(1)-$(2).cddl:
-	echo $(1) $(2)
 	$(RM) $(1)-import.cddl
 	ln -sf $$@ $(1)-import.cddl
 
-.PHONY: import-$(1)
 .PHONY: $(1)-$(2).cddl
 
 endef # cddl_imports_template
