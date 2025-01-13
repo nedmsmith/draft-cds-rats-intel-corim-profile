@@ -67,6 +67,7 @@ define cddl_imports_template
 import-$(1): $(1)-$(2).cddl
 
 $(1)-$(2).cddl:
+	echo $(1) $(2)
 	$(RM) $(1)-import.cddl
 	ln -sf $$@ $(1)-import.cddl
 
