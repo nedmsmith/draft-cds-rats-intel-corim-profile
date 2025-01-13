@@ -4,6 +4,7 @@ define cddl_autogen_template
 check-profile: $(1)-autogen.cddl
 
 $(1)-autogen.cddl: $(2)
+	echo ">>> generating" $(1)"-autogen.cddl"
 	for f in $$^ ; do ( grep -v '^;' $$$$f ; echo ) ; done > $$@
 
 CLEANFILES += $(1)-autogen.cddl
@@ -15,6 +16,7 @@ endef # cddl_autogen_template
 define cddl_check_template
 
 check-$(1): $(1)-autogen.cddl
+	echo ">>> Checking cddl schema for:" $$< 
 	$$(cddl) $$< g 1 | $$(diag2diag) -e
 
 .PHONY: check-$(1)

@@ -74,7 +74,7 @@ ISPDM_EXAMPLES := $(wildcard examples/ispdm-*.diag)
 
 $(eval $(call cddl_check_template,ispdm,$(ISPDM_FRAGS),$(ISPDM_EXAMPLES)))
 
-# Make the autogen file
+# Make the profile autogen file
 $(eval $(call cddl_autogen_template,profile,$(PROFILE_FRAGS)))
 
 # Make exports file
