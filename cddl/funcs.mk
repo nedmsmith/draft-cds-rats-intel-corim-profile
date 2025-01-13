@@ -58,3 +58,19 @@ $(3)$(1).cddl: $(2)
 CLEANFILES += $(3)$(1).cddl
 
 endef # cddl_exp_template
+
+# $(1) - label
+# $(2) - import date
+# create sym links to imported cddl files
+define cddl_imports_template
+
+import-$(1): $(1)-$(2).cddl
+
+$(1)-$(2).cddl:
+	$(RM) $(1)-import.cddl
+	ln -sf $$@ $(1)-import.cddl
+
+.PHONY: import-$(1)
+.PHONY: $(1)-$(2).cddl
+
+endef # cddl_imports_template

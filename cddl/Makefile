@@ -12,7 +12,7 @@ include funcs.mk
 %.cbor: %.diag
 	$(diag2cbor) $< > $@
 
-
+check:: check-imports
 check:: check-irim check-irim-examples
 check:: check-corim check-corim-examples
 check:: check-ice check-ice-examples
@@ -80,6 +80,9 @@ $(eval $(call cddl_autogen_template,profile,$(PROFILE_FRAGS)))
 # Make exports file
 $(eval $(call cddl_exp_template,intel-profile,$(PROFILE_DEPS),$(EXPORTS_DIR)))
 
+check-imports: $(IMPORT_DEPS)
+	$(MAKE) -C $(IMPORTS_DIR)
+	
 clean: ; rm -f $(CLEANFILES)
 
 # Extract the CBOR tags defined by CoRIM/CoMID (i.e., those in the 5xx space)
