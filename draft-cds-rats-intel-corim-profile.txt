@@ -5,9 +5,9 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                                 A. Draper
 Intended status: Informational                               V. Scarlata
-Expires: 21 March 2025                                          N. Smith
+Expires: 18 July 2025                                           N. Smith
                                                        Intel Corporation
-                                                       17 September 2024
+                                                         14 January 2025
 
 
                         Intel Profile for CoRIM
@@ -61,11 +61,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 March 2025.
+   This Internet-Draft will expire on 18 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -231,10 +231,8 @@ Table of Contents
    This profile applies to Reference Values from a CoRIM manifest that a
    Verifier uses to process Evidence.
 
-   The profile identifier structure is defined by CoRIM as:
-
-   $profile-type-choice /= uri
-   $profile-type-choice /= tagged-oid-type
+   The profile identifier structure is defined by CoRIM
+   [I-D.ietf-rats-corim].
 
    The profile identifier for this profile is the OID:
 
@@ -1125,46 +1123,7 @@ Table of Contents
    profile, are used by tagged-concise-evidence by extending
    measurement-values-map.
 
-   The concise-evidence structure is defined as follows:
-
-   tagged-concise-evidence = #6.571(concise-evidence-map)
-   concise-evidence = concise-evidence-map
-   concise-evidence-map = {
-     &(ce.ev-triples: 0) => ev-triples-map
-     ? &(ce.evidence-id: 1) => $evidence-id-type-choice
-     * $$concise-evidence-map-extension
-   }
-   $evidence-id-type-choice /= tagged-uuid-type
-   ; additional evidence identifier types may be added here
-
-   ev-triples-map = non-empty< {
-     ;? &(ce.evidence-triples: 0) => [ + reference-triple-record ]
-     ; temporary workaround to non-speccompliant reference-triple-record
-     ? &(ce.evidence-triples: 0) => [ + ce.evidence-triple-record ]
-     ? &(ce.identity-triples: 1) => [ + identity-triple-record ]
-     ? &(ce.dependency-triples: 2) => [ + domain-dependency-triple-record ]
-     ? &(ce.domain-membership-triples: 3) => [ + domain-membership-triple-record ]
-     ? &(ce.coswid-triples: 4) => [ + ev-coswid-triple-record ]
-     ? &(ce.attest-key-triples: 5) => [ + attest-key-triple-record ]
-     * $$ev-triples-map-extension
-   } >
-
-   ev-coswid-triple-record = [
-     environment-map,
-     [ + ev-coswid-evidence-map ]
-   ]
-
-   ev-coswid-evidence-map = {
-     ? &(ce.coswid-tag-id: 0) => concise-swid-tag-id
-       &(ce.coswid-evidence: 1) => evidence-entry
-     ? &(ce.authorized-by: 2) => [ + $crypto-key-type-choice ] ; see comid schema
-   }
-
-   ; temporary workaround
-   ce.evidence-triple-record = [
-     environment-map
-     [ + measurement-map ]
-   ]
+   The concise-evidence structure is defined in [TCG.concise-evidence]
 
 7.  Intel Appraisal Algorithm
 
@@ -1257,16 +1216,16 @@ Table of Contents
    [I-D.ietf-rats-corim]
               Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
-              Progress, Internet-Draft, draft-ietf-rats-corim-05, 8 July
-              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              rats-corim-05>.
+              Progress, Internet-Draft, draft-ietf-rats-corim-06, 18
+              October 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-corim-06>.
 
    [I-D.ietf-rats-msg-wrap]
-              Birkholz, H., Smith, N., Fossati, T., and H. Tschofenig,
-              "RATS Conceptual Messages Wrapper (CMW)", Work in
-              Progress, Internet-Draft, draft-ietf-rats-msg-wrap-08, 2
-              September 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-msg-wrap-08>.
+              Birkholz, H., Smith, N., Fossati, T., Tschofenig, H., and
+              D. Glaze, "RATS Conceptual Messages Wrapper (CMW)", Work
+              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-11,
+              15 November 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-msg-wrap-11>.
 
    [IANA.CBOR]
               Internet Assigned Numbers Authority (IANA), "Concise
@@ -1330,17 +1289,17 @@ Table of Contents
    [I-D.ietf-rats-endorsements]
               Thaler, D., Birkholz, H., and T. Fossati, "RATS
               Endorsements", Work in Progress, Internet-Draft, draft-
-              ietf-rats-endorsements-03, 23 July 2024,
+              ietf-rats-endorsements-05, 8 November 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              endorsements-03>.
+              endorsements-05>.
 
    [I-D.kdyxy-rats-tdx-eat-profile]
               Kostal, G., Dittakavi, S., Yeluri, R., Xia, H., and J. Yu,
-              "EAT profile for Intel® Trust Domain Extensions (TDX)
+              "EAT profile for Intel(r) Trust Domain Extensions (TDX)
               attestation result", Work in Progress, Internet-Draft,
-              draft-kdyxy-rats-tdx-eat-profile-01, 23 April 2024,
+              draft-kdyxy-rats-tdx-eat-profile-02, 13 December 2024,
               <https://datatracker.ietf.org/doc/html/draft-kdyxy-rats-
-              tdx-eat-profile-01>.
+              tdx-eat-profile-02>.
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
@@ -1591,45 +1550,6 @@ Appendix B.  Full Intel Profile CDDL
      &(tee.vendor: -70) => $tee-vendor-type
    )
    $tee-vendor-type /= tstr
-
-   tagged-concise-evidence = #6.571(concise-evidence-map)
-   concise-evidence = concise-evidence-map
-   concise-evidence-map = {
-     &(ce.ev-triples: 0) => ev-triples-map
-     ? &(ce.evidence-id: 1) => $evidence-id-type-choice
-     * $$concise-evidence-map-extension
-   }
-   $evidence-id-type-choice /= tagged-uuid-type
-   ; additional evidence identifier types may be added here
-
-   ev-triples-map = non-empty< {
-     ;? &(ce.evidence-triples: 0) => [ + reference-triple-record ]
-     ; temporary workaround to non-speccompliant reference-triple-record
-     ? &(ce.evidence-triples: 0) => [ + ce.evidence-triple-record ]
-     ? &(ce.identity-triples: 1) => [ + identity-triple-record ]
-     ? &(ce.dependency-triples: 2) => [ + domain-dependency-triple-record ]
-     ? &(ce.domain-membership-triples: 3) => [ + domain-membership-triple-record ]
-     ? &(ce.coswid-triples: 4) => [ + ev-coswid-triple-record ]
-     ? &(ce.attest-key-triples: 5) => [ + attest-key-triple-record ]
-     * $$ev-triples-map-extension
-   } >
-
-   ev-coswid-triple-record = [
-     environment-map,
-     [ + ev-coswid-evidence-map ]
-   ]
-
-   ev-coswid-evidence-map = {
-     ? &(ce.coswid-tag-id: 0) => concise-swid-tag-id
-       &(ce.coswid-evidence: 1) => evidence-entry
-     ? &(ce.authorized-by: 2) => [ + $crypto-key-type-choice ] ; see comid schema
-   }
-
-   ; temporary workaround
-   ce.evidence-triple-record = [
-     environment-map
-     [ + measurement-map ]
-   ]
 
 Authors' Addresses
 
