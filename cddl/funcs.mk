@@ -73,7 +73,8 @@ import-$(1): $(1)-$(2).cddl
 .PHONY: import-$(1)
 
 $(1)-$(2).cddl:
-	rm -f $(1)-import.cddl
+	echo ">>> Removing sym links with: "$(RM)
+	$(RM) $(1)-import.cddl
 	ln -sf $$@ $(1)-import.cddl
 
 .PHONY: $(1)-$(2).cddl
