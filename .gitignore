@@ -23,5 +23,4 @@ report.xml
 !requirements.txt
 cddl/imports/ce-import.cddl
 cddl/imports/corim-import.cddl
-exports/intel-profile.cddl
 intel-profile-export.cddl
