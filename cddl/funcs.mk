@@ -1,12 +1,13 @@
 # $1: label
 # $2: cddl fragments
 define cddl_autogen_template
-check-profile: $(1)-autogen.cddl
+check-$(1): $(1)-autogen.cddl
 
 $(1)-autogen.cddl: $(2)
 	echo ">>> generating" $(1)"-autogen.cddl"
 	for f in $$^ ; do ( grep -v '^;' $$$$f ; echo ) ; done > $$@
 
+.PHONY: check-$(1)
 CLEANFILES += $(1)-autogen.cddl
 endef # cddl_autogen_template
 
