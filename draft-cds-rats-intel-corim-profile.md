@@ -195,11 +195,7 @@ Additionally, dynamic insertion or removal of a component may result in composit
 
 This profile applies to Reference Values from a CoRIM manifest that a Verifier uses to process Evidence.
 
-The profile identifier structure is defined by CoRIM as:
-
-~~~ cddl
-{::include draft-ietf-rats-corim/cddl/profile-type-choice.cddl}
-~~~
+The profile identifier structure is defined by CoRIM {{-corim}}.
 
 The profile identifier for this profile is the OID:
 
@@ -843,11 +839,7 @@ Evidence describes the actual state of the Attester.
 This profile is compatible with `tagged-concise-evicence`.
 CoRIM extensions, defined by this profile, are used by `tagged-concise-evidence` by extending `measurement-values-map`.
 
-The `concise-evidence` structure is defined as follows:
-
-~~~ cddl
-{::include concise-evidence/concise-evidence.cddl}
-~~~
+The `concise-evidence` structure is defined in {{-tcg-ce}}
 
 # Intel Appraisal Algorithm {#sec-intel-appraisal-algorithm}
 
@@ -911,7 +903,4 @@ The authors wish to thank Shanwei Cen for valuable contributions.
 {::include cddl/profile-autogen.cddl}
 ~~~
 
-~~~ cddl
-{::include concise-evidence/concise-evidence.cddl}
-~~~
 

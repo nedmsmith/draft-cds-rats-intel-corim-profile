@@ -1,5 +1,5 @@
 / *** COSE-Sign1-corim.payload ***/
-/ tagged-corim / 500(
+/ corim / 500(
   / tagged-corim-map / 501(
     {
       / corim.id / 0 : h'284e6c3e5d9f4f6b851f5a4247f243a7',
@@ -39,14 +39,16 @@
                     / comid.model / 2 : "Intel Product X"
                   }
                 },
-                / measurement-map / {
-                  / mval / 1 : {
-                    / version-map / 0 : {
-                      / version / 0 : "1.0.0",
-                      / version-scheme / 1 : 16384 / semver /
+                [
+                  / measurement-map / {
+                    / mval / 1 : {
+                      / version-map / 0 : {
+                        / version / 0 : "1.0.0",
+                        / version-scheme / 1 : 16384 / semver /
+                      }
                     }
                   }
-                }
+                ]
               ] ]
             }
           }

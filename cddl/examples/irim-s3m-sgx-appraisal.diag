@@ -14,12 +14,14 @@
                 / class-id / 0: / tagged-uuid-type / 37(h'e5c51cb6a7fe11ed89f400155d09de56')
               }
             },
-            { / *** measurement-map *** /
-              / mval / 1 : / measurement-values-map / {
-                / tcbstatus / -88: 60010([ / member / 6, [ "UpToDate", "SWHardeningNeeded" ] ]),
-                / tcbdate / -72: 60010([ / ge / 2, 0("2020-07-28T00:00:00Z") ])
+            [
+              { / *** measurement-map *** /
+                / mval / 1 : / measurement-values-map / {
+                  / tcbstatus / -88: 60010([ / member / 6, [ "UpToDate", "SWHardeningNeeded" ] ]),
+                  / tcbdate / -72: 60010([ / ge / 2, 0("2020-07-28T00:00:00Z") ])
+                }
               }
-            }
+            ]
           ] /*** end stateful-environment-record ***/
         ], 
         [ / *** endorsements *** /
@@ -31,11 +33,13 @@
                 / class-id / 0: / tagged-uuid-type / 37(h'e5c51cb6a7fe11ed89f400155d09de56')
               }
             },
-            { / *** measurement-map *** /
-              / mval / 1 : { / *** measurement-values-map *** /
-                / name / 11: "sample data"
+            [
+              { / *** measurement-map *** /
+                / mval / 1 : { / *** measurement-values-map *** /
+                  / name / 11: "sample data"
+                }
               }
-            }
+            ]
           ]
         ]
       ]

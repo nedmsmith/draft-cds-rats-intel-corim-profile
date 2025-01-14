@@ -18,100 +18,152 @@
             / model / 2 : "0123456789ABCDEF" /** CPUID[0x01].EAX.FMSP & 0x0FFF0FF0 **/
           }
         },
-        / measurement-map / {
-          / mval / 1 : {
-            / version-map / 0 : {
-              / version / 0 : "2"
+        [
+          / measurement-map / {
+            / mval / 1 : {
+              / version-map / 0 : {
+                / version / 0 : "2"
+              }
             }
           }
-        }
+        ]
       ]
     ],
     / conditional-endorsement-series-triples / 8 : [
       [
-        / stateless-environment-record / [ 
+        / stateful-environment-record / [ 
             / environment-map / {
-            / class / 0 : {
-              / class-id / 0 :
-              / tagged-oid-type / 111(h'6086480186F84D0102030401'), / 2.16.840.1.113741.1.2.3.4.1 - QE /
-            / vendor / 1 : "Intel Corporation",
-            / model / 2 : "0123456789ABCDEF" /** CPUID[0x01].EAX.FMSP & 0x0FFF0FF0 **/
+              / class / 0 : {
+                / class-id / 0 :
+                / tagged-oid-type / 111(h'6086480186F84D0102030401'), / 2.16.840.1.113741.1.2.3.4.1 - QE /
+              / vendor / 1 : "Intel Corporation",
+              / model / 2 : "0123456789ABCDEF" /** CPUID[0x01].EAX.FMSP & 0x0FFF0FF0 **/
             }
           },
-          / measurement-map / {
-            / mval / 1 : / measurement-values-map / {
-              / miscselect / -81 : 60010([ / mask-eq / 1, h'00000000', h'FFFFFFFF' ]),
-              / attributes / -82 : 60010([ 1, h'11000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000']), / *** 16 bytes *** /
-              / mrsigner / -84 : 60010([ / op.member / 6, 
-                / digests-type / [
-                  [
-                    / alg-id / 1, / sha256 /
-                    / digest / h'8C4F5775D796503E96137F77C68A829A0056AC8DED70140B081B094490C57BFF'
+          [
+            / measurement-map / {
+              / mval / 1 : / measurement-values-map / {
+                / miscselect / -81 : 60010([ / mask-eq / 1, h'00000000', h'FFFFFFFF' ]),
+                / attributes / -82 : 60010([ 1, h'11000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000']), / *** 16 bytes *** /
+                / mrsigner / -84 : 60010([ / op.member / 6, 
+                  / digests-type / [
+                    [
+                      / alg-id / 1, / sha256 /
+                      / digest / h'8C4F5775D796503E96137F77C68A829A0056AC8DED70140B081B094490C57BFF'
+                    ]
                   ]
-                ]
-              ]),
-              / isvprodid / -85 : 1
-            },
-            / authorized-by / 2 : [
-              / tagged-pkix-base64-key-type / 554("base64_key_for-RIM-creator")
-            ]
-          }
+                ]),
+                / isvprodid / -85 : 1
+              },
+              / authorized-by / 2 : [
+                / tagged-pkix-base64-key-type / 554("base64_key_for-RIM-creator")
+              ]
+            }
+          ]
         ],
-        [  / *** triple object - conditional endorsed record series *** /
+        [  / *** series records *** /
           [ / *** record 1 *** /
-            / refv: measurement-values-map / {
-              / isvsvn / -73 : 60010([ / op.ge/ 2, 8 ])
-            },
-            / endv: measurement-values-map / {
-              / tcbdate / -72 : 0("2023-02-15T00:00:00Z"),
-              / tcbstatus / -88 : [ "UpToDate" ],
-              / tcb-eval-num / -86 : 15
-            }
+            [ / selection /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / isvsvn / -73 : 60010([ / op.ge/ 2, 8 ])
+                }
+              }
+            ],
+            [ / addition /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcbdate / -72 : 0("2023-02-15T00:00:00Z"),
+                  / tcbstatus / -88 : [ "UpToDate" ],
+                  / tcb-eval-num / -86 : 15
+                }
+              }
+            ]
           ],
-          [ / *** record 2 *** / 
-            / refv: measurement-values-map / {
-              / isvsvn / -73 : 60010([ / op.ge/ 2, 6 ])
-            },
-            / endv: measurement-values-map / {
-              / tcbdate / -72 : 0("2021-11-10T00:00:00Z"),
-              / tcbstatus / -88 : [ "OutOfDate" ]
-            }
+          [ / *** record 2 *** /
+            [ / selection / 
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / isvsvn / -73 : 60010([ / op.ge/ 2, 6 ])
+                }
+              }
+            ],
+            [ / addition /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcbdate / -72 : 0("2021-11-10T00:00:00Z"),
+                  / tcbstatus / -88 : [ "OutOfDate" ]
+                }
+              }
+            ]
           ],
-          [ / *** record 3 *** / 
-            / refv: measurement-values-map / {
-              / isvsvn / -73 : 60010([ / op.ge/ 2, 5 ])
-            },
-            / endv: measurement-values-map / {
-              / tcbdate / -72 : 0("2020-11-11T00:00:00Z"),
-              / tcbstatus / -88 : [ "OutOfDate" ]
-            }
+          [ / *** record 3 *** /
+            [ / selection / 
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / isvsvn / -73 : 60010([ / op.ge/ 2, 5 ])
+                }
+              }
+            ],
+            [ / addition /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcbdate / -72 : 0("2020-11-11T00:00:00Z"),
+                  / tcbstatus / -88 : [ "OutOfDate" ]
+                }
+              }
+            ]
           ],
-          [ / *** record 4 *** / 
-            / refv: measurement-values-map / {
-              / isvsvn / -73 : 60010([ / op.ge/ 2, 4 ])
-            },
-            / endv: measurement-values-map / {
-              / tcbdate / -72 : 0("2019-11-13T00:00:00Z"),
-              / tcbstatus / -88 : [ "OutOfDate" ]
-            }
+          [ / *** record 4 *** /
+            [ / selection / 
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / isvsvn / -73 : 60010([ / op.ge/ 2, 4 ])
+                }
+              }
+            ],
+            [ / addition /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcbdate / -72 : 0("2019-11-13T00:00:00Z"),
+                  / tcbstatus / -88 : [ "OutOfDate" ]
+                }
+              }
+            ]
           ],
-          [ / *** record 5 *** / 
-            / refv: measurement-values-map / {
-              / isvsvn / -73 : 60010([ / op.ge/ 2, 2 ])
-            },
-            / endv: measurement-values-map / {
-              / tcbdate / -72 : 0("2019-05-15T00:00:00Z"),
-              / tcbstatus / -88 : [ "OutOfDate" ]
-            }
+          [ / *** record 5 *** /
+            [ / selection / 
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / isvsvn / -73 : 60010([ / op.ge/ 2, 2 ])
+                }
+              }
+            ],
+            [ / addition /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcbdate / -72 : 0("2019-05-15T00:00:00Z"),
+                  / tcbstatus / -88 : [ "OutOfDate" ]
+                }
+              }
+            ]
           ],
           [ / *** record 6 *** / 
-            / refv: measurement-values-map / {
-              / isvsvn / -73 : 60010([ / op.ge/ 2, 1 ])
-            },
-            / endv: measurement-values-map / {
-              / tcbdate / -72 : 0("2018-08-15T00:00:00Z"),
-              / tcbstatus / -88 : [ "OutOfDate" ]
-            }
+            [ / selection / 
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / isvsvn / -73 : 60010([ / op.ge/ 2, 1 ])
+                }
+              }
+            ],
+            [ / addition /
+              / measurement-map / {
+                / measurement-values-map / 1 : {
+                  / tcbdate / -72 : 0("2018-08-15T00:00:00Z"),
+                  / tcbstatus / -88 : [ "OutOfDate" ]
+                }
+              }
+            ]
           ]
         ]
       ]
