@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 CDDL_DIR := ./
 IMPORTS_DIR := $(CDDL_DIR)imports/
-EXPORTS_DIR := $(CDDL_DIR)#exports/
+EXPORTS_DIR := $(CDDL_DIR)
 
 include tools.mk
 include funcs.mk
