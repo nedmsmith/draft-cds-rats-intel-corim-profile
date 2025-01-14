@@ -47,12 +47,12 @@ endef # cddl_check_template
 # $(3) - export directory
 define cddl_exp_template
 
-exp-$(1): $(3)$(1).cddl
+export-$(1): $(3)$(1)-export.cddl
 	echo ">>> Creating exportable cddl file" $(3)$(1)".cddl from:" $(2) ;
 
 .PHONY: exp-$(1)
 
-$(3)$(1).cddl: $(2)
+$(3)$(1)-export.cddl: $(2)
 	echo ">>> writing exports to" $$@
 	@for f in $$^ ; do \
 		( grep -v '^;' $$$$f ; echo ) ; \
