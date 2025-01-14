@@ -23,7 +23,7 @@ $(drafts_txt): $(CDDL_DIR)$(1)-autogen.cddl
 $(drafts_xml): $(CDDL_DIR)$(1)-autogen.cddl
 
 $(CDDL_DIR)$(1)-autogen.cddl: $(2) 
-	$(MAKE) -C $(CDDL_DIR) check-$(1)
+	$(MAKE) -C $(CDDL_DIR) check-imports check-$(1) exp-intel-profile-export
 
 endef # cddl_targets
 
