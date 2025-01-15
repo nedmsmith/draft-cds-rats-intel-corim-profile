@@ -1,0 +1,1573 @@
+
+
+
+
+Remote ATtestation ProcedureS                                  J. Beaney
+Internet-Draft                                                 A. Draper
+Intended status: Informational                               V. Scarlata
+Expires: 19 July 2025                                           N. Smith
+                                                       Intel Corporation
+                                                         15 January 2025
+
+
+                        Intel Profile for CoRIM
+               draft-cds-rats-intel-corim-profile-latest
+
+Abstract
+
+   This document describes extensions to CoRIM that support Intel-
+   specific Attester implementations and corresponding Endorsements and
+   Reference Values.  Multiple Evidence formats are anticipated, but all
+   anticipated Evidence can be mapped to Reference Values expressions
+   based on CoRIM and the CoRIM extensions found in this profile.  The
+   Evidence to Reference Values mappings are either documented by
+   industry specifications or by this profile.  Reference Value
+   Providers may use this profile to author mainifests containing
+   Reference Values and Endorsements.  Verifiers will recognize this
+   profile by it's profile identifier and implement support for the
+   extentions defined or may identify a suitable Verifier, or will
+   refuse to process inputs.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://nedmsmith.github.io/draft-cds-rats-intel-corim-profile/draft-
+   cds-rats-intel-corim-profile.html.  Status information for this
+   document may be found at https://datatracker.ietf.org/doc/draft-cds-
+   rats-intel-corim-profile/.
+
+   Discussion of this document takes place on the Remote ATtestation
+   ProcedureS Working Group mailing list (mailto:rats@ietf.org), which
+   is archived at https://mailarchive.ietf.org/arch/browse/rats/.
+   Subscribe at https://www.ietf.org/mailman/listinfo/rats/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 19 July 2025.
+
+Copyright Notice
+
+   Copyright (c) 2025 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  Background
+   4.  Profile Identifier
+   5.  CoMID Extensions
+     5.1.  Expressions
+       5.1.1.  Expression Operators
+       5.1.2.  Numeric Expressions
+       5.1.3.  Set Expressions
+       5.1.4.  Time Expressions
+       5.1.5.  Mask Expression
+     5.2.  Measurement Extensions
+       5.2.1.  The tee-advisory-ids-type Measurement Extension
+       5.2.2.  The tee-attributes-type Measurement Extension
+       5.2.3.  The tee-cryptokey-type Measurement Extension
+       5.2.4.  The tee-date-type Measurement Extension
+       5.2.5.  The tee-digest-type Measurement Extension
+       5.2.6.  The tee-epoch-type Measurement Extension
+       5.2.7.  The tee-instance-id-type Measurement Extension
+       5.2.8.  The tee-isvprodid-type Measurement Extension
+       5.2.9.  The tee-miscselect-type Measurement Extension
+       5.2.10. The tee-model-type Measurement Extension
+       5.2.11. The tee-pceid-type Measurement Extension
+       5.2.12. The tee-svn-type Measurement Extension
+       5.2.13. The tee-tcb-comp-svn-type Measurement Extension
+       5.2.14. The tee-tcb-eval-num-type Measurement Extension
+       5.2.15. The tee-tcbstatus-type Measurement Extension
+       5.2.16. The tee-vendor-type Measurement Extension
+   6.  Intel Evidence Profile
+     6.1.  Evidence Hierarchy
+     6.2.  Concise Evidence
+   7.  Intel Appraisal Algorithm
+     7.1.  Complex Expressions
+   8.  Reporting Attestation Results
+   9.  Security Considerations
+   10. IANA Considerations
+   11. References
+     11.1.  Normative References
+     11.2.  Informative References
+   Appendix A.  Acknowledgments
+   Appendix B.  Full Intel Profile CDDL
+   Authors' Addresses
+
+1.  Introduction
+
+   This profile describes extensions and restrictions placed on
+   Reference Values, Endorsements, and Evidence that support attestation
+   capabilities of Intel products containing Intel(R) SGX(TM) or
+   Intel(R) TDX(TM) technology, or Intel(R) products that contain DICE
+   [DICE.engine] root of trust, DICE layers [DICE.layer], or modules
+   that implement SPDM [DMTF.SPDM].
+
+   CoRIM [DICE.CoRIM] and [I-D.ietf-rats-corim] define a baseline schema
+   for Reference Values and Endorsements that form the foundation for
+   the extensions defined in this profile.  CoRIM is also the foundation
+   for Evidence definitions as specified by [DICE.Attest],
+   [TCG.concise-evidence], and [DMTF.SPDM] such that Evidence must be
+   mapped to Reference Values defined by [DICE.CoRIM] and
+   [I-D.ietf-rats-corim].  Additionally, this profile defines Reference
+   Values extensions that express reference state that is super set or
+   range of values.  Evidence may be a value that is a subset or within
+   the range specified by Reference Values extensions.  This profile
+   defines extensions to CoRIM that support matching based on set
+   membership, masked values, and numeric ranges.
+
+   The baseline CoRIM, as defined by [DICE.CoRIM] is a subset of this
+   profile.  Intel products that implement exclusively to the baseline
+   CoRIM may not rely upon this profile.  However, the defined
+   extensions may be generally useful such that implementation of the
+   Intel profile need not imply the Attester, Verifier, Relying Party,
+   Reference Value Provider, or Endorser role implementations must be
+   Intel products.
+
+   This profile extends CoMID measurement-values-map, as defined by
+   [DICE.CoRIM] (see also [I-D.ietf-rats-corim]), with measurement types
+   that are unique to Intel products.  Some measurement types are
+   specific to Reference Values where multiple reference states may be
+   included in reference manifests.  Intel profile extensions use a CBOR
+   tagged value that defines a comparison operator and operands that
+   instruct Verifiers regarding subset, range, and masked values
+   matching semantics.  For example, a numeric operator 'greater-than'
+   instructs the Verifier to match a numeric Evidence value if it is
+   greater than a numeric range operand.
+
+   This profile follows the Verifier behavior defined by [DICE.CoRIM]
+   and extends Verifier behavior to include operator-operand matching.
+   If no operator is specified by Reference Values statements, the
+   Verifier defaults to baseline [DICE.CoRIM] matching semantics.  If
+   Evidence matches Reference Values and Endorsements apply, Endorsed
+   Values may be added to the accetped claims set.  When all Evidence
+   and Endorsements are processed, the Verifier's set of accepted claims
+   is available for Attestation Results computations.  This profile
+   doesn't define Attestation Results.  Rather, an Attestation Results
+   profile, such as [I-D.kdyxy-rats-tdx-eat-profile] may be referenced
+   instead.
+
+   This profile is compatible with multiple Evidence formats, as defined
+   by [DICE.Attest], [TCG.concise-evidence], and [DMTF.SPDM].  It
+   describes considerations when mapping Evidence formats to CoRIM
+   [DICE.CoRIM] that a Verifier may use when performig appraisals.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+   The reader is assumed to be familiar with the terms defined in
+   Section 4 of [RFC9334] and [I-D.ietf-rats-endorsements].
+
+3.  Background
+
+   Complex platforms may contain a variety of hardware components,
+   several of which may contain a hardware root of trust.  Each root of
+   trust may anchor one or more layers [DICE.layer] resulting in
+   multiple instances of attestation Evidence.  Evidence may be
+   integrity protected by digital signatures, such as certificates
+   [DICE.Attest], tokens [RFC8392] or by a secure transport [DMTF.SPDM].
+   For example, a system bus may allow dynamically configured peripheral
+   devices that have attestation capabilities.  Confidential computing
+   environments, such as SGX, may extend an initial boundary to include
+   a peripheral, or a peer enclave, that together forms a network of
+   trustworthy nodes that a remote attestation Verifier may need to
+   appraise.  Multiple Evidence blocks may be combined into a composite
+   Evidence block [I-D.ietf-rats-msg-wrap] that is more easily conveyed.
+   Complex platforms may have one or more lead Attester endpoints that
+   communicate with a remote Verifier to convey composite Evidence.  The
+   composition of the complex platform is partially represented in the
+   composite Evidence.
+
+   However, composite Evidence may not fully describe platform
+   composition.  A complex platform may consist of multiple subsystems,
+   such as network adapters, storage controllers, memory controllers,
+   special purpose processors, etc.  The various sub-subsystem
+   components vendors may create hardware bills of material (HBOM) that
+   describe sub-system composition.  A complex platform vendor may
+   assemble various sub-system components whose composition is described
+   by a platform HBOM.  Although CoRIM may be used to create HBOMs, use
+   of this profile for HBOM creation is unanticipated.
+
+   Nevertheless, a complex system may contain multiple identical
+   instances of sub-sytem components that produce identical Evidence
+   blocks.  Additionally, dynamic insertion or removal of a component
+   may result in composite Evidence blocks that reflect this dynamism.
+
+4.  Profile Identifier
+
+   This profile applies to Reference Values from a CoRIM manifest that a
+   Verifier uses to process Evidence.
+
+   The profile identifier structure is defined by CoRIM
+   [I-D.ietf-rats-corim].
+
+   The profile identifier for this profile is the OID:
+
+   {joint-iso-itu-t(2) country(16) us(840) organization(1) intel(113741)
+   (1) intel-comid(16) profile(1)}
+
+   2.16.840.1.113741.1.16.1
+
+5.  CoMID Extensions
+
+   This profile extends the baseline CoMID for Reference Values with an
+   expression that informs Verifiers about non-exact-match matching
+   semantics that include: ranges, sets, and masks.  It extends
+   measurement-values-map which is used by Evidence, Reference Values,
+   and Endorsed Values.
+
+5.1.  Expressions
+
+   Expressions are used to specify richer Reference Values measurements
+   that expect non-exact matching semantics.  The Reference Value
+   expression instructs the Verifier regarding matching parameters, such
+   as greater-than or less-than, ranges, sets, etc.  Typically, the
+   Evidence value is one operand of an expression and the Reference
+   Value contains the operator and additional operands.
+
+   The operator and remaining operands are contained in an array.
+   Expression arrays have an operator followed by zero or more operands.
+   The operator definition identifies the additional operands and their
+   data types.  A Verifier forms an expression using Evidence as the
+   first operand, obtains the operator from the first entry in the
+   expression array, and any remaining array entries are operands.
+
+   This document describes operations using _infix_ notation where the
+   first operand, _operand_1_, is obtained from Evidence, followed by
+   the operator, followed by any remaining operands: _operand_2_,
+   _operand_3_, etc...
+
+   For example:
+
+   *  From Evidence: operand_1, from Reference Values: [ operator,
+      operand_2, operand_3, ... ].
+
+   Expression records are CBOR tagged to indicate the following CBOR is
+   to be evaluated as an expression.  Expression statements found in
+   Reference Values informs the Verifier that Evidence is needed to
+   complete the expression equation.  Appraisal processing MUST evaluate
+   the expression.
+
+   This profile anticipates use of the CBOR tag #6.60010 to identify
+   expression arrays.  See Section 10
+
+   For example:
+
+   *  #6.60010([ operator, operand_2, operand_3, ... ]).
+
+5.1.1.  Expression Operators
+
+   There are several classes of operators as follows:
+
+   1.  *Numeric*: The numeric operand can be an integer, unsigned
+       integer, or floading point value.
+
+   2.  *Set*: The set operand can be an set (array) of any primitive
+       value or a set of arrays containing any primitive value.  The
+       position of the items in a set is unordered, while the position
+       of items in an array within a set is ordered.
+
+   3.  *Date-Time*: The date-time operators compare two date-time
+       values, while the epoch operators determine if a date-time value
+       is within a range defined by an epoch and a grece period relative
+       to the epoch.
+
+   4.  *Mask*: The mask operator compares two bit fields where a bit-
+       field is compared to a second bit-field using a bit-field-mask
+       that selects the bits to be compared.  The bit-field may contain
+       a sequence of bytes of any length.  The bit-field-mask should be
+       the same length as the bit-field.
+
+5.1.1.1.  Equivalence Operator
+
+   By default, _exact_ match rules are assumed.  Consequently, no
+   operator artifact is needed when Evidence values are identical to
+   Reference Values.
+
+5.1.2.  Numeric Expressions
+
+   Numeric operators apply to values that are integers, unsigned
+   integers or floating point numbers.  There are four numeric
+   operators:
+
+   1.  *greater-than* (gt),
+
+   2.  *greater-than-or-equal* (ge),
+
+   3.  *less-than* (lt),
+
+   4.  *less-than-or-equal* (le).
+
+   The equals operator is not defined because an exact match rule is the
+   default rule when an Evidence value is identical to a Reference
+   Value.
+
+   The numeric operator data type definitions are as follows:
+
+   gt = 1
+   ge = 2
+   lt = 3
+   le = 4
+   numeric-type = integer / unsigned / float
+   numeric-operator = gt / ge / lt / le
+   numeric-expression = [ numeric-operator, numeric-type ]
+   tagged-numeric-expression = #6.60010(numeric-expression)
+
+   A numeric expression is an array containing a numeric operator and a
+   numeric operand.  The operand contains a numeric Reference Value that
+   is matched with a numeric Evidence value.
+
+   Evidence and Reference Values MUST be the same numeric type.  For
+   example, if a Reference Value numeric type is integer, then the
+   Evidence numeric value must also be integer.
+
+   This profile defines four macro numeric expressions, one for each
+   numeric operator:
+
+   *  tagged-numeric-gt,
+
+   *  tagged-numeric-ge,
+
+   *  tagged-numeric-lt,
+
+   *  tagged-numeric-le.
+
+   In each case, the numeric operator is used to evaluate a Reference
+   Value operand against an Evidence value operand that is obtained from
+   Evidence.
+
+   If the expression is read using _infix_ notation, the first operand
+   is Evidence, followed by the operator, followed by the Reference
+   Value operand.
+
+   Example:
+
+   *  <evidence_numeric> <le> <reference_numeric>
+
+   The numeric expression definitions are as follows:
+
+   tagged-numeric-gt = #6.60010( [
+       greater-than: gt .within numeric-operator,
+       reference-value: numeric-type ] )
+   tagged-numeric-ge = #6.60010( [
+       greater-than: ge .within numeric-operator,
+       reference-value: numeric-type ] )
+   tagged-numeric-lt = #6.60010( [
+       greater-than: lt .within numeric-operator,
+       reference-value: numeric-type ] )
+   tagged-numeric-le = #6.60010( [
+       greater-than: le .within numeric-operator,
+       reference-value: numeric-type ] )
+
+5.1.3.  Set Expressions
+
+   Set operators allow Reference Values, that are expressed as a set, to
+   be compared with Evidence that is expressed as either a primitive
+   value or a set.
+
+   Set expression statements have two forms:
+
+   1.  A binary relation between a primitive object 'O' and a set 'S',
+       and
+
+   2.  A binary relation between two sets, an Evidence set 'S1' and a
+       Reference Values set 'S2'.
+
+   The first form, relation between an object and a set, has two
+   operators:
+
+   *  *member* and
+
+   *  *not-member*.
+
+   The Evidence object 'O' is evaluated with the Reference Values set
+   'S'.
+
+   The op.member and op.not-member operators expect a Reverence Value
+   set as _operand_2_ and a primitive Evidence value as _operand_1_.
+   Evaluation tests whether _operand_1_ is a member of the set
+   _operand_2_.
+
+   Example:
+
+   *  <evidence-value> <set-operator> <reference-set>
+
+   The set data type definitions are defined as follows:
+
+   member = 6
+   not-member = 7
+
+   set-type = [ * any ]
+   set-operator = member / not-member
+   set-expression = [ set-operator, set-type ]
+   tagged-set-expression = #6.60010( set-expression )
+
+   A set expression array contins a set operator followed by a set of
+   Reference Values.  The set is defined by set-type.
+
+   The set expression type definitions are as follows:
+
+   tagged-exp-member = #6.60010([
+       member .within set-operator, set-type ])
+
+   tagged-exp-not-member = #6.60010([
+       not-member .within set-operator, set-type ])
+
+   Examples:
+
+   *  <evidence_object> <member> <reference_set>
+
+   *  <evidence_object> <not-member> <reference_set>
+
+   The Evidence object MUST NOT be nil.
+
+   The Reference Values set may be the empty set.
+
+   The second form, a relation between two sets, has three operators:
+
+   *  *subset*,
+
+   *  *superset*,
+
+   *  *disjoint*.
+
+   The fist set, S1 is Evidence and set, S2 is the Reference Values set.
+
+   The subset, superset, and disjoint operators test whether an Evidence
+   set value satisfies a set operation, given a Reverence Value set.
+
+   Examples:
+
+   *  <evidence_set> <subset> <reference_set>
+
+   *  <evidence_set> <superset> <reference_set>
+
+   *  <evidence_set> <disjoint> <reference_set>
+
+   The Reference Values and Evidence sets may be the empty set.
+
+   The set of sets data type definitions are as follows:
+
+   subset = 8
+   superset = 9
+   disjoint = 10
+   set-of-set-type = [ * [ + any ]]
+   set-of-set-operator = subset / superset / disjoint
+   set-of-set-expression = [ set-of-set-operator, set-of-set-type ]
+   tagged-set-of-set-expression = #6.60010(set-of-set-expression)
+
+   For subset, every member in the Evidence set 'S1', MUST map to a
+   member in the Reference Values set 'S2'.  The Evidence set, 'S1', MAY
+   be a proper subset of 'S2'.  For example, if every member in set 'S1'
+   maps to every member in set 'S2' then matching is successful.  A
+   successful result produces the set 'S1'.
+
+   For superset, every member in the Reference Values set 'S2', MUST map
+   to a member in the Evidence set 'S1'.  A successful result produces
+   the set 'S1'.
+
+   For disjoint, every member in the Evidence set 'S1' MUST NOT map to
+   any member in the Reference Values set 'S2'.  A successful result
+   produces the empty set.
+
+   The set of sets expression definitions are as follows:
+
+   tagged-exp-subset = #6.60010([
+       subset .within set-of-set-operator, set-of-set-type ])
+
+   tagged-exp-superset = #6.60010([
+       superset .within set-of-set-operator, set-of-set-type ])
+
+   tagged-exp-disjoint = #6.60010([
+       disjoint .within set-of-set-operator, set-of-set-type ])
+
+5.1.4.  Time Expressions
+
+5.1.4.1.  Date-Time Expressions
+
+   Date-time can be expressed in both string tdate or numeric time
+   formats.  There are four operators that are defined for date-time
+   expressions:
+
+   1.  *lt* determines if a date-time Evidence value is less than a
+       Reference Values date-time.
+
+   2.  *le* determines if a date-time Evidence value is less than or
+       equal to a Reference Values date-time.
+
+   3.  *gt* determines if a data-time Evidence value is greater than a
+       Reference Values date-time.
+
+   4.  *ge* determines if a data-time Evidence value is greater than or
+       equal to a Reference Values date-time.
+
+   The date-time operators are in fact numeric.  Expressions involving
+   string date-time values must be converted to numeric format before
+   the numeric comparison operator can be applied.
+
+   The numeric date-time data type definitions are as follows:
+
+   time-operator = numeric-operator
+   time-expression = [ time-operator, time ] ;#6.1(number)
+   tagged-time-expression = #6.60010( time-expression )
+
+   The string date-time data type definitions are as follows:
+
+   tdate-operator = numeric-operator ; converts tdate to numeric
+   tdate-expression = [ tdate-operator, tdate ] ;#6.0(string)
+   tagged-tdate-expression = #6.60010( tdate-expression )
+
+   The date-time expressions for evaluating time consist of a CBOR
+   tagged record containing a time operator followed by a date-time
+   value.
+
+   The gt expression compares a date-time value contained in Evidence to
+   a Reference Values date-time.  If the Evidence date-time value is
+   greater-than to the Reference Value, then the Evidence value is
+   accepted.
+
+   The ge expression compares a date-time value contained in Evidence to
+   a Reference Values date-time.  If the Evidence date-time value is
+   greater-than-or-equal to the Reference Value, then the Evidence value
+   is accepted.
+
+   The lt expression compares a date-time value contained in Evidence to
+   a Reference Values date-time.  If the Evidence date-time value is
+   less-than to the Reference Value, then the Evidence value is
+   accepted.
+
+   The le expression compares a date-time value contained in Evidence to
+   a Reference Values date-time.  If the Evidence date-time value is
+   less-than-or-equal to the Reference Value, then the Evidence value is
+   accepted.
+
+   In _infix_ notation, a date-time value reported as Evidence in
+   _operand_1_. The Reference Value expression contains a time
+   comparison operator and _operand_2_ contains a reference date-time.
+
+   Example:
+
+   *  <evidence_date_time> <gt> <reference_date_time>
+
+   The numeric date-time expression definitions are as follows:
+
+   tagged-exp-time-gt = #6.60010([
+       gt .within time-operator,
+       time ])
+
+   tagged-exp-time-ge = #6.60010([
+       ge .within time-operator,
+       time ])
+
+   tagged-exp-time-lt = #6.60010([
+       lt .within time-operator,
+       time ])
+
+   tagged-exp-time-le = #6.60010([
+       le .within time-operator,
+       time ])
+
+   The string date-time expression definitions are as follows:
+
+   tagged-exp-tdate-gt = #6.60010([
+       gt .within tdate-operator,
+       tdate ])
+
+   tagged-exp-tdate-ge = #6.60010([
+       ge .within tdate-operator,
+       tdate ])
+
+   tagged-exp-tdate-lt = #6.60010([
+       lt .within tdate-operator,
+       tdate ])
+
+   tagged-exp-tdate-le = #6.60010([
+       le .within tdate-operator,
+       tdate ])
+
+5.1.4.2.  Epoch Expressions
+
+   An epoch expression defines a timing window that can be used to
+   determine recentness of a time stampped message.  By default, the
+   Verifier's current time implicitly defines an epoch.  A grace period
+   defines the epoch window differential, in seconds, that a timestamp
+   must fall within to be valid.
+
+   Epochs don't have to rely on current time.
+   [I-D.birkholz-rats-epoch-markers] defines several.
+
+   The epoch data type definitions are as follows:
+
+   epoch-operator = numeric-operator
+   epoch-seconds-type = int
+   epoch-expression = [
+       epoch-operator,
+       grace-period: epoch-seconds-type,
+       ? $tagged-epoch-id
+   ]
+   tagged-epoch-expression = #6.60010( epoch-expression )
+   $tagged-epoch-id /= tdate
+   $epoch-timestamp-type /= $tagged-epoch-id
+
+   An epoch expression array contains an epoch-operator followed by a
+   grace period in seconds that is optionally followed by a $tagged-
+   epoch-id.  Epoch operators can be: gt, ge, lt, or le.  The operator
+   defines the position of the grace window relative to the epoch and
+   epoch-grace-seconds defines the size of the window in seconds.  If
+   the default epoch type is not used, $tagged-epoch-id defines the
+   alternate epoch scheme.
+
+   The $epoch-timestamp-type defines the timestamp type for the epoch
+   scheme.  By default, the timestamp is tdate.
+
+   The tagged-epoch-expression is an epoch-expression preceded by a CBOR
+   tag for an expression array that has the value #6.60010.
+
+   The epoch expression definitions are as follows:
+
+   tagged-exp-epoch-gt = #6.60010([
+       gt .within epoch-operator
+       grace-period: epoch-seconds-type ])
+
+   tagged-exp-epoch-ge = #6.60010([
+       ge .within epoch-operator
+       grace-period: epoch-seconds-type ])
+
+   tagged-exp-epoch-lt = #6.60010([
+       lt .within epoch-operator
+       grace-period: epoch-seconds-type ])
+
+   tagged-exp-epoch-le = #6.60010([
+       le .within epoch-operator
+       grace-period: epoch-seconds-type ])
+
+   A variety of epoch expressions can be defined that convenently
+   constrain epoch definition.  The tagged-exp-epoch-gt expression
+   defines an epoch window that is greater than the current date and
+   time by the supplied grace period.
+
+   In _infix_ notation, the timestamp value is within an epoch window
+   that is defined by the current time, plus the grace period, and where
+   the epoch-operator defines the shape of the epoch window.
+
+   Example epoch expression:
+
+   *  <evidence_timestamp> <epoch-operator> <grace_period>
+      <current_time>
+
+   The Verifier adds grace_period to current_time to obtain the epoch
+   window then applies the operator to determine if the
+   evidence_timestamp is within the window.
+
+5.1.5.  Mask Expression
+
+   Reference Values expressed as an array of bits or bytes that uses a
+   mask can indicate to a Verifier which bits or bytes of Evidence to
+   ignore.
+
+   Reference Value and mask arrays MUST be the same length for the mask
+   to be applied correctly.  Normally, Evidence would not supply a mask,
+   while Endorsed Values would.  The mask-eq operator indicates that an
+   Evidence value of type mask-type is compared with a Reference Value
+   of type mask-type, and that a mask of type mask-type is applied to
+   both values before comparing values.  If the operator is mask-eq,
+   then a binary equivalence comparison is applied.
+
+   The Verifier MUST ensure the lengths of values and mask are
+   equivalent.  If the mask is shorter than the values, the mask is
+   padded with zeros (0) until it is the same length as the largest
+   value.  If the Evidence or Reference Value length is shorter than the
+   mask, the value is padded with zeros (0) to the length of the mask.
+
+   The masked data type definitions are as follows:
+
+   mask-eq = 1
+   mask-operator = mask-eq
+   mask-type = bstr
+   mask-expression = [ mask-operator, value: mask-type, mask: mask-type ]
+   tagged-mask-expression = #6.60010( mask-expression )
+
+   If the Evidence bit field is a different length from the Reference
+   Value and mask, the shorter length bit field is padded with zeros to
+   accommodate the larger bit field.
+
+   The tagged-exp-mask-eq expression defines a tagged expression that
+   applies the mask equivalence operator to an Evidence value and a
+   Reference Value using the supplied mask.
+
+   In _infix_ notation, the Evidence value is _operand_1_, followed by
+   the mask operator, followed by a Reference Value, _operand_2_,
+   followed by the mask, _operand_3_.
+
+   Example:
+
+   *  <evidence_value> <mask-eq> <reference_value> <mask>
+
+   If each bit in Evidence has a corresponding matching bit in the
+   Reference Value, then the Evidence value is accepted.
+
+   The masked data expression definitions are as follows:
+
+   tagged-exp-mask-eq = #6.60010([
+       mask-eq .within mask-operator,
+       value: mask-type, mask: mask-type ] )
+
+5.2.  Measurement Extensions
+
+   This profile extends the CoMID measurement-values-map with additional
+   code point definitions, that accommodate Intel SGX and similar
+   architectures.  Measurement extensions don't change Verifier
+   behavior.  An extension enables the Verifier to validate the profile
+   compliance of the input evidence and reference values, as it defines
+   the acceptable data types in evidence and the expression operator
+   that is explicitly supplied with the Reference Values, see
+   Section 5.1.1.
+
+   In cases where Evidence does not exactly match Reference Values, the
+   operator definition determines the expected data types of the
+   operands.  Expected Verifier behavior is defined in Section 7
+
+5.2.1.  The tee-advisory-ids-type Measurement Extension
+
+   The tee.advisory-ids extension allows the Attester to report known
+   security advisories and a Reference Values Provider (RVP) to assert
+   updated security advisories.
+
+   The $tee-advisory-ids-type is used to specify a set of security
+   advisories, where each is identified by a string identifier.
+   Evidence may report a set of advisories the Attester believes are
+   relevant.  The set of advisories are constrained by the set-of-set-
+   type structure.
+
+   A Reference Values expression record is defined for this extension
+   that applies the disjoint set operation to determine if there are
+   advisories outstanding.  If no advisories are outstanding, then the
+   empty set signifies successful matching.
+
+   The $tee-advisory-ids-type is a list of advisories when used as
+   Endorsements or Evidence and a disjoint set of advisories when used
+   as a Reference Value.
+
+   $$measurement-values-map-extension //= (
+     &(tee.advisory-ids: -89) => $tee-advisory-ids-type
+   )
+   $tee-advisory-ids-type /= set-type
+   $tee-advisory-ids-type /= tagged-exp-not-member
+
+5.2.2.  The tee-attributes-type Measurement Extension
+
+   The tee.attributes extension enables the Attester to report TEE
+   attributes and an RVP to assert a reference TEE attributes and mask.
+
+   The $tee-attributes-type is used to specify TEE attributes in 8 or 16
+   byte words.  If Evidence uses an 8 byte mask, then the Reference
+   Values expression also uses an 8 byte value and mask.
+
+   The $tee-attributes-type is a singleton value omitting the mask value
+   when used as Endorsement or Evidence and a tuple containing the
+   reference and mask when used as a Reference Value.
+
+   $$measurement-values-map-extension //= (
+     &(tee.attributes: -82) => $tee-attributes-type
+   )
+   $tee-attributes-type /= mask-type
+   $tee-attributes-type /= tagged-exp-mask-eq
+
+5.2.3.  The tee-cryptokey-type Measurement Extension
+
+   The tee.cryptokeys extension identifies cryptographic keys associated
+   with a Target Environment.  If multiple $crypto-key-type-choice
+   measurements are supplied, array position disambiguates each entry.
+   Appraisal compares values indexed by array position.
+
+   $$measurement-values-map-extension //= (
+     &(tee.cryptokeys: -91) => [ + $tee-cryptokey-type ]
+   )
+   $tee-cryptokey-type /= $crypto-key-type-choice
+
+5.2.4.  The tee-date-type Measurement Extension
+
+   The tee.tcbdate extension enables the Attester or Endorser to report
+   the TEE date attribute and a RVP to assert a valid TEE matching
+   operation.
+
+   The $tee-date-type is a date-time string when used for Evidence or
+   Endorsement.  When used for a Reference Value, either a tagged-tdate-
+   expression or a tagged-epoch-expression describes the TCB validity.
+
+   $$measurement-values-map-extension //= (
+     &(tee.tcbdate: -72) => $tee-date-type
+   )
+   $tee-date-type /= tdate
+   $tee-date-type /= tagged-exp-tdate-ge
+   $tee-date-type /= tagged-exp-epoch-ge
+
+   tdate strings must be converted to numeric time before the tdate-
+   operator, which is a numeric operator, can be applied.
+
+5.2.5.  The tee-digest-type Measurement Extension
+
+   The tee.mrenclave and tee.mrsigner extensions enable the Attester to
+   report digests for the SGX enclave, a.k.a., Target Environment, and
+   the signer, a.k.a., Attesting Environment, of the enclave digest.
+
+   The $tee-digest-type is a record that contains the hash algorithm
+   identifier and the digest value when used as Evidence.  When used as
+   Reference Values, a set of digests can be asserted.  The Evidence
+   digest record must be a member of the Reference Values set.
+
+   $$measurement-values-map-extension //= (
+     &(tee.mrtee: -83) => $tee-digest-type
+   )
+   $$measurement-values-map-extension //= (
+     &(tee.mrsigner: -84) => $tee-digest-type
+   )
+   $tee-digest-type /= digest
+   $tee-digest-type /= [ + digest ]
+   $tee-digest-type /= tagged-exp-member
+
+5.2.6.  The tee-epoch-type Measurement Extension
+
+   The tee.epoch extension enables the Attester to report an epoch
+   Evidence measurement, and a RVP to assert an epoch Reference Value.
+
+   As Evidence, the $tee-epoch-type is a tdate timestamp.
+
+   As a Reference Value, the $tee-epoch-type is a grace period, in
+   seconds, that is relative to the Verifier's current date and time,
+   and an epoch operator: gt, ge, lt, or le.  The Verifier evaluates
+   whether the timestamp is within the grace period relative to the
+   current date and time.  The current date and time is implicit, and is
+   assumed to be in tdate format.
+
+   The $tee-epoch-type is an $epoch-timestamp-type when used as Evidence
+   or Endorsement and a $tagged-epoch-expression when used as a
+   Reference Value.
+
+   $$measurement-values-map-extension //= (
+     &(tee.epoch: -90) => $tee-epoch-type
+   )
+   $tee-epoch-type /= $epoch-timestamp-type
+   $tee-epoch-type /= tagged-exp-epoch-gt
+
+5.2.7.  The tee-instance-id-type Measurement Extension
+
+   The tee.instance-id extension enables the Attester to report the
+   (TBD:instance-id-description) Evidence value and the RVP to assert an
+   exact-match Reference Value.
+
+   The $tee-instance-id-type is an unsigned integer.
+
+   The $tee-instance-type is an exact match measurement.
+
+   $$measurement-values-map-extension //= (
+     &(tee.instance-id: -77) => $tee-instance-id-type
+   )
+   $tee-instance-id-type /= uint
+   $tee-instance-id-type /= bstr
+
+5.2.8.  The tee-isvprodid-type Measurement Extension
+
+   The tee.isvprodid extension enables the Attester to report the ISV
+   product identifier Evidence value and the RVP to assert an exact-
+   match Reference Value.
+
+   The $tee-isvprodid-type is an unsigned integer.
+
+   The $tee-isvprodid-type is an exact match measurement.
+
+   $$measurement-values-map-extension //= (
+     &(tee.isvprodid: -85) => $tee-isvprodid-type
+   )
+   $tee-isvprodid-type /= uint
+   $tee-isvprodid-type /= bstr
+
+5.2.9.  The tee-miscselect-type Measurement Extension
+
+   The tee.miscselect extension enables the Attester to report the
+   (TBD:miscselect-description) Evidence value and the RVP to assert a
+   Reference Value and mask.
+
+   The $tee-miscselect-type is a 4 byte value and mask.
+
+   The $tee-miscselect-type is a singleton mask-type value when used as
+   Endorsement or Evidence and a tagged-mask-expression when used a
+   Reference Value.
+
+   $$measurement-values-map-extension //= (
+     &(tee.miscselect: -81) => $tee-miscselect-type
+   )
+   $tee-miscselect-type /= mask-type
+   $tee-miscselect-type /= tagged-exp-mask-eq
+
+5.2.10.  The tee-model-type Measurement Extension
+
+   The tee.model extension enables the Attester to report the TEE model
+   string as Evidence and the RVP to assert an exact-match Reference
+   Value.
+
+   The $tee-model-type is a string.
+
+   The $tee-model-type is an exact match measurement.
+
+   $$measurement-values-map-extension //= (
+     &(tee.model: -71) => $tee-model-type
+   )
+   $tee-model-type /= tstr
+
+5.2.11.  The tee-pceid-type Measurement Extension
+
+   The tee.pceid extension enables the Attester to report the
+   (TBD:pceid-description) as Evidence and the RVP to assert an exact-
+   match Reference Value.
+
+   The $tee-pceid-type is a string.
+
+   The $tee-pceid-type is an exact match measurement.
+
+   $$measurement-values-map-extension //= (
+     &(tee.pceid: -80) => $tee-pceid-type
+   )
+   $tee-pceid-type /= tstr
+
+5.2.12.  The tee-svn-type Measurement Extension
+
+   The tee.isvsvn extension enables the Attester to report the SVN for
+   the independent software vendor supplied component as Evidence and
+   the RVP to assert a Reference Value that is greater-than-or-equal to
+   the reported SVN.
+
+   The $tee-svn-type is either an unsigned integer when reported as
+   Evidence, or a tagged numeric expression that contains an SVN and a
+   numeric greater-than-or-equal operator.  The Verifier ensures the
+   Evidence value is greater-that-or-equal to the Reference Value.
+
+   The $tee-svn-type is a numeric when used as Endorsement or Evidence
+   and a tagged-numeric-expression when used as a Reference Value.
+
+   $$measurement-values-map-extension //= (
+     &(tee.isvsvn: -73) => $tee-svn-type
+   )
+   $tee-svn-type /= numeric-type
+   $tee-svn-type /= tagged-numeric-ge
+
+5.2.13.  The tee-tcb-comp-svn-type Measurement Extension
+
+   The tee.tcb-comp-svn extension enables the Attester to report an
+   array of SVN values for the TCB when asserted as Evidence and an
+   array of tagged-numeric-ge entries when asserted as a Reference
+   Value.
+
+   The $tee-tcb-comp-svn-type is an array containing 16 SVN values when
+   reported as Evidence and an array of 16 expression records each
+   containing the numeric ge operator and a reference SVN value.  The
+   Verifier evaluates each SVN in the Evidence array with the
+   corresponding reference expression, by array position.  If all
+   Evidence values match their respective expressions, evaluation is
+   successful.  The array of SVN Evidence is accepted.
+
+   $$measurement-values-map-extension //= (
+     &(tee.tcb-comp-svn: -125) => $tee-tcb-comp-svn-type
+   )
+   $tee-tcb-comp-svn-type /=
+     [ 16*16 svn-type .within numeric-type ]
+   $tee-tcb-comp-svn-type /=
+     [ 16*16 tagged-numeric-ge ]
+
+5.2.14.  The tee-tcb-eval-num-type Measurement Extension
+
+   The tee.tcb-eval-num extension enables the Attester to report a
+   (TBD:tcb-eval-num-description) as Evidence and the RVP to assert a
+   Reference Value expression that compares the (TBD:tcb-eval-num-
+   description) Evidence to the Reference Value (TBD:tcb-eval-num-
+   description) using the greater-than-or-equal operator.
+
+   The $tee-tcb-eval-num-type is an unsigned integer when reported as
+   Evidence and a tagged numeric expression when asserted as Reference
+   Values.
+
+   $$measurement-values-map-extension //= (
+     &(tee-tcb-eval-num: -86) => $tee-tcb-eval-num-type
+   )
+   $tee-tcb-eval-num-type /= uint .within numeric-type
+   $tee-tcb-eval-num-type /= tagged-numeric-ge
+
+5.2.15.  The tee-tcbstatus-type Measurement Extension
+
+   The tee.tcb-status extension enables the Attester to report the
+   status of the TEE trusted computing base (TCB) as an array of status
+   strings, as Evidence, and the RVP to assert an array of status arrays
+   as Reference Values where the Evidence array is a subset of the
+   reference status arrays.
+
+   The $tee-tcbstatus-type is a status array with a set expressions
+   containing the subset operator when used as Evidence.  When used as a
+   Reference Value it is an array of status arrays.
+
+   $$measurement-values-map-extension //= (
+     &(tee.tcbstatus: -88) => $tee-tcbstatus-type
+   )
+   $tee-tcbstatus-type /= set-type
+   $tee-tcbstatus-type /= tagged-exp-member
+
+5.2.16.  The tee-vendor-type Measurement Extension
+
+   The tee.vendor extension enables the Attester to report the TEE
+   vendor name as Evidence and for the RVP to assert the TEE vendor
+   name.
+
+   The $tee-vendor-type is a string containing the vendor name as a
+   string.  The vendor string in Evidence must exactly match the vendor
+   string in Reference Values.
+
+   The $tee-vendor-type is an exact match measurement.
+
+   $$measurement-values-map-extension //= (
+     &(tee.vendor: -70) => $tee-vendor-type
+   )
+   $tee-vendor-type /= tstr
+
+6.  Intel Evidence Profile
+
+   Evidence may be integrity protected in various ways including:
+   certificates [RFC5280], SPDM transcript [DMTF.SPDM], and CBOR web
+   token (CWT) [RFC8392].  Evidence contained in a certificate may be
+   encoded using DiceTcbInfo and DiceTcbInfoSeq [DICE.Attest].  Evidence
+   contained in an SPDM payload may be encoded using the SPDM
+   Measurement Block [DMTF.SPDM].  Evidence may be formatted as concise-
+   evidence [TCG.concise-evidence] and included in an alias certificate
+   or an SPDM Measurement Manifest.
+
+   The DiceTcbInfo and SPDM Evidence formats can be translated to CoMID.
+   The concise evidence format is native to CoMID.  This profile
+   documents evidence mapping from DiceTcbInfo and SPDM Measurement
+   Block to CoMID, as defined by [DICE.CoRIM].
+
+   The CoMID extensions defined by this profile, see Section 5.2, are
+   applied to concise-evidence so that Verifiers that support this
+   profile can consistently apply a common schema across Evidence,
+   Reference Values, and Endorsements.
+
+6.1.  Evidence Hierarchy
+
+   Evidence hierarchy refers to SGX layering where the SGX Platform
+   Certification Enclave (PCE) collects measurements of the Quoting
+   Enclave (QE) and the Quoting Enclaves collect measurments of their
+   respective ISV enclaves (ISVE).  A hierarchy of Evidence consisting
+   of one PCE Evidence, one QE Evidence and one ISVE Evidence.
+
+   A complex device may have multiple roots of trust, such as
+   [DICE.engine], each contributing an evidence hierarchy that results
+   in several Evidence "chains", that together, constitute a complete
+   Evidence hierarchy for the Attester device.
+
+   The Evidence hierarchy should form a spanning tree that contains all
+   Attester Evidence.  All Attesting Environments within the device
+   produce the spanning tree.  CoRIM manifests contain Reference Values
+   for the spanning tree so that Verifiers do not assume the spanning
+   tree is defined by Evidence.  Note that a failure or comporomise
+   within the Attester device could result in a portion of the spanning
+   tree being omitted.
+
+   Example spanning tree:
+
+   *  A DICE certificate chain with a DiceTcbInfo extension, a
+      DiceTcbInfoSeq extension, and a ConceptualMessageWrapper (CMW)
+      [I-D.ietf-rats-msg-wrap] extension containing a CBOR-encoded
+      tagged-concise-evidence.
+
+   *  An SPMD alias intermediate certification chain containing a CMW
+      extension, and an SPDM measurement manifest containing tagged-
+      concise-evidence.
+
+6.2.  Concise Evidence
+
+   Concise evidence is a CDDL representation of Evidence that is derived
+   from CoMID and CoSWID [RFC9393].  Evidence describes the actual state
+   of the Attester. tagged-concise-evidence uses a CBOR tag to identify
+   concise-evidence [TCG.concise-evidence].  This profile is compatible
+   with tagged-concise-evicence.  CoRIM extensions, defined by this
+   profile, are used by tagged-concise-evidence by extending
+   measurement-values-map.
+
+   The concise-evidence structure is defined in [TCG.concise-evidence]
+
+7.  Intel Appraisal Algorithm
+
+   The Intel profile anticipates appraisal algorithms will be based on
+   the appraisal algorithm defined in [I-D.ietf-rats-corim].  This
+   profile extends the appraisal algorithm to recognize profile
+   extensions that form equations.  An Evidence measurement forms one of
+   the operands: (evidence operand).  A Reference Value forms the
+   operator and remaining operands: [(expression operator), (reference
+   value operand), ...].  For example, if a numeric reference value is
+   14, and the expressions operator is gt the Reference Value might
+   contain the Claim: #6.60010([ 1, 14]).  Evidence might contain the
+   measurement: '15'.  In infix construction, the equation would be:
+   (15) (gt) (14).  The Verifier evaluates whether 15 is greater-than
+   14.
+
+7.1.  Complex Expressions
+
+   Complex expressions can be used to assess whether the Target
+   Environment is in a particular state before certain Endorsement
+   claims can be asserted.  For example, if an SGX enclave has an svn
+   value that is less than the prescribed minimum svn, the enclave
+   status may be considered "OutOfDate" or may have a known security
+   advisory.  The CoMID conditional-endorsement-triples or conditional-
+   endorsement-series-triples describe complex Endorsement expressions.
+
+   This profile uses these triples with the reference measurement values
+   extensions described in Section 5.2.
+
+8.  Reporting Attestation Results
+
+   Attestation verification can be performed by a pipeline consisting of
+   multiple stages where each input manifest demarks a stage.  The final
+   stage prepares Attestation Results according to Relying Party
+   specifications.  This profile does not define an attestation results
+   format.  The Relying Party should specify suitable Attestation
+   Results formats such as [I-D.ietf-rats-ar4si] or
+   [I-D.kdyxy-rats-tdx-eat-profile].
+
+   The precise Attestation Results format used, if negotiated by
+   Verifier and Relying Party, should reference this profile to
+   acknowledge that the Relying Party and Verifier both support the
+   extensions defined in this document.
+
+9.  Security Considerations
+
+   The security of this profile depends on the security considerations
+   of the various normative references.
+
+10.  IANA Considerations
+
+   This document uses the IANA CBOR tag registry.  See [IANA.CBOR]
+
+   The following CBOR tag has been assigned:
+
+   *  CBOR tag: 60010
+
+   *  Data item: array
+
+   *  Semantics: a CBOR encoded array
+
+   *  Point of contact: ned.smith&intel.com
+
+   *  Description of semantics: this document
+
+11.  References
+
+11.1.  Normative References
+
+   [DICE.Attest]
+              Trusted Computing Group (TCG), "DICE Attestation
+              Architecture", Version 1.1, Revision 18 , January 2024,
+              <https://trustedcomputinggroup.org/wp-content/uploads/
+              DICE-Attestation-Architecture-Version-1.1-Revision-
+              18_pub.pdf>.
+
+   [DICE.CoRIM]
+              Trusted Computing Group (TCG), "DICE Endorsement
+              Architecture for Devices", Version 1.0, Revision 0.38 ,
+              November 2022, <https://trustedcomputinggroup.org/wp-
+              content/uploads/TCG-Endorsement-Architecture-for-Devices-
+              V1-R38_pub.pdf>.
+
+   [DICE.layer]
+              Trusted Computing Group (TCG), "DICE Layering
+              Architecture", Version 1.0, Revision 0.19 , July 2020,
+              <https://trustedcomputinggroup.org/wp-content/uploads/
+              DICE-Layering-Architecture-r19_pub.pdf>.
+
+   [I-D.ietf-rats-corim]
+              Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
+              W. Pan, "Concise Reference Integrity Manifest", Work in
+              Progress, Internet-Draft, draft-ietf-rats-corim-06, 18
+              October 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-corim-06>.
+
+   [I-D.ietf-rats-msg-wrap]
+              Birkholz, H., Smith, N., Fossati, T., Tschofenig, H., and
+              D. Glaze, "RATS Conceptual Messages Wrapper (CMW)", Work
+              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-11,
+              15 November 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-msg-wrap-11>.
+
+   [IANA.CBOR]
+              Internet Assigned Numbers Authority (IANA), "Concise
+              Binary Object Representation (CBOR) Tags", September 2013,
+              <https://www.iana.org/assignments/cbor-tags/cbor-
+              tags.xhtml>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC9393]  Birkholz, H., Fitzgerald-McKay, J., Schmidt, C., and D.
+              Waltermire, "Concise Software Identification Tags",
+              RFC 9393, DOI 10.17487/RFC9393, June 2023,
+              <https://www.rfc-editor.org/rfc/rfc9393>.
+
+   [TCG.concise-evidence]
+              Trusted Computing Group (TCG), "TCG DICE Concise Evidence
+              Binding for SPDM", Version 1.0, Revision 0.54 , January
+              2024, <https://trustedcomputinggroup.org/wp-
+              content/uploads/TCG-DICE-Concise-Evidence-Binding-for-
+              SPDM-Version-1.0-Revision-54_pub.pdf>.
+
+11.2.  Informative References
+
+   [DICE.engine]
+              Trusted Computing Group (TCG), "Requirements for a Device
+              Identifier Composition Engine", Family "2.0", Level 00
+              Revision 78 , March 2018,
+              <https://trustedcomputinggroup.org/wp-content/uploads/
+              Hardware-Requirements-for-Device-Identifier-Composition-
+              Engine-r78_For-Publication.pdf>.
+
+   [DMTF.SPDM]
+              Distributed Managability Task Force (DMTF), "Security
+              Protocol and Data Mmodel (SPDM) Specification", Version
+              1.2.1 , May 2022,
+              <https://www.dmtf.org/sites/default/files/standards/
+              documents/DSP0274_1.2.1.pdf>.
+
+   [I-D.birkholz-rats-epoch-markers]
+              Birkholz, H., Fossati, T., Pan, W., and C. Bormann, "Epoch
+              Markers", Work in Progress, Internet-Draft, draft-
+              birkholz-rats-epoch-markers-08, 22 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-birkholz-
+              rats-epoch-markers-08>.
+
+   [I-D.ietf-rats-ar4si]
+              Voit, E., Birkholz, H., Hardjono, T., Fossati, T., and V.
+              Scarlata, "Attestation Results for Secure Interactions",
+              Work in Progress, Internet-Draft, draft-ietf-rats-ar4si-
+              07, 2 September 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
+              ar4si-07>.
+
+   [I-D.ietf-rats-endorsements]
+              Thaler, D., Birkholz, H., and T. Fossati, "RATS
+              Endorsements", Work in Progress, Internet-Draft, draft-
+              ietf-rats-endorsements-05, 8 November 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
+              endorsements-05>.
+
+   [I-D.kdyxy-rats-tdx-eat-profile]
+              Kostal, G., Dittakavi, S., Yeluri, R., Xia, H., and J. Yu,
+              "EAT profile for Intel(r) Trust Domain Extensions (TDX)
+              attestation result", Work in Progress, Internet-Draft,
+              draft-kdyxy-rats-tdx-eat-profile-02, 13 December 2024,
+              <https://datatracker.ietf.org/doc/html/draft-kdyxy-rats-
+              tdx-eat-profile-02>.
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/rfc/rfc5280>.
+
+   [RFC8392]  Jones, M., Wahlstroem, E., Erdtman, S., and H. Tschofenig,
+              "CBOR Web Token (CWT)", RFC 8392, DOI 10.17487/RFC8392,
+              May 2018, <https://www.rfc-editor.org/rfc/rfc8392>.
+
+   [RFC9334]  Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
+              W. Pan, "Remote ATtestation procedureS (RATS)
+              Architecture", RFC 9334, DOI 10.17487/RFC9334, January
+              2023, <https://www.rfc-editor.org/rfc/rfc9334>.
+
+Appendix A.  Acknowledgments
+
+   The authors wish to thank Shanwei Cen for valuable contributions.
+
+Appendix B.  Full Intel Profile CDDL
+
+   tagged-numeric-gt = #6.60010( [
+       greater-than: gt .within numeric-operator,
+       reference-value: numeric-type ] )
+   tagged-numeric-ge = #6.60010( [
+       greater-than: ge .within numeric-operator,
+       reference-value: numeric-type ] )
+   tagged-numeric-lt = #6.60010( [
+       greater-than: lt .within numeric-operator,
+       reference-value: numeric-type ] )
+   tagged-numeric-le = #6.60010( [
+       greater-than: le .within numeric-operator,
+       reference-value: numeric-type ] )
+
+   gt = 1
+   ge = 2
+   lt = 3
+   le = 4
+   numeric-type = integer / unsigned / float
+   numeric-operator = gt / ge / lt / le
+   numeric-expression = [ numeric-operator, numeric-type ]
+   tagged-numeric-expression = #6.60010(numeric-expression)
+
+   member = 6
+   not-member = 7
+
+   set-type = [ * any ]
+   set-operator = member / not-member
+   set-expression = [ set-operator, set-type ]
+   tagged-set-expression = #6.60010( set-expression )
+
+   tagged-exp-member = #6.60010([
+       member .within set-operator, set-type ])
+
+   tagged-exp-not-member = #6.60010([
+       not-member .within set-operator, set-type ])
+
+   subset = 8
+   superset = 9
+   disjoint = 10
+   set-of-set-type = [ * [ + any ]]
+   set-of-set-operator = subset / superset / disjoint
+   set-of-set-expression = [ set-of-set-operator, set-of-set-type ]
+   tagged-set-of-set-expression = #6.60010(set-of-set-expression)
+
+   tagged-exp-subset = #6.60010([
+       subset .within set-of-set-operator, set-of-set-type ])
+
+   tagged-exp-superset = #6.60010([
+       superset .within set-of-set-operator, set-of-set-type ])
+
+   tagged-exp-disjoint = #6.60010([
+       disjoint .within set-of-set-operator, set-of-set-type ])
+
+   mask-eq = 1
+   mask-operator = mask-eq
+   mask-type = bstr
+   mask-expression = [ mask-operator, value: mask-type, mask: mask-type ]
+   tagged-mask-expression = #6.60010( mask-expression )
+
+   tagged-exp-mask-eq = #6.60010([
+       mask-eq .within mask-operator,
+       value: mask-type, mask: mask-type ] )
+
+   tagged-exp-tdate-gt = #6.60010([
+       gt .within tdate-operator,
+       tdate ])
+
+   tagged-exp-tdate-ge = #6.60010([
+       ge .within tdate-operator,
+       tdate ])
+
+   tagged-exp-tdate-lt = #6.60010([
+       lt .within tdate-operator,
+       tdate ])
+
+   tagged-exp-tdate-le = #6.60010([
+       le .within tdate-operator,
+       tdate ])
+
+   tdate-operator = numeric-operator ; converts tdate to numeric
+   tdate-expression = [ tdate-operator, tdate ] ;#6.0(string)
+   tagged-tdate-expression = #6.60010( tdate-expression )
+
+   tagged-exp-time-gt = #6.60010([
+       gt .within time-operator,
+       time ])
+
+   tagged-exp-time-ge = #6.60010([
+       ge .within time-operator,
+       time ])
+
+   tagged-exp-time-lt = #6.60010([
+       lt .within time-operator,
+       time ])
+
+   tagged-exp-time-le = #6.60010([
+       le .within time-operator,
+       time ])
+
+   time-operator = numeric-operator
+   time-expression = [ time-operator, time ] ;#6.1(number)
+   tagged-time-expression = #6.60010( time-expression )
+
+   tagged-exp-epoch-gt = #6.60010([
+       gt .within epoch-operator
+       grace-period: epoch-seconds-type ])
+
+   tagged-exp-epoch-ge = #6.60010([
+       ge .within epoch-operator
+       grace-period: epoch-seconds-type ])
+
+   tagged-exp-epoch-lt = #6.60010([
+       lt .within epoch-operator
+       grace-period: epoch-seconds-type ])
+
+   tagged-exp-epoch-le = #6.60010([
+       le .within epoch-operator
+       grace-period: epoch-seconds-type ])
+
+   epoch-operator = numeric-operator
+   epoch-seconds-type = int
+   epoch-expression = [
+       epoch-operator,
+       grace-period: epoch-seconds-type,
+       ? $tagged-epoch-id
+   ]
+   tagged-epoch-expression = #6.60010( epoch-expression )
+   $tagged-epoch-id /= tdate
+   $epoch-timestamp-type /= $tagged-epoch-id
+
+   $$measurement-values-map-extension //= (
+     &(tee.advisory-ids: -89) => $tee-advisory-ids-type
+   )
+   $tee-advisory-ids-type /= set-type
+   $tee-advisory-ids-type /= tagged-exp-not-member
+
+   $$measurement-values-map-extension //= (
+     &(tee.attributes: -82) => $tee-attributes-type
+   )
+   $tee-attributes-type /= mask-type
+   $tee-attributes-type /= tagged-exp-mask-eq
+
+   $$measurement-values-map-extension //= (
+     &(tee.cryptokeys: -91) => [ + $tee-cryptokey-type ]
+   )
+   $tee-cryptokey-type /= $crypto-key-type-choice
+
+   $$measurement-values-map-extension //= (
+     &(tee.tcbdate: -72) => $tee-date-type
+   )
+   $tee-date-type /= tdate
+   $tee-date-type /= tagged-exp-tdate-ge
+   $tee-date-type /= tagged-exp-epoch-ge
+
+   $$measurement-values-map-extension //= (
+     &(tee.mrtee: -83) => $tee-digest-type
+   )
+   $$measurement-values-map-extension //= (
+     &(tee.mrsigner: -84) => $tee-digest-type
+   )
+   $tee-digest-type /= digest
+   $tee-digest-type /= [ + digest ]
+   $tee-digest-type /= tagged-exp-member
+
+   $$measurement-values-map-extension //= (
+     &(tee.epoch: -90) => $tee-epoch-type
+   )
+   $tee-epoch-type /= $epoch-timestamp-type
+   $tee-epoch-type /= tagged-exp-epoch-gt
+
+   $$measurement-values-map-extension //= (
+     &(tee.instance-id: -77) => $tee-instance-id-type
+   )
+   $tee-instance-id-type /= uint
+   $tee-instance-id-type /= bstr
+
+   $$measurement-values-map-extension //= (
+     &(tee.isvprodid: -85) => $tee-isvprodid-type
+   )
+   $tee-isvprodid-type /= uint
+   $tee-isvprodid-type /= bstr
+
+   $$measurement-values-map-extension //= (
+     &(tee.miscselect: -81) => $tee-miscselect-type
+   )
+   $tee-miscselect-type /= mask-type
+   $tee-miscselect-type /= tagged-exp-mask-eq
+
+   $$measurement-values-map-extension //= (
+     &(tee.model: -71) => $tee-model-type
+   )
+   $tee-model-type /= tstr
+
+   $$measurement-values-map-extension //= (
+     &(tee.pceid: -80) => $tee-pceid-type
+   )
+   $tee-pceid-type /= tstr
+
+   $$measurement-values-map-extension //= (
+     &(tee.isvsvn: -73) => $tee-svn-type
+   )
+   $tee-svn-type /= numeric-type
+   $tee-svn-type /= tagged-numeric-ge
+
+   $$measurement-values-map-extension //= (
+     &(tee.tcb-comp-svn: -125) => $tee-tcb-comp-svn-type
+   )
+   $tee-tcb-comp-svn-type /=
+     [ 16*16 svn-type .within numeric-type ]
+   $tee-tcb-comp-svn-type /=
+     [ 16*16 tagged-numeric-ge ]
+
+   $$measurement-values-map-extension //= (
+     &(tee-tcb-eval-num: -86) => $tee-tcb-eval-num-type
+   )
+   $tee-tcb-eval-num-type /= uint .within numeric-type
+   $tee-tcb-eval-num-type /= tagged-numeric-ge
+
+   $$measurement-values-map-extension //= (
+     &(tee.tcbstatus: -88) => $tee-tcbstatus-type
+   )
+   $tee-tcbstatus-type /= set-type
+   $tee-tcbstatus-type /= tagged-exp-member
+
+   $$measurement-values-map-extension //= (
+     &(tee.vendor: -70) => $tee-vendor-type
+   )
+   $tee-vendor-type /= tstr
+
+Authors' Addresses
+
+   James D. Beaney
+   Intel Corporation
+   Email: james.d.beaney@intel.com
+
+
+   Andrew Draper
+   Intel Corporation
+   Email: andrew.draper@intel.com
+
+
+   Vincent R. Scarlata
+   Intel Corporation
+   Email: vincent.r.scarlata@intel.com
+
+
+   Ned Smith
+   Intel Corporation
+   Email: ned.smith@intel.com
