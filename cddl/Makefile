@@ -18,7 +18,7 @@ check:: check-corim check-corim-examples
 check:: check-ice check-ice-examples
 check:: check-ispdm check-ispdm-examples
 check:: check-profile
-check:: exp-intel-profile-export
+check:: export-intel-profile
 
 # Import profile frags - no dependencies
 include $(CDDL_DIR)profile-frags.mk
@@ -78,7 +78,7 @@ $(eval $(call cddl_check_template,ispdm,$(ISPDM_FRAGS),$(ISPDM_EXAMPLES)))
 $(eval $(call cddl_autogen_template,profile,$(PROFILE_FRAGS)))
 
 # Make exports file
-$(eval $(call cddl_exp_template,intel-profile-export,$(PROFILE_DEPS),$(EXPORTS_DIR)))
+$(eval $(call cddl_exp_template,intel-profile,$(PROFILE_DEPS),$(EXPORTS_DIR)))
 
 check-imports: #$(IMPORT_DEPS)
 	$(MAKE) -C $(IMPORTS_DIR)
