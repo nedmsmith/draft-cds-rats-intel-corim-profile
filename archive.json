@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-21T01:23:50.858282+00:00",
+  "timestamp": "2025-01-16T01:18:35.573526+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -1396,6 +1396,120 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOJvkHy86HGhEn",
+      "title": "Update submodules",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/31",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "added support for importing of corim and concise-evidence cdd files. Removing submodule dependencies. Also fixed broken examples due to changes to corim.",
+      "createdAt": "2025-01-08T16:55:47Z",
+      "updatedAt": "2025-01-14T01:47:28Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "6b927d4d02ebed86835f79a97e4509aa51fba11c",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "update-submodules",
+      "headRefOid": "36d2bee37ea9bb3d5ac3e96d56e2ffa6dc698c49",
+      "closedAt": "2025-01-14T01:47:18Z",
+      "mergedAt": "2025-01-14T01:47:18Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "bddefa5de055494b9f185531019ce8e1f64b6614"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86X31C-",
+          "commit": {
+            "abbreviatedOid": "b91a7a9"
+          },
+          "author": "vinscarlata",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-13T21:46:01Z",
+          "updatedAt": "2025-01-13T21:46:01Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOJvkHy86HvrDw",
+      "title": "debugging rm in CI",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/32",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Added debugging instrumenetation for $(RM) in funcs.mk and other cleanup.",
+      "createdAt": "2025-01-14T17:35:17Z",
+      "updatedAt": "2025-01-15T01:11:00Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "bddefa5de055494b9f185531019ce8e1f64b6614",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "debugging-rm-cmd-in-CI",
+      "headRefOid": "50ba527486906a3cf1a257cd84bd857bbfa8e3cf",
+      "closedAt": "2025-01-15T01:10:56Z",
+      "mergedAt": "2025-01-15T01:10:56Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "9c81f7936fcc38ea48654d4c189a7a146f4cdd2e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86YEi_T",
+          "commit": {
+            "abbreviatedOid": "50ba527"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-15T00:36:50Z",
+          "updatedAt": "2025-01-15T00:36:50Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDOJvkHy86HyMYT",
+      "title": "More tweaks",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/33",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-15T01:15:45Z",
+      "updatedAt": "2025-01-15T01:19:09Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "9c81f7936fcc38ea48654d4c189a7a146f4cdd2e",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "more-tweaks",
+      "headRefOid": "49b8dcc6ee749ab07b07aa3ce8355b9402b142eb",
+      "closedAt": "2025-01-15T01:19:05Z",
+      "mergedAt": "2025-01-15T01:19:05Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "e3efeed6db2ab126debe92434f443f195903381c"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
