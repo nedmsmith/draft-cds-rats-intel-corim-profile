@@ -881,7 +881,7 @@ Table of Contents
    mask-eq = 1
    mask-operator = mask-eq
    mask-type = bstr
-   mask-expression = [ mask-operator, value: mask-type, mask: mask-type ]
+   mask-expression = [ mask-operator, value: mask-type, mask: mask-type]
    tagged-mask-expression = #6.60010( mask-expression )
 
    If the Evidence bit field is a different length from the Reference
@@ -1514,7 +1514,7 @@ Appendix B.  Full Intel Profile CDDL
    mask-eq = 1
    mask-operator = mask-eq
    mask-type = bstr
-   mask-expression = [ mask-operator, value: mask-type, mask: mask-type ]
+   mask-expression = [ mask-operator, value: mask-type, mask: mask-type]
    tagged-mask-expression = #6.60010( mask-expression )
 
    tagged-exp-mask-eq = #6.60010([
