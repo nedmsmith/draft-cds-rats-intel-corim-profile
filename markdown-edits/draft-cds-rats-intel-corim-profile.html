@@ -4,17 +4,21 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Intel Profile for CoRIM</title>
+<title>Intel Profile for Remote Attestation</title>
 <meta content="James D. Beaney" name="author">
 <meta content="Andrew Draper" name="author">
 <meta content="Vincent R. Scarlata" name="author">
 <meta content="Ned Smith" name="author">
 <meta content="
-       This document describes extensions to CoRIM that support Intel-specific Attester implementations and corresponding Endorsements and Reference Values.
-Multiple Evidence formats are anticipated, but all anticipated Evidence can be mapped to Reference Values expressions based on CoRIM and the CoRIM extensions found in this profile.
+       This document is a profile of various IETF and TCG standards that support remote attestation.
+The profile supports Intel-specific adaptations and extensions for Evidence, Endorsements and Reference Values.
+This profile describes apticulareplication of CoRIM, EAT, CMW, TCG concise evidence, and TCG DICE specifications.
+In particular, CoRIM is extended to define measurement types that are unique to Intel and defines Reference Values types that support matching Evidence based on range and subset comparison.
+Multiple Evidence formats are anticipated, based on IETF and TCG specifications.
+Evidence formats are mapped to Reference Values expressions based on CoRIM and CoRIM extensions found in this profile.
 The Evidence to Reference Values mappings are either documented by industry specifications or by this profile.
-Reference Value Providers may use this profile to author mainifests containing Reference Values and Endorsements.
-Verifiers will recognize this profile by it's profile identifier and implement support for the extentions defined or may identify a suitable Verifier, or will refuse to process inputs. 
+Reference Value Providers and Endorsers may use this profile to author mainifests containing Reference Values and Endorsements that require Intel profile support from parser implementations.
+Parser implementations can recognize the Intel profile by profile identifier values contained within attestation conceptual mmessages and from profile parameters to media types or profile specific content format identifiers. 
     " name="description">
 <meta content="xml2rfc 3.25.0" name="generator">
 <meta content="attestation" name="keyword">
@@ -1057,7 +1061,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Beaney, et al.</td>
-<td class="center">Expires 18 July 2025</td>
+<td class="center">Expires 21 July 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-cds-rats-intel-corim-profile-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-01-14" class="published">14 January 2025</time>
+<time datetime="2025-01-17" class="published">17 January 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-07-18">18 July 2025</time></dd>
+<dd class="expires"><time datetime="2025-07-21">21 July 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1084,7 +1088,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </div>
 <div class="author">
       <div class="author-name">A. Draper</div>
-<div class="org">Intel Corporation</div>
+<div class="org">Altera Corporation</div>
 </div>
 <div class="author">
       <div class="author-name">V. Scarlata</div>
@@ -1097,14 +1101,18 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Intel Profile for CoRIM</h1>
+<h1 id="title">Intel Profile for Remote Attestation</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document describes extensions to CoRIM that support Intel-specific Attester implementations and corresponding Endorsements and Reference Values.
-Multiple Evidence formats are anticipated, but all anticipated Evidence can be mapped to Reference Values expressions based on CoRIM and the CoRIM extensions found in this profile.
+<p id="section-abstract-1">This document is a profile of various IETF and TCG standards that support remote attestation.
+The profile supports Intel-specific adaptations and extensions for Evidence, Endorsements and Reference Values.
+This profile describes apticulareplication of CoRIM, EAT, CMW, TCG concise evidence, and TCG DICE specifications.
+In particular, CoRIM is extended to define measurement types that are unique to Intel and defines Reference Values types that support matching Evidence based on range and subset comparison.
+Multiple Evidence formats are anticipated, based on IETF and TCG specifications.
+Evidence formats are mapped to Reference Values expressions based on CoRIM and CoRIM extensions found in this profile.
 The Evidence to Reference Values mappings are either documented by industry specifications or by this profile.
-Reference Value Providers may use this profile to author mainifests containing Reference Values and Endorsements.
-Verifiers will recognize this profile by it's profile identifier and implement support for the extentions defined or may identify a suitable Verifier, or will refuse to process inputs.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+Reference Value Providers and Endorsers may use this profile to author mainifests containing Reference Values and Endorsements that require Intel profile support from parser implementations.
+Parser implementations can recognize the Intel profile by profile identifier values contained within attestation conceptual mmessages and from profile parameters to media types or profile specific content format identifiers.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1141,7 +1149,7 @@ Verifiers will recognize this profile by it's profile identifier and implement s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 18 July 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 July 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1181,87 +1189,20 @@ Verifiers will recognize this profile by it's profile identifier and implement s
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-profile-identifier" class="internal xref">Profile Identifier</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-comid-extensions" class="internal xref">CoMID Extensions</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-expressions" class="internal xref">Expressions</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.1">
-                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-expression-operators" class="internal xref">Expression Operators</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-intel-profile" class="internal xref">Intel Profile</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.2">
-                    <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="auto internal xref">5.1.2</a>.  <a href="#name-numeric-expressions" class="internal xref">Numeric Expressions</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.3">
-                    <p id="section-toc.1-1.5.2.1.2.3.1"><a href="#section-5.1.3" class="auto internal xref">5.1.3</a>.  <a href="#name-set-expressions" class="internal xref">Set Expressions</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.4">
-                    <p id="section-toc.1-1.5.2.1.2.4.1"><a href="#section-5.1.4" class="auto internal xref">5.1.4</a>.  <a href="#name-time-expressions" class="internal xref">Time Expressions</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.5">
-                    <p id="section-toc.1-1.5.2.1.2.5.1"><a href="#section-5.1.5" class="auto internal xref">5.1.5</a>.  <a href="#name-mask-expression" class="internal xref">Mask Expression</a></p>
-</li>
-                </ul>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-measurement-extensions" class="internal xref">Measurement Extensions</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
-                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-the-tee-advisory-ids-type-m" class="internal xref">The tee-advisory-ids-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.2">
-                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-the-tee-attributes-type-mea" class="internal xref">The tee-attributes-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.3">
-                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-the-tee-cryptokey-type-meas" class="internal xref">The tee-cryptokey-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.4">
-                    <p id="section-toc.1-1.5.2.2.2.4.1"><a href="#section-5.2.4" class="auto internal xref">5.2.4</a>.  <a href="#name-the-tee-date-type-measureme" class="internal xref">The tee-date-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.5">
-                    <p id="section-toc.1-1.5.2.2.2.5.1"><a href="#section-5.2.5" class="auto internal xref">5.2.5</a>.  <a href="#name-the-tee-digest-type-measure" class="internal xref">The tee-digest-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.6">
-                    <p id="section-toc.1-1.5.2.2.2.6.1"><a href="#section-5.2.6" class="auto internal xref">5.2.6</a>.  <a href="#name-the-tee-epoch-type-measurem" class="internal xref">The tee-epoch-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.7">
-                    <p id="section-toc.1-1.5.2.2.2.7.1"><a href="#section-5.2.7" class="auto internal xref">5.2.7</a>.  <a href="#name-the-tee-instance-id-type-me" class="internal xref">The tee-instance-id-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.8">
-                    <p id="section-toc.1-1.5.2.2.2.8.1"><a href="#section-5.2.8" class="auto internal xref">5.2.8</a>.  <a href="#name-the-tee-isvprodid-type-meas" class="internal xref">The tee-isvprodid-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.9">
-                    <p id="section-toc.1-1.5.2.2.2.9.1"><a href="#section-5.2.9" class="auto internal xref">5.2.9</a>.  <a href="#name-the-tee-miscselect-type-mea" class="internal xref">The tee-miscselect-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.10">
-                    <p id="section-toc.1-1.5.2.2.2.10.1"><a href="#section-5.2.10" class="auto internal xref">5.2.10</a>. <a href="#name-the-tee-model-type-measurem" class="internal xref">The tee-model-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.11">
-                    <p id="section-toc.1-1.5.2.2.2.11.1"><a href="#section-5.2.11" class="auto internal xref">5.2.11</a>. <a href="#name-the-tee-pceid-type-measurem" class="internal xref">The tee-pceid-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.12">
-                    <p id="section-toc.1-1.5.2.2.2.12.1"><a href="#section-5.2.12" class="auto internal xref">5.2.12</a>. <a href="#name-the-tee-svn-type-measuremen" class="internal xref">The tee-svn-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.13">
-                    <p id="section-toc.1-1.5.2.2.2.13.1"><a href="#section-5.2.13" class="auto internal xref">5.2.13</a>. <a href="#name-the-tee-tcb-comp-svn-type-m" class="internal xref">The tee-tcb-comp-svn-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.14">
-                    <p id="section-toc.1-1.5.2.2.2.14.1"><a href="#section-5.2.14" class="auto internal xref">5.2.14</a>. <a href="#name-the-tee-tcb-eval-num-type-m" class="internal xref">The tee-tcb-eval-num-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.15">
-                    <p id="section-toc.1-1.5.2.2.2.15.1"><a href="#section-5.2.15" class="auto internal xref">5.2.15</a>. <a href="#name-the-tee-tcbstatus-type-meas" class="internal xref">The tee-tcbstatus-type Measurement Extension</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.16">
-                    <p id="section-toc.1-1.5.2.2.2.16.1"><a href="#section-5.2.16" class="auto internal xref">5.2.16</a>. <a href="#name-the-tee-vendor-type-measure" class="internal xref">The tee-vendor-type Measurement Extension</a></p>
-</li>
-                </ul>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-profile-specific-media-and-" class="internal xref">Profile Specific Media and Content Types</a></p>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-attester-anatomy" class="internal xref">Attester Anatomy</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-intel-evidence-profile" class="internal xref">Intel Evidence Profile</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-evidence-profile" class="internal xref">Evidence Profile</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-evidence-hierarchy" class="internal xref">Evidence Hierarchy</a></p>
@@ -1272,41 +1213,122 @@ Verifiers will recognize this profile by it's profile identifier and implement s
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-intel-appraisal-algorithm" class="internal xref">Intel Appraisal Algorithm</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-complex-expressions" class="internal xref">Complex Expressions</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-reference-values-and-endors" class="internal xref">Reference Values and Endorsements Profile</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-reporting-attestation-resul" class="internal xref">Reporting Attestation Results</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-corim-extensions" class="internal xref">CoRIM Extensions</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
-                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-expressions" class="internal xref">Expressions</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1.2.1">
+                    <p id="section-toc.1-1.8.2.1.2.1.1"><a href="#section-8.1.1" class="auto internal xref">8.1.1</a>.  <a href="#name-expression-operators" class="internal xref">Expression Operators</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
-                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1.2.2">
+                    <p id="section-toc.1-1.8.2.1.2.2.1"><a href="#section-8.1.2" class="auto internal xref">8.1.2</a>.  <a href="#name-numeric-expressions" class="internal xref">Numeric Expressions</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1.2.3">
+                    <p id="section-toc.1-1.8.2.1.2.3.1"><a href="#section-8.1.3" class="auto internal xref">8.1.3</a>.  <a href="#name-set-expressions" class="internal xref">Set Expressions</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1.2.4">
+                    <p id="section-toc.1-1.8.2.1.2.4.1"><a href="#section-8.1.4" class="auto internal xref">8.1.4</a>.  <a href="#name-time-expressions" class="internal xref">Time Expressions</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1.2.5">
+                    <p id="section-toc.1-1.8.2.1.2.5.1"><a href="#section-8.1.5" class="auto internal xref">8.1.5</a>.  <a href="#name-mask-expression" class="internal xref">Mask Expression</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-measurement-extensions" class="internal xref">Measurement Extensions</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.1">
+                    <p id="section-toc.1-1.8.2.2.2.1.1"><a href="#section-8.2.1" class="auto internal xref">8.2.1</a>.  <a href="#name-the-tee-advisory-ids-type-m" class="internal xref">The tee-advisory-ids-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.2">
+                    <p id="section-toc.1-1.8.2.2.2.2.1"><a href="#section-8.2.2" class="auto internal xref">8.2.2</a>.  <a href="#name-the-tee-attributes-type-mea" class="internal xref">The tee-attributes-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.3">
+                    <p id="section-toc.1-1.8.2.2.2.3.1"><a href="#section-8.2.3" class="auto internal xref">8.2.3</a>.  <a href="#name-the-tee-cryptokey-type-meas" class="internal xref">The tee-cryptokey-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.4">
+                    <p id="section-toc.1-1.8.2.2.2.4.1"><a href="#section-8.2.4" class="auto internal xref">8.2.4</a>.  <a href="#name-the-tee-date-type-measureme" class="internal xref">The tee-date-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.5">
+                    <p id="section-toc.1-1.8.2.2.2.5.1"><a href="#section-8.2.5" class="auto internal xref">8.2.5</a>.  <a href="#name-the-tee-digest-type-measure" class="internal xref">The tee-digest-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.6">
+                    <p id="section-toc.1-1.8.2.2.2.6.1"><a href="#section-8.2.6" class="auto internal xref">8.2.6</a>.  <a href="#name-the-tee-epoch-type-measurem" class="internal xref">The tee-epoch-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.7">
+                    <p id="section-toc.1-1.8.2.2.2.7.1"><a href="#section-8.2.7" class="auto internal xref">8.2.7</a>.  <a href="#name-the-tee-instance-id-type-me" class="internal xref">The tee-instance-id-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.8">
+                    <p id="section-toc.1-1.8.2.2.2.8.1"><a href="#section-8.2.8" class="auto internal xref">8.2.8</a>.  <a href="#name-the-tee-isvprodid-type-meas" class="internal xref">The tee-isvprodid-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.9">
+                    <p id="section-toc.1-1.8.2.2.2.9.1"><a href="#section-8.2.9" class="auto internal xref">8.2.9</a>.  <a href="#name-the-tee-miscselect-type-mea" class="internal xref">The tee-miscselect-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.10">
+                    <p id="section-toc.1-1.8.2.2.2.10.1"><a href="#section-8.2.10" class="auto internal xref">8.2.10</a>. <a href="#name-the-tee-model-type-measurem" class="internal xref">The tee-model-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.11">
+                    <p id="section-toc.1-1.8.2.2.2.11.1"><a href="#section-8.2.11" class="auto internal xref">8.2.11</a>. <a href="#name-the-tee-pceid-type-measurem" class="internal xref">The tee-pceid-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.12">
+                    <p id="section-toc.1-1.8.2.2.2.12.1"><a href="#section-8.2.12" class="auto internal xref">8.2.12</a>. <a href="#name-the-tee-svn-type-measuremen" class="internal xref">The tee-svn-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.13">
+                    <p id="section-toc.1-1.8.2.2.2.13.1"><a href="#section-8.2.13" class="auto internal xref">8.2.13</a>. <a href="#name-the-tee-tcb-comp-svn-type-m" class="internal xref">The tee-tcb-comp-svn-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.14">
+                    <p id="section-toc.1-1.8.2.2.2.14.1"><a href="#section-8.2.14" class="auto internal xref">8.2.14</a>. <a href="#name-the-tee-tcb-eval-num-type-m" class="internal xref">The tee-tcb-eval-num-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.15">
+                    <p id="section-toc.1-1.8.2.2.2.15.1"><a href="#section-8.2.15" class="auto internal xref">8.2.15</a>. <a href="#name-the-tee-tcbstatus-type-meas" class="internal xref">The tee-tcbstatus-type Measurement Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.16">
+                    <p id="section-toc.1-1.8.2.2.2.16.1"><a href="#section-8.2.16" class="auto internal xref">8.2.16</a>. <a href="#name-the-tee-vendor-type-measure" class="internal xref">The tee-vendor-type Measurement Extension</a></p>
+</li>
+                </ul>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-appraisal-algorithm" class="internal xref">Appraisal Algorithm</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-complex-expressions" class="internal xref">Complex Expressions</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-reporting-attestation-resul" class="internal xref">Reporting Attestation Results</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-full-intel-profile-cddl" class="internal xref">Full Intel Profile CDDL</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#section-13" class="auto internal xref">13</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.1">
+                <p id="section-toc.1-1.13.2.1.1"><a href="#section-13.1" class="auto internal xref">13.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.2">
+                <p id="section-toc.1-1.13.2.2.1"><a href="#section-13.2" class="auto internal xref">13.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.14.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
+            <p id="section-toc.1-1.15.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-full-intel-profile-cddl" class="internal xref">Full Intel Profile CDDL</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
+            <p id="section-toc.1-1.16.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1320,15 +1342,14 @@ Verifiers will recognize this profile by it's profile identifier and implement s
 <p id="section-1-1">This profile describes extensions and restrictions placed on Reference Values, Endorsements, and Evidence
 that support attestation capabilities of Intel products containing Intel(R) SGX(TM) or Intel(R) TDX(TM) technology, or Intel(R) products that contain
 DICE <span>[<a href="#DICE.engine" class="cite xref">DICE.engine</a>]</span> root of trust, DICE layers <span>[<a href="#DICE.layer" class="cite xref">DICE.layer</a>]</span>, or modules that implement SPDM <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">CoRIM <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> and <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span> define a baseline schema for Reference Values and Endorsements that form the foundation for the extensions defined in this profile.
-CoRIM is also the foundation for Evidence definitions as specified by <span>[<a href="#DICE.Attest" class="cite xref">DICE.Attest</a>]</span>, <span>[<a href="#TCG.concise-evidence" class="cite xref">TCG.concise-evidence</a>]</span>, and <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span> such that Evidence must be mapped to Reference Values defined by <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> and <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.
-Additionally, this profile defines Reference Values extensions that express reference state that is super set or range of values.
-Evidence may be a value that is a subset or within the range specified by Reference Values extensions.
-This profile defines extensions to CoRIM that support matching based on set membership, masked values, and numeric ranges.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">The baseline CoRIM, as defined by <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> is a subset of this profile.
+<p id="section-1-2">The CoRIM specifications <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> and <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span> define a baseline schema for Reference Values and Endorsements that form the foundation for the extensions defined in this profile.
+<span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span> contains a foundational representation for Attester actual state that Evidence, as specified by <span>[<a href="#DICE.Attest" class="cite xref">DICE.Attest</a>]</span>, <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span>, and <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>, Reference Values, and Endorsements can map to that helps ensure compatibility with a broad spectrum of Verifier implementations.
+The Reference Values extensions in this profile describe reference state that can be expressed as set membership or value ranges.
+This profile defines extensions to CoRIM that support appraisal matching that is based on set membership, masked values, and numeric ranges.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">The baseline CoRIM, as defined by <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> is a subset of the Intel profile.
 Intel products that implement exclusively to the baseline CoRIM may not rely upon this profile.
-However, the defined extensions may be generally useful such that implementation of the Intel profile need not imply the
-Attester, Verifier, Relying Party, Reference Value Provider, or Endorser role implementations must be Intel products.<a href="#section-1-3" class="pilcrow">¶</a></p>
+The Intel profile extensions may be generally useful.
+Implementations based on the Intel profile does not necessarily imply an implementation is an Intel product.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">This profile extends CoMID <code>measurement-values-map</code>, as defined by <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> (see also <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>), with measurement types that are unique to Intel products.
 Some measurement types are specific to Reference Values where multiple reference states may be included in reference manifests.
 Intel profile extensions use a CBOR tagged value that defines a comparison operator and operands that instruct Verifiers regarding subset, range, and masked values matching semantics.
@@ -1339,7 +1360,7 @@ If Evidence matches Reference Values and Endorsements apply, Endorsed Values may
 When all Evidence and Endorsements are processed, the Verifier's set of accepted claims is available for Attestation Results computations.
 This profile doesn't define Attestation Results.
 Rather, an Attestation Results profile, such as <span>[<a href="#I-D.kdyxy-rats-tdx-eat-profile" class="cite xref">I-D.kdyxy-rats-tdx-eat-profile</a>]</span> may be referenced instead.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">This profile is compatible with multiple Evidence formats, as defined by <span>[<a href="#DICE.Attest" class="cite xref">DICE.Attest</a>]</span>, <span>[<a href="#TCG.concise-evidence" class="cite xref">TCG.concise-evidence</a>]</span>, and <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>.
+<p id="section-1-6">This profile is compatible with multiple Evidence formats, as defined by <span>[<a href="#DICE.Attest" class="cite xref">DICE.Attest</a>]</span>, <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span>, and <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>.
 It describes considerations when mapping Evidence formats to CoRIM <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> that a Verifier may use when performig appraisals.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1384,113 +1405,262 @@ Additionally, dynamic insertion or removal of a component may result in composit
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-profile-identifier" class="section-name selfRef">Profile Identifier</a>
       </h2>
 <p id="section-4-1">This profile applies to Reference Values from a CoRIM manifest that a Verifier uses to process Evidence.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">The profile identifier structure is defined by CoRIM <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.<a href="#section-4-2" class="pilcrow">¶</a></p>
-<p id="section-4-3">The profile identifier for this profile is the OID:<a href="#section-4-3" class="pilcrow">¶</a></p>
-<p id="section-4-4"><code>{joint-iso-itu-t(2) country(16) us(840) organization(1) intel(113741) (1) intel-comid(16) profile(1)}</code><a href="#section-4-4" class="pilcrow">¶</a></p>
-<p id="section-4-5"><code>2.16.840.1.113741.1.16.1</code><a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-2">Profile identifier structures are defined by CoRIM <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>, EAT <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span> and Concise Evidence <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span>.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<div id="sec-intel-profile">
+<section id="section-4.1">
+        <h3 id="name-intel-profile">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-intel-profile" class="section-name selfRef">Intel Profile</a>
+        </h3>
+<p id="section-4.1-1">The profile identifier for the Intel Profile is the OID:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2"><code>{joint-iso-itu-t(2) country(16) us(840) organization(1) intel(113741) (1) intel-comid(16) profile(1)}</code><a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-3"><code>2.16.840.1.113741.1.16.1</code><a href="#section-4.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="profile-specific-media-and-content-types">
+<section id="section-4.2">
+        <h3 id="name-profile-specific-media-and-">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-profile-specific-media-and-" class="section-name selfRef">Profile Specific Media and Content Types</a>
+        </h3>
+<p id="section-4.2-1">This profile uses the following media types:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2-2.1">
+            <p id="section-4.2-2.1.1">"application/eat+cwt"<a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.2-2.2">
+            <p id="section-4.2-2.2.1">"application/eat+cwt; eat_profile=2.16.840.1.113741.1.16.1"<a href="#section-4.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.2-2.3">
+            <p id="section-4.2-2.3.1">"application/rim+cbor" (TBA)<a href="#section-4.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.2-2.4">
+            <p id="section-4.2-2.4.1">"application/rim+cbor" (TBA); profile=2.16.840.1.113741.1.16.1"<a href="#section-4.2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-4.2-3">This profile uses the following content formats:<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<table class="center" id="table-1">
+          <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Content Type</th>
+              <th class="text-left" rowspan="1" colspan="1">C-F ID</th>
+              <th class="text-left" rowspan="1" colspan="1">TN Function</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">"application/eat+cwt"</td>
+              <td class="text-left" rowspan="1" colspan="1">263</td>
+              <td class="text-left" rowspan="1" colspan="1">1668547081</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">"application/eat+cwt; eat_profile=2.16.840.1.113741.1.16.1"</td>
+              <td class="text-left" rowspan="1" colspan="1">10005</td>
+              <td class="text-left" rowspan="1" colspan="1">1668556861</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">"application/toc+cbor"</td>
+              <td class="text-left" rowspan="1" colspan="1">10570</td>
+              <td class="text-left" rowspan="1" colspan="1">1668557428</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">"application/ce+cbor"</td>
+              <td class="text-left" rowspan="1" colspan="1">10571</td>
+              <td class="text-left" rowspan="1" colspan="1">1668557429</td>
+            </tr>
+          </tbody>
+        </table>
+<p id="section-4.2-5">This profile uses the following top level CBOR tags (not already listed):<a href="#section-4.2-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2-6.1">
+            <p id="section-4.2-6.1.1">501, 570, 571<a href="#section-4.2-6.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="attester-anatomy">
+<section id="section-5">
+      <h2 id="name-attester-anatomy">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-attester-anatomy" class="section-name selfRef">Attester Anatomy</a>
+      </h2>
+<p id="section-5-1">Attesters implement DICE layering using an initial Attesting Environment, also called a Root of Trust (RoT), that collection claims about one or more Target Environments.
+A Target Environment may become an Attesting Environment for a subsequent Target Environment, and so forth. There may be more than one RoT in the same Attester.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">Attesting Environments generate Evidence by signing collected claims using an Attestation Key. Environments may have other keys besides attestation keys. Keys can be regarded as claims that are collected and reported as Evidence. Keys can also be regarded as Target Environments that have measurements that are specific to the key.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">Confidential computing environments are Target Environments that can dynamically request Evidence from an Attesting Environment agent. Such Evidence may also be referred to as a 'Quote'.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">Each DICE layer may produce signed Evidence. Evidence formats include both signature and measurements formats.
+Signature formats may include a mix of X.509 certificates and EAT CWTs. Evidence measurements formats may include a mix of ASN.1 and CBOR, where ASN.1 uses DiceTcbInfo and related varients and CBOR uses concise evidence, and CMW.
+Multiple Evidence blocks may be bundled using CMW collections.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-5">Target Environments (other than cryptographic keys) are primarily identified using OIDs from Intel's OID arc (2.16.840.1.113741).
+Keys are identified using key identifiers, public key, or certificate digests as defined by <code>$crypto-key-type-choice</code> <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.<a href="#section-5-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-evidence-profile">
+<section id="section-6">
+      <h2 id="name-evidence-profile">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-evidence-profile" class="section-name selfRef">Evidence Profile</a>
+      </h2>
+<p id="section-6-1">Evidence may be integrity protected in various ways including: certificates <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, SPDM transcript <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>, and CBOR web token (CWT) <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span>.
+Evidence contained in a certificate may be encoded using <code>DiceTcbInfo</code> and <code>DiceTcbInfoSeq</code> <span>[<a href="#DICE.Attest" class="cite xref">DICE.Attest</a>]</span>. Evidence contained in an SPDM payload may
+be encoded using the SPDM <code>Measurement Block</code> <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>. Evidence may be formatted as <code>concise-evidence</code> <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span> and
+included in an alias certificate or an SPDM Measurement Manifest.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">The <code>DiceTcbInfo</code> and SPDM Evidence formats can be translated to CoMID.
+The concise evidence format is native to CoMID.
+This profile documents evidence mapping from <code>DiceTcbInfo</code> and SPDM <code>Measurement Block</code> to CoMID, as defined by <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">The CoMID extensions defined by this profile <a href="#sec-measurement-extensions" class="auto internal xref">Section 8.2</a> are applied to <code>concise-evidence</code> so that
+Verifiers that support this profile can consistently apply a common schema across Evidence, Reference Values, and Endorsements.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<div id="sec-evidence-hierarchy">
+<section id="section-6.1">
+        <h3 id="name-evidence-hierarchy">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-evidence-hierarchy" class="section-name selfRef">Evidence Hierarchy</a>
+        </h3>
+<p id="section-6.1-1">Evidence hierarchy refers to DICE layering where the platform bootstrap components double as Attesting Environments that collect measurements of the other bootstrap components (as Target Environments) until the quoting agent (e.g., SGX Quoting Enclave (QE), TDX Quoting TD (QTD)) is initialized. Tenant trusted execution environment (TEE) components can be dynamically loaded then request Evidence from its quoting agent.
+Quoting agents locally verify then sign measurments using the QTD / QE attestation key.
+A hierarchy of Evidence consisting of all the Evidence from a RoT to the tenant environment describes the Attester.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">A complex device may have multiple roots of trust, such as <span>[<a href="#DICE.engine" class="cite xref">DICE.engine</a>]</span>, each contributing an evidence hierarchy that results in
+several Evidence "chains", that together, constitute a complete Evidence hierarchy for the Attester device.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-3">The Evidence hierarchy should form a spanning tree that contains all Attester Evidence. All Attesting Environments
+within the device produce the spanning tree. CoRIM manifests contain Reference Values for the spanning tree so that
+Verifiers do not assume the spanning tree is defined by Evidence.
+Note that a failure or comporomise within the Attester device could result in a portion of the spanning tree being omitted.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.1-4">Example spanning tree:<a href="#section-6.1-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1-5.1">
+            <p id="section-6.1-5.1.1">A DICE certificate chain with a DiceTcbInfo extension, a DiceTcbInfoSeq extension, and a <code>ConceptualMessageWrapper</code> (CMW)
+<span>[<a href="#I-D.ietf-rats-msg-wrap" class="cite xref">I-D.ietf-rats-msg-wrap</a>]</span> extension containing a CBOR-encoded <code>tagged-concise-evidence</code>.<a href="#section-6.1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-5.2">
+            <p id="section-6.1-5.2.1">An SPDM alias intermediate certification chain containing a CMW extension, and an SPDM measurement manifest containing
+<code>tagged-concise-evidence</code>.<a href="#section-6.1-5.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="sec-concise-evidence">
+<section id="section-6.2">
+        <h3 id="name-concise-evidence">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-concise-evidence" class="section-name selfRef">Concise Evidence</a>
+        </h3>
+<p id="section-6.2-1">Concise evidence is a CDDL representation of Evidence <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span> that uses expressions from CoMID, which is a subset of CoRIM. See <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> and <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.
+Evidence describes the actual state of the Attester.
+<code>tagged-concise-evidence</code> uses a CBOR tag to identify <code>concise-evidence</code> <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span>.
+This profile is compatible with <code>tagged-concise-evicence</code>.
+CoRIM extensions, defined by this profile, are used by <code>tagged-concise-evidence</code> by extending <code>measurement-values-map</code>.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="sec-refend-profile">
+<section id="section-7">
+      <h2 id="name-reference-values-and-endors">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-reference-values-and-endors" class="section-name selfRef">Reference Values and Endorsements Profile</a>
+      </h2>
+<p id="section-7-1">The CoRIM specifications <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> and <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span> define a baseline schema for Reference Values and Endorsements in this profile. The profile defines extensions to CoRIM for measurement types that are not representable by CoRIM or are more conveniently represented.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-comid-extensions">
-<section id="section-5">
-      <h2 id="name-comid-extensions">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-comid-extensions" class="section-name selfRef">CoMID Extensions</a>
+<section id="section-8">
+      <h2 id="name-corim-extensions">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-corim-extensions" class="section-name selfRef">CoRIM Extensions</a>
       </h2>
-<p id="section-5-1">This profile extends the baseline CoMID for Reference Values with an expression that informs Verifiers about non-exact-match matching semantics that include: ranges, sets, and masks.
-It extends <code>measurement-values-map</code> which is used by Evidence, Reference Values, and Endorsed Values.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-8-1">The Intel Profile extends <code>measurement-values-map</code> which is used by Evidence, Reference Values, and Endorsed Values by defining code points from the negative integer range.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">Reference Values extensions define types that can have multiple Reference Values that "match" a singleton Evidence value called "non-exact match" matching.
+Reference state expressions define non-exact-match matching semantics in terms of numeric ranges, date-time ranges, sets, and masks.
+Reference Values data types are identified by the CBOR tag <code>#6.60010(...)</code>.<a href="#section-8-2" class="pilcrow">¶</a></p>
 <div id="sec-expressions">
-<section id="section-5.1">
+<section id="section-8.1">
         <h3 id="name-expressions">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-expressions" class="section-name selfRef">Expressions</a>
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-expressions" class="section-name selfRef">Expressions</a>
         </h3>
-<p id="section-5.1-1">Expressions are used to specify richer Reference Values measurements that expect non-exact matching semantics.
+<p id="section-8.1-1">Expressions are used to specify richer Reference Values measurements that expect non-exact matching semantics.
 The Reference Value expression instructs the Verifier regarding matching parameters,
 such as greater-than or less-than, ranges, sets, etc. Typically, the Evidence value is one operand of an expression
-and the Reference Value contains the operator and additional operands.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">The operator and remaining operands are contained in an array.
+and the Reference Value contains the operator and additional operands.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1-2">The operator and remaining operands are contained in an array.
 Expression arrays have an operator followed by zero or more operands.
 The operator definition identifies the additional operands and their data types.
 A Verifier forms an expression using Evidence as the first operand, obtains the operator from the first entry in
-the expression array, and any remaining array entries are operands.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">This document describes operations using <em>infix</em> notation where the first operand, <em>operand_1</em>, is obtained from Evidence,
-followed by the operator, followed by any remaining operands: <em>operand_2</em>, <em>operand_3</em>, etc...<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">For example:<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+the expression array, and any remaining array entries are operands.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
+<p id="section-8.1-3">This document describes operations using <em>infix</em> notation where the first operand, <em>operand_1</em>, is obtained from Evidence,
+followed by the operator, followed by any remaining operands: <em>operand_2</em>, <em>operand_3</em>, etc...<a href="#section-8.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.1-4">For example:<a href="#section-8.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1-5.1">
-            <p id="section-5.1-5.1.1">From Evidence: <code>operand_1</code>, from Reference Values: <code>[ operator, operand_2, operand_3, ... ]</code>.<a href="#section-5.1-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1-5.1">
+            <p id="section-8.1-5.1.1">From Evidence: <code>operand_1</code>, from Reference Values: <code>[ operator, operand_2, operand_3, ... ]</code>.<a href="#section-8.1-5.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.1-6">Expression records are CBOR tagged to indicate the following CBOR is to be evaluated as an expression.
+<p id="section-8.1-6">Expression records are CBOR tagged to indicate the following CBOR is to be evaluated as an expression.
 Expression statements found in Reference Values informs the Verifier that Evidence is needed to complete
-the expression equation. Appraisal processing <span class="bcp14">MUST</span> evaluate the expression.<a href="#section-5.1-6" class="pilcrow">¶</a></p>
-<p id="section-5.1-7">This profile anticipates use of the CBOR tag <code>#6.60010</code> to identify expression arrays. See <a href="#sec-iana-considerations" class="auto internal xref">Section 10</a><a href="#section-5.1-7" class="pilcrow">¶</a></p>
-<p id="section-5.1-8">For example:<a href="#section-5.1-8" class="pilcrow">¶</a></p>
+the expression equation. Appraisal processing <span class="bcp14">MUST</span> evaluate the expression.<a href="#section-8.1-6" class="pilcrow">¶</a></p>
+<p id="section-8.1-7">This profile anticipates use of the CBOR tag <code>#6.60010</code> to identify expression arrays. See <a href="#sec-iana-considerations" class="auto internal xref">Section 12</a>.<a href="#section-8.1-7" class="pilcrow">¶</a></p>
+<p id="section-8.1-8">For example:<a href="#section-8.1-8" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1-9.1">
-            <p id="section-5.1-9.1.1"><code>#6.60010([ operator, operand_2, operand_3, ... ])</code>.<a href="#section-5.1-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1-9.1">
+            <p id="section-8.1-9.1.1"><code>#6.60010([ operator, operand_2, operand_3, ... ])</code>.<a href="#section-8.1-9.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div id="sec-expression-operators">
-<section id="section-5.1.1">
+<section id="section-8.1.1">
           <h4 id="name-expression-operators">
-<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-expression-operators" class="section-name selfRef">Expression Operators</a>
+<a href="#section-8.1.1" class="section-number selfRef">8.1.1. </a><a href="#name-expression-operators" class="section-name selfRef">Expression Operators</a>
           </h4>
-<p id="section-5.1.1-1">There are several classes of operators as follows:<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.1.1-2">
-<li id="section-5.1.1-2.1">
-              <p id="section-5.1.1-2.1.1"><strong>Numeric</strong>: The <code>numeric</code> operand can be an integer, unsigned integer, or floading point value.<a href="#section-5.1.1-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-8.1.1-1">There are several classes of operators as follows:<a href="#section-8.1.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-8.1.1-2">
+<li id="section-8.1.1-2.1">
+              <p id="section-8.1.1-2.1.1"><strong>Numeric</strong>: The <code>numeric</code> operand can be an integer, unsigned integer, or floading point value.<a href="#section-8.1.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.1-2.2">
-              <p id="section-5.1.1-2.2.1"><strong>Set</strong>: The <code>set</code> operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
+            <li id="section-8.1.1-2.2">
+              <p id="section-8.1.1-2.2.1"><strong>Set</strong>: The <code>set</code> operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
 The position of the items in a set is unordered, while the position of items in an array within a set
-is ordered.<a href="#section-5.1.1-2.2.1" class="pilcrow">¶</a></p>
+is ordered.<a href="#section-8.1.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.1-2.3">
-              <p id="section-5.1.1-2.3.1"><strong>Date-Time</strong>: The date-time operators compare two date-time values,
+            <li id="section-8.1.1-2.3">
+              <p id="section-8.1.1-2.3.1"><strong>Date-Time</strong>: The date-time operators compare two date-time values,
 while the <code>epoch</code> operators determine if a date-time value
-is within a range defined by an epoch and a grece period relative to the epoch.<a href="#section-5.1.1-2.3.1" class="pilcrow">¶</a></p>
+is within a range defined by an epoch and a grece period relative to the epoch.<a href="#section-8.1.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.1-2.4">
-              <p id="section-5.1.1-2.4.1"><strong>Mask</strong>: The <code>mask</code> operator compares two bit fields where a bit-field is compared to
+            <li id="section-8.1.1-2.4">
+              <p id="section-8.1.1-2.4.1"><strong>Mask</strong>: The <code>mask</code> operator compares two bit fields where a bit-field is compared to
 a second bit-field using a bit-field-mask that selects the bits to be compared.
 The bit-field may contain a sequence of bytes of any length.
-The bit-field-mask should be the same length as the bit-field.<a href="#section-5.1.1-2.4.1" class="pilcrow">¶</a></p>
+The bit-field-mask should be the same length as the bit-field.<a href="#section-8.1.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 <div id="sec-equivalance-operator">
-<section id="section-5.1.1.1">
+<section id="section-8.1.1.1">
             <h5 id="name-equivalence-operator">
-<a href="#section-5.1.1.1" class="section-number selfRef">5.1.1.1. </a><a href="#name-equivalence-operator" class="section-name selfRef">Equivalence Operator</a>
+<a href="#section-8.1.1.1" class="section-number selfRef">8.1.1.1. </a><a href="#name-equivalence-operator" class="section-name selfRef">Equivalence Operator</a>
             </h5>
-<p id="section-5.1.1.1-1">By default, <em>exact</em> match rules are assumed. Consequently, no operator artifact is needed when
-Evidence values are identical to Reference Values.<a href="#section-5.1.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.1.1-1">By default, <em>exact</em> match rules are assumed. Consequently, no operator artifact is needed when
+Evidence values are identical to Reference Values.<a href="#section-8.1.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="sec-numeric-expressions">
-<section id="section-5.1.2">
+<section id="section-8.1.2">
           <h4 id="name-numeric-expressions">
-<a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-numeric-expressions" class="section-name selfRef">Numeric Expressions</a>
+<a href="#section-8.1.2" class="section-number selfRef">8.1.2. </a><a href="#name-numeric-expressions" class="section-name selfRef">Numeric Expressions</a>
           </h4>
-<p id="section-5.1.2-1">Numeric operators apply to values that are integers, unsigned integers or floating point numbers.
-There are four numeric operators:<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.1.2-2">
-<li id="section-5.1.2-2.1">
-              <p id="section-5.1.2-2.1.1"><strong>greater-than</strong> (gt),<a href="#section-5.1.2-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-8.1.2-1">Numeric operators apply to values that are integers, unsigned integers or floating point numbers.
+There are four numeric operators:<a href="#section-8.1.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-8.1.2-2">
+<li id="section-8.1.2-2.1">
+              <p id="section-8.1.2-2.1.1"><strong>greater-than</strong> (gt),<a href="#section-8.1.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.2-2.2">
-              <p id="section-5.1.2-2.2.1"><strong>greater-than-or-equal</strong> (ge),<a href="#section-5.1.2-2.2.1" class="pilcrow">¶</a></p>
+            <li id="section-8.1.2-2.2">
+              <p id="section-8.1.2-2.2.1"><strong>greater-than-or-equal</strong> (ge),<a href="#section-8.1.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.2-2.3">
-              <p id="section-5.1.2-2.3.1"><strong>less-than</strong> (lt),<a href="#section-5.1.2-2.3.1" class="pilcrow">¶</a></p>
+            <li id="section-8.1.2-2.3">
+              <p id="section-8.1.2-2.3.1"><strong>less-than</strong> (lt),<a href="#section-8.1.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.2-2.4">
-              <p id="section-5.1.2-2.4.1"><strong>less-than-or-equal</strong> (le).<a href="#section-5.1.2-2.4.1" class="pilcrow">¶</a></p>
+            <li id="section-8.1.2-2.4">
+              <p id="section-8.1.2-2.4.1"><strong>less-than-or-equal</strong> (le).<a href="#section-8.1.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-5.1.2-3">The equals operator is not defined because an exact match rule is the default rule when an Evidence value is identical to a Reference Value.<a href="#section-5.1.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-4">The numeric operator data type definitions are as follows:<a href="#section-5.1.2-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.2-5">
+<p id="section-8.1.2-3">The equals operator is not defined because an exact match rule is the default rule when an Evidence value is identical to a Reference Value.<a href="#section-8.1.2-3" class="pilcrow">¶</a></p>
+<p id="section-8.1.2-4">The numeric operator data type definitions are as follows:<a href="#section-8.1.2-4" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.2-5">
 <pre>
 gt = 1
 ge = 2
@@ -1500,39 +1670,39 @@ numeric-type = integer / unsigned / float
 numeric-operator = gt / ge / lt / le
 numeric-expression = [ numeric-operator, numeric-type ]
 tagged-numeric-expression = #6.60010(numeric-expression)
-</pre><a href="#section-5.1.2-5" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.2-5" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.2-6">A numeric expression is an array containing a numeric operator and a numeric operand.
-The operand contains a numeric Reference Value that is matched with a numeric Evidence value.<a href="#section-5.1.2-6" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-7">Evidence and Reference Values <span class="bcp14">MUST</span> be the same numeric type. For example, if a Reference Value numeric type is
-<code>integer</code>, then the Evidence numeric value must also be <code>integer</code>.<a href="#section-5.1.2-7" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-8">This profile defines four macro numeric expressions, one for each numeric operator:<a href="#section-5.1.2-8" class="pilcrow">¶</a></p>
+<p id="section-8.1.2-6">A numeric expression is an array containing a numeric operator and a numeric operand.
+The operand contains a numeric Reference Value that is matched with a numeric Evidence value.<a href="#section-8.1.2-6" class="pilcrow">¶</a></p>
+<p id="section-8.1.2-7">Evidence and Reference Values <span class="bcp14">MUST</span> be the same numeric type. For example, if a Reference Value numeric type is
+<code>integer</code>, then the Evidence numeric value must also be <code>integer</code>.<a href="#section-8.1.2-7" class="pilcrow">¶</a></p>
+<p id="section-8.1.2-8">This profile defines four macro numeric expressions, one for each numeric operator:<a href="#section-8.1.2-8" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.2-9.1">
-              <p id="section-5.1.2-9.1.1"><code>tagged-numeric-gt</code>,<a href="#section-5.1.2-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.2-9.1">
+              <p id="section-8.1.2-9.1.1"><code>tagged-numeric-gt</code>,<a href="#section-8.1.2-9.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.2-9.2">
-              <p id="section-5.1.2-9.2.1"><code>tagged-numeric-ge</code>,<a href="#section-5.1.2-9.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.1.2-9.2">
+              <p id="section-8.1.2-9.2.1"><code>tagged-numeric-ge</code>,<a href="#section-8.1.2-9.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.2-9.3">
-              <p id="section-5.1.2-9.3.1"><code>tagged-numeric-lt</code>,<a href="#section-5.1.2-9.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.1.2-9.3">
+              <p id="section-8.1.2-9.3.1"><code>tagged-numeric-lt</code>,<a href="#section-8.1.2-9.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.2-9.4">
-              <p id="section-5.1.2-9.4.1"><code>tagged-numeric-le</code>.<a href="#section-5.1.2-9.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.1.2-9.4">
+              <p id="section-8.1.2-9.4.1"><code>tagged-numeric-le</code>.<a href="#section-8.1.2-9.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.1.2-10">In each case, the numeric operator is used to evaluate a Reference Value operand against an Evidence value operand
-that is obtained from Evidence.<a href="#section-5.1.2-10" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-11">If the expression is read using <em>infix</em> notation, the first operand is Evidence, followed by the operator,
-followed by the Reference Value operand.<a href="#section-5.1.2-11" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-12">Example:<a href="#section-5.1.2-12" class="pilcrow">¶</a></p>
+<p id="section-8.1.2-10">In each case, the numeric operator is used to evaluate a Reference Value operand against an Evidence value operand
+that is obtained from Evidence.<a href="#section-8.1.2-10" class="pilcrow">¶</a></p>
+<p id="section-8.1.2-11">If the expression is read using <em>infix</em> notation, the first operand is Evidence, followed by the operator,
+followed by the Reference Value operand.<a href="#section-8.1.2-11" class="pilcrow">¶</a></p>
+<p id="section-8.1.2-12">Example:<a href="#section-8.1.2-12" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.2-13.1">
-              <p id="section-5.1.2-13.1.1">&lt;<code>evidence_numeric</code>&gt; &lt;<code>le</code>&gt; &lt;<code>reference_numeric</code>&gt;<a href="#section-5.1.2-13.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.2-13.1">
+              <p id="section-8.1.2-13.1.1">&lt;<code>evidence_numeric</code>&gt; &lt;<code>le</code>&gt; &lt;<code>reference_numeric</code>&gt;<a href="#section-8.1.2-13.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.1.2-14">The numeric expression definitions are as follows:<a href="#section-5.1.2-14" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.2-15">
+<p id="section-8.1.2-14">The numeric expression definitions are as follows:<a href="#section-8.1.2-14" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.2-15">
 <pre>
 tagged-numeric-gt = #6.60010( [
     greater-than: gt .within numeric-operator,
@@ -1546,46 +1716,46 @@ tagged-numeric-lt = #6.60010( [
 tagged-numeric-le = #6.60010( [
     greater-than: le .within numeric-operator,
     reference-value: numeric-type ] )
-</pre><a href="#section-5.1.2-15" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.2-15" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-set-expressions">
-<section id="section-5.1.3">
+<section id="section-8.1.3">
           <h4 id="name-set-expressions">
-<a href="#section-5.1.3" class="section-number selfRef">5.1.3. </a><a href="#name-set-expressions" class="section-name selfRef">Set Expressions</a>
+<a href="#section-8.1.3" class="section-number selfRef">8.1.3. </a><a href="#name-set-expressions" class="section-name selfRef">Set Expressions</a>
           </h4>
-<p id="section-5.1.3-1">Set operators allow Reference Values, that are expressed as a set, to be compared with Evidence that
-is expressed as either a primitive value or a set.<a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-2">Set expression statements have two forms:<a href="#section-5.1.3-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.1.3-3">
-<li id="section-5.1.3-3.1">
-              <p id="section-5.1.3-3.1.1">A binary relation between a primitive object 'O' and a set 'S', and<a href="#section-5.1.3-3.1.1" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-1">Set operators allow Reference Values, that are expressed as a set, to be compared with Evidence that
+is expressed as either a primitive value or a set.<a href="#section-8.1.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-2">Set expression statements have two forms:<a href="#section-8.1.3-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-8.1.3-3">
+<li id="section-8.1.3-3.1">
+              <p id="section-8.1.3-3.1.1">A binary relation between a primitive object 'O' and a set 'S', and<a href="#section-8.1.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.1.3-3.2">
-              <p id="section-5.1.3-3.2.1">A binary relation between two sets, an Evidence set 'S1' and a Reference Values set 'S2'.<a href="#section-5.1.3-3.2.1" class="pilcrow">¶</a></p>
+            <li id="section-8.1.3-3.2">
+              <p id="section-8.1.3-3.2.1">A binary relation between two sets, an Evidence set 'S1' and a Reference Values set 'S2'.<a href="#section-8.1.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-5.1.3-4">The first form, relation between an object and a set, has two operators:<a href="#section-5.1.3-4" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-4">The first form, relation between an object and a set, has two operators:<a href="#section-8.1.3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-5.1">
-              <p id="section-5.1.3-5.1.1"><strong>member</strong> and<a href="#section-5.1.3-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.3-5.1">
+              <p id="section-8.1.3-5.1.1"><strong>member</strong> and<a href="#section-8.1.3-5.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-5.2">
-              <p id="section-5.1.3-5.2.1"><strong>not-member</strong>.<a href="#section-5.1.3-5.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.1.3-5.2">
+              <p id="section-8.1.3-5.2.1"><strong>not-member</strong>.<a href="#section-8.1.3-5.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.1.3-6">The Evidence object 'O' is evaluated with the Reference Values set 'S'.<a href="#section-5.1.3-6" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-7">The <code>op.member</code> and <code>op.not-member</code> operators expect a Reverence Value set as <em>operand_2</em> and a primitive Evidence
-value as <em>operand_1</em>. Evaluation tests whether <em>operand_1</em> is a member of the set <em>operand_2</em>.<a href="#section-5.1.3-7" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-8">Example:<a href="#section-5.1.3-8" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-6">The Evidence object 'O' is evaluated with the Reference Values set 'S'.<a href="#section-8.1.3-6" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-7">The <code>op.member</code> and <code>op.not-member</code> operators expect a Reverence Value set as <em>operand_2</em> and a primitive Evidence
+value as <em>operand_1</em>. Evaluation tests whether <em>operand_1</em> is a member of the set <em>operand_2</em>.<a href="#section-8.1.3-7" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-8">Example:<a href="#section-8.1.3-8" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-9.1">
-              <p id="section-5.1.3-9.1.1">&lt;<code>evidence-value</code>&gt; &lt;<code>set-operator</code>&gt; &lt;<code>reference-set</code>&gt;<a href="#section-5.1.3-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.3-9.1">
+              <p id="section-8.1.3-9.1.1">&lt;<code>evidence-value</code>&gt; &lt;<code>set-operator</code>&gt; &lt;<code>reference-set</code>&gt;<a href="#section-8.1.3-9.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.1.3-10">The set data type definitions are defined as follows:<a href="#section-5.1.3-10" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.3-11">
+<p id="section-8.1.3-10">The set data type definitions are defined as follows:<a href="#section-8.1.3-10" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.3-11">
 <pre>
 member = 6
 not-member = 7
@@ -1594,61 +1764,61 @@ set-type = [ * any ]
 set-operator = member / not-member
 set-expression = [ set-operator, set-type ]
 tagged-set-expression = #6.60010( set-expression )
-</pre><a href="#section-5.1.3-11" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.3-11" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.3-12">A set expression array contins a set operator followed by a set of Reference Values.
-The set is defined by <code>set-type</code>.<a href="#section-5.1.3-12" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-13">The set expression type definitions are as follows:<a href="#section-5.1.3-13" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.3-14">
+<p id="section-8.1.3-12">A set expression array contins a set operator followed by a set of Reference Values.
+The set is defined by <code>set-type</code>.<a href="#section-8.1.3-12" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-13">The set expression type definitions are as follows:<a href="#section-8.1.3-13" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.3-14">
 <pre>
 tagged-exp-member = #6.60010([
     member .within set-operator, set-type ])
 
 tagged-exp-not-member = #6.60010([
     not-member .within set-operator, set-type ])
-</pre><a href="#section-5.1.3-14" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.3-14" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.3-15">Examples:<a href="#section-5.1.3-15" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-15">Examples:<a href="#section-8.1.3-15" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-16.1">
-              <p id="section-5.1.3-16.1.1">&lt;<code>evidence_object</code>&gt; &lt;<code>member</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-16.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.3-16.1">
+              <p id="section-8.1.3-16.1.1">&lt;<code>evidence_object</code>&gt; &lt;<code>member</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-8.1.3-16.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-16.2">
-              <p id="section-5.1.3-16.2.1">&lt;<code>evidence_object</code>&gt; &lt;<code>not-member</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-16.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.1.3-16.2">
+              <p id="section-8.1.3-16.2.1">&lt;<code>evidence_object</code>&gt; &lt;<code>not-member</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-8.1.3-16.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.1.3-17">The Evidence object <span class="bcp14">MUST NOT</span> be nil.<a href="#section-5.1.3-17" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-18">The Reference Values set may be the empty set.<a href="#section-5.1.3-18" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-19">The second form, a relation between two sets, has three operators:<a href="#section-5.1.3-19" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-17">The Evidence object <span class="bcp14">MUST NOT</span> be nil.<a href="#section-8.1.3-17" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-18">The Reference Values set may be the empty set.<a href="#section-8.1.3-18" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-19">The second form, a relation between two sets, has three operators:<a href="#section-8.1.3-19" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-20.1">
-              <p id="section-5.1.3-20.1.1"><strong>subset</strong>,<a href="#section-5.1.3-20.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.3-20.1">
+              <p id="section-8.1.3-20.1.1"><strong>subset</strong>,<a href="#section-8.1.3-20.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-20.2">
-              <p id="section-5.1.3-20.2.1"><strong>superset</strong>,<a href="#section-5.1.3-20.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.1.3-20.2">
+              <p id="section-8.1.3-20.2.1"><strong>superset</strong>,<a href="#section-8.1.3-20.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-20.3">
-              <p id="section-5.1.3-20.3.1"><strong>disjoint</strong>.<a href="#section-5.1.3-20.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.1.3-20.3">
+              <p id="section-8.1.3-20.3.1"><strong>disjoint</strong>.<a href="#section-8.1.3-20.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.1.3-21">The fist set, S1 is Evidence and set, S2 is the Reference Values set.<a href="#section-5.1.3-21" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-22">The <code>subset</code>, <code>superset</code>, and <code>disjoint</code> operators test whether an Evidence set value
-satisfies a set operation, given a Reverence Value set.<a href="#section-5.1.3-22" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-23">Examples:<a href="#section-5.1.3-23" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-21">The fist set, S1 is Evidence and set, S2 is the Reference Values set.<a href="#section-8.1.3-21" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-22">The <code>subset</code>, <code>superset</code>, and <code>disjoint</code> operators test whether an Evidence set value
+satisfies a set operation, given a Reverence Value set.<a href="#section-8.1.3-22" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-23">Examples:<a href="#section-8.1.3-23" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-24.1">
-              <p id="section-5.1.3-24.1.1">&lt;<code>evidence_set</code>&gt; &lt;<code>subset</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-24.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.3-24.1">
+              <p id="section-8.1.3-24.1.1">&lt;<code>evidence_set</code>&gt; &lt;<code>subset</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-8.1.3-24.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-24.2">
-              <p id="section-5.1.3-24.2.1">&lt;<code>evidence_set</code>&gt; &lt;<code>superset</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-24.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.1.3-24.2">
+              <p id="section-8.1.3-24.2.1">&lt;<code>evidence_set</code>&gt; &lt;<code>superset</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-8.1.3-24.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-24.3">
-              <p id="section-5.1.3-24.3.1">&lt;<code>evidence_set</code>&gt; &lt;<code>disjoint</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-5.1.3-24.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.1.3-24.3">
+              <p id="section-8.1.3-24.3.1">&lt;<code>evidence_set</code>&gt; &lt;<code>disjoint</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-8.1.3-24.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.1.3-25">The Reference Values and Evidence sets may be the empty set.<a href="#section-5.1.3-25" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-26">The set of sets data type definitions are as follows:<a href="#section-5.1.3-26" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.3-27">
+<p id="section-8.1.3-25">The Reference Values and Evidence sets may be the empty set.<a href="#section-8.1.3-25" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-26">The set of sets data type definitions are as follows:<a href="#section-8.1.3-26" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.3-27">
 <pre>
 subset = 8
 superset = 9
@@ -1657,17 +1827,17 @@ set-of-set-type = [ * [ + any ]]
 set-of-set-operator = subset / superset / disjoint
 set-of-set-expression = [ set-of-set-operator, set-of-set-type ]
 tagged-set-of-set-expression = #6.60010(set-of-set-expression)
-</pre><a href="#section-5.1.3-27" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.3-27" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.3-28">For <code>subset</code>, every member in the Evidence set 'S1', <span class="bcp14">MUST</span> map to a member in the Reference Values set 'S2'.
+<p id="section-8.1.3-28">For <code>subset</code>, every member in the Evidence set 'S1', <span class="bcp14">MUST</span> map to a member in the Reference Values set 'S2'.
 The Evidence set, 'S1', <span class="bcp14">MAY</span> be a proper subset of 'S2'. For example, if every member in set 'S1' maps to every member
-in set 'S2' then matching is successful. A successful result produces the set 'S1'.<a href="#section-5.1.3-28" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-29">For <code>superset</code>, every member in the Reference Values set 'S2', <span class="bcp14">MUST</span> map to a member in the Evidence set 'S1'.
-A successful result produces the set 'S1'.<a href="#section-5.1.3-29" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-30">For <code>disjoint</code>, every member in the Evidence set 'S1' <span class="bcp14">MUST NOT</span> map to any member in the Reference Values
-set 'S2'. A successful result produces the empty set.<a href="#section-5.1.3-30" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-31">The set of sets expression definitions are as follows:<a href="#section-5.1.3-31" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.3-32">
+in set 'S2' then matching is successful. A successful result produces the set 'S1'.<a href="#section-8.1.3-28" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-29">For <code>superset</code>, every member in the Reference Values set 'S2', <span class="bcp14">MUST</span> map to a member in the Evidence set 'S1'.
+A successful result produces the set 'S1'.<a href="#section-8.1.3-29" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-30">For <code>disjoint</code>, every member in the Evidence set 'S1' <span class="bcp14">MUST NOT</span> map to any member in the Reference Values
+set 'S2'. A successful result produces the empty set.<a href="#section-8.1.3-30" class="pilcrow">¶</a></p>
+<p id="section-8.1.3-31">The set of sets expression definitions are as follows:<a href="#section-8.1.3-31" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.3-32">
 <pre>
 tagged-exp-subset = #6.60010([
     subset .within set-of-set-operator, set-of-set-type ])
@@ -1677,77 +1847,77 @@ tagged-exp-superset = #6.60010([
 
 tagged-exp-disjoint = #6.60010([
     disjoint .within set-of-set-operator, set-of-set-type ])
-</pre><a href="#section-5.1.3-32" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.3-32" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-time-expressions">
-<section id="section-5.1.4">
+<section id="section-8.1.4">
           <h4 id="name-time-expressions">
-<a href="#section-5.1.4" class="section-number selfRef">5.1.4. </a><a href="#name-time-expressions" class="section-name selfRef">Time Expressions</a>
+<a href="#section-8.1.4" class="section-number selfRef">8.1.4. </a><a href="#name-time-expressions" class="section-name selfRef">Time Expressions</a>
           </h4>
 <div id="sec-date-time-expressions">
-<section id="section-5.1.4.1">
+<section id="section-8.1.4.1">
             <h5 id="name-date-time-expressions">
-<a href="#section-5.1.4.1" class="section-number selfRef">5.1.4.1. </a><a href="#name-date-time-expressions" class="section-name selfRef">Date-Time Expressions</a>
+<a href="#section-8.1.4.1" class="section-number selfRef">8.1.4.1. </a><a href="#name-date-time-expressions" class="section-name selfRef">Date-Time Expressions</a>
             </h5>
-<p id="section-5.1.4.1-1">Date-time can be expressed in both string <code>tdate</code> or numeric <code>time</code> formats.
-There are four operators that are defined for date-time expressions:<a href="#section-5.1.4.1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.1.4.1-2">
-<li id="section-5.1.4.1-2.1">
-                <p id="section-5.1.4.1-2.1.1"><strong>lt</strong> determines if a date-time Evidence value is less than a Reference Values date-time.<a href="#section-5.1.4.1-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.1-1">Date-time can be expressed in both string <code>tdate</code> or numeric <code>time</code> formats.
+There are four operators that are defined for date-time expressions:<a href="#section-8.1.4.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-8.1.4.1-2">
+<li id="section-8.1.4.1-2.1">
+                <p id="section-8.1.4.1-2.1.1"><strong>lt</strong> determines if a date-time Evidence value is less than a Reference Values date-time.<a href="#section-8.1.4.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li id="section-5.1.4.1-2.2">
-                <p id="section-5.1.4.1-2.2.1"><strong>le</strong> determines if a date-time Evidence value is less than or equal to a Reference Values date-time.<a href="#section-5.1.4.1-2.2.1" class="pilcrow">¶</a></p>
+              <li id="section-8.1.4.1-2.2">
+                <p id="section-8.1.4.1-2.2.1"><strong>le</strong> determines if a date-time Evidence value is less than or equal to a Reference Values date-time.<a href="#section-8.1.4.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li id="section-5.1.4.1-2.3">
-                <p id="section-5.1.4.1-2.3.1"><strong>gt</strong> determines if a data-time Evidence value is greater than a Reference Values date-time.<a href="#section-5.1.4.1-2.3.1" class="pilcrow">¶</a></p>
+              <li id="section-8.1.4.1-2.3">
+                <p id="section-8.1.4.1-2.3.1"><strong>gt</strong> determines if a data-time Evidence value is greater than a Reference Values date-time.<a href="#section-8.1.4.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li id="section-5.1.4.1-2.4">
-                <p id="section-5.1.4.1-2.4.1"><strong>ge</strong> determines if a data-time Evidence value is greater than or equal to a Reference Values date-time.<a href="#section-5.1.4.1-2.4.1" class="pilcrow">¶</a></p>
+              <li id="section-8.1.4.1-2.4">
+                <p id="section-8.1.4.1-2.4.1"><strong>ge</strong> determines if a data-time Evidence value is greater than or equal to a Reference Values date-time.<a href="#section-8.1.4.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
-<p id="section-5.1.4.1-3">The date-time operators are in fact numeric. Expressions involving string date-time values must be converted to numeric format before the numeric comparison
-operator can be applied.<a href="#section-5.1.4.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.1-4">The numeric date-time data type definitions are as follows:<a href="#section-5.1.4.1-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.4.1-5">
+<p id="section-8.1.4.1-3">The date-time operators are in fact numeric. Expressions involving string date-time values must be converted to numeric format before the numeric comparison
+operator can be applied.<a href="#section-8.1.4.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.1-4">The numeric date-time data type definitions are as follows:<a href="#section-8.1.4.1-4" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.4.1-5">
 <pre>
 time-operator = numeric-operator
 time-expression = [ time-operator, time ] ;#6.1(number)
 tagged-time-expression = #6.60010( time-expression )
-</pre><a href="#section-5.1.4.1-5" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.4.1-5" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.4.1-6">The string date-time data type definitions are as follows:<a href="#section-5.1.4.1-6" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.4.1-7">
+<p id="section-8.1.4.1-6">The string date-time data type definitions are as follows:<a href="#section-8.1.4.1-6" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.4.1-7">
 <pre>
 tdate-operator = numeric-operator ; converts tdate to numeric
 tdate-expression = [ tdate-operator, tdate ] ;#6.0(string)
 tagged-tdate-expression = #6.60010( tdate-expression )
-</pre><a href="#section-5.1.4.1-7" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.4.1-7" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.4.1-8">The date-time expressions for evaluating time consist of a CBOR tagged record containing a time operator followed by a date-time value.<a href="#section-5.1.4.1-8" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.1-9">The <code>gt</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
+<p id="section-8.1.4.1-8">The date-time expressions for evaluating time consist of a CBOR tagged record containing a time operator followed by a date-time value.<a href="#section-8.1.4.1-8" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.1-9">The <code>gt</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
 If the Evidence date-time value is greater-than to the Reference Value,
-then the Evidence value is accepted.<a href="#section-5.1.4.1-9" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.1-10">The <code>ge</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
+then the Evidence value is accepted.<a href="#section-8.1.4.1-9" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.1-10">The <code>ge</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
 If the Evidence date-time value is greater-than-or-equal to the Reference Value,
-then the Evidence value is accepted.<a href="#section-5.1.4.1-10" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.1-11">The <code>lt</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
+then the Evidence value is accepted.<a href="#section-8.1.4.1-10" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.1-11">The <code>lt</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
 If the Evidence date-time value is less-than to the Reference Value,
-then the Evidence value is accepted.<a href="#section-5.1.4.1-11" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.1-12">The <code>le</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
+then the Evidence value is accepted.<a href="#section-8.1.4.1-11" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.1-12">The <code>le</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
 If the Evidence date-time value is less-than-or-equal to the Reference Value,
-then the Evidence value is accepted.<a href="#section-5.1.4.1-12" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.1-13">In <em>infix</em> notation, a date-time value reported as Evidence in <em>operand_1</em>.
-The Reference Value expression contains a time comparison operator and <em>operand_2</em> contains a reference date-time.<a href="#section-5.1.4.1-13" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.1-14">Example:<a href="#section-5.1.4.1-14" class="pilcrow">¶</a></p>
+then the Evidence value is accepted.<a href="#section-8.1.4.1-12" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.1-13">In <em>infix</em> notation, a date-time value reported as Evidence in <em>operand_1</em>.
+The Reference Value expression contains a time comparison operator and <em>operand_2</em> contains a reference date-time.<a href="#section-8.1.4.1-13" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.1-14">Example:<a href="#section-8.1.4.1-14" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.4.1-15.1">
-                <p id="section-5.1.4.1-15.1.1">&lt;<code>evidence_date_time</code>&gt; &lt;<code>gt</code>&gt; &lt;<code>reference_date_time</code>&gt;<a href="#section-5.1.4.1-15.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.4.1-15.1">
+                <p id="section-8.1.4.1-15.1.1">&lt;<code>evidence_date_time</code>&gt; &lt;<code>gt</code>&gt; &lt;<code>reference_date_time</code>&gt;<a href="#section-8.1.4.1-15.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<p id="section-5.1.4.1-16">The numeric date-time expression definitions are as follows:<a href="#section-5.1.4.1-16" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.4.1-17">
+<p id="section-8.1.4.1-16">The numeric date-time expression definitions are as follows:<a href="#section-8.1.4.1-16" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.4.1-17">
 <pre>
 tagged-exp-time-gt = #6.60010([
     gt .within time-operator,
@@ -1764,10 +1934,10 @@ tagged-exp-time-lt = #6.60010([
 tagged-exp-time-le = #6.60010([
     le .within time-operator,
     time ])
-</pre><a href="#section-5.1.4.1-17" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.4.1-17" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.4.1-18">The string date-time expression definitions are as follows:<a href="#section-5.1.4.1-18" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.4.1-19">
+<p id="section-8.1.4.1-18">The string date-time expression definitions are as follows:<a href="#section-8.1.4.1-18" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.4.1-19">
 <pre>
 tagged-exp-tdate-gt = #6.60010([
     gt .within tdate-operator,
@@ -1784,21 +1954,21 @@ tagged-exp-tdate-lt = #6.60010([
 tagged-exp-tdate-le = #6.60010([
     le .within tdate-operator,
     tdate ])
-</pre><a href="#section-5.1.4.1-19" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.4.1-19" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-epoch-expressions">
-<section id="section-5.1.4.2">
+<section id="section-8.1.4.2">
             <h5 id="name-epoch-expressions">
-<a href="#section-5.1.4.2" class="section-number selfRef">5.1.4.2. </a><a href="#name-epoch-expressions" class="section-name selfRef">Epoch Expressions</a>
+<a href="#section-8.1.4.2" class="section-number selfRef">8.1.4.2. </a><a href="#name-epoch-expressions" class="section-name selfRef">Epoch Expressions</a>
             </h5>
-<p id="section-5.1.4.2-1">An epoch expression defines a timing window that can be used to determine recentness of a time stampped message.
+<p id="section-8.1.4.2-1">An epoch expression defines a timing window that can be used to determine recentness of a time stampped message.
 By default, the Verifier's current time implicitly defines an epoch.
-A grace period defines the epoch window differential, in seconds, that a timestamp must fall within to be valid.<a href="#section-5.1.4.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.2-2">Epochs don't have to rely on current time. <span>[<a href="#I-D.birkholz-rats-epoch-markers" class="cite xref">I-D.birkholz-rats-epoch-markers</a>]</span> defines several.<a href="#section-5.1.4.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.2-3">The epoch data type definitions are as follows:<a href="#section-5.1.4.2-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.4.2-4">
+A grace period defines the epoch window differential, in seconds, that a timestamp must fall within to be valid.<a href="#section-8.1.4.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.2-2">Epochs don't have to rely on current time. <span>[<a href="#I-D.birkholz-rats-epoch-markers" class="cite xref">I-D.birkholz-rats-epoch-markers</a>]</span> defines several.<a href="#section-8.1.4.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.2-3">The epoch data type definitions are as follows:<a href="#section-8.1.4.2-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.4.2-4">
 <pre>
 epoch-operator = numeric-operator
 epoch-seconds-type = int
@@ -1810,17 +1980,17 @@ epoch-expression = [
 tagged-epoch-expression = #6.60010( epoch-expression )
 $tagged-epoch-id /= tdate
 $epoch-timestamp-type /= $tagged-epoch-id
-</pre><a href="#section-5.1.4.2-4" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.4.2-4" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.4.2-5">An epoch expression array contains an <code>epoch-operator</code> followed by a grace period in seconds that is optionally followed
+<p id="section-8.1.4.2-5">An epoch expression array contains an <code>epoch-operator</code> followed by a grace period in seconds that is optionally followed
 by a <code>$tagged-epoch-id</code>. Epoch operators can be: <code>gt</code>, <code>ge</code>, <code>lt</code>, or <code>le</code>. The operator defines the position of
 the grace window relative to the epoch and <code>epoch-grace-seconds</code> defines the size of the window in seconds.
-If the default epoch type is not used, <code>$tagged-epoch-id</code> defines the alternate epoch scheme.<a href="#section-5.1.4.2-5" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.2-6">The <code>$epoch-timestamp-type</code> defines the timestamp type for the epoch scheme. By default, the timestamp is <code>tdate</code>.<a href="#section-5.1.4.2-6" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.2-7">The <code>tagged-epoch-expression</code> is an <code>epoch-expression</code> preceded by a CBOR tag for an expression array that has
-the value <code>#6.60010</code>.<a href="#section-5.1.4.2-7" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.2-8">The epoch expression definitions are as follows:<a href="#section-5.1.4.2-8" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.4.2-9">
+If the default epoch type is not used, <code>$tagged-epoch-id</code> defines the alternate epoch scheme.<a href="#section-8.1.4.2-5" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.2-6">The <code>$epoch-timestamp-type</code> defines the timestamp type for the epoch scheme. By default, the timestamp is <code>tdate</code>.<a href="#section-8.1.4.2-6" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.2-7">The <code>tagged-epoch-expression</code> is an <code>epoch-expression</code> preceded by a CBOR tag for an expression array that has
+the value <code>#6.60010</code>.<a href="#section-8.1.4.2-7" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.2-8">The epoch expression definitions are as follows:<a href="#section-8.1.4.2-8" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.4.2-9">
 <pre>
 tagged-exp-epoch-gt = #6.60010([
     gt .within epoch-operator
@@ -1837,165 +2007,165 @@ tagged-exp-epoch-lt = #6.60010([
 tagged-exp-epoch-le = #6.60010([
     le .within epoch-operator
     grace-period: epoch-seconds-type ])
-</pre><a href="#section-5.1.4.2-9" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.4.2-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.4.2-10">A variety of epoch expressions can be defined that convenently constrain epoch definition.
+<p id="section-8.1.4.2-10">A variety of epoch expressions can be defined that convenently constrain epoch definition.
 The <code>tagged-exp-epoch-gt</code> expression defines an epoch window that is greater than the current date and time
-by the supplied grace period.<a href="#section-5.1.4.2-10" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.2-11">In <em>infix</em> notation, the timestamp value is within an epoch window that is defined by the current time,
-plus the grace period, and where the <code>epoch-operator</code> defines the shape of the epoch window.<a href="#section-5.1.4.2-11" class="pilcrow">¶</a></p>
-<p id="section-5.1.4.2-12">Example epoch expression:<a href="#section-5.1.4.2-12" class="pilcrow">¶</a></p>
+by the supplied grace period.<a href="#section-8.1.4.2-10" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.2-11">In <em>infix</em> notation, the timestamp value is within an epoch window that is defined by the current time,
+plus the grace period, and where the <code>epoch-operator</code> defines the shape of the epoch window.<a href="#section-8.1.4.2-11" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.2-12">Example epoch expression:<a href="#section-8.1.4.2-12" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.4.2-13.1">
-                <p id="section-5.1.4.2-13.1.1">&lt;<code>evidence_timestamp</code>&gt; &lt;<code>epoch-operator</code>&gt; &lt;<code>grace_period</code>&gt; &lt;<code>current_time</code>&gt;<a href="#section-5.1.4.2-13.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.4.2-13.1">
+                <p id="section-8.1.4.2-13.1.1">&lt;<code>evidence_timestamp</code>&gt; &lt;<code>epoch-operator</code>&gt; &lt;<code>grace_period</code>&gt; &lt;<code>current_time</code>&gt;<a href="#section-8.1.4.2-13.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<p id="section-5.1.4.2-14">The Verifier adds <code>grace_period</code> to <code>current_time</code> to obtain the epoch window then applies the operator to
-determine if the <code>evidence_timestamp</code> is within the window.<a href="#section-5.1.4.2-14" class="pilcrow">¶</a></p>
+<p id="section-8.1.4.2-14">The Verifier adds <code>grace_period</code> to <code>current_time</code> to obtain the epoch window then applies the operator to
+determine if the <code>evidence_timestamp</code> is within the window.<a href="#section-8.1.4.2-14" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="sec-mask-expression">
-<section id="section-5.1.5">
+<section id="section-8.1.5">
           <h4 id="name-mask-expression">
-<a href="#section-5.1.5" class="section-number selfRef">5.1.5. </a><a href="#name-mask-expression" class="section-name selfRef">Mask Expression</a>
+<a href="#section-8.1.5" class="section-number selfRef">8.1.5. </a><a href="#name-mask-expression" class="section-name selfRef">Mask Expression</a>
           </h4>
-<p id="section-5.1.5-1">Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
-bits or bytes of Evidence to ignore.<a href="#section-5.1.5-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.5-2">Reference Value and mask arrays <span class="bcp14">MUST</span> be the same length for the mask to be applied correctly.
+<p id="section-8.1.5-1">Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
+bits or bytes of Evidence to ignore.<a href="#section-8.1.5-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.5-2">Reference Value and mask arrays <span class="bcp14">MUST</span> be the same length for the mask to be applied correctly.
 Normally, Evidence would not supply a mask, while Endorsed Values would.
 The <code>mask-eq</code> operator indicates that an Evidence value of type <code>mask-type</code> is compared with
 a Reference Value of type <code>mask-type</code>, and that a mask of type <code>mask-type</code> is applied to both
-values before comparing values. If the operator is <code>mask-eq</code>, then a binary equivalence comparison is applied.<a href="#section-5.1.5-2" class="pilcrow">¶</a></p>
-<p id="section-5.1.5-3">The Verifier <span class="bcp14">MUST</span> ensure the lengths of values and mask are equivalent. If the mask is shorter
+values before comparing values. If the operator is <code>mask-eq</code>, then a binary equivalence comparison is applied.<a href="#section-8.1.5-2" class="pilcrow">¶</a></p>
+<p id="section-8.1.5-3">The Verifier <span class="bcp14">MUST</span> ensure the lengths of values and mask are equivalent. If the mask is shorter
 than the values, the mask is padded with zeros (0) until it is the same length as the largest value.
 If the Evidence or Reference Value length is shorter than the mask, the value is padded with
-zeros (0) to the length of the mask.<a href="#section-5.1.5-3" class="pilcrow">¶</a></p>
-<p id="section-5.1.5-4">The masked data type definitions are as follows:<a href="#section-5.1.5-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.5-5">
+zeros (0) to the length of the mask.<a href="#section-8.1.5-3" class="pilcrow">¶</a></p>
+<p id="section-8.1.5-4">The masked data type definitions are as follows:<a href="#section-8.1.5-4" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.5-5">
 <pre>
 mask-eq = 1
 mask-operator = mask-eq
 mask-type = bstr
 mask-expression = [ mask-operator, value: mask-type, mask: mask-type ]
 tagged-mask-expression = #6.60010( mask-expression )
-</pre><a href="#section-5.1.5-5" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.5-5" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.5-6">If the Evidence bit field is a different length from the Reference Value and mask,
-the shorter length bit field is padded with zeros to accommodate the larger bit field.<a href="#section-5.1.5-6" class="pilcrow">¶</a></p>
-<p id="section-5.1.5-7">The <code>tagged-exp-mask-eq</code> expression defines a tagged expression that applies the mask equivalence  operator to an Evidence value and a Reference Value using the supplied mask.<a href="#section-5.1.5-7" class="pilcrow">¶</a></p>
-<p id="section-5.1.5-8">In <em>infix</em> notation, the Evidence value is <em>operand_1</em>, followed by the mask operator, followed by a
-Reference Value, <em>operand_2</em>, followed by the mask, <em>operand_3</em>.<a href="#section-5.1.5-8" class="pilcrow">¶</a></p>
-<p id="section-5.1.5-9">Example:<a href="#section-5.1.5-9" class="pilcrow">¶</a></p>
+<p id="section-8.1.5-6">If the Evidence bit field is a different length from the Reference Value and mask,
+the shorter length bit field is padded with zeros to accommodate the larger bit field.<a href="#section-8.1.5-6" class="pilcrow">¶</a></p>
+<p id="section-8.1.5-7">The <code>tagged-exp-mask-eq</code> expression defines a tagged expression that applies the mask equivalence  operator to an Evidence value and a Reference Value using the supplied mask.<a href="#section-8.1.5-7" class="pilcrow">¶</a></p>
+<p id="section-8.1.5-8">In <em>infix</em> notation, the Evidence value is <em>operand_1</em>, followed by the mask operator, followed by a
+Reference Value, <em>operand_2</em>, followed by the mask, <em>operand_3</em>.<a href="#section-8.1.5-8" class="pilcrow">¶</a></p>
+<p id="section-8.1.5-9">Example:<a href="#section-8.1.5-9" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.5-10.1">
-              <p id="section-5.1.5-10.1.1">&lt;<code>evidence_value</code>&gt; &lt;<code>mask-eq</code>&gt; &lt;<code>reference_value</code>&gt; &lt;<code>mask</code>&gt;<a href="#section-5.1.5-10.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.5-10.1">
+              <p id="section-8.1.5-10.1.1">&lt;<code>evidence_value</code>&gt; &lt;<code>mask-eq</code>&gt; &lt;<code>reference_value</code>&gt; &lt;<code>mask</code>&gt;<a href="#section-8.1.5-10.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.1.5-11">If each bit in Evidence has a corresponding matching bit in the Reference Value, then the Evidence
-value is accepted.<a href="#section-5.1.5-11" class="pilcrow">¶</a></p>
-<p id="section-5.1.5-12">The masked data expression definitions are as follows:<a href="#section-5.1.5-12" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.1.5-13">
+<p id="section-8.1.5-11">If each bit in Evidence has a corresponding matching bit in the Reference Value, then the Evidence
+value is accepted.<a href="#section-8.1.5-11" class="pilcrow">¶</a></p>
+<p id="section-8.1.5-12">The masked data expression definitions are as follows:<a href="#section-8.1.5-12" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.5-13">
 <pre>
 tagged-exp-mask-eq = #6.60010([
     mask-eq .within mask-operator,
     value: mask-type, mask: mask-type ] )
-</pre><a href="#section-5.1.5-13" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.5-13" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 </section>
 </div>
 <div id="sec-measurement-extensions">
-<section id="section-5.2">
+<section id="section-8.2">
         <h3 id="name-measurement-extensions">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-measurement-extensions" class="section-name selfRef">Measurement Extensions</a>
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-measurement-extensions" class="section-name selfRef">Measurement Extensions</a>
         </h3>
-<p id="section-5.2-1">This profile extends the CoMID <code>measurement-values-map</code> with additional code point definitions,
+<p id="section-8.2-1">This profile extends the CoMID <code>measurement-values-map</code> with additional code point definitions,
 that accommodate Intel SGX and similar architectures.
 Measurement extensions don't change Verifier behavior. An extension enables the Verifier to validate the profile compliance of the input evidence and reference values, as it defines the acceptable data types in evidence and the expression operator that is explicitly
-supplied with the Reference Values, see <a href="#sec-expression-operators" class="auto internal xref">Section 5.1.1</a>.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">In cases where Evidence does not exactly match Reference Values, the operator definition determines the
+supplied with the Reference Values, see <a href="#sec-expression-operators" class="auto internal xref">Section 8.1.1</a>.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-2">In cases where Evidence does not exactly match Reference Values, the operator definition determines the
 expected data types of the operands.
-Expected Verifier behavior is defined in <a href="#sec-intel-appraisal-algorithm" class="auto internal xref">Section 7</a><a href="#section-5.2-2" class="pilcrow">¶</a></p>
+Expected Verifier behavior is defined in <a href="#sec-intel-appraisal-algorithm" class="auto internal xref">Section 9</a><a href="#section-8.2-2" class="pilcrow">¶</a></p>
 <div id="sec-tee-advisory-ids-type">
-<section id="section-5.2.1">
+<section id="section-8.2.1">
           <h4 id="name-the-tee-advisory-ids-type-m">
-<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-the-tee-advisory-ids-type-m" class="section-name selfRef">The tee-advisory-ids-type Measurement Extension</a>
+<a href="#section-8.2.1" class="section-number selfRef">8.2.1. </a><a href="#name-the-tee-advisory-ids-type-m" class="section-name selfRef">The tee-advisory-ids-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.1-1">The <code>tee.advisory-ids</code> extension allows the Attester to report known security advisories and a
-Reference Values Provider (RVP) to assert updated security advisories.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-2">The <code>$tee-advisory-ids-type</code> is used to specify a set of security advisories, where each is identified by a string identifier.
+<p id="section-8.2.1-1">The <code>tee.advisory-ids</code> extension allows the Attester to report known security advisories and a
+Reference Values Provider (RVP) to assert updated security advisories.<a href="#section-8.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.1-2">The <code>$tee-advisory-ids-type</code> is used to specify a set of security advisories, where each is identified by a string identifier.
 Evidence may report a set of advisories the Attester believes are relevant. The set of advisories are constrained
-by the <code>set-of-set-type</code> structure.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-3">A Reference Values expression record is defined for this extension that applies the disjoint set operation
+by the <code>set-of-set-type</code> structure.<a href="#section-8.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.1-3">A Reference Values expression record is defined for this extension that applies the disjoint set operation
 to determine if there are advisories outstanding. If no advisories are outstanding, then the empty set signifies
-successful matching.<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-4">The <code>$tee-advisory-ids-type</code> is a list of advisories when used as Endorsements or Evidence and a disjoint set
-of advisories when used as a Reference Value.<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.1-5">
+successful matching.<a href="#section-8.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.2.1-4">The <code>$tee-advisory-ids-type</code> is a list of advisories when used as Endorsements or Evidence and a disjoint set
+of advisories when used as a Reference Value.<a href="#section-8.2.1-4" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.1-5">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.advisory-ids: -89) =&gt; $tee-advisory-ids-type
 )
 $tee-advisory-ids-type /= set-type
 $tee-advisory-ids-type /= tagged-exp-not-member
-</pre><a href="#section-5.2.1-5" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.1-5" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-attributes-type">
-<section id="section-5.2.2">
+<section id="section-8.2.2">
           <h4 id="name-the-tee-attributes-type-mea">
-<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-the-tee-attributes-type-mea" class="section-name selfRef">The tee-attributes-type Measurement Extension</a>
+<a href="#section-8.2.2" class="section-number selfRef">8.2.2. </a><a href="#name-the-tee-attributes-type-mea" class="section-name selfRef">The tee-attributes-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.2-1">The <code>tee.attributes</code> extension enables the Attester to report TEE attributes and an RVP to assert a reference
-TEE attributes and mask.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-2">The <code>$tee-attributes-type</code> is used to specify TEE attributes in 8 or 16 byte words. If Evidence uses an 8 byte
-mask, then the Reference Values expression also uses an 8 byte value and mask.<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-3">The <code>$tee-attributes-type</code> is a singleton value omitting the mask value when used as Endorsement or Evidence
-and a tuple containing the reference and mask when used as a Reference Value.<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.2-4">
+<p id="section-8.2.2-1">The <code>tee.attributes</code> extension enables the Attester to report TEE attributes and an RVP to assert a reference
+TEE attributes and mask.<a href="#section-8.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-2">The <code>$tee-attributes-type</code> is used to specify TEE attributes in 8 or 16 byte words. If Evidence uses an 8 byte
+mask, then the Reference Values expression also uses an 8 byte value and mask.<a href="#section-8.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-3">The <code>$tee-attributes-type</code> is a singleton value omitting the mask value when used as Endorsement or Evidence
+and a tuple containing the reference and mask when used as a Reference Value.<a href="#section-8.2.2-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.2-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.attributes: -82) =&gt; $tee-attributes-type
 )
 $tee-attributes-type /= mask-type
 $tee-attributes-type /= tagged-exp-mask-eq
-</pre><a href="#section-5.2.2-4" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.2-4" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.2-5">Alternatively, the TEE attributes may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.attributes</code> and <code>mval</code>.<code>raw-value</code> contains the <code>$tee-attributes-type</code>.<code>mask-type</code> value.<a href="#section-8.2.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-cryptokey-type">
-<section id="section-5.2.3">
+<section id="section-8.2.3">
           <h4 id="name-the-tee-cryptokey-type-meas">
-<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-the-tee-cryptokey-type-meas" class="section-name selfRef">The tee-cryptokey-type Measurement Extension</a>
+<a href="#section-8.2.3" class="section-number selfRef">8.2.3. </a><a href="#name-the-tee-cryptokey-type-meas" class="section-name selfRef">The tee-cryptokey-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.3-1">The <code>tee.cryptokeys</code> extension identifies cryptographic keys associated with a Target Environment.
+<p id="section-8.2.3-1">The <code>tee.cryptokeys</code> extension identifies cryptographic keys associated with a Target Environment.
 If multiple <code>$crypto-key-type-choice</code> measurements are supplied, array position disambiguates each entry.
-Appraisal compares values indexed by array position.<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.3-2">
+Appraisal compares values indexed by array position.<a href="#section-8.2.3-1" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.3-2">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.cryptokeys: -91) =&gt; [ + $tee-cryptokey-type ]
 )
 $tee-cryptokey-type /= $crypto-key-type-choice
-</pre><a href="#section-5.2.3-2" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.3-2" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.3-3">Alternatively, the TEE cryptokeys may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.cryptokeys</code> and <code>mval</code>.<code>cryptokeys</code> contains the <code>$tee-cryptokey-type</code> value.<a href="#section-8.2.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-date-type">
-<section id="section-5.2.4">
+<section id="section-8.2.4">
           <h4 id="name-the-tee-date-type-measureme">
-<a href="#section-5.2.4" class="section-number selfRef">5.2.4. </a><a href="#name-the-tee-date-type-measureme" class="section-name selfRef">The tee-date-type Measurement Extension</a>
+<a href="#section-8.2.4" class="section-number selfRef">8.2.4. </a><a href="#name-the-tee-date-type-measureme" class="section-name selfRef">The tee-date-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.4-1">The <code>tee.tcbdate</code> extension enables the Attester or Endorser to report the TEE date attribute
-and a RVP to assert a valid TEE matching operation.<a href="#section-5.2.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.4-2">The <code>$tee-date-type</code> is a date-time string when used for Evidence or Endorsement.
-When used for a Reference Value, either a <code>tagged-tdate-expression</code> or a <code>tagged-epoch-expression</code> describes
-the TCB validity.<a href="#section-5.2.4-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.4-3">
+<p id="section-8.2.4-1">The <code>tee.tcbdate</code> extension enables the Attester or Endorser to report the TEE date attribute and a RVP to assert a valid TEE matching operation.<a href="#section-8.2.4-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.4-2">The <code>$tee-date-type</code> is a date-time string when used for Evidence or Endorsement.
+When used for a Reference Value, either a <code>tagged-tdate-expression</code> or a <code>tagged-epoch-expression</code> describes the TCB validity.<a href="#section-8.2.4-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.4-3">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbdate: -72) =&gt; $tee-date-type
@@ -2003,24 +2173,23 @@ $$measurement-values-map-extension //= (
 $tee-date-type /= tdate
 $tee-date-type /= tagged-exp-tdate-ge
 $tee-date-type /= tagged-exp-epoch-ge
-</pre><a href="#section-5.2.4-3" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.4-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2.4-4"><code>tdate</code> strings must be converted to numeric <code>time</code> before the <code>tdate-operator</code>, which is a numeric operator,
-can be applied.<a href="#section-5.2.4-4" class="pilcrow">¶</a></p>
+<p id="section-8.2.4-4"><code>tdate</code> strings must be converted to numeric <code>time</code> before the <code>tdate-operator</code>, which is a numeric operator, can be applied.<a href="#section-8.2.4-4" class="pilcrow">¶</a></p>
+<p id="section-8.2.4-5">Alternatively, the TEE tcbdate may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.tcbdate</code> and <code>mval</code>.<code>name</code> contains the string representation <code>$tee-date-type</code> without the CBOR tag (i.e., ~tdate).<a href="#section-8.2.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-digest-type">
-<section id="section-5.2.5">
+<section id="section-8.2.5">
           <h4 id="name-the-tee-digest-type-measure">
-<a href="#section-5.2.5" class="section-number selfRef">5.2.5. </a><a href="#name-the-tee-digest-type-measure" class="section-name selfRef">The tee-digest-type Measurement Extension</a>
+<a href="#section-8.2.5" class="section-number selfRef">8.2.5. </a><a href="#name-the-tee-digest-type-measure" class="section-name selfRef">The tee-digest-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.5-1">The <code>tee.mrenclave</code> and <code>tee.mrsigner</code> extensions enable the Attester to report digests for the SGX enclave,
-a.k.a., Target Environment, and the signer, a.k.a., Attesting Environment, of the enclave digest.<a href="#section-5.2.5-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.5-2">The <code>$tee-digest-type</code> is a record that contains the hash algorithm identifier and the digest value when used
+<p id="section-8.2.5-1">The <code>tee.mrtee</code> and <code>tee.mrsigner</code> extensions enable the Attester to report digests for the SGX enclave or TDX TD (e.g., mrenclave, mrtd) and the signer (e.g., mrsigner) of the TEE digest.<a href="#section-8.2.5-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.5-2">The <code>$tee-digest-type</code> is a record that contains the hash algorithm identifier and the digest value when used
 as Evidence.
 When used as Reference Values, a set of digests can be asserted. The Evidence digest record must be a member
-of the Reference Values set.<a href="#section-5.2.5-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.5-3">
+of the Reference Values set.<a href="#section-8.2.5-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.5-3">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.mrtee: -83) =&gt; $tee-digest-type
@@ -2031,171 +2200,178 @@ $$measurement-values-map-extension //= (
 $tee-digest-type /= digest
 $tee-digest-type /= [ + digest ]
 $tee-digest-type /= tagged-exp-member
-</pre><a href="#section-5.2.5-3" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.5-3" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.5-4">Alternatively, the TEE digests may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.mrtee</code> or <code>tee.mrsigner</code> and <code>mval</code>.<code>digests</code> contains the <code>$tee-digest-type</code>.<code>[ + digest ]</code> value.<a href="#section-8.2.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-epoch-type">
-<section id="section-5.2.6">
+<section id="section-8.2.6">
           <h4 id="name-the-tee-epoch-type-measurem">
-<a href="#section-5.2.6" class="section-number selfRef">5.2.6. </a><a href="#name-the-tee-epoch-type-measurem" class="section-name selfRef">The tee-epoch-type Measurement Extension</a>
+<a href="#section-8.2.6" class="section-number selfRef">8.2.6. </a><a href="#name-the-tee-epoch-type-measurem" class="section-name selfRef">The tee-epoch-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.6-1">The <code>tee.epoch</code> extension enables the Attester to report an epoch Evidence measurement,
-and a RVP to assert an epoch Reference Value.<a href="#section-5.2.6-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.6-2">As Evidence, the <code>$tee-epoch-type</code> is a <code>tdate</code> timestamp.<a href="#section-5.2.6-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.6-3">As a Reference Value, the <code>$tee-epoch-type</code> is a grace period, in seconds, that is relative to the
+<p id="section-8.2.6-1">The <code>tee.epoch</code> extension enables the Attester to report an epoch Evidence measurement,
+and a RVP to assert an epoch Reference Value.<a href="#section-8.2.6-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.6-2">As Evidence, the <code>$tee-epoch-type</code> is a <code>tdate</code> timestamp.<a href="#section-8.2.6-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.6-3">As a Reference Value, the <code>$tee-epoch-type</code> is a grace period, in seconds, that is relative to the
 Verifier's current date and time, and an epoch operator: <code>gt</code>, <code>ge</code>, <code>lt</code>, or <code>le</code>.
 The Verifier evaluates whether the timestamp is within the grace period relative to the current date and time.
-The current date and time is implicit, and is assumed to be in <code>tdate</code> format.<a href="#section-5.2.6-3" class="pilcrow">¶</a></p>
-<p id="section-5.2.6-4">The <code>$tee-epoch-type</code> is an <code>$epoch-timestamp-type</code> when used as Evidence or Endorsement
-and a <code>$tagged-epoch-expression</code> when used as a Reference Value.<a href="#section-5.2.6-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.6-5">
+The current date and time is implicit, and is assumed to be in <code>tdate</code> format.<a href="#section-8.2.6-3" class="pilcrow">¶</a></p>
+<p id="section-8.2.6-4">The <code>$tee-epoch-type</code> is an <code>$epoch-timestamp-type</code> when used as Evidence or Endorsement
+and a <code>$tagged-epoch-expression</code> when used as a Reference Value.<a href="#section-8.2.6-4" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.6-5">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.epoch: -90) =&gt; $tee-epoch-type
 )
 $tee-epoch-type /= $epoch-timestamp-type
 $tee-epoch-type /= tagged-exp-epoch-gt
-</pre><a href="#section-5.2.6-5" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.6-5" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.6-6">Alternatively, for Evidence, the TEE epoch timestamp may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.epoch</code> and <code>mval</code>.<code>name</code> contains the string representation <code>$tagged-epoch-id</code> without the CBOR tag (i.e., ~tdate).<a href="#section-8.2.6-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-instance-id-type">
-<section id="section-5.2.7">
+<section id="section-8.2.7">
           <h4 id="name-the-tee-instance-id-type-me">
-<a href="#section-5.2.7" class="section-number selfRef">5.2.7. </a><a href="#name-the-tee-instance-id-type-me" class="section-name selfRef">The tee-instance-id-type Measurement Extension</a>
+<a href="#section-8.2.7" class="section-number selfRef">8.2.7. </a><a href="#name-the-tee-instance-id-type-me" class="section-name selfRef">The tee-instance-id-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.7-1">The <code>tee.instance-id</code> extension enables the Attester to report the (TBD:instance-id-description) Evidence value
-and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.7-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.7-2">The <code>$tee-instance-id-type</code> is an unsigned integer.<a href="#section-5.2.7-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.7-3">The <code>$tee-instance-type</code> is an exact match measurement.<a href="#section-5.2.7-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.7-4">
+<p id="section-8.2.7-1">The <code>tee.instance-id</code> extension enables the Attester to report the (TBD:instance-id-description) Evidence value
+and the RVP to assert an exact-match Reference Value.<a href="#section-8.2.7-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.7-2">The <code>$tee-instance-id-type</code> is an unsigned integer.<a href="#section-8.2.7-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.7-3">The <code>$tee-instance-type</code> is an exact match measurement.<a href="#section-8.2.7-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.7-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.instance-id: -77) =&gt; $tee-instance-id-type
 )
 $tee-instance-id-type /= uint
 $tee-instance-id-type /= bstr
-</pre><a href="#section-5.2.7-4" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.7-4" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.7-5">Alternatively, the TEE instance ID may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.instance-id</code> and <code>mval</code>.<code>raw-value</code> contains the <code>$tee-instance-id-type</code> value.<a href="#section-8.2.7-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-isvprodid-type">
-<section id="section-5.2.8">
+<section id="section-8.2.8">
           <h4 id="name-the-tee-isvprodid-type-meas">
-<a href="#section-5.2.8" class="section-number selfRef">5.2.8. </a><a href="#name-the-tee-isvprodid-type-meas" class="section-name selfRef">The tee-isvprodid-type Measurement Extension</a>
+<a href="#section-8.2.8" class="section-number selfRef">8.2.8. </a><a href="#name-the-tee-isvprodid-type-meas" class="section-name selfRef">The tee-isvprodid-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.8-1">The <code>tee.isvprodid</code> extension enables the Attester to report the ISV product identifier Evidence value
-and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.8-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.8-2">The <code>$tee-isvprodid-type</code> is an unsigned integer.<a href="#section-5.2.8-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.8-3">The <code>$tee-isvprodid-type</code> is an exact match measurement.<a href="#section-5.2.8-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.8-4">
+<p id="section-8.2.8-1">The <code>tee.isvprodid</code> extension enables the Attester to report the ISV product identifier Evidence value
+and the RVP to assert an exact-match Reference Value.<a href="#section-8.2.8-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.8-2">The <code>$tee-isvprodid-type</code> is an unsigned integer.<a href="#section-8.2.8-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.8-3">The <code>$tee-isvprodid-type</code> is an exact match measurement.<a href="#section-8.2.8-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.8-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.isvprodid: -85) =&gt; $tee-isvprodid-type
 )
 $tee-isvprodid-type /= uint
 $tee-isvprodid-type /= bstr
-</pre><a href="#section-5.2.8-4" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.8-4" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.8-5">Alternatively, the TEE product ID may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.isvprodid</code> and <code>mval</code>.<code>raw-value</code> contains the <code>$tee-isvprodid-type</code> value.<a href="#section-8.2.8-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-miscselect-type">
-<section id="section-5.2.9">
+<section id="section-8.2.9">
           <h4 id="name-the-tee-miscselect-type-mea">
-<a href="#section-5.2.9" class="section-number selfRef">5.2.9. </a><a href="#name-the-tee-miscselect-type-mea" class="section-name selfRef">The tee-miscselect-type Measurement Extension</a>
+<a href="#section-8.2.9" class="section-number selfRef">8.2.9. </a><a href="#name-the-tee-miscselect-type-mea" class="section-name selfRef">The tee-miscselect-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.9-1">The <code>tee.miscselect</code> extension enables the Attester to report the (TBD:miscselect-description) Evidence value
-and the RVP to assert a Reference Value and mask.<a href="#section-5.2.9-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.9-2">The <code>$tee-miscselect-type</code> is a 4 byte value and mask.<a href="#section-5.2.9-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.9-3">The <code>$tee-miscselect-type</code> is a singleton <code>mask-type</code> value when used as Endorsement or Evidence
-and a <code>tagged-mask-expression</code> when used a Reference Value.<a href="#section-5.2.9-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.9-4">
+<p id="section-8.2.9-1">The <code>tee.miscselect</code> extension enables the Attester to report the (TBD:miscselect-description) Evidence value
+and the RVP to assert a Reference Value and mask.<a href="#section-8.2.9-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.9-2">The <code>$tee-miscselect-type</code> is a 4 byte value and mask.<a href="#section-8.2.9-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.9-3">The <code>$tee-miscselect-type</code> is a singleton <code>mask-type</code> value when used as Endorsement or Evidence
+and a <code>tagged-mask-expression</code> when used a Reference Value.<a href="#section-8.2.9-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.9-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.miscselect: -81) =&gt; $tee-miscselect-type
 )
 $tee-miscselect-type /= mask-type
 $tee-miscselect-type /= tagged-exp-mask-eq
-</pre><a href="#section-5.2.9-4" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.9-4" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.9-5">Alternatively, the TEE miscselect may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.miscselect</code> and <code>mval</code>.<code>raw-value</code> contains the measurement value and <code>mval</code>.raw-value-mask` contains the mask value.<a href="#section-8.2.9-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-model-type">
-<section id="section-5.2.10">
+<section id="section-8.2.10">
           <h4 id="name-the-tee-model-type-measurem">
-<a href="#section-5.2.10" class="section-number selfRef">5.2.10. </a><a href="#name-the-tee-model-type-measurem" class="section-name selfRef">The tee-model-type Measurement Extension</a>
+<a href="#section-8.2.10" class="section-number selfRef">8.2.10. </a><a href="#name-the-tee-model-type-measurem" class="section-name selfRef">The tee-model-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.10-1">The <code>tee.model</code> extension enables the Attester to report the TEE model string as Evidence
-and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.10-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.10-2">The <code>$tee-model-type</code> is a string.<a href="#section-5.2.10-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.10-3">The <code>$tee-model-type</code> is an exact match measurement.<a href="#section-5.2.10-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.10-4">
+<p id="section-8.2.10-1">The <code>tee.model</code> extension enables the Attester to report the TEE model string as Evidence
+and the RVP to assert an exact-match Reference Value.<a href="#section-8.2.10-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.10-2">The <code>$tee-model-type</code> is a string.<a href="#section-8.2.10-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.10-3">The <code>$tee-model-type</code> is an exact match measurement.<a href="#section-8.2.10-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.10-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.model: -71) =&gt; $tee-model-type
 )
 $tee-model-type /= tstr
-</pre><a href="#section-5.2.10-4" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.10-4" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.10-5">Alternatively, the TEE model may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.model</code> and <code>mval</code>.<code>name</code> contains the <code>$tee-model-type</code> value.<a href="#section-8.2.10-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-pceid-type">
-<section id="section-5.2.11">
+<section id="section-8.2.11">
           <h4 id="name-the-tee-pceid-type-measurem">
-<a href="#section-5.2.11" class="section-number selfRef">5.2.11. </a><a href="#name-the-tee-pceid-type-measurem" class="section-name selfRef">The tee-pceid-type Measurement Extension</a>
+<a href="#section-8.2.11" class="section-number selfRef">8.2.11. </a><a href="#name-the-tee-pceid-type-measurem" class="section-name selfRef">The tee-pceid-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.11-1">The <code>tee.pceid</code> extension enables the Attester to report the (TBD:pceid-description) as Evidence
-and the RVP to assert an exact-match Reference Value.<a href="#section-5.2.11-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.11-2">The <code>$tee-pceid-type</code> is a string.<a href="#section-5.2.11-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.11-3">The <code>$tee-pceid-type</code> is an exact match measurement.<a href="#section-5.2.11-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.11-4">
+<p id="section-8.2.11-1">The <code>tee.pceid</code> extension enables the Attester to report the PCEID as Evidence and the RVP to assert an exact-match Reference Value.<a href="#section-8.2.11-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.11-2">The <code>$tee-pceid-type</code> is a string.<a href="#section-8.2.11-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.11-3">The <code>$tee-pceid-type</code> is an exact match measurement.<a href="#section-8.2.11-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.11-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.pceid: -80) =&gt; $tee-pceid-type
 )
 $tee-pceid-type /= tstr
-</pre><a href="#section-5.2.11-4" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.11-4" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.11-5">Alternatively, the PCEID may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.pceid</code> and <code>mval</code>.<code>name</code> contains the <code>$tee-pceid-type</code> value.<a href="#section-8.2.11-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-svn-type">
-<section id="section-5.2.12">
+<section id="section-8.2.12">
           <h4 id="name-the-tee-svn-type-measuremen">
-<a href="#section-5.2.12" class="section-number selfRef">5.2.12. </a><a href="#name-the-tee-svn-type-measuremen" class="section-name selfRef">The tee-svn-type Measurement Extension</a>
+<a href="#section-8.2.12" class="section-number selfRef">8.2.12. </a><a href="#name-the-tee-svn-type-measuremen" class="section-name selfRef">The tee-svn-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.12-1">The <code>tee.isvsvn</code> extension enables the Attester to report the SVN for the independent software vendor supplied
-component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.<a href="#section-5.2.12-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.12-2">The <code>$tee-svn-type</code> is either an unsigned integer when reported as Evidence, or a tagged numeric expression
+<p id="section-8.2.12-1">The <code>tee.isvsvn</code> extension enables the Attester to report the SVN for the independent software vendor supplied
+component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.<a href="#section-8.2.12-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.12-2">The <code>$tee-svn-type</code> is either an unsigned integer when reported as Evidence, or a tagged numeric expression
 that contains an SVN and a numeric greater-than-or-equal operator. The Verifier ensures the Evidence value is
-greater-that-or-equal to the Reference Value.<a href="#section-5.2.12-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.12-3">The <code>$tee-svn-type</code> is a numeric when used as Endorsement or Evidence and a <code>tagged-numeric-expression</code> when
-used as a Reference Value.<a href="#section-5.2.12-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.12-4">
+greater-that-or-equal to the Reference Value.<a href="#section-8.2.12-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.12-3">The <code>$tee-svn-type</code> is a numeric when used as Endorsement or Evidence and a <code>tagged-numeric-expression</code> when
+used as a Reference Value.<a href="#section-8.2.12-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.12-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.isvsvn: -73) =&gt; $tee-svn-type
 )
 $tee-svn-type /= numeric-type
 $tee-svn-type /= tagged-numeric-ge
-</pre><a href="#section-5.2.12-4" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.12-4" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.12-5">Alternatively, the TEE isvsvn may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.isvsvn</code> and <code>mval</code>.<code>svn</code> contains the svn value as <code>svn-type</code>.<a href="#section-8.2.12-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-tcb-comp-svn-type">
-<section id="section-5.2.13">
+<section id="section-8.2.13">
           <h4 id="name-the-tee-tcb-comp-svn-type-m">
-<a href="#section-5.2.13" class="section-number selfRef">5.2.13. </a><a href="#name-the-tee-tcb-comp-svn-type-m" class="section-name selfRef">The tee-tcb-comp-svn-type Measurement Extension</a>
+<a href="#section-8.2.13" class="section-number selfRef">8.2.13. </a><a href="#name-the-tee-tcb-comp-svn-type-m" class="section-name selfRef">The tee-tcb-comp-svn-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.13-1">The <code>tee.tcb-comp-svn</code> extension enables the Attester to report an array of SVN values for the TCB when asserted
-as Evidence and an array of <code>tagged-numeric-ge</code> entries when asserted as a Reference Value.<a href="#section-5.2.13-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.13-2">The <code>$tee-tcb-comp-svn-type</code> is an array containing 16 SVN values when reported as Evidence and an array of 16
+<p id="section-8.2.13-1">The <code>tee.tcb-comp-svn</code> extension enables the Attester to report an array of SVN values for the TCB when asserted
+as Evidence and an array of <code>tagged-numeric-ge</code> entries when asserted as a Reference Value.<a href="#section-8.2.13-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.13-2">The <code>$tee-tcb-comp-svn-type</code> is an array containing 16 SVN values when reported as Evidence and an array of 16
 expression records each containing the numeric <code>ge</code> operator and a reference SVN value.
 The Verifier evaluates each SVN in the Evidence array with the corresponding reference expression,
 by array position.
 If all Evidence values match their respective expressions, evaluation is successful.
-The array of SVN Evidence is accepted.<a href="#section-5.2.13-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.13-3">
+The array of SVN Evidence is accepted.<a href="#section-8.2.13-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.13-3">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.tcb-comp-svn: -125) =&gt; $tee-tcb-comp-svn-type
@@ -2204,215 +2380,139 @@ $tee-tcb-comp-svn-type /=
   [ 16*16 svn-type .within numeric-type ]
 $tee-tcb-comp-svn-type /=
   [ 16*16 tagged-numeric-ge ]
-</pre><a href="#section-5.2.13-3" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.13-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-tcb-eval-num-type">
-<section id="section-5.2.14">
+<section id="section-8.2.14">
           <h4 id="name-the-tee-tcb-eval-num-type-m">
-<a href="#section-5.2.14" class="section-number selfRef">5.2.14. </a><a href="#name-the-tee-tcb-eval-num-type-m" class="section-name selfRef">The tee-tcb-eval-num-type Measurement Extension</a>
+<a href="#section-8.2.14" class="section-number selfRef">8.2.14. </a><a href="#name-the-tee-tcb-eval-num-type-m" class="section-name selfRef">The tee-tcb-eval-num-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.14-1">The <code>tee.tcb-eval-num</code> extension enables the Attester to report a (TBD:tcb-eval-num-description)
-as Evidence and the RVP to assert a Reference Value expression that compares the (TBD:tcb-eval-num-description) Evidence
-to the Reference Value (TBD:tcb-eval-num-description) using the greater-than-or-equal operator.<a href="#section-5.2.14-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.14-2">The <code>$tee-tcb-eval-num-type</code> is an unsigned integer when reported as Evidence and a tagged numeric expression when
-asserted as Reference Values.<a href="#section-5.2.14-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.14-3">
+<p id="section-8.2.14-1">The <code>tee.tcb-eval-num</code> extension enables the Attester to report a TCB evaluation number as Evidence and the RVP to assert a Reference Value expression that compares the tcb-eval-num Evidence with the Reference Value using the greater-than-or-equal operator.<a href="#section-8.2.14-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.14-2">The <code>$tee-tcb-eval-num-type</code> is an unsigned integer when reported as Evidence and a tagged numeric expression when asserted as Reference Values.<a href="#section-8.2.14-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.14-3">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee-tcb-eval-num: -86) =&gt; $tee-tcb-eval-num-type
 )
 $tee-tcb-eval-num-type /= uint .within numeric-type
 $tee-tcb-eval-num-type /= tagged-numeric-ge
-</pre><a href="#section-5.2.14-3" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.14-3" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.14-4">Alternatively, the TEE tcb-eval-num Evidence may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.tcb-eval-num</code> and <code>mval</code>.<code>raw-value</code> contains the tcb-eval-num encoded as 4-byte bstr value.<a href="#section-8.2.14-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-tcbstatus-type">
-<section id="section-5.2.15">
+<section id="section-8.2.15">
           <h4 id="name-the-tee-tcbstatus-type-meas">
-<a href="#section-5.2.15" class="section-number selfRef">5.2.15. </a><a href="#name-the-tee-tcbstatus-type-meas" class="section-name selfRef">The tee-tcbstatus-type Measurement Extension</a>
+<a href="#section-8.2.15" class="section-number selfRef">8.2.15. </a><a href="#name-the-tee-tcbstatus-type-meas" class="section-name selfRef">The tee-tcbstatus-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.15-1">The <code>tee.tcb-status</code> extension enables the Attester to report the status of the TEE trusted computing base (TCB) as
+<p id="section-8.2.15-1">The <code>tee.tcb-status</code> extension enables the Attester to report the status of the TEE trusted computing base (TCB) as
 an array of status strings, as Evidence, and the RVP to assert an array of status arrays as Reference Values where
-the Evidence array is a subset of the reference status arrays.<a href="#section-5.2.15-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.15-2">The <code>$tee-tcbstatus-type</code> is a status array with a set expressions containing the <code>subset</code> operator when used as Evidence.
-When used as a Reference Value it is an array of status arrays.<a href="#section-5.2.15-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.15-3">
+the Evidence array is a subset of the reference status arrays.<a href="#section-8.2.15-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.15-2">The <code>$tee-tcbstatus-type</code> is a status array with a set expressions containing the <code>subset</code> operator when used as Evidence.
+When used as a Reference Value it is an array of status arrays.<a href="#section-8.2.15-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.15-3">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbstatus: -88) =&gt; $tee-tcbstatus-type
 )
 $tee-tcbstatus-type /= set-type
 $tee-tcbstatus-type /= tagged-exp-member
-</pre><a href="#section-5.2.15-3" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.15-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-tee-vendor-type">
-<section id="section-5.2.16">
+<section id="section-8.2.16">
           <h4 id="name-the-tee-vendor-type-measure">
-<a href="#section-5.2.16" class="section-number selfRef">5.2.16. </a><a href="#name-the-tee-vendor-type-measure" class="section-name selfRef">The tee-vendor-type Measurement Extension</a>
+<a href="#section-8.2.16" class="section-number selfRef">8.2.16. </a><a href="#name-the-tee-vendor-type-measure" class="section-name selfRef">The tee-vendor-type Measurement Extension</a>
           </h4>
-<p id="section-5.2.16-1">The <code>tee.vendor</code> extension enables the Attester to report the TEE vendor name as Evidence and for the RVP to assert
-the TEE vendor name.<a href="#section-5.2.16-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.16-2">The <code>$tee-vendor-type</code> is a string containing the vendor name as a string. The vendor string in Evidence must
-exactly match the vendor string in Reference Values.<a href="#section-5.2.16-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.16-3">The <code>$tee-vendor-type</code> is an exact match measurement.<a href="#section-5.2.16-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-5.2.16-4">
+<p id="section-8.2.16-1">The <code>tee.vendor</code> extension enables the Attester to report the TEE vendor name as Evidence and for the RVP to assert
+the TEE vendor name.<a href="#section-8.2.16-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.16-2">The <code>$tee-vendor-type</code> is a string containing the vendor name as a string. The vendor string in Evidence must
+exactly match the vendor string in Reference Values.<a href="#section-8.2.16-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.16-3">The <code>$tee-vendor-type</code> is an exact match measurement.<a href="#section-8.2.16-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.16-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.vendor: -70) =&gt; $tee-vendor-type
 )
 $tee-vendor-type /= tstr
-</pre><a href="#section-5.2.16-4" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.16-4" class="pilcrow">¶</a>
 </div>
+<p id="section-8.2.16-5">Alternatively, the TEE vendor may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.vendor</code> and <code>mval</code>.<code>name</code> contains the <code>$tee-vendor-type</code> value.<a href="#section-8.2.16-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-</section>
-</div>
-</section>
-</div>
-<div id="sec-intel-evidence-profile">
-<section id="section-6">
-      <h2 id="name-intel-evidence-profile">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-intel-evidence-profile" class="section-name selfRef">Intel Evidence Profile</a>
-      </h2>
-<p id="section-6-1">Evidence may be integrity protected in various ways including: certificates <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, SPDM transcript <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>, and CBOR web token (CWT) <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span>.
-Evidence contained in a certificate may be encoded using <code>DiceTcbInfo</code> and <code>DiceTcbInfoSeq</code> <span>[<a href="#DICE.Attest" class="cite xref">DICE.Attest</a>]</span>. Evidence contained in an SPDM payload may
-be encoded using the SPDM <code>Measurement Block</code> <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>. Evidence may be formatted as <code>concise-evidence</code> <span>[<a href="#TCG.concise-evidence" class="cite xref">TCG.concise-evidence</a>]</span> and
-included in an alias certificate or an SPDM Measurement Manifest.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">The <code>DiceTcbInfo</code> and SPDM Evidence formats can be translated to CoMID.
-The concise evidence format is native to CoMID.
-This profile documents evidence mapping from <code>DiceTcbInfo</code> and SPDM <code>Measurement Block</code> to CoMID, as defined by <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">The CoMID extensions defined by this profile, see <a href="#sec-measurement-extensions" class="auto internal xref">Section 5.2</a>, are applied to <code>concise-evidence</code> so that
-Verifiers that support this profile can consistently apply a common schema across Evidence, Reference Values, and Endorsements.<a href="#section-6-3" class="pilcrow">¶</a></p>
-<div id="sec-evidence-hierarchy">
-<section id="section-6.1">
-        <h3 id="name-evidence-hierarchy">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-evidence-hierarchy" class="section-name selfRef">Evidence Hierarchy</a>
-        </h3>
-<p id="section-6.1-1">Evidence hierarchy refers to SGX layering where the SGX Platform Certification Enclave (PCE) collects measurements of the
-Quoting Enclave (QE) and the Quoting Enclaves collect measurments of their respective ISV enclaves (ISVE).
-A hierarchy of Evidence consisting of one PCE Evidence, one QE Evidence and one ISVE Evidence.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1-2">A complex device may have multiple roots of trust, such as <span>[<a href="#DICE.engine" class="cite xref">DICE.engine</a>]</span>, each contributing an evidence hierarchy that results in
-several Evidence "chains", that together, constitute a complete Evidence hierarchy for the Attester device.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
-<p id="section-6.1-3">The Evidence hierarchy should form a spanning tree that contains all Attester Evidence. All Attesting Environments
-within the device produce the spanning tree. CoRIM manifests contain Reference Values for the spanning tree so that
-Verifiers do not assume the spanning tree is defined by Evidence.
-Note that a failure or comporomise within the Attester device could result in a portion of the spanning tree being omitted.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
-<p id="section-6.1-4">Example spanning tree:<a href="#section-6.1-4" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6.1-5.1">
-            <p id="section-6.1-5.1.1">A DICE certificate chain with a DiceTcbInfo extension, a DiceTcbInfoSeq extension, and a <code>ConceptualMessageWrapper</code> (CMW)
-<span>[<a href="#I-D.ietf-rats-msg-wrap" class="cite xref">I-D.ietf-rats-msg-wrap</a>]</span> extension containing a CBOR-encoded <code>tagged-concise-evidence</code>.<a href="#section-6.1-5.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-6.1-5.2">
-            <p id="section-6.1-5.2.1">An SPMD alias intermediate certification chain containing a CMW extension, and an SPDM measurement manifest containing
-<code>tagged-concise-evidence</code>.<a href="#section-6.1-5.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-</section>
-</div>
-<div id="sec-concise-evidence">
-<section id="section-6.2">
-        <h3 id="name-concise-evidence">
-<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-concise-evidence" class="section-name selfRef">Concise Evidence</a>
-        </h3>
-<p id="section-6.2-1">Concise evidence is a CDDL representation of Evidence that is derived from CoMID and CoSWID <span>[<a href="#RFC9393" class="cite xref">RFC9393</a>]</span>.
-Evidence describes the actual state of the Attester.
-<code>tagged-concise-evidence</code> uses a CBOR tag to identify <code>concise-evidence</code> <span>[<a href="#TCG.concise-evidence" class="cite xref">TCG.concise-evidence</a>]</span>.
-This profile is compatible with <code>tagged-concise-evicence</code>.
-CoRIM extensions, defined by this profile, are used by <code>tagged-concise-evidence</code> by extending <code>measurement-values-map</code>.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">The <code>concise-evidence</code> structure is defined in <span>[<a href="#TCG.concise-evidence" class="cite xref">TCG.concise-evidence</a>]</span><a href="#section-6.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="sec-intel-appraisal-algorithm">
-<section id="section-7">
-      <h2 id="name-intel-appraisal-algorithm">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-intel-appraisal-algorithm" class="section-name selfRef">Intel Appraisal Algorithm</a>
+<section id="section-9">
+      <h2 id="name-appraisal-algorithm">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-appraisal-algorithm" class="section-name selfRef">Appraisal Algorithm</a>
       </h2>
-<p id="section-7-1">The Intel profile anticipates appraisal algorithms will be based on the appraisal algorithm defined in <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.
+<p id="section-9-1">The Intel profile anticipates appraisal algorithms will be based on the appraisal algorithm defined in <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.
 This profile extends the appraisal algorithm to recognize profile extensions that form equations.
 An Evidence measurement forms one of the operands: (evidence operand).
 A Reference Value forms the operator and remaining operands: [(expression operator), (reference value operand), ...].
 For example, if a numeric reference value is 14, and the expressions operator is <code>gt</code> the Reference Value might contain the Claim: <code>#6.60010([ 1, 14])</code>.
 Evidence might contain the measurement: '15'.
 In infix construction, the equation would be: (<code>15</code>) (<code>gt</code>) (<code>14</code>).
-The Verifier evaluates whether <code>15</code> is greater-than <code>14</code>.<a href="#section-7-1" class="pilcrow">¶</a></p>
+The Verifier evaluates whether <code>15</code> is greater-than <code>14</code>.<a href="#section-9-1" class="pilcrow">¶</a></p>
 <div id="sec-complex-expressions">
-<section id="section-7.1">
+<section id="section-9.1">
         <h3 id="name-complex-expressions">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-complex-expressions" class="section-name selfRef">Complex Expressions</a>
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-complex-expressions" class="section-name selfRef">Complex Expressions</a>
         </h3>
-<p id="section-7.1-1">Complex expressions can be used to assess whether the Target Environment is in a particular state before certain Endorsement claims can be asserted.
+<p id="section-9.1-1">Complex expressions can be used to assess whether the Target Environment is in a particular state before certain Endorsement claims can be asserted.
 For example, if an SGX enclave has an <code>svn</code> value that is less than the prescribed minimum svn, the enclave status may be
 considered "OutOfDate" or may have a known security advisory. The CoMID <code>conditional-endorsement-triples</code> or
-<code>conditional-endorsement-series-triples</code> describe complex Endorsement expressions.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">This profile uses these triples with the reference measurement values extensions described in <a href="#sec-measurement-extensions" class="auto internal xref">Section 5.2</a>.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<code>conditional-endorsement-series-triples</code> describe complex Endorsement expressions.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-2">This profile uses these triples with the reference measurement values extensions described in <a href="#sec-measurement-extensions" class="auto internal xref">Section 8.2</a>.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="sec-intel-reporting-attestation-results">
-<section id="section-8">
+<section id="section-10">
       <h2 id="name-reporting-attestation-resul">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-reporting-attestation-resul" class="section-name selfRef">Reporting Attestation Results</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-reporting-attestation-resul" class="section-name selfRef">Reporting Attestation Results</a>
       </h2>
-<p id="section-8-1">Attestation verification can be performed by a pipeline consisting of multiple stages where each input manifest demarks a stage.
+<p id="section-10-1">Attestation verification can be performed by a pipeline consisting of multiple stages where each input manifest demarks a stage.
 The final stage prepares Attestation Results according to Relying Party specifications.
 This profile does not define an attestation results format.
-The Relying Party should specify suitable Attestation Results formats such as <span>[<a href="#I-D.ietf-rats-ar4si" class="cite xref">I-D.ietf-rats-ar4si</a>]</span> or <span>[<a href="#I-D.kdyxy-rats-tdx-eat-profile" class="cite xref">I-D.kdyxy-rats-tdx-eat-profile</a>]</span>.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">The precise Attestation Results format used, if negotiated by Verifier and Relying Party, should reference this profile to acknowledge
-that the Relying Party and Verifier both support the extensions defined in this document.<a href="#section-8-2" class="pilcrow">¶</a></p>
+The Relying Party should specify suitable Attestation Results formats such as <span>[<a href="#I-D.ietf-rats-ar4si" class="cite xref">I-D.ietf-rats-ar4si</a>]</span> or <span>[<a href="#I-D.kdyxy-rats-tdx-eat-profile" class="cite xref">I-D.kdyxy-rats-tdx-eat-profile</a>]</span>.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-2">The precise Attestation Results format used, if negotiated by Verifier and Relying Party, should reference this profile to acknowledge
+that the Relying Party and Verifier both support the extensions defined in this document.<a href="#section-10-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-security-considerations">
-<section id="section-9">
+<section id="section-11">
       <h2 id="name-security-considerations">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-9-1">The security of this profile depends on the security considerations of the various normative references.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-11-1">The security of this profile depends on the security considerations of the various normative references.<a href="#section-11-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-iana-considerations">
-<section id="section-10">
+<section id="section-12">
       <h2 id="name-iana-considerations">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
-      </h2>
-<p id="section-10-1">This document uses the IANA CBOR tag registry. See <span>[<a href="#IANA.CBOR" class="cite xref">IANA.CBOR</a>]</span><a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">The following CBOR tag has been assigned:<a href="#section-10-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-10-3.1">
-          <p id="section-10-3.1.1">CBOR tag: 60010<a href="#section-10-3.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-10-3.2">
-          <p id="section-10-3.2.1">Data item: array<a href="#section-10-3.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-10-3.3">
-          <p id="section-10-3.3.1">Semantics: a CBOR encoded array<a href="#section-10-3.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-10-3.4">
-          <p id="section-10-3.4.1">Point of contact: ned.smith&amp;intel.com<a href="#section-10-3.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-10-3.5">
-          <p id="section-10-3.5.1">Description of semantics: this document<a href="#section-10-3.5.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
+<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+    </h2>
 </section>
 </div>
 <div id="sec-combined-references">
-<section id="section-11">
+<section id="section-13">
       <h2 id="name-references">
-<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-13" class="section-number selfRef">13. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-11.1">
+<section id="section-13.1">
         <h3 id="name-normative-references">
-<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-13.1" class="section-number selfRef">13.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="DICE.Attest">[DICE.Attest]</dt>
@@ -2431,13 +2531,13 @@ that the Relying Party and Verifier both support the extensions defined in this 
         <dd>
 <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Deshpande, Y.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Concise Reference Integrity Manifest"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-corim-06</span>, <time datetime="2024-10-18" class="refDate">18 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-06">https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="I-D.ietf-rats-eat">[I-D.ietf-rats-eat]</dt>
+        <dd>
+<span class="refAuthor">Lundblade, L.</span>, <span class="refAuthor">Mandyam, G.</span>, <span class="refAuthor">O'Donoghue, J.</span>, and <span class="refAuthor">C. Wallace</span>, <span class="refTitle">"The Entity Attestation Token (EAT)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-eat-31</span>, <time datetime="2024-09-06" class="refDate">6 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-31">https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-31</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-rats-msg-wrap">[I-D.ietf-rats-msg-wrap]</dt>
         <dd>
 <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Smith, N.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Tschofenig, H.</span>, and <span class="refAuthor">D. Glaze</span>, <span class="refTitle">"RATS Conceptual Messages Wrapper (CMW)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-msg-wrap-11</span>, <time datetime="2024-11-15" class="refDate">15 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-msg-wrap-11">https://datatracker.ietf.org/doc/html/draft-ietf-rats-msg-wrap-11</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="IANA.CBOR">[IANA.CBOR]</dt>
-        <dd>
-<span class="refAuthor">Internet Assigned Numbers Authority (IANA)</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR) Tags"</span>, <time datetime="2013-09" class="refDate">September 2013</time>, <span>&lt;<a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -2447,11 +2547,7 @@ that the Relying Party and Verifier both support the extensions defined in this 
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC9393">[RFC9393]</dt>
-        <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fitzgerald-McKay, J.</span>, <span class="refAuthor">Schmidt, C.</span>, and <span class="refAuthor">D. Waltermire</span>, <span class="refTitle">"Concise Software Identification Tags"</span>, <span class="seriesInfo">RFC 9393</span>, <span class="seriesInfo">DOI 10.17487/RFC9393</span>, <time datetime="2023-06" class="refDate">June 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9393">https://www.rfc-editor.org/rfc/rfc9393</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="TCG.concise-evidence">[TCG.concise-evidence]</dt>
+<dt id="TCG.CE">[TCG.CE]</dt>
       <dd>
 <span class="refAuthor">Trusted Computing Group (TCG)</span>, <span class="refTitle">"TCG DICE Concise Evidence Binding for SPDM"</span>, <span class="seriesInfo">Version 1.0, Revision 0.54 </span>, <time datetime="2024-01" class="refDate">January 2024</time>, <span>&lt;<a href="https://trustedcomputinggroup.org/wp-content/uploads/TCG-DICE-Concise-Evidence-Binding-for-SPDM-Version-1.0-Revision-54_pub.pdf">https://trustedcomputinggroup.org/wp-content/uploads/TCG-DICE-Concise-Evidence-Binding-for-SPDM-Version-1.0-Revision-54_pub.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
@@ -2459,9 +2555,9 @@ that the Relying Party and Verifier both support the extensions defined in this 
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-11.2">
+<section id="section-13.2">
         <h3 id="name-informative-references">
-<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-13.2" class="section-number selfRef">13.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="DICE.engine">[DICE.engine]</dt>
@@ -2510,7 +2606,7 @@ that the Relying Party and Verifier both support the extensions defined in this 
       <h2 id="name-acknowledgments">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">The authors wish to thank Shanwei Cen for valuable contributions.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">The authors wish to thank Shanwei Cen, Piotr Zmijewski, Francisco F. Chinchilla, Yogesh Despande and Dionna Amalie Glaze for their valuable contributions.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="full-intel-profile-cddl">
@@ -2768,10 +2864,10 @@ $tee-vendor-type /= tstr
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Andrew Draper</span></div>
-<div dir="auto" class="left"><span class="org">Intel Corporation</span></div>
+<div dir="auto" class="left"><span class="org">Altera Corporation</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:andrew.draper@intel.com" class="email">andrew.draper@intel.com</a>
+<a href="mailto:andrew.draper@altera.com" class="email">andrew.draper@altera.com</a>
 </div>
 </address>
 <address class="vcard">
