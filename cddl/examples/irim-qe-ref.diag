@@ -35,6 +35,13 @@
               / authorized-by / 2 : [
                 / tagged-pkix-base64-key-type / 554("base64_key_X")
               ]
+            },
+            {  
+              / mkey / 0 : 81, / miscselect /
+              / mval / 1 : { 
+                4 : 560(h'C0000000'), / *** 4 bytes *** /
+                5 : h'FBFF0000' / *** 4 bytes *** /
+              } 
             }
           ]
         ]

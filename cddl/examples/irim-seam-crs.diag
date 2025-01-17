@@ -13,7 +13,7 @@
             }
           },
           [
-          / measurement-map / {
+            / measurement-map / {
               / mval / 1 : / measurement-values-map / {
                 / vendor / -70 : "Intel Corporation",
                 / model / -71 : "TDX SEAM",
@@ -28,6 +28,14 @@
               / authorized-by / 2 : [
                 / tagged-pkix-base64-key-type / 554("base64_key_X")
               ]
+            },
+            { 
+              / mkey / 0 : 70, / vendor /
+              / mval / 1 : { 11 : "Intel Corporation" }
+            },
+             { 
+              / mkey / 0 : 71, / model /
+              / mval / 1 : { 11 : "TDX SEAM" }
             }
           ]
         ],
