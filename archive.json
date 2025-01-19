@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-16T01:18:35.573526+00:00",
+  "timestamp": "2025-01-19T01:24:12.150542+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "Hi @nedmsmith . I am Ding from [Confidential Containers](https://github.com/confidential-containers) which aiming to provide cloud native way to leverage TEE ability for containerized workload. Now I am working on the reference value publishment and consumption of the components running inside TEE (like kernel, guest firmware, ..., e.g. `mr_td`, `rtmr`s for TDX, etc.).\r\n\r\nTwo aims from my side\r\n- Use a standard format as carrier of reference values. CoRIM is from IETF RATS and I'd like to use it first.\r\n- The format should be extensible for different platforms, aiming for SGX/TDX/SNP/CCA/...\r\n\r\nI have read the slides about [CoRIM based attestation framework](https://github.com/CCC-Attestation/meetings/blob/main/materials/ShanweiCen_CORIM_based_Attestation_Framework.pdf) which follows the `measurement-values-map-extension` fields defined in this repo. This could help SGX to give reference values for fields like `MRENCLAVE`. \r\n\r\nMy question is how to apply this standard on TDX and other platforms? Is there anything I ignored or do you have any plan?\r\n\r\nThanks a lot!",
       "createdAt": "2024-03-04T09:18:44Z",
-      "updatedAt": "2024-03-07T09:31:41Z",
+      "updatedAt": "2025-01-17T16:09:41Z",
       "closedAt": null,
       "comments": [
         {
@@ -92,6 +92,13 @@
           "body": "Thanks very much. Do you have any plan inside Intel to publish reference values of TDX stack using CoRIM?",
           "createdAt": "2024-03-07T09:31:40Z",
           "updatedAt": "2024-03-07T09:31:40Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "> Thanks very much. Do you have any plan inside Intel to publish reference values of TDX stack using CoRIM?\n\nYes. That's typically coordinated with product releases.",
+          "createdAt": "2025-01-17T16:09:40Z",
+          "updatedAt": "2025-01-17T16:09:40Z"
         }
       ]
     },
@@ -1508,6 +1515,34 @@
       "mergeCommit": {
         "oid": "e3efeed6db2ab126debe92434f443f195903381c"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 34,
+      "id": "PR_kwDOJvkHy86INC0J",
+      "title": "Markdown edits",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/34",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "I made several updates to the intel profile that include encoding using base comid/corim schema. \r\nAdded the list of media-types, content-format, and top level cbor tags this profile uses.\r\nRearranged some of the sections and did some doc cleanup.",
+      "createdAt": "2025-01-17T21:53:34Z",
+      "updatedAt": "2025-01-17T21:53:58Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "e3efeed6db2ab126debe92434f443f195903381c",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "markdown-edits",
+      "headRefOid": "90bf56c5bffc5e84645044cc3f6dae3b8048d7e0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
