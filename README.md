@@ -25,13 +25,6 @@ Formatted text and HTML versions of the draft can be built using `make`.
 $ make
 ```
 
-After cloning this repo, initialize the submodules:
-
-```sh
-$ git submodule init
-$ git submodule update
-```
-
 Command line usage requires that you have the necessary software installed.  See
 [the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).
 
