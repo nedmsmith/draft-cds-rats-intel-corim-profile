@@ -941,7 +941,7 @@ The security of this profile depends on the security considerations of the vario
 
 # Acknowledgments
 
-The authors wish to thank Shanwei Cen, Piotr Zmijewski, Francisco F. Chinchilla, Yogesh Despande and Dionna Amalie Glaze for their valuable contributions.
+The authors wish to thank Shanwei Cen, Piotr Zmijewski, Francisco J. Chinchilla, Yogesh Despande and Dionna Amalie Glaze for their valuable contributions.
 
 # Full Intel Profile CDDL
 
