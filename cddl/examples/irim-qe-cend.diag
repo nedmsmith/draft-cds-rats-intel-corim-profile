@@ -77,6 +77,14 @@
                   / tcbstatus / -88 : [ "UpToDate" ],
                   / tcb-eval-num / -86 : 15
                 }
+              },
+              {
+                / mkey / 0 : 72, / tcbdate /
+                / mval / 1 : { 11 : "2023-02-15T00:00:00Z" }
+              },
+              {
+                / mkey / 0 : 86, / tcb-eval-num /
+                / mval / 1 : { 4 : 560(h'0000000F') } / *** 4 bytes *** /
               }
             ]
           ],

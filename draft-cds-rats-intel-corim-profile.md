@@ -1,5 +1,5 @@
 ---
-title: Intel Profile for CoRIM
+title: Intel Profile for Remote Attestation
 abbrev: "Intel profile"
 category: info
 
@@ -42,8 +42,8 @@ author:
   email: james.d.beaney@intel.com
 - ins: A. Draper
   fullname: Andrew Draper
-  organization: Intel Corporation
-  email: andrew.draper@intel.com
+  organization: Altera Corporation
+  email: andrew.draper@altera.com
 - ins: V. Scarlata
   fullname: Vincent R. Scarlata
   organization: Intel Corporation
@@ -79,7 +79,7 @@ normative:
     seriesinfo: Version 1.0, Revision 0.19
     date: July 2020
     target: https://trustedcomputinggroup.org/wp-content/uploads/DICE-Layering-Architecture-r19_pub.pdf
-  TCG.concise-evidence:
+  TCG.CE:
     -: tcg-ce
     title: TCG DICE Concise Evidence Binding for SPDM
     author:
@@ -88,14 +88,7 @@ normative:
     date: January 2024
     target: https://trustedcomputinggroup.org/wp-content/uploads/TCG-DICE-Concise-Evidence-Binding-for-SPDM-Version-1.0-Revision-54_pub.pdf
   I-D.ietf-rats-msg-wrap: cmw
-  RFC9393: coswid
-  IANA.CBOR:
-   -: iana-cbor
-   title: Concise Binary Object Representation (CBOR) Tags
-   author:
-     org: Internet Assigned Numbers Authority (IANA)
-   date: September 2013
-   target: https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml
+  I-D.ietf-rats-eat: eat
 
 informative:
   RFC9334: rats-arch
@@ -124,11 +117,15 @@ informative:
 
 --- abstract
 
-This document describes extensions to CoRIM that support Intel-specific Attester implementations and corresponding Endorsements and Reference Values.
-Multiple Evidence formats are anticipated, but all anticipated Evidence can be mapped to Reference Values expressions based on CoRIM and the CoRIM extensions found in this profile.
+This document is a profile of various IETF and TCG standards that support remote attestation.
+The profile supports Intel-specific adaptations and extensions for Evidence, Endorsements and Reference Values.
+This profile describes apticulareplication of CoRIM, EAT, CMW, TCG concise evidence, and TCG DICE specifications.
+In particular, CoRIM is extended to define measurement types that are unique to Intel and defines Reference Values types that support matching Evidence based on range and subset comparison.
+Multiple Evidence formats are anticipated, based on IETF and TCG specifications.
+Evidence formats are mapped to Reference Values expressions based on CoRIM and CoRIM extensions found in this profile.
 The Evidence to Reference Values mappings are either documented by industry specifications or by this profile.
-Reference Value Providers may use this profile to author mainifests containing Reference Values and Endorsements.
-Verifiers will recognize this profile by it's profile identifier and implement support for the extentions defined or may identify a suitable Verifier, or will refuse to process inputs.
+Reference Value Providers and Endorsers may use this profile to author mainifests containing Reference Values and Endorsements that require Intel profile support from parser implementations.
+Parser implementations can recognize the Intel profile by profile identifier values contained within attestation conceptual mmessages and from profile parameters to media types or profile specific content format identifiers.
 
 --- middle
 
@@ -138,16 +135,15 @@ This profile describes extensions and restrictions placed on Reference Values, E
 that support attestation capabilities of Intel products containing Intel(R) SGX(TM) or Intel(R) TDX(TM) technology, or Intel(R) products that contain
 DICE {{-dice}} root of trust, DICE layers {{-dice-layer}}, or modules that implement SPDM {{-spdm}}.
 
-CoRIM {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements that form the foundation for the extensions defined in this profile.
-CoRIM is also the foundation for Evidence definitions as specified by {{-dice-attest}}, {{-tcg-ce}}, and {{-spdm}} such that Evidence must be mapped to Reference Values defined by {{-dice-corim}} and {{-corim}}.
-Additionally, this profile defines Reference Values extensions that express reference state that is super set or range of values.
-Evidence may be a value that is a subset or within the range specified by Reference Values extensions.
-This profile defines extensions to CoRIM that support matching based on set membership, masked values, and numeric ranges.
+The CoRIM specifications {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements that form the foundation for the extensions defined in this profile.
+{{-corim}} contains a foundational representation for Attester actual state that Evidence, as specified by {{-dice-attest}}, {{-tcg-ce}}, and {{-spdm}}, Reference Values, and Endorsements can map to that helps ensure compatibility with a broad spectrum of Verifier implementations.
+The Reference Values extensions in this profile describe reference state that can be expressed as set membership or value ranges.
+This profile defines extensions to CoRIM that support appraisal matching that is based on set membership, masked values, and numeric ranges.
 
-The baseline CoRIM, as defined by {{-dice-corim}} is a subset of this profile.
+The baseline CoRIM, as defined by {{-dice-corim}} is a subset of the Intel profile.
 Intel products that implement exclusively to the baseline CoRIM may not rely upon this profile.
-However, the defined extensions may be generally useful such that implementation of the Intel profile need not imply the
-Attester, Verifier, Relying Party, Reference Value Provider, or Endorser role implementations must be Intel products.
+The Intel profile extensions may be generally useful.
+Implementations based on the Intel profile does not necessarily imply an implementation is an Intel product.
 
 This profile extends CoMID `measurement-values-map`, as defined by {{-dice-corim}} (see also {{-corim}}), with measurement types that are unique to Intel products.
 Some measurement types are specific to Reference Values where multiple reference states may be included in reference manifests.
@@ -195,18 +191,108 @@ Additionally, dynamic insertion or removal of a component may result in composit
 
 This profile applies to Reference Values from a CoRIM manifest that a Verifier uses to process Evidence.
 
-The profile identifier structure is defined by CoRIM {{-corim}}.
+Profile identifier structures are defined by CoRIM {{-corim}}, EAT {{-eat}} and Concise Evidence {{-tcg-ce}}.
 
-The profile identifier for this profile is the OID:
+## Intel Profile {#sec-intel-profile}
+
+The profile identifier for the Intel Profile is the OID:
 
 `{joint-iso-itu-t(2) country(16) us(840) organization(1) intel(113741) (1) intel-comid(16) profile(1)}`
 
 `2.16.840.1.113741.1.16.1`
 
-# CoMID Extensions {#sec-comid-extensions}
+## Profile Specific Media and Content Types
 
-This profile extends the baseline CoMID for Reference Values with an expression that informs Verifiers about non-exact-match matching semantics that include: ranges, sets, and masks.
-It extends `measurement-values-map` which is used by Evidence, Reference Values, and Endorsed Values.
+This profile uses the following media types:
+
+* "application/eat+cwt"
+* "application/eat+cwt; eat_profile=2.16.840.1.113741.1.16.1"
+* "application/rim+cbor" (TBA)
+* "application/rim+cbor" (TBA); profile=2.16.840.1.113741.1.16.1"
+
+This profile uses the following content formats:
+
+| Content Type                                                 | C-F ID | TN Function |
+| ------------------------------------------------------------ | ------ | ----------- |
+| "application/eat+cwt"                                        | 263    | 1668547081  |
+| "application/eat+cwt; eat_profile=2.16.840.1.113741.1.16.1"  | 10005  | 1668556861  |
+| "application/toc+cbor"                                       | 10570  | 1668557428  |
+| "application/ce+cbor"                                        | 10571  | 1668557429  |
+
+This profile uses the following top level CBOR tags (not already listed):
+
+* 501, 570, 571
+
+# Attester Anatomy
+
+Attesters implement DICE layering using an initial Attesting Environment, also called a Root of Trust (RoT), that collection claims about one or more Target Environments.
+A Target Environment may become an Attesting Environment for a subsequent Target Environment, and so forth. There may be more than one RoT in the same Attester.
+
+Attesting Environments generate Evidence by signing collected claims using an Attestation Key. Environments may have other keys besides attestation keys. Keys can be regarded as claims that are collected and reported as Evidence. Keys can also be regarded as Target Environments that have measurements that are specific to the key.
+
+Confidential computing environments are Target Environments that can dynamically request Evidence from an Attesting Environment agent. Such Evidence may also be referred to as a 'Quote'.
+
+Each DICE layer may produce signed Evidence. Evidence formats include both signature and measurements formats.
+Signature formats may include a mix of X.509 certificates and EAT CWTs. Evidence measurements formats may include a mix of ASN.1 and CBOR, where ASN.1 uses DiceTcbInfo and related varients and CBOR uses concise evidence, and CMW.
+Multiple Evidence blocks may be bundled using CMW collections.
+
+Target Environments (other than cryptographic keys) are primarily identified using OIDs from Intel's OID arc (2.16.840.1.113741).
+Keys are identified using key identifiers, public key, or certificate digests as defined by `$crypto-key-type-choice` {{-corim}}.
+
+# Evidence Profile {#sec-evidence-profile}
+
+Evidence may be integrity protected in various ways including: certificates {{-x509}}, SPDM transcript {{-spdm}}, and CBOR web token (CWT) {{-cwt}}.
+Evidence contained in a certificate may be encoded using `DiceTcbInfo` and `DiceTcbInfoSeq` {{-dice-attest}}. Evidence contained in an SPDM payload may
+be encoded using the SPDM `Measurement Block` {{-spdm}}. Evidence may be formatted as `concise-evidence` {{-tcg-ce}} and
+included in an alias certificate or an SPDM Measurement Manifest.
+
+The `DiceTcbInfo` and SPDM Evidence formats can be translated to CoMID.
+The concise evidence format is native to CoMID.
+This profile documents evidence mapping from `DiceTcbInfo` and SPDM `Measurement Block` to CoMID, as defined by {{-dice-corim}}.
+
+The CoMID extensions defined by this profile {{sec-measurement-extensions}} are applied to `concise-evidence` so that
+Verifiers that support this profile can consistently apply a common schema across Evidence, Reference Values, and Endorsements.
+
+## Evidence Hierarchy {#sec-evidence-hierarchy}
+
+Evidence hierarchy refers to DICE layering where the platform bootstrap components double as Attesting Environments that collect measurements of the other bootstrap components (as Target Environments) until the quoting agent (e.g., SGX Quoting Enclave (QE), TDX Quoting TD (QTD)) is initialized. Tenant trusted execution environment (TEE) components can be dynamically loaded then request Evidence from its quoting agent.
+Quoting agents locally verify then sign measurments using the QTD / QE attestation key.
+A hierarchy of Evidence consisting of all the Evidence from a RoT to the tenant environment describes the Attester.
+
+A complex device may have multiple roots of trust, such as {{-dice}}, each contributing an evidence hierarchy that results in
+several Evidence "chains", that together, constitute a complete Evidence hierarchy for the Attester device.
+
+The Evidence hierarchy should form a spanning tree that contains all Attester Evidence. All Attesting Environments
+within the device produce the spanning tree. CoRIM manifests contain Reference Values for the spanning tree so that
+Verifiers do not assume the spanning tree is defined by Evidence.
+Note that a failure or comporomise within the Attester device could result in a portion of the spanning tree being omitted.
+
+Example spanning tree:
+
+- A DICE certificate chain with a DiceTcbInfo extension, a DiceTcbInfoSeq extension, and a `ConceptualMessageWrapper` (CMW)
+{{-cmw}} extension containing a CBOR-encoded `tagged-concise-evidence`.
+- An SPDM alias intermediate certification chain containing a CMW extension, and an SPDM measurement manifest containing
+`tagged-concise-evidence`.
+
+## Concise Evidence {#sec-concise-evidence}
+
+Concise evidence is a CDDL representation of Evidence {{-tcg-ce}} that uses expressions from CoMID, which is a subset of CoRIM. See {{-dice-corim}} and {{-corim}}.
+Evidence describes the actual state of the Attester.
+`tagged-concise-evidence` uses a CBOR tag to identify `concise-evidence` {{-tcg-ce}}.
+This profile is compatible with `tagged-concise-evicence`.
+CoRIM extensions, defined by this profile, are used by `tagged-concise-evidence` by extending `measurement-values-map`.
+
+# Reference Values and Endorsements Profile {#sec-refend-profile}
+
+The CoRIM specifications {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements in this profile. The profile defines extensions to CoRIM for measurement types that are not representable by CoRIM or are more conveniently represented.
+
+# CoRIM Extensions {#sec-comid-extensions}
+
+The Intel Profile extends `measurement-values-map` which is used by Evidence, Reference Values, and Endorsed Values by defining code points from the negative integer range.
+
+Reference Values extensions define types that can have multiple Reference Values that "match" a singleton Evidence value called "non-exact match" matching.
+Reference state expressions define non-exact-match matching semantics in terms of numeric ranges, date-time ranges, sets, and masks.
+Reference Values data types are identified by the CBOR tag `#6.60010(...)`.
 
 ## Expressions {#sec-expressions}
 
@@ -232,12 +318,11 @@ Expression records are CBOR tagged to indicate the following CBOR is to be evalu
 Expression statements found in Reference Values informs the Verifier that Evidence is needed to complete
 the expression equation. Appraisal processing MUST evaluate the expression.
 
-This profile anticipates use of the CBOR tag `#6.60010` to identify expression arrays. See {{sec-iana-considerations}}
+This profile anticipates use of the CBOR tag `#6.60010` to identify expression arrays. See {{sec-iana-considerations}}.
 
 For example:
 
 * `#6.60010([ operator, operand_2, operand_3, ... ])`.
-
 
 ### Expression Operators {#sec-expression-operators}
 
@@ -599,6 +684,8 @@ and a tuple containing the reference and mask when used as a Reference Value.
 {::include cddl/tee-attributes-type.cddl}
 ~~~
 
+Alternatively, the TEE attributes may be encoded using `mkey` where `mkey` contains the non-negative `tee.attributes` and `mval`.`raw-value` contains the `$tee-attributes-type`.`mask-type` value.
+
 ### The tee-cryptokey-type Measurement Extension {#sec-tee-cryptokey-type}
 
 The `tee.cryptokeys` extension identifies cryptographic keys associated with a Target Environment.
@@ -609,26 +696,26 @@ Appraisal compares values indexed by array position.
 {::include cddl/tee-cryptokey-type.cddl}
 ~~~
 
+Alternatively, the TEE cryptokeys may be encoded using `mkey` where `mkey` contains the non-negative `tee.cryptokeys` and `mval`.`cryptokeys` contains the `$tee-cryptokey-type` value.
+
 ### The tee-date-type Measurement Extension {#sec-tee-date-type}
 
-The `tee.tcbdate` extension enables the Attester or Endorser to report the TEE date attribute
-and a RVP to assert a valid TEE matching operation.
+The `tee.tcbdate` extension enables the Attester or Endorser to report the TEE date attribute and a RVP to assert a valid TEE matching operation.
 
 The `$tee-date-type` is a date-time string when used for Evidence or Endorsement.
-When used for a Reference Value, either a `tagged-tdate-expression` or a `tagged-epoch-expression` describes
-the TCB validity.
+When used for a Reference Value, either a `tagged-tdate-expression` or a `tagged-epoch-expression` describes the TCB validity.
 
 ~~~ cddl
 {::include cddl/tee-date-type.cddl}
 ~~~
 
-`tdate` strings must be converted to numeric `time` before the `tdate-operator`, which is a numeric operator,
-can be applied.
+`tdate` strings must be converted to numeric `time` before the `tdate-operator`, which is a numeric operator, can be applied.
+
+Alternatively, the TEE tcbdate may be encoded using `mkey` where `mkey` contains the non-negative `tee.tcbdate` and `mval`.`name` contains the string representation `$tee-date-type` without the CBOR tag (i.e., ~tdate).
 
 ### The tee-digest-type Measurement Extension {#sec-tee-digest-type}
 
-The `tee.mrenclave` and `tee.mrsigner` extensions enable the Attester to report digests for the SGX enclave,
-a.k.a., Target Environment, and the signer, a.k.a., Attesting Environment, of the enclave digest.
+The `tee.mrtee` and `tee.mrsigner` extensions enable the Attester to report digests for the SGX enclave or TDX TD (e.g., mrenclave, mrtd) and the signer (e.g., mrsigner) of the TEE digest.
 
 The `$tee-digest-type` is a record that contains the hash algorithm identifier and the digest value when used
 as Evidence.
@@ -638,6 +725,8 @@ of the Reference Values set.
 ~~~ cddl
 {::include cddl/tee-digest-type.cddl}
 ~~~
+
+Alternatively, the TEE digests may be encoded using `mkey` where `mkey` contains the non-negative `tee.mrtee` or `tee.mrsigner` and `mval`.`digests` contains the `$tee-digest-type`.`[ + digest ]` value.
 
 ### The tee-epoch-type Measurement Extension {#sec-tee-epoch-type}
 
@@ -658,6 +747,8 @@ and a `$tagged-epoch-expression` when used as a Reference Value.
 {::include cddl/tee-epoch-type.cddl}
 ~~~
 
+Alternatively, for Evidence, the TEE epoch timestamp may be encoded using `mkey` where `mkey` contains the non-negative `tee.epoch` and `mval`.`name` contains the string representation `$tagged-epoch-id` without the CBOR tag (i.e., ~tdate).
+
 ### The tee-instance-id-type Measurement Extension {#sec-tee-instance-id-type}
 
 The `tee.instance-id` extension enables the Attester to report the (TBD:instance-id-description) Evidence value
@@ -671,6 +762,8 @@ The `$tee-instance-type` is an exact match measurement.
 {::include cddl/tee-instance-id-type.cddl}
 ~~~
 
+Alternatively, the TEE instance ID may be encoded using `mkey` where `mkey` contains the non-negative `tee.instance-id` and `mval`.`raw-value` contains the `$tee-instance-id-type` value.
+
 ### The tee-isvprodid-type Measurement Extension {#sec-tee-isvprodid-type}
 
 The `tee.isvprodid` extension enables the Attester to report the ISV product identifier Evidence value
@@ -683,6 +776,8 @@ The `$tee-isvprodid-type` is an exact match measurement.
 ~~~ cddl
 {::include cddl/tee-isvprodid-type.cddl}
 ~~~
+
+Alternatively, the TEE product ID may be encoded using `mkey` where `mkey` contains the non-negative `tee.isvprodid` and `mval`.`raw-value` contains the `$tee-isvprodid-type` value.
 
 ### The tee-miscselect-type Measurement Extension {#sec-tee-miscselect-type}
 
@@ -698,6 +793,8 @@ and a `tagged-mask-expression` when used a Reference Value.
 {::include cddl/tee-miscselect-type.cddl}
 ~~~
 
+Alternatively, the TEE miscselect may be encoded using `mkey` where `mkey` contains the non-negative `tee.miscselect` and `mval`.`raw-value` contains the measurement value and `mval`.raw-value-mask` contains the mask value.
+
 ### The tee-model-type Measurement Extension {#sec-tee-model-type}
 
 The `tee.model` extension enables the Attester to report the TEE model string as Evidence
@@ -711,10 +808,11 @@ The `$tee-model-type` is an exact match measurement.
 {::include cddl/tee-model-type.cddl}
 ~~~
 
+Alternatively, the TEE model may be encoded using `mkey` where `mkey` contains the non-negative `tee.model` and `mval`.`name` contains the `$tee-model-type` value.
+
 ### The tee-pceid-type Measurement Extension {#sec-tee-pceid-type}
 
-The `tee.pceid` extension enables the Attester to report the (TBD:pceid-description) as Evidence
-and the RVP to assert an exact-match Reference Value.
+The `tee.pceid` extension enables the Attester to report the PCEID as Evidence and the RVP to assert an exact-match Reference Value.
 
 The `$tee-pceid-type` is a string.
 
@@ -723,6 +821,8 @@ The `$tee-pceid-type` is an exact match measurement.
 ~~~ cddl
 {::include cddl/tee-pceid-type.cddl}
 ~~~
+
+Alternatively, the PCEID may be encoded using `mkey` where `mkey` contains the non-negative `tee.pceid` and `mval`.`name` contains the `$tee-pceid-type` value.
 
 ### The tee-svn-type Measurement Extension {#sec-tee-svn-type}
 
@@ -739,6 +839,8 @@ used as a Reference Value.
 ~~~ cddl
 {::include cddl/tee-svn-type.cddl}
 ~~~
+
+Alternatively, the TEE isvsvn may be encoded using `mkey` where `mkey` contains the non-negative `tee.isvsvn` and `mval`.`svn` contains the svn value as `svn-type`.
 
 ### The tee-tcb-comp-svn-type Measurement Extension {#sec-tee-tcb-comp-svn-type}
 
@@ -758,16 +860,15 @@ The array of SVN Evidence is accepted.
 
 ### The tee-tcb-eval-num-type Measurement Extension {#sec-tee-tcb-eval-num-type}
 
-The `tee.tcb-eval-num` extension enables the Attester to report a (TBD:tcb-eval-num-description)
-as Evidence and the RVP to assert a Reference Value expression that compares the (TBD:tcb-eval-num-description) Evidence
-to the Reference Value (TBD:tcb-eval-num-description) using the greater-than-or-equal operator.
+The `tee.tcb-eval-num` extension enables the Attester to report a TCB evaluation number as Evidence and the RVP to assert a Reference Value expression that compares the tcb-eval-num Evidence with the Reference Value using the greater-than-or-equal operator.
 
-The `$tee-tcb-eval-num-type` is an unsigned integer when reported as Evidence and a tagged numeric expression when
-asserted as Reference Values.
+The `$tee-tcb-eval-num-type` is an unsigned integer when reported as Evidence and a tagged numeric expression when asserted as Reference Values.
 
 ~~~ cddl
 {::include cddl/tee-tcb-eval-num-type.cddl}
 ~~~
+
+Alternatively, the TEE tcb-eval-num Evidence may be encoded using `mkey` where `mkey` contains the non-negative `tee.tcb-eval-num` and `mval`.`raw-value` contains the tcb-eval-num encoded as 4-byte bstr value.
 
 ### The tee-tcbstatus-type Measurement Extension {#sec-tee-tcbstatus-type}
 
@@ -796,52 +897,9 @@ The `$tee-vendor-type` is an exact match measurement.
 {::include cddl/tee-vendor-type.cddl}
 ~~~
 
-# Intel Evidence Profile {#sec-intel-evidence-profile}
+Alternatively, the TEE vendor may be encoded using `mkey` where `mkey` contains the non-negative `tee.vendor` and `mval`.`name` contains the `$tee-vendor-type` value.
 
-Evidence may be integrity protected in various ways including: certificates {{-x509}}, SPDM transcript {{-spdm}}, and CBOR web token (CWT) {{-cwt}}.
-Evidence contained in a certificate may be encoded using `DiceTcbInfo` and `DiceTcbInfoSeq` {{-dice-attest}}. Evidence contained in an SPDM payload may
-be encoded using the SPDM `Measurement Block` {{-spdm}}. Evidence may be formatted as `concise-evidence` {{-tcg-ce}} and
-included in an alias certificate or an SPDM Measurement Manifest.
-
-The `DiceTcbInfo` and SPDM Evidence formats can be translated to CoMID.
-The concise evidence format is native to CoMID.
-This profile documents evidence mapping from `DiceTcbInfo` and SPDM `Measurement Block` to CoMID, as defined by {{-dice-corim}}.
-
-The CoMID extensions defined by this profile, see {{sec-measurement-extensions}}, are applied to `concise-evidence` so that
-Verifiers that support this profile can consistently apply a common schema across Evidence, Reference Values, and Endorsements.
-
-## Evidence Hierarchy {#sec-evidence-hierarchy}
-
-Evidence hierarchy refers to SGX layering where the SGX Platform Certification Enclave (PCE) collects measurements of the
-Quoting Enclave (QE) and the Quoting Enclaves collect measurments of their respective ISV enclaves (ISVE).
-A hierarchy of Evidence consisting of one PCE Evidence, one QE Evidence and one ISVE Evidence.
-
-A complex device may have multiple roots of trust, such as {{-dice}}, each contributing an evidence hierarchy that results in
-several Evidence "chains", that together, constitute a complete Evidence hierarchy for the Attester device.
-
-The Evidence hierarchy should form a spanning tree that contains all Attester Evidence. All Attesting Environments
-within the device produce the spanning tree. CoRIM manifests contain Reference Values for the spanning tree so that
-Verifiers do not assume the spanning tree is defined by Evidence.
-Note that a failure or comporomise within the Attester device could result in a portion of the spanning tree being omitted.
-
-Example spanning tree:
-
-- A DICE certificate chain with a DiceTcbInfo extension, a DiceTcbInfoSeq extension, and a `ConceptualMessageWrapper` (CMW)
-{{-cmw}} extension containing a CBOR-encoded `tagged-concise-evidence`.
-- An SPMD alias intermediate certification chain containing a CMW extension, and an SPDM measurement manifest containing
-`tagged-concise-evidence`.
-
-## Concise Evidence {#sec-concise-evidence}
-
-Concise evidence is a CDDL representation of Evidence that is derived from CoMID and CoSWID {{-coswid}}.
-Evidence describes the actual state of the Attester.
-`tagged-concise-evidence` uses a CBOR tag to identify `concise-evidence` {{-tcg-ce}}.
-This profile is compatible with `tagged-concise-evicence`.
-CoRIM extensions, defined by this profile, are used by `tagged-concise-evidence` by extending `measurement-values-map`.
-
-The `concise-evidence` structure is defined in {{-tcg-ce}}
-
-# Intel Appraisal Algorithm {#sec-intel-appraisal-algorithm}
+# Appraisal Algorithm {#sec-intel-appraisal-algorithm}
 
 The Intel profile anticipates appraisal algorithms will be based on the appraisal algorithm defined in {{-corim}}.
 This profile extends the appraisal algorithm to recognize profile extensions that form equations.
@@ -877,25 +935,13 @@ The security of this profile depends on the security considerations of the vario
 
 # IANA Considerations {#sec-iana-considerations}
 
-This document uses the IANA CBOR tag registry. See {{-iana-cbor}}
 
-The following CBOR tag has been assigned:
-
-- CBOR tag: 60010
-
-- Data item: array
-
-- Semantics: a CBOR encoded array
-
-- Point of contact: ned.smith&intel.com
-
-- Description of semantics: this document
 
 --- back
 
 # Acknowledgments
 
-The authors wish to thank Shanwei Cen for valuable contributions.
+The authors wish to thank Shanwei Cen, Piotr Zmijewski, Francisco J. Chinchilla, Yogesh Despande and Dionna Amalie Glaze for their valuable contributions.
 
 # Full Intel Profile CDDL
 

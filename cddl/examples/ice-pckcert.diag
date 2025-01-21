@@ -31,6 +31,10 @@
             / authorized-by / 2 : [
               / tagged-pkix-base64-key-type / 554("base64_key_X")
             ]
+          },
+          {  
+            / mkey / 0 : 77, / instance-id /
+            / mval / 1 : { 4 : 560(h'00') } / *** 1 byte *** /
           }
         ]
       ]

@@ -25,10 +25,7 @@
               ],
               / isvprodid / -85 : 1,
               / isvsvn / -73 : 7
-            },
-            / authorized-by / 2 : [
-              / tagged-pkix-base64-key-type / 554("base64_key_X")
-            ]
+            }
           }
         ]
       ]
