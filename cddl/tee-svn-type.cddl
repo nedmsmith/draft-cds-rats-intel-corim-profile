@@ -1,5 +1,5 @@
 $$measurement-values-map-extension //= (
   &(tee.isvsvn: -73) => $tee-svn-type
 )
-$tee-svn-type /= numeric-type
+$tee-svn-type /= svn-type .within numeric-type
 $tee-svn-type /= tagged-numeric-ge
