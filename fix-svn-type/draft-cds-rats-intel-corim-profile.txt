@@ -1181,7 +1181,7 @@ Table of Contents
    numeric greater-than-or-equal operator.  The Verifier ensures the
    Evidence value is greater-that-or-equal to the Reference Value.
 
-   The $tee-svn-type is a numeric when used as Endorsement or Evidence
+   The $tee-svn-type is a svn-type when used as Endorsement or Evidence
    and a tagged-numeric-expression when used as a Reference Value.
 
    $$measurement-values-map-extension //= (

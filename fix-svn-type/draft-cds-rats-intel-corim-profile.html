@@ -2342,10 +2342,8 @@ $tee-pceid-type /= tstr
 <p id="section-8.2.12-1">The <code>tee.isvsvn</code> extension enables the Attester to report the SVN for the independent software vendor supplied
 component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.<a href="#section-8.2.12-1" class="pilcrow">¶</a></p>
 <p id="section-8.2.12-2">The <code>$tee-svn-type</code> is either an unsigned integer when reported as Evidence, or a tagged numeric expression
-that contains an SVN and a numeric greater-than-or-equal operator. The Verifier ensures the Evidence value is
-greater-that-or-equal to the Reference Value.<a href="#section-8.2.12-2" class="pilcrow">¶</a></p>
-<p id="section-8.2.12-3">The <code>$tee-svn-type</code> is a numeric when used as Endorsement or Evidence and a <code>tagged-numeric-expression</code> when
-used as a Reference Value.<a href="#section-8.2.12-3" class="pilcrow">¶</a></p>
+that contains an SVN and a numeric greater-than-or-equal operator. The Verifier ensures the Evidence value is greater-that-or-equal to the Reference Value.<a href="#section-8.2.12-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.12-3">The <code>$tee-svn-type</code> is a <code>svn-type</code> when used as Endorsement or Evidence and a <code>tagged-numeric-expression</code> when used as a Reference Value.<a href="#section-8.2.12-3" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.2.12-4">
 <pre>
 $$measurement-values-map-extension //= (
