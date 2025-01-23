@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-21T01:18:20.820333+00:00",
+  "timestamp": "2025-01-23T01:18:47.242041+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -1523,7 +1523,7 @@
       "id": "PR_kwDOJvkHy86INC0J",
       "title": "Markdown edits",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/34",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -1532,19 +1532,92 @@
       "labels": [],
       "body": "I made several updates to the intel profile that include encoding using base comid/corim schema. \r\nAdded the list of media-types, content-format, and top level cbor tags this profile uses.\r\nRearranged some of the sections and did some doc cleanup.",
       "createdAt": "2025-01-17T21:53:34Z",
-      "updatedAt": "2025-01-17T21:53:58Z",
+      "updatedAt": "2025-01-21T20:09:34Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "e3efeed6db2ab126debe92434f443f195903381c",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "markdown-edits",
-      "headRefOid": "90bf56c5bffc5e84645044cc3f6dae3b8048d7e0",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "08bd31912f80c964671b2d6927263e82e5e55cef",
+      "closedAt": "2025-01-21T20:09:29Z",
+      "mergedAt": "2025-01-21T20:09:29Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "e1e1c6100f355fae2a7850f23d68b539e925b790"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86Y6s6K",
+          "commit": {
+            "abbreviatedOid": "90bf56c"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Looks OK to me. Only thing I noticed was that my middle initial should be J.",
+          "createdAt": "2025-01-21T19:30:41Z",
+          "updatedAt": "2025-01-21T19:30:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86Y62Ad",
+          "commit": {
+            "abbreviatedOid": "08bd319"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-21T19:51:24Z",
+          "updatedAt": "2025-01-21T19:51:24Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 35,
+      "id": "PR_kwDOJvkHy86Ii_om",
+      "title": "Update README.md",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/35",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Removed section related to submodules",
+      "createdAt": "2025-01-21T21:25:15Z",
+      "updatedAt": "2025-01-21T23:54:04Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "e1e1c6100f355fae2a7850f23d68b539e925b790",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "misc-cleanup-for-publish",
+      "headRefOid": "cd0e1d96170d2b34cf9b88c8d056ceab3400721c",
+      "closedAt": "2025-01-21T23:53:59Z",
+      "mergedAt": "2025-01-21T23:53:59Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "b6080301d0f302d816c7ea28806bb8ad76367b48"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86Y8GtW",
+          "commit": {
+            "abbreviatedOid": "cd0e1d9"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-21T23:29:32Z",
+          "updatedAt": "2025-01-21T23:29:32Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
