@@ -830,11 +830,9 @@ The `tee.isvsvn` extension enables the Attester to report the SVN for the indepe
 component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.
 
 The `$tee-svn-type` is either an unsigned integer when reported as Evidence, or a tagged numeric expression
-that contains an SVN and a numeric greater-than-or-equal operator. The Verifier ensures the Evidence value is
-greater-that-or-equal to the Reference Value.
+that contains an SVN and a numeric greater-than-or-equal operator. The Verifier ensures the Evidence value is greater-that-or-equal to the Reference Value.
 
-The `$tee-svn-type` is a numeric when used as Endorsement or Evidence and a `tagged-numeric-expression` when
-used as a Reference Value.
+The `$tee-svn-type` is a `svn-type` when used as Endorsement or Evidence and a `tagged-numeric-expression` when used as a Reference Value.
 
 ~~~ cddl
 {::include cddl/tee-svn-type.cddl}
