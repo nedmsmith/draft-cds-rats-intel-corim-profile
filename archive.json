@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-23T01:18:47.242041+00:00",
+  "timestamp": "2025-01-26T01:21:14.169732+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -1615,6 +1615,50 @@
           "body": "",
           "createdAt": "2025-01-21T23:29:32Z",
           "updatedAt": "2025-01-21T23:29:32Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "id": "PR_kwDOJvkHy86I1Jai",
+      "title": "Update tee-svn-type.cddl",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/36",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Fixed issue where $tee-svn-type was not defined as corim svn-type.",
+      "createdAt": "2025-01-23T23:44:33Z",
+      "updatedAt": "2025-01-24T16:40:56Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "b6080301d0f302d816c7ea28806bb8ad76367b48",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fix-svn-type",
+      "headRefOid": "727a526e69858144a96aa777d78a1b60ea50fab3",
+      "closedAt": "2025-01-24T16:40:52Z",
+      "mergedAt": "2025-01-24T16:40:52Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "c7ddb18a7bafbb788b351610fda42b3e3ff720f2"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86ZUmr9",
+          "commit": {
+            "abbreviatedOid": "727a526"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for adding me to the repo!\r\n\r\nChanges LGTM!",
+          "createdAt": "2025-01-24T10:45:36Z",
+          "updatedAt": "2025-01-24T10:45:36Z",
           "comments": []
         }
       ]
