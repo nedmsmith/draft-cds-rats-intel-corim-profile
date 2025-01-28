@@ -44,7 +44,7 @@
             / measurement-map / {
               / mval / 1 : / measurement-values-map / {
                 / pceid / -80 : "0000",
-                / flags mask / -82 : 60010([ / op.mask-eq / 1, h'0003', h'0003' ])
+                / tee.attributes mask / -82 : 60010([ / op.mask-eq / 1, h'0003', h'0003' ])
               },
               / authorized-by / 2 : [
                 / tagged-pkix-base64-key-type / 554("base64_key_for-RIM-creator")
