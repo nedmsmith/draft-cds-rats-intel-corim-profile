@@ -242,9 +242,8 @@ Keys are identified using key identifiers, public key, or certificate digests as
 # Evidence Profile {#sec-evidence-profile}
 
 Evidence may be integrity protected in various ways including: certificates {{-x509}}, SPDM transcript {{-spdm}}, and CBOR web token (CWT) {{-cwt}}.
-Evidence contained in a certificate may be encoded using `DiceTcbInfo` and `DiceTcbInfoSeq` {{-dice-attest}}. Evidence contained in an SPDM payload may
-be encoded using the SPDM `Measurement Block` {{-spdm}}. Evidence may be formatted as `concise-evidence` {{-tcg-ce}} and
-included in an alias certificate or an SPDM Measurement Manifest.
+Evidence contained in a certificate may be encoded using `DiceTcbInfo` and `DiceTcbInfoSeq` {{-dice-attest}}.
+Evidence contained in an SPDM payload may be encoded using the SPDM `Measurement Block` {{-spdm}}. Evidence may be formatted as `concise-evidence` {{-tcg-ce}} and included in an alias certificate or an SPDM Measurement Manifest.
 
 The `DiceTcbInfo` and SPDM Evidence formats can be translated to CoMID.
 The concise evidence format is native to CoMID.
@@ -267,7 +266,7 @@ within the device produce the spanning tree. CoRIM manifests contain Reference V
 Verifiers do not assume the spanning tree is defined by Evidence.
 Note that a failure or comporomise within the Attester device could result in a portion of the spanning tree being omitted.
 
-Example spanning tree:
+Evidence examples:
 
 - A DICE certificate chain with a DiceTcbInfo extension, a DiceTcbInfoSeq extension, and a `ConceptualMessageWrapper` (CMW)
 {{-cmw}} extension containing a CBOR-encoded `tagged-concise-evidence`.
@@ -276,15 +275,36 @@ Example spanning tree:
 
 ## Concise Evidence {#sec-concise-evidence}
 
-Concise evidence is a CDDL representation of Evidence {{-tcg-ce}} that uses expressions from CoMID, which is a subset of CoRIM. See {{-dice-corim}} and {{-corim}}.
+Concise evidence is a CDDL representation of Evidence {{-tcg-ce}} that uses expressions from CoMID, which are a subset of CoRIM. See {{-dice-corim}} and {{-corim}}.
 Evidence describes the actual state of the Attester.
-`tagged-concise-evidence` uses a CBOR tag to identify `concise-evidence` {{-tcg-ce}}.
-This profile is compatible with `tagged-concise-evicence`.
-CoRIM extensions, defined by this profile, are used by `tagged-concise-evidence` by extending `measurement-values-map`.
+`tagged-concise-evidence` uses a CBOR tag (571) to identify `concise-evidence` {{-tcg-ce}}.
+This profile uses `concise-evicence` in conceptual message wrappers {{-cmw}} and EAT tokens {{-eat}} to encode Evidence.
+This profile extends `concise-evidence` by extending `measurement-values-map`.
 
 # Reference Values and Endorsements Profile {#sec-refend-profile}
 
-The CoRIM specifications {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements in this profile. The profile defines extensions to CoRIM for measurement types that are not representable by CoRIM or are more conveniently represented.
+The CoRIM specifications {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements in this profile.
+The profile defines extensions to CoRIM for measurement types that are not representable by CoRIM or are more conveniently represented.
+This profile doesn't require use of extensions when base capabilities will suffice.
+
+## Concise Module ID Tag (CoMID) {#sec-comid}
+
+This profile uses `concise-mid-tag` in conceptual message wrappers {{-cmw}} and CoRIMs.
+This profile extends `concise-mid-tag` by extending `measurement-values-map`.
+Several extensions define two forms, one for representing actual state which is used for Endorsements and Evidence.
+The other form is used to represent reference state which is used for Reference Values.
+
+## Raw Value Measurements {#sec-raw-value}
+
+Raw value measurements encode vendor-defined values opaquely.
+However, the `mkey` value can add vendor-specific semantics when used with `raw-value` and `name` measurement types.
+Additionally, specific `environment-map` values can supply vendor-specific semantics to `raw-value` and `name` measurement types.
+
+Environments that project vendor-specific semantics are as follows:
+
+| Envoronment Identifier  | Value   | Semantics |
+|-------------------------|---------|-----------|
+| class-id:OID=2.16.840.1.113741.1.5.3.6.8 | 560(bytes) | device type |
 
 # CoRIM Extensions {#sec-comid-extensions}
 
