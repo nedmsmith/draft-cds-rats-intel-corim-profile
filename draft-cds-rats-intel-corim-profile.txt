@@ -5,11 +5,11 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                                 A. Draper
-Expires: 28 July 2025                                 Altera Corporation
+Expires: 2 August 2025                                Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                         24 January 2025
+                                                         29 January 2025
 
 
                   Intel Profile for Remote Attestation
@@ -71,7 +71,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 July 2025.
+   This Internet-Draft will expire on 2 August 2025.
 
 Copyright Notice
 
@@ -100,6 +100,8 @@ Table of Contents
      6.1.  Evidence Hierarchy
      6.2.  Concise Evidence
    7.  Reference Values and Endorsements Profile
+     7.1.  Concise Module ID Tag (CoMID)
+     7.2.  Raw Value Measurements
    8.  CoRIM Extensions
      8.1.  Expressions
        8.1.1.  Expression Operators
@@ -370,7 +372,7 @@ Table of Contents
    within the Attester device could result in a portion of the spanning
    tree being omitted.
 
-   Example spanning tree:
+   Evidence examples:
 
    *  A DICE certificate chain with a DiceTcbInfo extension, a
       DiceTcbInfoSeq extension, and a ConceptualMessageWrapper (CMW)
@@ -384,12 +386,13 @@ Table of Contents
 6.2.  Concise Evidence
 
    Concise evidence is a CDDL representation of Evidence [TCG.CE] that
-   uses expressions from CoMID, which is a subset of CoRIM.  See
+   uses expressions from CoMID, which are a subset of CoRIM.  See
    [DICE.CoRIM] and [I-D.ietf-rats-corim].  Evidence describes the
    actual state of the Attester. tagged-concise-evidence uses a CBOR tag
-   to identify concise-evidence [TCG.CE].  This profile is compatible
-   with tagged-concise-evicence.  CoRIM extensions, defined by this
-   profile, are used by tagged-concise-evidence by extending
+   (571) to identify concise-evidence [TCG.CE].  This profile uses
+   concise-evicence in conceptual message wrappers
+   [I-D.ietf-rats-msg-wrap] and EAT tokens [I-D.ietf-rats-eat] to encode
+   Evidence.  This profile extends concise-evidence by extending
    measurement-values-map.
 
 7.  Reference Values and Endorsements Profile
@@ -398,7 +401,36 @@ Table of Contents
    define a baseline schema for Reference Values and Endorsements in
    this profile.  The profile defines extensions to CoRIM for
    measurement types that are not representable by CoRIM or are more
-   conveniently represented.
+   conveniently represented.  This profile doesn't require use of
+   extensions when base capabilities will suffice.
+
+7.1.  Concise Module ID Tag (CoMID)
+
+   This profile uses concise-mid-tag in conceptual message wrappers
+   [I-D.ietf-rats-msg-wrap] and CoRIMs.  This profile extends concise-
+   mid-tag by extending measurement-values-map.  Several extensions
+   define two forms, one for representing actual state which is used for
+   Endorsements and Evidence.  The other form is used to represent
+   reference state which is used for Reference Values.
+
+7.2.  Raw Value Measurements
+
+   Raw value measurements encode vendor-defined values opaquely.
+   However, the mkey value can add vendor-specific semantics when used
+   with raw-value and name measurement types.  Additionally, specific
+   environment-map values can supply vendor-specific semantics to raw-
+   value and name measurement types.
+
+   Environments that project vendor-specific semantics are as follows:
+
+   +==========================================+============+===========+
+   | Envoronment Identifier                   | Value      | Semantics |
+   +==========================================+============+===========+
+   | class-id:OID=2.16.840.1.113741.1.5.3.6.8 | 560(bytes) | device    |
+   |                                          |            | type      |
+   +------------------------------------------+------------+-----------+
+
+                                  Table 2
 
 8.  CoRIM Extensions
 

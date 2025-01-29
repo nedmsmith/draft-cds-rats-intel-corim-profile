@@ -1061,7 +1061,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Beaney, et al.</td>
-<td class="center">Expires 28 July 2025</td>
+<td class="center">Expires 2 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-cds-rats-intel-corim-profile-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-01-24" class="published">24 January 2025</time>
+<time datetime="2025-01-29" class="published">29 January 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-07-28">28 July 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-02">2 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1149,7 +1149,7 @@ Parser implementations can recognize the Intel profile by profile identifier val
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 28 July 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1214,6 +1214,14 @@ Parser implementations can recognize the Intel profile by profile identifier val
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-reference-values-and-endors" class="internal xref">Reference Values and Endorsements Profile</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-concise-module-id-tag-comid" class="internal xref">Concise Module ID Tag (CoMID)</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-raw-value-measurements" class="internal xref">Raw Value Measurements</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-corim-extensions" class="internal xref">CoRIM Extensions</a></p>
@@ -1501,9 +1509,8 @@ Keys are identified using key identifiers, public key, or certificate digests as
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-evidence-profile" class="section-name selfRef">Evidence Profile</a>
       </h2>
 <p id="section-6-1">Evidence may be integrity protected in various ways including: certificates <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, SPDM transcript <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>, and CBOR web token (CWT) <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span>.
-Evidence contained in a certificate may be encoded using <code>DiceTcbInfo</code> and <code>DiceTcbInfoSeq</code> <span>[<a href="#DICE.Attest" class="cite xref">DICE.Attest</a>]</span>. Evidence contained in an SPDM payload may
-be encoded using the SPDM <code>Measurement Block</code> <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>. Evidence may be formatted as <code>concise-evidence</code> <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span> and
-included in an alias certificate or an SPDM Measurement Manifest.<a href="#section-6-1" class="pilcrow">¶</a></p>
+Evidence contained in a certificate may be encoded using <code>DiceTcbInfo</code> and <code>DiceTcbInfoSeq</code> <span>[<a href="#DICE.Attest" class="cite xref">DICE.Attest</a>]</span>.
+Evidence contained in an SPDM payload may be encoded using the SPDM <code>Measurement Block</code> <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>. Evidence may be formatted as <code>concise-evidence</code> <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span> and included in an alias certificate or an SPDM Measurement Manifest.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">The <code>DiceTcbInfo</code> and SPDM Evidence formats can be translated to CoMID.
 The concise evidence format is native to CoMID.
 This profile documents evidence mapping from <code>DiceTcbInfo</code> and SPDM <code>Measurement Block</code> to CoMID, as defined by <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
@@ -1523,7 +1530,7 @@ several Evidence "chains", that together, constitute a complete Evidence hierarc
 within the device produce the spanning tree. CoRIM manifests contain Reference Values for the spanning tree so that
 Verifiers do not assume the spanning tree is defined by Evidence.
 Note that a failure or comporomise within the Attester device could result in a portion of the spanning tree being omitted.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
-<p id="section-6.1-4">Example spanning tree:<a href="#section-6.1-4" class="pilcrow">¶</a></p>
+<p id="section-6.1-4">Evidence examples:<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.1-5.1">
             <p id="section-6.1-5.1.1">A DICE certificate chain with a DiceTcbInfo extension, a DiceTcbInfoSeq extension, and a <code>ConceptualMessageWrapper</code> (CMW)
@@ -1541,11 +1548,11 @@ Note that a failure or comporomise within the Attester device could result in a 
         <h3 id="name-concise-evidence">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-concise-evidence" class="section-name selfRef">Concise Evidence</a>
         </h3>
-<p id="section-6.2-1">Concise evidence is a CDDL representation of Evidence <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span> that uses expressions from CoMID, which is a subset of CoRIM. See <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> and <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.
+<p id="section-6.2-1">Concise evidence is a CDDL representation of Evidence <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span> that uses expressions from CoMID, which are a subset of CoRIM. See <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> and <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.
 Evidence describes the actual state of the Attester.
-<code>tagged-concise-evidence</code> uses a CBOR tag to identify <code>concise-evidence</code> <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span>.
-This profile is compatible with <code>tagged-concise-evicence</code>.
-CoRIM extensions, defined by this profile, are used by <code>tagged-concise-evidence</code> by extending <code>measurement-values-map</code>.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<code>tagged-concise-evidence</code> uses a CBOR tag (571) to identify <code>concise-evidence</code> <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span>.
+This profile uses <code>concise-evicence</code> in conceptual message wrappers <span>[<a href="#I-D.ietf-rats-msg-wrap" class="cite xref">I-D.ietf-rats-msg-wrap</a>]</span> and EAT tokens <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span> to encode Evidence.
+This profile extends <code>concise-evidence</code> by extending <code>measurement-values-map</code>.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1555,7 +1562,48 @@ CoRIM extensions, defined by this profile, are used by <code>tagged-concise-evid
       <h2 id="name-reference-values-and-endors">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-reference-values-and-endors" class="section-name selfRef">Reference Values and Endorsements Profile</a>
       </h2>
-<p id="section-7-1">The CoRIM specifications <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> and <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span> define a baseline schema for Reference Values and Endorsements in this profile. The profile defines extensions to CoRIM for measurement types that are not representable by CoRIM or are more conveniently represented.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">The CoRIM specifications <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span> and <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span> define a baseline schema for Reference Values and Endorsements in this profile.
+The profile defines extensions to CoRIM for measurement types that are not representable by CoRIM or are more conveniently represented.
+This profile doesn't require use of extensions when base capabilities will suffice.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<div id="sec-comid">
+<section id="section-7.1">
+        <h3 id="name-concise-module-id-tag-comid">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-concise-module-id-tag-comid" class="section-name selfRef">Concise Module ID Tag (CoMID)</a>
+        </h3>
+<p id="section-7.1-1">This profile uses <code>concise-mid-tag</code> in conceptual message wrappers <span>[<a href="#I-D.ietf-rats-msg-wrap" class="cite xref">I-D.ietf-rats-msg-wrap</a>]</span> and CoRIMs.
+This profile extends <code>concise-mid-tag</code> by extending <code>measurement-values-map</code>.
+Several extensions define two forms, one for representing actual state which is used for Endorsements and Evidence.
+The other form is used to represent reference state which is used for Reference Values.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-raw-value">
+<section id="section-7.2">
+        <h3 id="name-raw-value-measurements">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-raw-value-measurements" class="section-name selfRef">Raw Value Measurements</a>
+        </h3>
+<p id="section-7.2-1">Raw value measurements encode vendor-defined values opaquely.
+However, the <code>mkey</code> value can add vendor-specific semantics when used with <code>raw-value</code> and <code>name</code> measurement types.
+Additionally, specific <code>environment-map</code> values can supply vendor-specific semantics to <code>raw-value</code> and <code>name</code> measurement types.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">Environments that project vendor-specific semantics are as follows:<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<table class="center" id="table-2">
+          <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Envoronment Identifier</th>
+              <th class="text-left" rowspan="1" colspan="1">Value</th>
+              <th class="text-left" rowspan="1" colspan="1">Semantics</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">class-id:OID=2.16.840.1.113741.1.5.3.6.8</td>
+              <td class="text-left" rowspan="1" colspan="1">560(bytes)</td>
+              <td class="text-left" rowspan="1" colspan="1">device type</td>
+            </tr>
+          </tbody>
+        </table>
+</section>
+</div>
 </section>
 </div>
 <div id="sec-comid-extensions">
