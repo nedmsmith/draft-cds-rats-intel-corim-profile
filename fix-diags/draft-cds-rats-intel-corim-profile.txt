@@ -402,7 +402,7 @@ Table of Contents
    this profile.  The profile defines extensions to CoRIM for
    measurement types that are not representable by CoRIM or are more
    conveniently represented.  This profile doesn't require use of
-   extentions when base capabilities will suffice.
+   extensions when base capabilities will suffice.
 
 7.1.  Concise Module ID Tag (CoMID)
 
