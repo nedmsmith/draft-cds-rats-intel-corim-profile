@@ -285,7 +285,7 @@ This profile extends `concise-evidence` by extending `measurement-values-map`.
 
 The CoRIM specifications {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements in this profile.
 The profile defines extensions to CoRIM for measurement types that are not representable by CoRIM or are more conveniently represented.
-This profile doesn't require use of extentions when base capabilities will suffice.
+This profile doesn't require use of extensions when base capabilities will suffice.
 
 ## Concise Module ID Tag (CoMID) {#sec-comid}
 
