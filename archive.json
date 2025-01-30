@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-28T01:18:30.203053+00:00",
+  "timestamp": "2025-01-30T01:17:43.544917+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -1660,6 +1660,70 @@
           "createdAt": "2025-01-24T10:45:36Z",
           "updatedAt": "2025-01-24T10:45:36Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 37,
+      "id": "PR_kwDOJvkHy86JSwdM",
+      "title": "fix comments",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/37",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "flags is confused with tee.attributes",
+      "createdAt": "2025-01-28T23:27:51Z",
+      "updatedAt": "2025-01-29T16:32:33Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "c7ddb18a7bafbb788b351610fda42b3e3ff720f2",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fix-diags",
+      "headRefOid": "4edaa898b43802fab330155d3aab281f8c94aa01",
+      "closedAt": "2025-01-29T16:32:28Z",
+      "mergedAt": "2025-01-29T16:32:28Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "285ef65e6993c51fbfb3e4c3014513774238d486"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86Z0iMN",
+          "commit": {
+            "abbreviatedOid": "a4b3a3a"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM!",
+          "createdAt": "2025-01-29T11:01:49Z",
+          "updatedAt": "2025-01-29T11:01:49Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86Z0kss",
+          "commit": {
+            "abbreviatedOid": "a4b3a3a"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-29T11:06:27Z",
+          "updatedAt": "2025-01-29T11:06:27Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "```suggestion\r\nThis profile doesn't require use of extensions when base capabilities will suffice.\r\n```",
+              "createdAt": "2025-01-29T11:06:27Z",
+              "updatedAt": "2025-01-29T11:06:27Z"
+            }
+          ]
         }
       ]
     }
