@@ -1,0 +1,4 @@
+$$measurement-values-map-extension //= (
+  &(tee.platform-instance-id: -101) => $tee-platform-instance-id-type
+)
+$tee-instance-id-type /= bstr
