@@ -5,11 +5,11 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                                 A. Draper
-Expires: 2 August 2025                                Altera Corporation
+Expires: 3 August 2025                                Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                         29 January 2025
+                                                         30 January 2025
 
 
                   Intel Profile for Remote Attestation
@@ -71,7 +71,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 August 2025.
+   This Internet-Draft will expire on 3 August 2025.
 
 Copyright Notice
 
