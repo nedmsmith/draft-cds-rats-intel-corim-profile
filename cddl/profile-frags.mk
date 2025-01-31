@@ -29,3 +29,4 @@ PROFILE_FRAGS += tee-tcb-comp-svn-type.cddl
 PROFILE_FRAGS += tee-tcb-eval-num-type.cddl
 PROFILE_FRAGS += tee-tcbstatus-type.cddl
 PROFILE_FRAGS += tee-vendor-type.cddl
+PROFILE_FRAGS += tee-platform-instance-id-type.cddl
