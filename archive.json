@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T01:17:43.544917+00:00",
+  "timestamp": "2025-02-02T01:22:44.484583+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -109,7 +109,7 @@
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/30",
       "state": "OPEN",
       "author": "deeglaze",
-      "authorAssociation": "NONE",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Given that we've restored multiplicity to measurements, it seems prudent to avoid re-specifying types of measurements for measured fields and instead use mkey numbers to represent the field, no?\r\n\r\nThinking from the perspective of tooling, it would be much simpler to give insights about reference values if folks stick to the standard types, and we can just have a mapping of class-id + mkey => colloquial measured field name, and visualization of particular values would not need any further enlightenment.\r\n\r\nI'm wondering if we can try to avoid new profiles for every kind of attestation technology when they're not expressing fundamentally new concepts. The expression language you have here is something else.\r\n\r\nExample:\r\n\r\n```\r\n$$measurement-values-map-extension //= (\r\n     &(tee.pceid: -80) => $tee-pceid-type\r\n   )\r\n   $tee-pceid-type /= tstr\r\n```\r\ncould be\r\n\r\n> tee.pceid from TDQUOTE is transformed to\r\n```\r\n[/ mkey: / 0: 80, / mval: / 1: {/ name: / 11: tee.pceid}]\r\n```",
@@ -1726,6 +1726,164 @@
           ]
         }
       ]
+    },
+    {
+      "number": 38,
+      "id": "PR_kwDOJvkHy86Jiyv_",
+      "title": "Add section for platform instance identifier ",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/38",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "The platform instance identifier section is added. The TEE instance identifier definition is clarified to disambiguate it from platform instance identifier.",
+      "createdAt": "2025-01-30T19:31:06Z",
+      "updatedAt": "2025-01-31T18:43:33Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "285ef65e6993c51fbfb3e4c3014513774238d486",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "plat-instance-id",
+      "headRefOid": "a3df53e6907819e93ba47611cb427ae1de31905f",
+      "closedAt": "2025-01-31T18:43:30Z",
+      "mergedAt": "2025-01-31T18:43:30Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "e32b1e73e4aff70210e32dc5b74a497450a3ee9b"
+      },
+      "comments": [
+        {
+          "author": "deeglaze",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Is this ahead of or in response to a specification publication? I'd like to know when to expect this change to TDQuote.",
+          "createdAt": "2025-01-30T21:28:40Z",
+          "updatedAt": "2025-01-30T21:28:40Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "> Is this ahead of or in response to a specification publication? I'd like to know when to expect this change to TDQuote.\r\n\r\nAhead of.",
+          "createdAt": "2025-01-30T22:03:10Z",
+          "updatedAt": "2025-01-30T22:03:10Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86aFnaH",
+          "commit": {
+            "abbreviatedOid": "a3df53e"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-30T22:11:30Z",
+          "updatedAt": "2025-01-30T22:11:30Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "ANy reason why it is not symmetrical to the other instance id in the system.\r\n\r\nI would hope we use consistent identities in the system..?",
+              "createdAt": "2025-01-30T22:11:30Z",
+              "updatedAt": "2025-01-30T22:11:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86aFnlF",
+          "commit": {
+            "abbreviatedOid": "a3df53e"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-30T22:12:02Z",
+          "updatedAt": "2025-01-30T22:12:02Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "I mean tee-instance-id..?",
+              "createdAt": "2025-01-30T22:12:02Z",
+              "updatedAt": "2025-01-30T22:12:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86aFnoh",
+          "commit": {
+            "abbreviatedOid": "a3df53e"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "just a minor question",
+          "createdAt": "2025-01-30T22:12:11Z",
+          "updatedAt": "2025-01-30T22:12:11Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86aF9AP",
+          "commit": {
+            "abbreviatedOid": "a3df53e"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-30T23:05:38Z",
+          "updatedAt": "2025-01-30T23:05:38Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "The tee instance ID combines a couple of identifiers that were typed differently but have the same basic semantics. Platform instance doesn't have that dynamic.",
+              "createdAt": "2025-01-30T23:05:38Z",
+              "updatedAt": "2025-01-30T23:05:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86aOpYT",
+          "commit": {
+            "abbreviatedOid": "a3df53e"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-31T18:38:53Z",
+          "updatedAt": "2025-01-31T18:38:53Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "id": "PR_kwDOJvkHy86Ji_uj",
+      "title": "Update archive.yml",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/39",
+      "state": "CLOSED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "upload-artifactv3 deprecated using v4",
+      "createdAt": "2025-01-30T20:05:21Z",
+      "updatedAt": "2025-01-30T20:05:38Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "d15fb9e9053b6ae6613277b4b118d2c3fc32708b",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "nedmsmith-patch-1",
+      "headRefOid": "a567e8aa03b4a14c02ebf4e02426dd1b1fcf060b",
+      "closedAt": "2025-01-30T20:05:38Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
