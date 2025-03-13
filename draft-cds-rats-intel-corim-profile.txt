@@ -5,11 +5,11 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                                 A. Draper
-Expires: 4 August 2025                                Altera Corporation
+Expires: 14 September 2025                            Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                         31 January 2025
+                                                           13 March 2025
 
 
                   Intel Profile for Remote Attestation
@@ -71,7 +71,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 August 2025.
+   This Internet-Draft will expire on 14 September 2025.
 
 Copyright Notice
 
@@ -580,13 +580,13 @@ Table of Contents
        greater-than: gt .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-ge = #6.60010( [
-       greater-than: ge .within numeric-operator,
+       greater-than-or-equal: ge .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-lt = #6.60010( [
-       greater-than: lt .within numeric-operator,
+       less-than: lt .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-le = #6.60010( [
-       greater-than: le .within numeric-operator,
+       less-than-or-equal: le .within numeric-operator,
        reference-value: numeric-type ] )
 
 8.1.3.  Set Expressions
@@ -1411,9 +1411,9 @@ Table of Contents
    [I-D.ietf-rats-corim]
               Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
-              Progress, Internet-Draft, draft-ietf-rats-corim-06, 18
-              October 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-corim-06>.
+              Progress, Internet-Draft, draft-ietf-rats-corim-07, 3
+              March 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-rats-corim-07>.
 
    [I-D.ietf-rats-eat]
               Lundblade, L., Mandyam, G., O'Donoghue, J., and C.
@@ -1425,9 +1425,9 @@ Table of Contents
    [I-D.ietf-rats-msg-wrap]
               Birkholz, H., Smith, N., Fossati, T., Tschofenig, H., and
               D. Glaze, "RATS Conceptual Messages Wrapper (CMW)", Work
-              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-11,
-              15 November 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-msg-wrap-11>.
+              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-12,
+              28 February 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-msg-wrap-12>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1472,16 +1472,16 @@ Table of Contents
               Voit, E., Birkholz, H., Hardjono, T., Fossati, T., and V.
               Scarlata, "Attestation Results for Secure Interactions",
               Work in Progress, Internet-Draft, draft-ietf-rats-ar4si-
-              07, 2 September 2024,
+              08, 6 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              ar4si-07>.
+              ar4si-08>.
 
    [I-D.ietf-rats-endorsements]
               Thaler, D., Birkholz, H., and T. Fossati, "RATS
               Endorsements", Work in Progress, Internet-Draft, draft-
-              ietf-rats-endorsements-05, 8 November 2024,
+              ietf-rats-endorsements-06, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              endorsements-05>.
+              endorsements-06>.
 
    [I-D.kdyxy-rats-tdx-eat-profile]
               Kostal, G., Dittakavi, S., Yeluri, R., Xia, H., and J. Yu,
@@ -1525,13 +1525,13 @@ Appendix B.  Full Intel Profile CDDL
        greater-than: gt .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-ge = #6.60010( [
-       greater-than: ge .within numeric-operator,
+       greater-than-or-equal: ge .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-lt = #6.60010( [
-       greater-than: lt .within numeric-operator,
+       less-than: lt .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-le = #6.60010( [
-       greater-than: le .within numeric-operator,
+       less-than-or-equal: le .within numeric-operator,
        reference-value: numeric-type ] )
 
    gt = 1
