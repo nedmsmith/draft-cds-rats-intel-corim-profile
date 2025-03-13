@@ -5,11 +5,11 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                                 A. Draper
-Expires: 26 July 2025                                 Altera Corporation
+Expires: 14 September 2025                            Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                         22 January 2025
+                                                           13 March 2025
 
 
                   Intel Profile for Remote Attestation
@@ -71,7 +71,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 July 2025.
+   This Internet-Draft will expire on 14 September 2025.
 
 Copyright Notice
 
@@ -100,6 +100,8 @@ Table of Contents
      6.1.  Evidence Hierarchy
      6.2.  Concise Evidence
    7.  Reference Values and Endorsements Profile
+     7.1.  Concise Module ID Tag (CoMID)
+     7.2.  Raw Value Measurements
    8.  CoRIM Extensions
      8.1.  Expressions
        8.1.1.  Expression Operators
@@ -115,15 +117,16 @@ Table of Contents
        8.2.5.  The tee-digest-type Measurement Extension
        8.2.6.  The tee-epoch-type Measurement Extension
        8.2.7.  The tee-instance-id-type Measurement Extension
-       8.2.8.  The tee-isvprodid-type Measurement Extension
-       8.2.9.  The tee-miscselect-type Measurement Extension
-       8.2.10. The tee-model-type Measurement Extension
-       8.2.11. The tee-pceid-type Measurement Extension
-       8.2.12. The tee-svn-type Measurement Extension
-       8.2.13. The tee-tcb-comp-svn-type Measurement Extension
-       8.2.14. The tee-tcb-eval-num-type Measurement Extension
-       8.2.15. The tee-tcbstatus-type Measurement Extension
-       8.2.16. The tee-vendor-type Measurement Extension
+       8.2.8.  The tee-platform-instance-id-type Measurement Extension
+       8.2.9.  The tee-isvprodid-type Measurement Extension
+       8.2.10. The tee-miscselect-type Measurement Extension
+       8.2.11. The tee-model-type Measurement Extension
+       8.2.12. The tee-pceid-type Measurement Extension
+       8.2.13. The tee-svn-type Measurement Extension
+       8.2.14. The tee-tcb-comp-svn-type Measurement Extension
+       8.2.15. The tee-tcb-eval-num-type Measurement Extension
+       8.2.16. The tee-tcbstatus-type Measurement Extension
+       8.2.17. The tee-vendor-type Measurement Extension
    9.  Appraisal Algorithm
      9.1.  Complex Expressions
    10. Reporting Attestation Results
@@ -370,7 +373,7 @@ Table of Contents
    within the Attester device could result in a portion of the spanning
    tree being omitted.
 
-   Example spanning tree:
+   Evidence examples:
 
    *  A DICE certificate chain with a DiceTcbInfo extension, a
       DiceTcbInfoSeq extension, and a ConceptualMessageWrapper (CMW)
@@ -384,12 +387,13 @@ Table of Contents
 6.2.  Concise Evidence
 
    Concise evidence is a CDDL representation of Evidence [TCG.CE] that
-   uses expressions from CoMID, which is a subset of CoRIM.  See
+   uses expressions from CoMID, which are a subset of CoRIM.  See
    [DICE.CoRIM] and [I-D.ietf-rats-corim].  Evidence describes the
    actual state of the Attester. tagged-concise-evidence uses a CBOR tag
-   to identify concise-evidence [TCG.CE].  This profile is compatible
-   with tagged-concise-evicence.  CoRIM extensions, defined by this
-   profile, are used by tagged-concise-evidence by extending
+   (571) to identify concise-evidence [TCG.CE].  This profile uses
+   concise-evicence in conceptual message wrappers
+   [I-D.ietf-rats-msg-wrap] and EAT tokens [I-D.ietf-rats-eat] to encode
+   Evidence.  This profile extends concise-evidence by extending
    measurement-values-map.
 
 7.  Reference Values and Endorsements Profile
@@ -398,7 +402,36 @@ Table of Contents
    define a baseline schema for Reference Values and Endorsements in
    this profile.  The profile defines extensions to CoRIM for
    measurement types that are not representable by CoRIM or are more
-   conveniently represented.
+   conveniently represented.  This profile doesn't require use of
+   extensions when base capabilities will suffice.
+
+7.1.  Concise Module ID Tag (CoMID)
+
+   This profile uses concise-mid-tag in conceptual message wrappers
+   [I-D.ietf-rats-msg-wrap] and CoRIMs.  This profile extends concise-
+   mid-tag by extending measurement-values-map.  Several extensions
+   define two forms, one for representing actual state which is used for
+   Endorsements and Evidence.  The other form is used to represent
+   reference state which is used for Reference Values.
+
+7.2.  Raw Value Measurements
+
+   Raw value measurements encode vendor-defined values opaquely.
+   However, the mkey value can add vendor-specific semantics when used
+   with raw-value and name measurement types.  Additionally, specific
+   environment-map values can supply vendor-specific semantics to raw-
+   value and name measurement types.
+
+   Environments that project vendor-specific semantics are as follows:
+
+   +==========================================+============+===========+
+   | Envoronment Identifier                   | Value      | Semantics |
+   +==========================================+============+===========+
+   | class-id:OID=2.16.840.1.113741.1.5.3.6.8 | 560(bytes) | device    |
+   |                                          |            | type      |
+   +------------------------------------------+------------+-----------+
+
+                                  Table 2
 
 8.  CoRIM Extensions
 
@@ -547,13 +580,13 @@ Table of Contents
        greater-than: gt .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-ge = #6.60010( [
-       greater-than: ge .within numeric-operator,
+       greater-than-or-equal: ge .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-lt = #6.60010( [
-       greater-than: lt .within numeric-operator,
+       less-than: lt .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-le = #6.60010( [
-       greater-than: le .within numeric-operator,
+       less-than-or-equal: le .within numeric-operator,
        reference-value: numeric-type ] )
 
 8.1.3.  Set Expressions
@@ -1071,13 +1104,11 @@ Table of Contents
 
 8.2.7.  The tee-instance-id-type Measurement Extension
 
-   The tee.instance-id extension enables the Attester to report the
-   (TBD:instance-id-description) Evidence value and the RVP to assert an
-   exact-match Reference Value.
+   The tee.instance-id extension enables the Attester to report the TEE
+   (TD or enclave) instance identifier as an Evidence value and the RVP
+   to assert an exact-match Reference Value.
 
-   The $tee-instance-id-type is an unsigned integer.
-
-   The $tee-instance-type is an exact match measurement.
+   The $tee-instance-id-type is an unsigned integer or bstr.
 
    $$measurement-values-map-extension //= (
      &(tee.instance-id: -77) => $tee-instance-id-type
@@ -1087,9 +1118,34 @@ Table of Contents
 
    Alternatively, the TEE instance ID may be encoded using mkey where
    mkey contains the non-negative tee.instance-id and mval.raw-value
-   contains the $tee-instance-id-type value.
+   contains the $tee-instance-id-type value.  If the $tee-instance-id-
+   type is an unsigned integer, the integer values is converted to a
+   single byte bstr.
 
-8.2.8.  The tee-isvprodid-type Measurement Extension
+8.2.8.  The tee-platform-instance-id-type Measurement Extension
+
+   Platform Instance ID is a globally unique identifier generated by the
+   platform during Platform Establishment.  This value remains
+   consistent across trusted computing base (TCB) recoveries, but is
+   regenerated during Platform Establishment due to desire to reset keys
+   or to add and remove hardware.  See (Section 3.7 [INTEL.DCAP]).
+
+   The tee.platform-instance-id extension enables the Attester to report
+   the platform instance identifier as an Evidence value and the RVP to
+   assert an exact-match Reference Value.
+
+   The $tee-platform-instance-id-type is a bstr.
+
+   $$measurement-values-map-extension //= (
+     &(tee.platform-instance-id: -101) => $tee-platform-instance-id-type
+   )
+   $tee-platform-instance-id-type /= bstr
+
+   Alternatively, the platform instance ID may be encoded using mkey
+   where mkey contains the non-negative tee.platform-instance-id and
+   mval.raw-value contains the $tee-platform-instance-id-type value.
+
+8.2.9.  The tee-isvprodid-type Measurement Extension
 
    The tee.isvprodid extension enables the Attester to report the ISV
    product identifier Evidence value and the RVP to assert an exact-
@@ -1109,7 +1165,7 @@ Table of Contents
    mkey contains the non-negative tee.isvprodid and mval.raw-value
    contains the $tee-isvprodid-type value.
 
-8.2.9.  The tee-miscselect-type Measurement Extension
+8.2.10.  The tee-miscselect-type Measurement Extension
 
    The tee.miscselect extension enables the Attester to report the
    (TBD:miscselect-description) Evidence value and the RVP to assert a
@@ -1132,7 +1188,7 @@ Table of Contents
    contains the measurement value and mval.raw-value-mask` contains the
    mask value.
 
-8.2.10.  The tee-model-type Measurement Extension
+8.2.11.  The tee-model-type Measurement Extension
 
    The tee.model extension enables the Attester to report the TEE model
    string as Evidence and the RVP to assert an exact-match Reference
@@ -1151,7 +1207,7 @@ Table of Contents
    contains the non-negative tee.model and mval.name contains the $tee-
    model-type value.
 
-8.2.11.  The tee-pceid-type Measurement Extension
+8.2.12.  The tee-pceid-type Measurement Extension
 
    The tee.pceid extension enables the Attester to report the PCEID as
    Evidence and the RVP to assert an exact-match Reference Value.
@@ -1169,7 +1225,7 @@ Table of Contents
    contains the non-negative tee.pceid and mval.name contains the $tee-
    pceid-type value.
 
-8.2.12.  The tee-svn-type Measurement Extension
+8.2.13.  The tee-svn-type Measurement Extension
 
    The tee.isvsvn extension enables the Attester to report the SVN for
    the independent software vendor supplied component as Evidence and
@@ -1181,20 +1237,20 @@ Table of Contents
    numeric greater-than-or-equal operator.  The Verifier ensures the
    Evidence value is greater-that-or-equal to the Reference Value.
 
-   The $tee-svn-type is a numeric when used as Endorsement or Evidence
+   The $tee-svn-type is a svn-type when used as Endorsement or Evidence
    and a tagged-numeric-expression when used as a Reference Value.
 
    $$measurement-values-map-extension //= (
      &(tee.isvsvn: -73) => $tee-svn-type
    )
-   $tee-svn-type /= numeric-type
+   $tee-svn-type /= svn-type .within numeric-type
    $tee-svn-type /= tagged-numeric-ge
 
    Alternatively, the TEE isvsvn may be encoded using mkey where mkey
    contains the non-negative tee.isvsvn and mval.svn contains the svn
    value as svn-type.
 
-8.2.13.  The tee-tcb-comp-svn-type Measurement Extension
+8.2.14.  The tee-tcb-comp-svn-type Measurement Extension
 
    The tee.tcb-comp-svn extension enables the Attester to report an
    array of SVN values for the TCB when asserted as Evidence and an
@@ -1217,7 +1273,7 @@ Table of Contents
    $tee-tcb-comp-svn-type /=
      [ 16*16 tagged-numeric-ge ]
 
-8.2.14.  The tee-tcb-eval-num-type Measurement Extension
+8.2.15.  The tee-tcb-eval-num-type Measurement Extension
 
    The tee.tcb-eval-num extension enables the Attester to report a TCB
    evaluation number as Evidence and the RVP to assert a Reference Value
@@ -1239,7 +1295,7 @@ Table of Contents
    mval.raw-value contains the tcb-eval-num encoded as 4-byte bstr
    value.
 
-8.2.15.  The tee-tcbstatus-type Measurement Extension
+8.2.16.  The tee-tcbstatus-type Measurement Extension
 
    The tee.tcb-status extension enables the Attester to report the
    status of the TEE trusted computing base (TCB) as an array of status
@@ -1257,7 +1313,7 @@ Table of Contents
    $tee-tcbstatus-type /= set-type
    $tee-tcbstatus-type /= tagged-exp-member
 
-8.2.16.  The tee-vendor-type Measurement Extension
+8.2.17.  The tee-vendor-type Measurement Extension
 
    The tee.vendor extension enables the Attester to report the TEE
    vendor name as Evidence and for the RVP to assert the TEE vendor
@@ -1355,9 +1411,9 @@ Table of Contents
    [I-D.ietf-rats-corim]
               Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
-              Progress, Internet-Draft, draft-ietf-rats-corim-06, 18
-              October 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-corim-06>.
+              Progress, Internet-Draft, draft-ietf-rats-corim-07, 3
+              March 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-rats-corim-07>.
 
    [I-D.ietf-rats-eat]
               Lundblade, L., Mandyam, G., O'Donoghue, J., and C.
@@ -1369,9 +1425,9 @@ Table of Contents
    [I-D.ietf-rats-msg-wrap]
               Birkholz, H., Smith, N., Fossati, T., Tschofenig, H., and
               D. Glaze, "RATS Conceptual Messages Wrapper (CMW)", Work
-              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-11,
-              15 November 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-msg-wrap-11>.
+              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-12,
+              28 February 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-msg-wrap-12>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1416,16 +1472,16 @@ Table of Contents
               Voit, E., Birkholz, H., Hardjono, T., Fossati, T., and V.
               Scarlata, "Attestation Results for Secure Interactions",
               Work in Progress, Internet-Draft, draft-ietf-rats-ar4si-
-              07, 2 September 2024,
+              08, 6 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              ar4si-07>.
+              ar4si-08>.
 
    [I-D.ietf-rats-endorsements]
               Thaler, D., Birkholz, H., and T. Fossati, "RATS
               Endorsements", Work in Progress, Internet-Draft, draft-
-              ietf-rats-endorsements-05, 8 November 2024,
+              ietf-rats-endorsements-06, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              endorsements-05>.
+              endorsements-06>.
 
    [I-D.kdyxy-rats-tdx-eat-profile]
               Kostal, G., Dittakavi, S., Yeluri, R., Xia, H., and J. Yu,
@@ -1434,6 +1490,13 @@ Table of Contents
               draft-kdyxy-rats-tdx-eat-profile-02, 13 December 2024,
               <https://datatracker.ietf.org/doc/html/draft-kdyxy-rats-
               tdx-eat-profile-02>.
+
+   [INTEL.DCAP]
+              Intel Corporation, "Intel(R) Software Guard Extensions
+              (Intel(R) SGX) Data Center Attestation Primitives ECDSA
+              Quote Library API", August 2023, <https://download.01.org/
+              intel-sgx/latest/dcap-latest/linux/docs/
+              Intel_SGX_ECDSA_QuoteLibReference_DCAP_API.pdf>.
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
@@ -1462,13 +1525,13 @@ Appendix B.  Full Intel Profile CDDL
        greater-than: gt .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-ge = #6.60010( [
-       greater-than: ge .within numeric-operator,
+       greater-than-or-equal: ge .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-lt = #6.60010( [
-       greater-than: lt .within numeric-operator,
+       less-than: lt .within numeric-operator,
        reference-value: numeric-type ] )
    tagged-numeric-le = #6.60010( [
-       greater-than: le .within numeric-operator,
+       less-than-or-equal: le .within numeric-operator,
        reference-value: numeric-type ] )
 
    gt = 1
@@ -1659,7 +1722,7 @@ Appendix B.  Full Intel Profile CDDL
    $$measurement-values-map-extension //= (
      &(tee.isvsvn: -73) => $tee-svn-type
    )
-   $tee-svn-type /= numeric-type
+   $tee-svn-type /= svn-type .within numeric-type
    $tee-svn-type /= tagged-numeric-ge
 
    $$measurement-values-map-extension //= (
@@ -1686,6 +1749,11 @@ Appendix B.  Full Intel Profile CDDL
      &(tee.vendor: -70) => $tee-vendor-type
    )
    $tee-vendor-type /= tstr
+
+   $$measurement-values-map-extension //= (
+     &(tee.platform-instance-id: -101) => $tee-platform-instance-id-type
+   )
+   $tee-platform-instance-id-type /= bstr
 
 Authors' Addresses
 
