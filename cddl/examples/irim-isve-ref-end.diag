@@ -28,6 +28,7 @@
                   ]
                 ]
               ]),
+              / advisory-ids /  -89 : 60010([ 6, [ "INTEL-SA-00078", "INTEL-SA-00079"  ]]),
               / isvprodid / -85 : 1
             }
           }

@@ -683,7 +683,7 @@ Reference Values Provider (RVP) to assert updated security advisories.
 
 The `$tee-advisory-ids-type` is used to specify a set of security advisories, where each is identified by a string identifier.
 Evidence may report a set of advisories the Attester believes are relevant. The set of advisories are constrained
-by the `set-of-set-type` structure.
+by the `set-type` structure.
 
 A Reference Values expression record is defined for this extension that applies the disjoint set operation
 to determine if there are advisories outstanding. If no advisories are outstanding, then the empty set signifies
@@ -695,6 +695,22 @@ of advisories when used as a Reference Value.
 ~~~ cddl
 {::include cddl/tee-advisory-ids-type.cddl}
 ~~~
+
+#### The tee-advisory-ids-type Comparison Algorithm {#sec-tee-advisory-ids-comp}
+
+The comparison algorithm for `tee-advisory-ids-type` is used when Endorsement or Reference Values triples conditions are matched with an Environment Claims Tuple (ECT) in the Verifier's Accepted Claims Set (ACS).
+The `tee-advisory-ids-type` has three varients: `set-tstr-type`, `tagged-exp-tstr-member`, and `tagged-exp-tstr-not-member`.
+
+* `set-tstr-type` - Every string in the condition `set-tstr-type` MUST match a string in the ACS.ECT.`tee-advisory-ids-type` Claim.
+The string position in the list is not significant.
+The ACS.ECT.`tee-advisory-ids-type` MUST NOT have strings not found in the condition `tee-advisory-type`.
+
+* `tagged-exp-tstr-member` - Every string in the condition `set-tstr-type` MUST match a string in the ACS.ECT.`tee-advisory-ids-type` Claim.
+The string position in the list is not significant.
+The ACS.ECT.`tee-advisory-ids-type` MAY have strings not found in the condition `tee-advisory-type`.
+
+* `tagged-exp-tstr-not-member` - Every string in the condition `set-tstr-type` MUST NOT match a string in the ACS.ECT.`tee-advisory-ids-type` Claim.
+The string position in the list is not significant.
 
 ### The tee-attributes-type Measurement Extension {#sec-tee-attributes-type}
 
