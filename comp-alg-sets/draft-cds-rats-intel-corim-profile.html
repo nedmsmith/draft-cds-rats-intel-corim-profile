@@ -1061,7 +1061,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Beaney, et al.</td>
-<td class="center">Expires 15 September 2025</td>
+<td class="center">Expires 16 September 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-cds-rats-intel-corim-profile-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-03-14" class="published">14 March 2025</time>
+<time datetime="2025-03-15" class="published">15 March 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-09-15">15 September 2025</time></dd>
+<dd class="expires"><time datetime="2025-09-16">16 September 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1149,7 +1149,7 @@ Parser implementations can recognize the Intel profile by profile identifier val
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1309,6 +1309,17 @@ Parser implementations can recognize the Intel profile by profile identifier val
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-complex-expressions" class="internal xref">Complex Expressions</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-comparison-algorithm-for-se" class="internal xref">Comparison Algorithm for Sets</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.1">
+                    <p id="section-toc.1-1.9.2.2.2.1.1"><a href="#section-9.2.1" class="auto internal xref">9.2.1</a>.  <a href="#name-comparison-algorithm-for-set" class="internal xref">Comparison Algorithm for Set of Strings</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.2">
+                    <p id="section-toc.1-1.9.2.2.2.2.1"><a href="#section-9.2.2" class="auto internal xref">9.2.2</a>.  <a href="#name-comparison-algorithm-for-set-" class="internal xref">Comparison Algorithm for Set of Digests</a></p>
+</li>
+                </ul>
 </li>
             </ul>
 </li>
@@ -1811,10 +1822,10 @@ value as <em>operand_1</em>. Evaluation tests whether <em>operand_1</em> is a me
 member = 6
 not-member = 7
 set-operator = member / not-member
-$set-type /= [ * tstr ] ; temporary
-$set-type /= [ * digest ]
-set-expression = [ set-operator, $set-type ]
-tagged-set-expression = #6.60010( set-expression )
+
+set-digest-type /= [ * digest ]
+set-digest-expression = [ set-operator, set-digest-type ]
+tagged-set-digest-expression = #6.60010( set-digest-expression )
 
 set-tstr-type /= [ * tstr ]
 set-tstr-expression = [ set-operator, set-tstr-type ]
@@ -1826,11 +1837,11 @@ The set is defined by <code>set-type</code>.<a href="#section-8.1.3-12" class="p
 <p id="section-8.1.3-13">The set expression type definitions are as follows:<a href="#section-8.1.3-13" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.1.3-14">
 <pre>
-tagged-exp-member = #6.60010([
-    member .within set-operator, $set-type ])
+tagged-exp-digest-member = #6.60010([
+    member .within set-operator, set-digest-type ])
 
-tagged-exp-not-member = #6.60010([
-    not-member .within set-operator, $set-type ])
+tagged-exp-digest-not-member = #6.60010([
+    not-member .within set-operator, set-digest-type ])
 
 tagged-exp-tstr-member = #6.60010([
     member .within set-operator, set-tstr-type ])
@@ -2150,21 +2161,23 @@ supplied with the Reference Values, see <a href="#sec-expression-operators" clas
 <p id="section-8.2-2">In cases where Evidence does not exactly match Reference Values, the operator definition determines the
 expected data types of the operands.
 Expected Verifier behavior is defined in <a href="#sec-intel-appraisal-algorithm" class="auto internal xref">Section 9</a><a href="#section-8.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.2-3">The measurement extensions that follow are assumed to be appraised according to the appriasal steps described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-07#section-8.1" class="relref">Section 8.1</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
 <div id="sec-tee-advisory-ids-type">
 <section id="section-8.2.1">
           <h4 id="name-the-tee-advisory-ids-type-m">
 <a href="#section-8.2.1" class="section-number selfRef">8.2.1. </a><a href="#name-the-tee-advisory-ids-type-m" class="section-name selfRef">The tee-advisory-ids-type Measurement Extension</a>
           </h4>
-<p id="section-8.2.1-1">The <code>tee.advisory-ids</code> extension allows the Attester to report known security advisories and a
-Reference Values Provider (RVP) to assert updated security advisories.<a href="#section-8.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-8.2.1-2">The <code>$tee-advisory-ids-type</code> is used to specify a set of security advisories, where each is identified by a string identifier.
+<p id="section-8.2.1-1">The <code>tee.advisory-ids</code> extension enables Attesters to report known security advisories and for
+Reference Values Providers (RVP) to assert updated security advisories.
+It can also be used by Endorsers to assert security advisory information through conditional endorsement.<a href="#section-8.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.1-2">The <code>$tee-advisory-ids-type</code> is used to specify a set of security advisories, where each identifier is represented using a string.
 Evidence may report a set of advisories the Attester believes are relevant. The set of advisories are constrained
-by the <code>set-type</code> structure.<a href="#section-8.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-8.2.1-3">A Reference Values expression record is defined for this extension that applies the disjoint set operation
-to determine if there are advisories outstanding. If no advisories are outstanding, then the empty set signifies
-successful matching.<a href="#section-8.2.1-3" class="pilcrow">¶</a></p>
-<p id="section-8.2.1-4">The <code>$tee-advisory-ids-type</code> is a list of advisories when used as Endorsements or Evidence and a disjoint set
-of advisories when used as a Reference Value.<a href="#section-8.2.1-4" class="pilcrow">¶</a></p>
+by the <code>set-tstr-type</code> structure.<a href="#section-8.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.1-3">As a Reference Value expression, an empty set can be used to signify that no outstanding advisories are expected.
+If the Evidence also contains the empty set then the Reference corroborates the Evidence.<a href="#section-8.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.2.1-4">The <code>$tee-advisory-ids-type</code> is a list of strings, each identifying a single security advisory.
+When used with Evidence the <code>set-tstr-type</code> type is used.
+When used with Reference Values or Endorsements the <code>set-tstr-type</code>, <code>tagged-exp-tstr-member</code>, or <code>tagged-exp-tstr-not-member</code> types can be used.<a href="#section-8.2.1-4" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.2.1-5">
 <pre>
 $$measurement-values-map-extension //= (
@@ -2181,23 +2194,7 @@ $tee-advisory-ids-type /= tagged-exp-tstr-member
 <a href="#section-8.2.1.1" class="section-number selfRef">8.2.1.1. </a><a href="#name-the-tee-advisory-ids-type-c" class="section-name selfRef">The tee-advisory-ids-type Comparison Algorithm</a>
             </h5>
 <p id="section-8.2.1.1-1">The comparison algorithm for <code>tee-advisory-ids-type</code> is used when Endorsement or Reference Values triples conditions are matched with an Environment Claims Tuple (ECT) in the Verifier's Accepted Claims Set (ACS).
-The <code>tee-advisory-ids-type</code> has three varients: <code>set-tstr-type</code>, <code>tagged-exp-tstr-member</code>, and <code>tagged-exp-tstr-not-member</code>.<a href="#section-8.2.1.1-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-8.2.1.1-2.1">
-                <p id="section-8.2.1.1-2.1.1"><code>set-tstr-type</code> - Every string in the condition <code>set-tstr-type</code> <span class="bcp14">MUST</span> match a string in the ACS.ECT.<code>tee-advisory-ids-type</code> Claim.
-The string position in the list is not significant.
-The ACS.ECT.<code>tee-advisory-ids-type</code> <span class="bcp14">MUST NOT</span> have strings not found in the condition <code>tee-advisory-type</code>.<a href="#section-8.2.1.1-2.1.1" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-8.2.1.1-2.2">
-                <p id="section-8.2.1.1-2.2.1"><code>tagged-exp-tstr-member</code> - Every string in the condition <code>set-tstr-type</code> <span class="bcp14">MUST</span> match a string in the ACS.ECT.<code>tee-advisory-ids-type</code> Claim.
-The string position in the list is not significant.
-The ACS.ECT.<code>tee-advisory-ids-type</code> <span class="bcp14">MAY</span> have strings not found in the condition <code>tee-advisory-type</code>.<a href="#section-8.2.1.1-2.2.1" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-8.2.1.1-2.3">
-                <p id="section-8.2.1.1-2.3.1"><code>tagged-exp-tstr-not-member</code> - Every string in the condition <code>set-tstr-type</code> <span class="bcp14">MUST NOT</span> match a string in the ACS.ECT.<code>tee-advisory-ids-type</code> Claim.
-The string position in the list is not significant.<a href="#section-8.2.1.1-2.3.1" class="pilcrow">¶</a></p>
-</li>
-            </ul>
+The triple condition containing a <code>tee-advisory-ids-type</code> Claim matches an ACS ECT according to the comparison algorithm for set of strings as defined in <a href="#sec-ca-sets" class="auto internal xref">Section 9.2</a>.<a href="#section-8.2.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2271,11 +2268,12 @@ $tee-date-type /= tagged-exp-epoch-ge
           <h4 id="name-the-tee-digest-type-measure">
 <a href="#section-8.2.5" class="section-number selfRef">8.2.5. </a><a href="#name-the-tee-digest-type-measure" class="section-name selfRef">The tee-digest-type Measurement Extension</a>
           </h4>
-<p id="section-8.2.5-1">The <code>tee.mrtee</code> and <code>tee.mrsigner</code> extensions enable the Attester to report digests for the SGX enclave or TDX TD (e.g., mrenclave, mrtd) and the signer (e.g., mrsigner) of the TEE digest.<a href="#section-8.2.5-1" class="pilcrow">¶</a></p>
-<p id="section-8.2.5-2">The <code>$tee-digest-type</code> is a record that contains the hash algorithm identifier and the digest value when used
-as Evidence.
-When used as Reference Values, a set of digests can be asserted. The Evidence digest record must be a member
-of the Reference Values set.<a href="#section-8.2.5-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.5-1">The <code>tee.mrtee</code> extension enables an Attester to report digests for the SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).
+The <code>tee.mrsigner</code> extension enables an Attester to report the signer of the TEE digest (e.g., MRSIGNER).<a href="#section-8.2.5-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.5-2">The <code>$tee-digest-type</code> has multiple type structures involving digest values. A singleton digest has a hash algorithm identifier and the digest value.
+When used as Evidence, either a signleton digest or a set of digests can be reported.
+When used as Reference Values or Endorsements, a set of digests can be asserted signifying equivalence matching.
+Alternatively, matching may be expressed as set membership or set difference expressions.<a href="#section-8.2.5-2" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.2.5-3">
 <pre>
 $$measurement-values-map-extension //= (
@@ -2284,12 +2282,23 @@ $$measurement-values-map-extension //= (
 $$measurement-values-map-extension //= (
   &amp;(tee.mrsigner: -84) =&gt; $tee-digest-type
 )
-$tee-digest-type /= digest
-$tee-digest-type /= [ + digest ]
-$tee-digest-type /= tagged-exp-member
+$tee-digest-type /= digest ; see corim
+$tee-digest-type /= digests-type ; see corim
+$tee-digest-type /= set-digest-type
+$tee-digest-type /= tagged-exp-digest-member
+$tee-digest-type /= tagged-exp-digest-not-member
 </pre><a href="#section-8.2.5-3" class="pilcrow">¶</a>
 </div>
-<p id="section-8.2.5-4">Alternatively, the TEE digests may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.mrtee</code> or <code>tee.mrsigner</code> and <code>mval</code>.<code>digests</code> contains the <code>$tee-digest-type</code>.<code>[ + digest ]</code> value.<a href="#section-8.2.5-4" class="pilcrow">¶</a></p>
+<p id="section-8.2.5-4">Alternatively, the TEE digests may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.mrtee</code> or <code>tee.mrsigner</code> and <code>mval</code>.<code>digests</code> contains a <code>digests-type</code> value.<a href="#section-8.2.5-4" class="pilcrow">¶</a></p>
+<div id="sec-tee-digest-comp">
+<section id="section-8.2.5.1">
+            <h5 id="name-the-tee-digest-type-compari">
+<a href="#section-8.2.5.1" class="section-number selfRef">8.2.5.1. </a><a href="#name-the-tee-digest-type-compari" class="section-name selfRef">The tee-digest-type Comparison Algorithm</a>
+            </h5>
+<p id="section-8.2.5.1-1">The comparison algorithm for <code>tee-digest-type</code> is used when the condition statement in an Endorsement or Reference Values triple is matched with an Environment Claim Tuple (ECT) from the Verifier's Accepted Claims Set (ACS).
+The comparison algorithm for set of digests is defined in <a href="#sec-ca-sets" class="auto internal xref">Section 9.2</a>.<a href="#section-8.2.5.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="sec-tee-epoch-type">
@@ -2510,19 +2519,31 @@ $tee-tcb-eval-num-type /= tagged-numeric-ge
           <h4 id="name-the-tee-tcbstatus-type-meas">
 <a href="#section-8.2.16" class="section-number selfRef">8.2.16. </a><a href="#name-the-tee-tcbstatus-type-meas" class="section-name selfRef">The tee-tcbstatus-type Measurement Extension</a>
           </h4>
-<p id="section-8.2.16-1">The <code>tee.tcb-status</code> extension enables the Attester to report the status of the TEE trusted computing base (TCB) as
-an array of status strings, as Evidence, and the RVP to assert an array of status arrays as Reference Values where
-the Evidence array is a subset of the reference status arrays.<a href="#section-8.2.16-1" class="pilcrow">¶</a></p>
-<p id="section-8.2.16-2">The <code>$tee-tcbstatus-type</code> is a status array with a set expressions containing the <code>subset</code> operator when used as Evidence.
-When used as a Reference Value it is an array of status arrays.<a href="#section-8.2.16-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.2.16-3">
+<p id="section-8.2.16-1">The <code>tee.tcb-status</code> extension enables Attesters to report the status of the TEE trusted computing base (TCB)
+and for Reference Value Providers (RVP) to assert expected TCB status.
+It can also be used by Endorsers to assert TCB status through conditional endorsement.<a href="#section-8.2.16-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.16-2">The <code>tee-tcbstatus-type</code> is used to specify TCB status as a set of status strings or as an expression with a set membership operator.<a href="#section-8.2.16-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.16-3">The <code>$tee-tcbstatus-type</code> is a status array containing strings describing TCB status values.
+When describing Evidence the <code>set-tstr-type</code> type is used.
+When describing Reference Values or Endorsements the <code>set-tstr-type</code>, <code>tagged-exp-tstr-member</code>, or <code>tagged-exp-tstr-not-member</code> types can be used.<a href="#section-8.2.16-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.16-4">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbstatus: -88) =&gt; $tee-tcbstatus-type
 )
-$tee-tcbstatus-type /= $set-type
-$tee-tcbstatus-type /= tagged-exp-member
-</pre><a href="#section-8.2.16-3" class="pilcrow">¶</a>
+$tee-tcbstatus-type /= set-tstr-type
+$tee-tcbstatus-type /= tagged-exp-tstr-member
+$tee-tcbstatus-type /= tagged-exp-tstr-not-member
+</pre><a href="#section-8.2.16-4" class="pilcrow">¶</a>
+</div>
+<div id="sec-tee-tcbstatus-comp">
+<section id="section-8.2.16.1">
+            <h5 id="name-the-tee-tcbstatus-type-comp">
+<a href="#section-8.2.16.1" class="section-number selfRef">8.2.16.1. </a><a href="#name-the-tee-tcbstatus-type-comp" class="section-name selfRef">The tee-tcbstatus-type Comparison Algorithm</a>
+            </h5>
+<p id="section-8.2.16.1-1">The comparison algorithm for <code>tee-tcbstatus-type</code> is used when Endorsement or Reference Values triples conditions are matched with an Environment Claims Tuple (ECT) in the Verifier's Accepted Claims Set (ACS).
+The triple condition containing a <code>tee-tcbstatuss-type</code> Claim matches an ACS ECT according to the comparison algorithm for set of strings as defined in <a href="#sec-ca-sets" class="auto internal xref">Section 9.2</a>.<a href="#section-8.2.16.1-1" class="pilcrow">¶</a></p>
+</section>
 </div>
 </section>
 </div>
@@ -2574,6 +2595,69 @@ For example, if an SGX enclave has an <code>svn</code> value that is less than t
 considered "OutOfDate" or may have a known security advisory. The CoMID <code>conditional-endorsement-triples</code> or
 <code>conditional-endorsement-series-triples</code> describe complex Endorsement expressions.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <p id="section-9.1-2">This profile uses these triples with the reference measurement values extensions described in <a href="#sec-measurement-extensions" class="auto internal xref">Section 8.2</a>.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-ca-sets">
+<section id="section-9.2">
+        <h3 id="name-comparison-algorithm-for-se">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-comparison-algorithm-for-se" class="section-name selfRef">Comparison Algorithm for Sets</a>
+        </h3>
+<p id="section-9.2-1">The comparison algorithm for sets describes set equivalence, set membership, and set difference (not membership).
+The Verifier's Accepted Claims Set (ACS) contains a list of Environment Claims Tuples (ECT)<span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.
+The condition ECTs are compared to ACS ECTs based on this comparison algorithm.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">The set comparison algorithm processes sets of strings and sets of digests.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
+<div id="sec-ca-stringsets">
+<section id="section-9.2.1">
+          <h4 id="name-comparison-algorithm-for-set">
+<a href="#section-9.2.1" class="section-number selfRef">9.2.1. </a><a href="#name-comparison-algorithm-for-set" class="section-name selfRef">Comparison Algorithm for Set of Strings</a>
+          </h4>
+<p id="section-9.2.1-1">There are three string set representations: <code>set-tstr-type</code>, <code>tagged-exp-tstr-member</code>, and <code>tagged-exp-tstr-not-member</code>.<a href="#section-9.2.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.2.1-2.1">
+              <p id="section-9.2.1-2.1.1"><code>set-tstr-type</code> - Every string in the condition <code>set-tstr-type</code> <span class="bcp14">MUST</span> match a string in the ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-tstr-type</code> set.
+The string position in the array is not significant.
+The ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-tstr-type</code> set <span class="bcp14">MUST</span> be equivalent to the condition <code>set-tstr-type</code> set (i.e., the two sets have the same cardinality and the same set members).<a href="#section-9.2.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.2.1-2.2">
+              <p id="section-9.2.1-2.2.1"><code>tagged-exp-tstr-member</code> - The condition ECT set operator <span class="bcp14">MUST</span> equal <code>member</code> and every string in the condition <code>set-tstr-type</code> <span class="bcp14">MUST</span> match a string in the ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-tstr-type</code> set.
+The string position in the array is not significant.
+The ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-tstr-type</code> set <span class="bcp14">MAY</span> contain strings not found in the condition <code>set-tstr-type</code>.<a href="#section-9.2.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.2.1-2.3">
+              <p id="section-9.2.1-2.3.1"><code>tagged-exp-tstr-not-member</code> - The condition ECT set operator <span class="bcp14">MUST</span> equal <code>not-member</code> and every string in the condition <code>set-tstr-type</code> <span class="bcp14">MUST NOT</span> match a string in the ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-tstr-type</code> set.
+The string position in the array is not significant.<a href="#section-9.2.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="sec-ca-digestsets">
+<section id="section-9.2.2">
+          <h4 id="name-comparison-algorithm-for-set-">
+<a href="#section-9.2.2" class="section-number selfRef">9.2.2. </a><a href="#name-comparison-algorithm-for-set-" class="section-name selfRef">Comparison Algorithm for Set of Digests</a>
+          </h4>
+<p id="section-9.2.2-1">There are five digest set representations: <code>digest</code>, <code>digest-type</code>, <code>set-digest-type</code>, <code>tagged-exp-digest-member</code>, and <code>tagged-exp-digest-not-member</code>.<a href="#section-9.2.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.2.2-2.1">
+              <p id="section-9.2.2-2.1.1"><code>digest</code> - The singleton <code>digest</code> in the condition <span class="bcp14">MUST</span> match at least one digest in the ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-digest-type</code> set.<a href="#section-9.2.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.2.2-2.2">
+              <p id="section-9.2.2-2.2.1"><code>digest-type</code> and <code>set-digest-type</code> - Every digest in the condition <code>digest-type</code> or <code>set-digest-type</code> <span class="bcp14">MUST</span> match a digest in the ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-digest-type</code> set.
+The digest position in the array is not significant.
+The ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-digest-type</code> set <span class="bcp14">MUST</span> be equivalent to the condition <code>set-digest-type</code> set (i.e., the two sets have the same cardinality and the same set members).
+Matching based on the empty set is permitted when the <code>set-digest-type</code> is used.<a href="#section-9.2.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.2.2-2.3">
+              <p id="section-9.2.2-2.3.1"><code>tagged-exp-digest-member</code> - The condition ECT set operator <span class="bcp14">MUST</span> equal <code>member</code> and every digest in the condition <code>set-digest-type</code> <span class="bcp14">MUST</span> match a digest in the ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-digest-type</code> set.
+The digest position in the array is not significant.
+The ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-digest-type</code> set <span class="bcp14">MAY</span> contain digests not found in the condition <code>set-digest-type</code>.<a href="#section-9.2.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-9.2.2-2.4">
+              <p id="section-9.2.2-2.4.1"><code>tagged-exp-digest-not-member</code> - The condition ECT set operator <span class="bcp14">MUST</span> equal <code>not-member</code> and every digest in the condition <code>set-digest-type</code> <span class="bcp14">MUST NOT</span> match a digest in the ACS.ECT.<code>element-map</code>.<code>element-claims</code>.<code>set-digest-type</code> set.
+The digest position in the array is not significant.<a href="#section-9.2.2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
 </section>
 </div>
 </section>
@@ -2747,20 +2831,20 @@ tagged-numeric-expression = #6.60010(numeric-expression)
 member = 6
 not-member = 7
 set-operator = member / not-member
-$set-type /= [ * tstr ] ; temporary
-$set-type /= [ * digest ]
-set-expression = [ set-operator, $set-type ]
-tagged-set-expression = #6.60010( set-expression )
+
+set-digest-type /= [ * digest ]
+set-digest-expression = [ set-operator, set-digest-type ]
+tagged-set-digest-expression = #6.60010( set-digest-expression )
 
 set-tstr-type /= [ * tstr ]
 set-tstr-expression = [ set-operator, set-tstr-type ]
 tagged-set-tstr-expression = #6.60010( set-tstr-expression )
 
-tagged-exp-member = #6.60010([
-    member .within set-operator, $set-type ])
+tagged-exp-digest-member = #6.60010([
+    member .within set-operator, set-digest-type ])
 
-tagged-exp-not-member = #6.60010([
-    not-member .within set-operator, $set-type ])
+tagged-exp-digest-not-member = #6.60010([
+    not-member .within set-operator, set-digest-type ])
 
 tagged-exp-tstr-member = #6.60010([
     member .within set-operator, set-tstr-type ])
@@ -2893,9 +2977,11 @@ $$measurement-values-map-extension //= (
 $$measurement-values-map-extension //= (
   &amp;(tee.mrsigner: -84) =&gt; $tee-digest-type
 )
-$tee-digest-type /= digest
-$tee-digest-type /= [ + digest ]
-$tee-digest-type /= tagged-exp-member
+$tee-digest-type /= digest ; see corim
+$tee-digest-type /= digests-type ; see corim
+$tee-digest-type /= set-digest-type
+$tee-digest-type /= tagged-exp-digest-member
+$tee-digest-type /= tagged-exp-digest-not-member
 
 $$measurement-values-map-extension //= (
   &amp;(tee.epoch: -90) =&gt; $tee-epoch-type
@@ -2954,8 +3040,9 @@ $tee-tcb-eval-num-type /= tagged-numeric-ge
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbstatus: -88) =&gt; $tee-tcbstatus-type
 )
-$tee-tcbstatus-type /= $set-type
-$tee-tcbstatus-type /= tagged-exp-member
+$tee-tcbstatus-type /= set-tstr-type
+$tee-tcbstatus-type /= tagged-exp-tstr-member
+$tee-tcbstatus-type /= tagged-exp-tstr-not-member
 
 $$measurement-values-map-extension //= (
   &amp;(tee.vendor: -70) =&gt; $tee-vendor-type

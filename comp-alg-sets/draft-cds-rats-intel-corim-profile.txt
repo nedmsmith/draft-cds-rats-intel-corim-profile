@@ -5,11 +5,11 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                                 A. Draper
-Expires: 15 September 2025                            Altera Corporation
+Expires: 16 September 2025                            Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                           14 March 2025
+                                                           15 March 2025
 
 
                   Intel Profile for Remote Attestation
@@ -71,7 +71,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 September 2025.
+   This Internet-Draft will expire on 16 September 2025.
 
 Copyright Notice
 
@@ -129,6 +129,9 @@ Table of Contents
        8.2.17. The tee-vendor-type Measurement Extension
    9.  Appraisal Algorithm
      9.1.  Complex Expressions
+     9.2.  Comparison Algorithm for Sets
+       9.2.1.  Comparison Algorithm for Set of Strings
+       9.2.2.  Comparison Algorithm for Set of Digests
    10. Reporting Attestation Results
    11. Security Considerations
    12. IANA Considerations
@@ -627,10 +630,10 @@ Table of Contents
    member = 6
    not-member = 7
    set-operator = member / not-member
-   $set-type /= [ * tstr ] ; temporary
-   $set-type /= [ * digest ]
-   set-expression = [ set-operator, $set-type ]
-   tagged-set-expression = #6.60010( set-expression )
+
+   set-digest-type /= [ * digest ]
+   set-digest-expression = [ set-operator, set-digest-type ]
+   tagged-set-digest-expression = #6.60010( set-digest-expression )
 
    set-tstr-type /= [ * tstr ]
    set-tstr-expression = [ set-operator, set-tstr-type ]
@@ -641,11 +644,11 @@ Table of Contents
 
    The set expression type definitions are as follows:
 
-   tagged-exp-member = #6.60010([
-       member .within set-operator, $set-type ])
+   tagged-exp-digest-member = #6.60010([
+       member .within set-operator, set-digest-type ])
 
-   tagged-exp-not-member = #6.60010([
-       not-member .within set-operator, $set-type ])
+   tagged-exp-digest-not-member = #6.60010([
+       not-member .within set-operator, set-digest-type ])
 
    tagged-exp-tstr-member = #6.60010([
        member .within set-operator, set-tstr-type ])
@@ -967,26 +970,33 @@ Table of Contents
    operator definition determines the expected data types of the
    operands.  Expected Verifier behavior is defined in Section 9
 
+   The measurement extensions that follow are assumed to be appraised
+   according to the appriasal steps described in Section 8.1 of
+   [I-D.ietf-rats-corim].
+
 8.2.1.  The tee-advisory-ids-type Measurement Extension
 
-   The tee.advisory-ids extension allows the Attester to report known
-   security advisories and a Reference Values Provider (RVP) to assert
-   updated security advisories.
+   The tee.advisory-ids extension enables Attesters to report known
+   security advisories and for Reference Values Providers (RVP) to
+   assert updated security advisories.  It can also be used by Endorsers
+   to assert security advisory information through conditional
+   endorsement.
 
    The $tee-advisory-ids-type is used to specify a set of security
-   advisories, where each is identified by a string identifier.
+   advisories, where each identifier is represented using a string.
    Evidence may report a set of advisories the Attester believes are
-   relevant.  The set of advisories are constrained by the set-type
+   relevant.  The set of advisories are constrained by the set-tstr-type
    structure.
 
-   A Reference Values expression record is defined for this extension
-   that applies the disjoint set operation to determine if there are
-   advisories outstanding.  If no advisories are outstanding, then the
-   empty set signifies successful matching.
+   As a Reference Value expression, an empty set can be used to signify
+   that no outstanding advisories are expected.  If the Evidence also
+   contains the empty set then the Reference corroborates the Evidence.
 
-   The $tee-advisory-ids-type is a list of advisories when used as
-   Endorsements or Evidence and a disjoint set of advisories when used
-   as a Reference Value.
+   The $tee-advisory-ids-type is a list of strings, each identifying a
+   single security advisory.  When used with Evidence the set-tstr-type
+   type is used.  When used with Reference Values or Endorsements the
+   set-tstr-type, tagged-exp-tstr-member, or tagged-exp-tstr-not-member
+   types can be used.
 
    $$measurement-values-map-extension //= (
      &(tee.advisory-ids: -89) => $tee-advisory-ids-type
@@ -1000,24 +1010,9 @@ Table of Contents
    The comparison algorithm for tee-advisory-ids-type is used when
    Endorsement or Reference Values triples conditions are matched with
    an Environment Claims Tuple (ECT) in the Verifier's Accepted Claims
-   Set (ACS).  The tee-advisory-ids-type has three varients: set-tstr-
-   type, tagged-exp-tstr-member, and tagged-exp-tstr-not-member.
-
-   *  set-tstr-type - Every string in the condition set-tstr-type MUST
-      match a string in the ACS.ECT.tee-advisory-ids-type Claim.  The
-      string position in the list is not significant.  The ACS.ECT.tee-
-      advisory-ids-type MUST NOT have strings not found in the condition
-      tee-advisory-type.
-
-   *  tagged-exp-tstr-member - Every string in the condition set-tstr-
-      type MUST match a string in the ACS.ECT.tee-advisory-ids-type
-      Claim.  The string position in the list is not significant.  The
-      ACS.ECT.tee-advisory-ids-type MAY have strings not found in the
-      condition tee-advisory-type.
-
-   *  tagged-exp-tstr-not-member - Every string in the condition set-
-      tstr-type MUST NOT match a string in the ACS.ECT.tee-advisory-ids-
-      type Claim.  The string position in the list is not significant.
+   Set (ACS).  The triple condition containing a tee-advisory-ids-type
+   Claim matches an ACS ECT according to the comparison algorithm for
+   set of strings as defined in Section 9.2.
 
 8.2.2.  The tee-attributes-type Measurement Extension
 
@@ -1085,14 +1080,18 @@ Table of Contents
 
 8.2.5.  The tee-digest-type Measurement Extension
 
-   The tee.mrtee and tee.mrsigner extensions enable the Attester to
-   report digests for the SGX enclave or TDX TD (e.g., mrenclave, mrtd)
-   and the signer (e.g., mrsigner) of the TEE digest.
+   The tee.mrtee extension enables an Attester to report digests for the
+   SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).  The tee.mrsigner
+   extension enables an Attester to report the signer of the TEE digest
+   (e.g., MRSIGNER).
 
-   The $tee-digest-type is a record that contains the hash algorithm
-   identifier and the digest value when used as Evidence.  When used as
-   Reference Values, a set of digests can be asserted.  The Evidence
-   digest record must be a member of the Reference Values set.
+   The $tee-digest-type has multiple type structures involving digest
+   values.  A singleton digest has a hash algorithm identifier and the
+   digest value.  When used as Evidence, either a signleton digest or a
+   set of digests can be reported.  When used as Reference Values or
+   Endorsements, a set of digests can be asserted signifying equivalence
+   matching.  Alternatively, matching may be expressed as set membership
+   or set difference expressions.
 
    $$measurement-values-map-extension //= (
      &(tee.mrtee: -83) => $tee-digest-type
@@ -1100,13 +1099,23 @@ Table of Contents
    $$measurement-values-map-extension //= (
      &(tee.mrsigner: -84) => $tee-digest-type
    )
-   $tee-digest-type /= digest
-   $tee-digest-type /= [ + digest ]
-   $tee-digest-type /= tagged-exp-member
+   $tee-digest-type /= digest ; see corim
+   $tee-digest-type /= digests-type ; see corim
+   $tee-digest-type /= set-digest-type
+   $tee-digest-type /= tagged-exp-digest-member
+   $tee-digest-type /= tagged-exp-digest-not-member
 
    Alternatively, the TEE digests may be encoded using mkey where mkey
    contains the non-negative tee.mrtee or tee.mrsigner and mval.digests
-   contains the $tee-digest-type.[ + digest ] value.
+   contains a digests-type value.
+
+8.2.5.1.  The tee-digest-type Comparison Algorithm
+
+   The comparison algorithm for tee-digest-type is used when the
+   condition statement in an Endorsement or Reference Values triple is
+   matched with an Environment Claim Tuple (ECT) from the Verifier's
+   Accepted Claims Set (ACS).  The comparison algorithm for set of
+   digests is defined in Section 9.2.
 
 8.2.6.  The tee-epoch-type Measurement Extension
 
@@ -1332,21 +1341,35 @@ Table of Contents
 
 8.2.16.  The tee-tcbstatus-type Measurement Extension
 
-   The tee.tcb-status extension enables the Attester to report the
-   status of the TEE trusted computing base (TCB) as an array of status
-   strings, as Evidence, and the RVP to assert an array of status arrays
-   as Reference Values where the Evidence array is a subset of the
-   reference status arrays.
+   The tee.tcb-status extension enables Attesters to report the status
+   of the TEE trusted computing base (TCB) and for Reference Value
+   Providers (RVP) to assert expected TCB status.  It can also be used
+   by Endorsers to assert TCB status through conditional endorsement.
 
-   The $tee-tcbstatus-type is a status array with a set expressions
-   containing the subset operator when used as Evidence.  When used as a
-   Reference Value it is an array of status arrays.
+   The tee-tcbstatus-type is used to specify TCB status as a set of
+   status strings or as an expression with a set membership operator.
+
+   The $tee-tcbstatus-type is a status array containing strings
+   describing TCB status values.  When describing Evidence the set-tstr-
+   type type is used.  When describing Reference Values or Endorsements
+   the set-tstr-type, tagged-exp-tstr-member, or tagged-exp-tstr-not-
+   member types can be used.
 
    $$measurement-values-map-extension //= (
      &(tee.tcbstatus: -88) => $tee-tcbstatus-type
    )
-   $tee-tcbstatus-type /= $set-type
-   $tee-tcbstatus-type /= tagged-exp-member
+   $tee-tcbstatus-type /= set-tstr-type
+   $tee-tcbstatus-type /= tagged-exp-tstr-member
+   $tee-tcbstatus-type /= tagged-exp-tstr-not-member
+
+8.2.16.1.  The tee-tcbstatus-type Comparison Algorithm
+
+   The comparison algorithm for tee-tcbstatus-type is used when
+   Endorsement or Reference Values triples conditions are matched with
+   an Environment Claims Tuple (ECT) in the Verifier's Accepted Claims
+   Set (ACS).  The triple condition containing a tee-tcbstatuss-type
+   Claim matches an ACS ECT according to the comparison algorithm for
+   set of strings as defined in Section 9.2.
 
 8.2.17.  The tee-vendor-type Measurement Extension
 
@@ -1396,6 +1419,76 @@ Table of Contents
 
    This profile uses these triples with the reference measurement values
    extensions described in Section 8.2.
+
+9.2.  Comparison Algorithm for Sets
+
+   The comparison algorithm for sets describes set equivalence, set
+   membership, and set difference (not membership).  The Verifier's
+   Accepted Claims Set (ACS) contains a list of Environment Claims
+   Tuples (ECT)[I-D.ietf-rats-corim].  The condition ECTs are compared
+   to ACS ECTs based on this comparison algorithm.
+
+   The set comparison algorithm processes sets of strings and sets of
+   digests.
+
+9.2.1.  Comparison Algorithm for Set of Strings
+
+   There are three string set representations: set-tstr-type, tagged-
+   exp-tstr-member, and tagged-exp-tstr-not-member.
+
+   *  set-tstr-type - Every string in the condition set-tstr-type MUST
+      match a string in the ACS.ECT.element-map.element-claims.set-tstr-
+      type set.  The string position in the array is not significant.
+      The ACS.ECT.element-map.element-claims.set-tstr-type set MUST be
+      equivalent to the condition set-tstr-type set (i.e., the two sets
+      have the same cardinality and the same set members).
+
+   *  tagged-exp-tstr-member - The condition ECT set operator MUST equal
+      member and every string in the condition set-tstr-type MUST match
+      a string in the ACS.ECT.element-map.element-claims.set-tstr-type
+      set.  The string position in the array is not significant.  The
+      ACS.ECT.element-map.element-claims.set-tstr-type set MAY contain
+      strings not found in the condition set-tstr-type.
+
+   *  tagged-exp-tstr-not-member - The condition ECT set operator MUST
+      equal not-member and every string in the condition set-tstr-type
+      MUST NOT match a string in the ACS.ECT.element-map.element-
+      claims.set-tstr-type set.  The string position in the array is not
+      significant.
+
+9.2.2.  Comparison Algorithm for Set of Digests
+
+   There are five digest set representations: digest, digest-type, set-
+   digest-type, tagged-exp-digest-member, and tagged-exp-digest-not-
+   member.
+
+   *  digest - The singleton digest in the condition MUST match at least
+      one digest in the ACS.ECT.element-map.element-claims.set-digest-
+      type set.
+
+   *  digest-type and set-digest-type - Every digest in the condition
+      digest-type or set-digest-type MUST match a digest in the
+      ACS.ECT.element-map.element-claims.set-digest-type set.  The
+      digest position in the array is not significant.  The
+      ACS.ECT.element-map.element-claims.set-digest-type set MUST be
+      equivalent to the condition set-digest-type set (i.e., the two
+      sets have the same cardinality and the same set members).
+      Matching based on the empty set is permitted when the set-digest-
+      type is used.
+
+   *  tagged-exp-digest-member - The condition ECT set operator MUST
+      equal member and every digest in the condition set-digest-type
+      MUST match a digest in the ACS.ECT.element-map.element-claims.set-
+      digest-type set.  The digest position in the array is not
+      significant.  The ACS.ECT.element-map.element-claims.set-digest-
+      type set MAY contain digests not found in the condition set-
+      digest-type.
+
+   *  tagged-exp-digest-not-member - The condition ECT set operator MUST
+      equal not-member and every digest in the condition set-digest-type
+      MUST NOT match a digest in the ACS.ECT.element-map.element-
+      claims.set-digest-type set.  The digest position in the array is
+      not significant.
 
 10.  Reporting Attestation Results
 
@@ -1581,20 +1674,20 @@ Appendix B.  Full Intel Profile CDDL
    member = 6
    not-member = 7
    set-operator = member / not-member
-   $set-type /= [ * tstr ] ; temporary
-   $set-type /= [ * digest ]
-   set-expression = [ set-operator, $set-type ]
-   tagged-set-expression = #6.60010( set-expression )
+
+   set-digest-type /= [ * digest ]
+   set-digest-expression = [ set-operator, set-digest-type ]
+   tagged-set-digest-expression = #6.60010( set-digest-expression )
 
    set-tstr-type /= [ * tstr ]
    set-tstr-expression = [ set-operator, set-tstr-type ]
    tagged-set-tstr-expression = #6.60010( set-tstr-expression )
 
-   tagged-exp-member = #6.60010([
-       member .within set-operator, $set-type ])
+   tagged-exp-digest-member = #6.60010([
+       member .within set-operator, set-digest-type ])
 
-   tagged-exp-not-member = #6.60010([
-       not-member .within set-operator, $set-type ])
+   tagged-exp-digest-not-member = #6.60010([
+       not-member .within set-operator, set-digest-type ])
 
    tagged-exp-tstr-member = #6.60010([
        member .within set-operator, set-tstr-type ])
@@ -1727,9 +1820,11 @@ Appendix B.  Full Intel Profile CDDL
    $$measurement-values-map-extension //= (
      &(tee.mrsigner: -84) => $tee-digest-type
    )
-   $tee-digest-type /= digest
-   $tee-digest-type /= [ + digest ]
-   $tee-digest-type /= tagged-exp-member
+   $tee-digest-type /= digest ; see corim
+   $tee-digest-type /= digests-type ; see corim
+   $tee-digest-type /= set-digest-type
+   $tee-digest-type /= tagged-exp-digest-member
+   $tee-digest-type /= tagged-exp-digest-not-member
 
    $$measurement-values-map-extension //= (
      &(tee.epoch: -90) => $tee-epoch-type
@@ -1788,8 +1883,9 @@ Appendix B.  Full Intel Profile CDDL
    $$measurement-values-map-extension //= (
      &(tee.tcbstatus: -88) => $tee-tcbstatus-type
    )
-   $tee-tcbstatus-type /= $set-type
-   $tee-tcbstatus-type /= tagged-exp-member
+   $tee-tcbstatus-type /= set-tstr-type
+   $tee-tcbstatus-type /= tagged-exp-tstr-member
+   $tee-tcbstatus-type /= tagged-exp-tstr-not-member
 
    $$measurement-values-map-extension //= (
      &(tee.vendor: -70) => $tee-vendor-type
