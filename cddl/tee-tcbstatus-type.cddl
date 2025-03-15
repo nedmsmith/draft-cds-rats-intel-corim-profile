@@ -1,5 +1,6 @@
 $$measurement-values-map-extension //= (
   &(tee.tcbstatus: -88) => $tee-tcbstatus-type
 )
-$tee-tcbstatus-type /= $set-type
-$tee-tcbstatus-type /= tagged-exp-member
+$tee-tcbstatus-type /= set-tstr-type
+$tee-tcbstatus-type /= tagged-exp-tstr-member
+$tee-tcbstatus-type /= tagged-exp-tstr-not-member

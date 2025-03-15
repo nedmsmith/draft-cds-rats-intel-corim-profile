@@ -676,21 +676,24 @@ In cases where Evidence does not exactly match Reference Values, the operator de
 expected data types of the operands.
 Expected Verifier behavior is defined in {{sec-intel-appraisal-algorithm}}
 
+The measurement extensions that follow are assumed to be appraised according to the appriasal steps described in {{Section 8.1 of -corim}}.
+
 ### The tee-advisory-ids-type Measurement Extension {#sec-tee-advisory-ids-type}
 
-The `tee.advisory-ids` extension allows the Attester to report known security advisories and a
-Reference Values Provider (RVP) to assert updated security advisories.
+The `tee.advisory-ids` extension enables Attesters to report known security advisories and for
+Reference Values Providers (RVP) to assert updated security advisories.
+It can also be used by Endorsers to assert security advisory information through conditional endorsement.
 
-The `$tee-advisory-ids-type` is used to specify a set of security advisories, where each is identified by a string identifier.
+The `$tee-advisory-ids-type` is used to specify a set of security advisories, where each identifier is represented using a string.
 Evidence may report a set of advisories the Attester believes are relevant. The set of advisories are constrained
-by the `set-type` structure.
+by the `set-tstr-type` structure.
 
-A Reference Values expression record is defined for this extension that applies the disjoint set operation
-to determine if there are advisories outstanding. If no advisories are outstanding, then the empty set signifies
-successful matching.
+As a Reference Value expression, an empty set can be used to signify that no outstanding advisories are expected.
+If the Evidence also contains the empty set then the Reference corroborates the Evidence.
 
-The `$tee-advisory-ids-type` is a list of advisories when used as Endorsements or Evidence and a disjoint set
-of advisories when used as a Reference Value.
+The `$tee-advisory-ids-type` is a list of strings, each identifying a single security advisory.
+When used with Evidence the `set-tstr-type` type is used.
+When used with Reference Values or Endorsements the `set-tstr-type`, `tagged-exp-tstr-member`, or `tagged-exp-tstr-not-member` types can be used.
 
 ~~~ cddl
 {::include cddl/tee-advisory-ids-type.cddl}
@@ -699,18 +702,7 @@ of advisories when used as a Reference Value.
 #### The tee-advisory-ids-type Comparison Algorithm {#sec-tee-advisory-ids-comp}
 
 The comparison algorithm for `tee-advisory-ids-type` is used when Endorsement or Reference Values triples conditions are matched with an Environment Claims Tuple (ECT) in the Verifier's Accepted Claims Set (ACS).
-The `tee-advisory-ids-type` has three varients: `set-tstr-type`, `tagged-exp-tstr-member`, and `tagged-exp-tstr-not-member`.
-
-* `set-tstr-type` - Every string in the condition `set-tstr-type` MUST match a string in the ACS.ECT.`tee-advisory-ids-type` Claim.
-The string position in the list is not significant.
-The ACS.ECT.`tee-advisory-ids-type` MUST NOT have strings not found in the condition `tee-advisory-type`.
-
-* `tagged-exp-tstr-member` - Every string in the condition `set-tstr-type` MUST match a string in the ACS.ECT.`tee-advisory-ids-type` Claim.
-The string position in the list is not significant.
-The ACS.ECT.`tee-advisory-ids-type` MAY have strings not found in the condition `tee-advisory-type`.
-
-* `tagged-exp-tstr-not-member` - Every string in the condition `set-tstr-type` MUST NOT match a string in the ACS.ECT.`tee-advisory-ids-type` Claim.
-The string position in the list is not significant.
+The triple condition containing a `tee-advisory-ids-type` Claim matches an ACS ECT according to the comparison algorithm for set of strings as defined in {{sec-ca-sets}}.
 
 ### The tee-attributes-type Measurement Extension {#sec-tee-attributes-type}
 
@@ -758,18 +750,24 @@ Alternatively, the TEE tcbdate may be encoded using `mkey` where `mkey` contains
 
 ### The tee-digest-type Measurement Extension {#sec-tee-digest-type}
 
-The `tee.mrtee` and `tee.mrsigner` extensions enable the Attester to report digests for the SGX enclave or TDX TD (e.g., mrenclave, mrtd) and the signer (e.g., mrsigner) of the TEE digest.
+The `tee.mrtee` extension enables an Attester to report digests for the SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).
+The `tee.mrsigner` extension enables an Attester to report the signer of the TEE digest (e.g., MRSIGNER).
 
-The `$tee-digest-type` is a record that contains the hash algorithm identifier and the digest value when used
-as Evidence.
-When used as Reference Values, a set of digests can be asserted. The Evidence digest record must be a member
-of the Reference Values set.
+The `$tee-digest-type` has multiple type structures involving digest values. A singleton digest has a hash algorithm identifier and the digest value.
+When used as Evidence, either a signleton digest or a set of digests can be reported.
+When used as Reference Values or Endorsements, a set of digests can be asserted signifying equivalence matching.
+Alternatively, matching may be expressed as set membership or set difference expressions.
 
 ~~~ cddl
 {::include cddl/tee-digest-type.cddl}
 ~~~
 
-Alternatively, the TEE digests may be encoded using `mkey` where `mkey` contains the non-negative `tee.mrtee` or `tee.mrsigner` and `mval`.`digests` contains the `$tee-digest-type`.`[ + digest ]` value.
+Alternatively, the TEE digests may be encoded using `mkey` where `mkey` contains the non-negative `tee.mrtee` or `tee.mrsigner` and `mval`.`digests` contains a `digests-type` value.
+
+#### The tee-digest-type Comparison Algorithm {#sec-tee-digest-comp}
+
+The comparison algorithm for `tee-digest-type` is used when the condition statement in an Endorsement or Reference Values triple is matched with an Environment Claim Tuple (ECT) from the Verifier's Accepted Claims Set (ACS).
+The comparison algorithm for set of digests is defined in {{sec-ca-sets}}.
 
 ### The tee-epoch-type Measurement Extension {#sec-tee-epoch-type}
 
@@ -924,16 +922,24 @@ Alternatively, the TEE tcb-eval-num Evidence may be encoded using `mkey` where `
 
 ### The tee-tcbstatus-type Measurement Extension {#sec-tee-tcbstatus-type}
 
-The `tee.tcb-status` extension enables the Attester to report the status of the TEE trusted computing base (TCB) as
-an array of status strings, as Evidence, and the RVP to assert an array of status arrays as Reference Values where
-the Evidence array is a subset of the reference status arrays.
+The `tee.tcb-status` extension enables Attesters to report the status of the TEE trusted computing base (TCB)
+and for Reference Value Providers (RVP) to assert expected TCB status.
+It can also be used by Endorsers to assert TCB status through conditional endorsement.
 
-The `$tee-tcbstatus-type` is a status array with a set expressions containing the `subset` operator when used as Evidence.
-When used as a Reference Value it is an array of status arrays.
+The `tee-tcbstatus-type` is used to specify TCB status as a set of status strings or as an expression with a set membership operator.
+
+The `$tee-tcbstatus-type` is a status array containing strings describing TCB status values.
+When describing Evidence the `set-tstr-type` type is used.
+When describing Reference Values or Endorsements the `set-tstr-type`, `tagged-exp-tstr-member`, or `tagged-exp-tstr-not-member` types can be used.
 
 ~~~ cddl
 {::include cddl/tee-tcbstatus-type.cddl}
 ~~~
+
+#### The tee-tcbstatus-type Comparison Algorithm {#sec-tee-tcbstatus-comp}
+
+The comparison algorithm for `tee-tcbstatus-type` is used when Endorsement or Reference Values triples conditions are matched with an Environment Claims Tuple (ECT) in the Verifier's Accepted Claims Set (ACS).
+The triple condition containing a `tee-tcbstatuss-type` Claim matches an ACS ECT according to the comparison algorithm for set of strings as defined in {{sec-ca-sets}}.
 
 ### The tee-vendor-type Measurement Extension {#sec-tee-vendor-type}
 
@@ -970,6 +976,47 @@ considered "OutOfDate" or may have a known security advisory. The CoMID `conditi
 `conditional-endorsement-series-triples` describe complex Endorsement expressions.
 
 This profile uses these triples with the reference measurement values extensions described in {{sec-measurement-extensions}}.
+
+## Comparison Algorithm for Sets {#sec-ca-sets}
+
+The comparison algorithm for sets describes set equivalence, set membership, and set difference (not membership).
+The Verifier's Accepted Claims Set (ACS) contains a list of Environment Claims Tuples (ECT){{-corim}}.
+The condition ECTs are compared to ACS ECTs based on this comparison algorithm.
+
+The set comparison algorithm processes sets of strings and sets of digests.
+
+### Comparison Algorithm for Set of Strings {#sec-ca-stringsets}
+
+There are three string set representations: `set-tstr-type`, `tagged-exp-tstr-member`, and `tagged-exp-tstr-not-member`.
+
+* `set-tstr-type` - Every string in the condition `set-tstr-type` MUST match a string in the ACS.ECT.`element-map`.`element-claims`.`set-tstr-type` set.
+The string position in the array is not significant.
+The ACS.ECT.`element-map`.`element-claims`.`set-tstr-type` set MUST be equivalent to the condition `set-tstr-type` set (i.e., the two sets have the same cardinality and the same set members).
+
+* `tagged-exp-tstr-member` - The condition ECT set operator MUST equal `member` and every string in the condition `set-tstr-type` MUST match a string in the ACS.ECT.`element-map`.`element-claims`.`set-tstr-type` set.
+The string position in the array is not significant.
+The ACS.ECT.`element-map`.`element-claims`.`set-tstr-type` set MAY contain strings not found in the condition `set-tstr-type`.
+
+* `tagged-exp-tstr-not-member` - The condition ECT set operator MUST equal `not-member` and every string in the condition `set-tstr-type` MUST NOT match a string in the ACS.ECT.`element-map`.`element-claims`.`set-tstr-type` set.
+The string position in the array is not significant.
+
+### Comparison Algorithm for Set of Digests {#sec-ca-digestsets}
+
+There are five digest set representations: `digest`, `digest-type`, `set-digest-type`, `tagged-exp-digest-member`, and `tagged-exp-digest-not-member`.
+
+* `digest` - The singleton `digest` in the condition MUST match at least one digest in the ACS.ECT.`element-map`.`element-claims`.`set-digest-type` set.
+
+* `digest-type` and `set-digest-type` - Every digest in the condition `digest-type` or `set-digest-type` MUST match a digest in the ACS.ECT.`element-map`.`element-claims`.`set-digest-type` set.
+The digest position in the array is not significant.
+The ACS.ECT.`element-map`.`element-claims`.`set-digest-type` set MUST be equivalent to the condition `set-digest-type` set (i.e., the two sets have the same cardinality and the same set members).
+Matching based on the empty set is permitted when the `set-digest-type` is used.
+
+* `tagged-exp-digest-member` - The condition ECT set operator MUST equal `member` and every digest in the condition `set-digest-type` MUST match a digest in the ACS.ECT.`element-map`.`element-claims`.`set-digest-type` set.
+The digest position in the array is not significant.
+The ACS.ECT.`element-map`.`element-claims`.`set-digest-type` set MAY contain digests not found in the condition `set-digest-type`.
+
+* `tagged-exp-digest-not-member` - The condition ECT set operator MUST equal `not-member` and every digest in the condition `set-digest-type` MUST NOT match a digest in the ACS.ECT.`element-map`.`element-claims`.`set-digest-type` set.
+The digest position in the array is not significant.
 
 # Reporting Attestation Results {#sec-intel-reporting-attestation-results}
 

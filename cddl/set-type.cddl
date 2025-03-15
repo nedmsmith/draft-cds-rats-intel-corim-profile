@@ -1,10 +1,10 @@
 member = 6
 not-member = 7
 set-operator = member / not-member
-$set-type /= [ * tstr ] ; temporary
-$set-type /= [ * digest ]
-set-expression = [ set-operator, $set-type ]
-tagged-set-expression = #6.60010( set-expression )
+
+set-digest-type /= [ * digest ]
+set-digest-expression = [ set-operator, set-digest-type ]
+tagged-set-digest-expression = #6.60010( set-digest-expression )
 
 set-tstr-type /= [ * tstr ]
 set-tstr-expression = [ set-operator, set-tstr-type ]
