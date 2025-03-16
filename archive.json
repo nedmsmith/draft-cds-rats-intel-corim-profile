@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-13T01:25:15.660021+00:00",
+  "timestamp": "2025-03-16T01:37:31.951139+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -1884,6 +1884,48 @@
       "mergeCommit": null,
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 40,
+      "id": "PR_kwDOJvkHy86OjxF-",
+      "title": "Fix the CDDL for Numeric Expression",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/40",
+      "state": "MERGED",
+      "author": "yogeshbdeshpande",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-03-13T18:12:48Z",
+      "updatedAt": "2025-03-13T22:41:31Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "e32b1e73e4aff70210e32dc5b74a497450a3ee9b",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fix-cddl",
+      "headRefOid": "f37ca682d68b7267e9f0cb8d1f1d7142744faf86",
+      "closedAt": "2025-03-13T22:41:26Z",
+      "mergedAt": "2025-03-13T22:41:26Z",
+      "mergedBy": "yogeshbdeshpande",
+      "mergeCommit": {
+        "oid": "5bc623dcc18596eb53d10c4ed1750f98ae9e8d70"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86f7GuK",
+          "commit": {
+            "abbreviatedOid": "f37ca68"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-03-13T18:50:18Z",
+          "updatedAt": "2025-03-13T18:50:18Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
