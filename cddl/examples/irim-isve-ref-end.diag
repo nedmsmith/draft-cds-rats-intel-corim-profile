@@ -28,9 +28,25 @@
                   ]
                 ]
               ]),
+              / advisory-ids /  -89 : 60010([ /member/ 6, [ "INTEL-SA-00078", "INTEL-SA-00079"  ]]),
+              / tcbstatus /  -88 : 60010([ /member/ 6, [ "UpToDate"  ]]),
               / isvprodid / -85 : 1
             }
-          }
+          },
+          / measurement-map / {
+            / mkey / 0 : 1,
+            / mval / 1 : / measurement-values-map / {
+              / advisory-ids /  -89 : [ ],
+              / tcbstatus /  -88 : [ ]
+            }
+          },
+           / measurement-map / {
+            / mkey / 0 : 2,
+            / mval / 1 : / measurement-values-map / {
+              / advisory-ids /  -89 : 60010([ /not-member/ 7, [ "NOT-AN-SA" ]]),
+              / tcbstatus /  -89 : 60010([ /not-member/ 7, [ "OutOfDate", "SWHardeningNeeded", "ConfigurationNeeded" ]])
+            }
+           }
         ]
       ]
     ],

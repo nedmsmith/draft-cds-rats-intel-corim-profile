@@ -1,5 +1,6 @@
 $$measurement-values-map-extension //= (
   &(tee.advisory-ids: -89) => $tee-advisory-ids-type
 )
-$tee-advisory-ids-type /= set-type
-$tee-advisory-ids-type /= tagged-exp-not-member
+$tee-advisory-ids-type /= set-tstr-type
+$tee-advisory-ids-type /= tagged-exp-tstr-not-member
+$tee-advisory-ids-type /= tagged-exp-tstr-member
