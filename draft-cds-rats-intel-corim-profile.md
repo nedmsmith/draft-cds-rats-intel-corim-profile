@@ -40,6 +40,10 @@ author:
   fullname: James D. Beaney
   organization: Intel Corporation
   email: james.d.beaney@intel.com
+- ins: Y. Deshpande
+  fullname: Yogesh Deshpande
+  organization: ARM Corporation
+  email: yogesh.deshpande@arm.com
 - ins: A. Draper
   fullname: Andrew Draper
   organization: Altera Corporation
