@@ -4,8 +4,10 @@
 
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
-Intended status: Informational                                 A. Draper
-Expires: 22 September 2025                            Altera Corporation
+Intended status: Informational                              Y. Deshpande
+Expires: 22 September 2025                               ARM Corporation
+                                                               A. Draper
+                                                      Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
@@ -1902,6 +1904,11 @@ Authors' Addresses
    James D. Beaney
    Intel Corporation
    Email: james.d.beaney@intel.com
+
+
+   Yogesh Deshpande
+   ARM Corporation
+   Email: yogesh.deshpande@arm.com
 
 
    Andrew Draper
