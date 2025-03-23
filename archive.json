@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-20T01:24:34.541239+00:00",
+  "timestamp": "2025-03-23T01:38:23.354863+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -1923,6 +1923,92 @@
           "body": "LGTM",
           "createdAt": "2025-03-13T18:50:18Z",
           "updatedAt": "2025-03-13T18:50:18Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "id": "PR_kwDOJvkHy86PqJA4",
+      "title": "Comp alg sets",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/41",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-03-21T18:09:14Z",
+      "updatedAt": "2025-03-21T18:42:24Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "5bc623dcc18596eb53d10c4ed1750f98ae9e8d70",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "comp-alg-sets",
+      "headRefOid": "0b163e5539a26c5e133b5cd495e3887fec743100",
+      "closedAt": "2025-03-21T18:40:53Z",
+      "mergedAt": "2025-03-21T18:40:53Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "f81f30fe70997b25790ddb20b10eb4764f8b5f70"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86hVwsf",
+          "commit": {
+            "abbreviatedOid": "0b163e5"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-03-21T18:11:08Z",
+          "updatedAt": "2025-03-21T18:11:08Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOJvkHy86PqdS9",
+      "title": "Update draft-cds-rats-intel-corim-profile.md",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/42",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Add Yogesh Despande as author from Veraison feedback.",
+      "createdAt": "2025-03-21T18:48:12Z",
+      "updatedAt": "2025-03-21T18:49:31Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "f81f30fe70997b25790ddb20b10eb4764f8b5f70",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "add-yogesh",
+      "headRefOid": "499f586a3ec3c9c7a4389e285be705b3d7a6b161",
+      "closedAt": "2025-03-21T18:49:15Z",
+      "mergedAt": "2025-03-21T18:49:15Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "0a19943b5b8ee6e870ea07b2c737056c7696c74f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86hWNTI",
+          "commit": {
+            "abbreviatedOid": "499f586"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-21T18:49:00Z",
+          "updatedAt": "2025-03-21T18:49:00Z",
           "comments": []
         }
       ]
