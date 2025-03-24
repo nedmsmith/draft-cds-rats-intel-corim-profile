@@ -21,9 +21,9 @@
         [
           / measurement-map / {
             / mval / 1 : { / *** measurement-values-map *** /
-              / tee.attributes mask / -82 : 60010([ / op.mask-eq / 1, h'0003', h'0003' ]),
+              / tee.attributes mask / -82 : 60040([ / op.mask-eq / 1, h'0003', h'0003' ]),
               / tcb-eval-num / -86 : 60010([ / op.ge / 2, 11 ]),
-              / mrsigner / -84 : 60010([ / op.member / 6, 
+              / mrsigner / -84 : 60020([ / op.member / 6, 
                 / digests-type / [
                   [
                     / alg-id / 1, / sha256 /
