@@ -1,7 +1,11 @@
-epoch-operator = numeric-operator
+epoch-operators /= op.eq
+epoch-operators /= op.gt
+epoch-operators /= op.ge
+epoch-operators /= op.lt
+epoch-operators /= op.le
 epoch-seconds-type = int
 epoch-expression = [ 
-    epoch-operator,
+    epoch-operators,
     grace-period: epoch-seconds-type,
     ? $tagged-epoch-id
 ]

@@ -17,8 +17,8 @@
             [
               { / *** measurement-map *** /
                 / mval / 1 : / measurement-values-map / {
-                  / tcbstatus / -88: 60010([ / member / 6, [ "UpToDate", "SWHardeningNeeded" ] ]),
-                  / tcbdate / -72: 60010([ / ge / 2, 0("2020-07-28T00:00:00Z") ])
+                  / tcbstatus / -88: 60021([ / member / 6, [ "UpToDate", "SWHardeningNeeded" ] ]),
+                  / tcbdate / -72: 60031([ / ge / 2, 0("2020-07-28T00:00:00Z") ])
                 }
               }
             ]

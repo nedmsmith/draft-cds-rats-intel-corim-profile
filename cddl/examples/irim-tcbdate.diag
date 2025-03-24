@@ -33,7 +33,7 @@
         [
           / measurement-map / {
             / mval / 1 : {
-              / tcbdate / -72 : 60010([ 2, 0("2023-02-15T01:00:00Z")]) / *** tagged-exp-tdate-ge *** /
+              / tcbdate / -72 : 60031([ 2, 0("2023-02-15T01:00:00Z")]) / *** tagged-exp-tdate-ge *** /
             }
           }
         ]
