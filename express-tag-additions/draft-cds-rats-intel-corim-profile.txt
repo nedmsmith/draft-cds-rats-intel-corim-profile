@@ -646,16 +646,16 @@ Table of Contents
 
    The set expression type definitions are as follows:
 
-   tagged-exp-digest-member = #6.60010([
+   tagged-exp-digest-member = #6.60020([
        member .within set-operator, set-digest-type ])
 
-   tagged-exp-digest-not-member = #6.60010([
+   tagged-exp-digest-not-member = #6.60020([
        not-member .within set-operator, set-digest-type ])
 
-   tagged-exp-tstr-member = #6.60010([
+   tagged-exp-tstr-member = #6.60021([
        member .within set-operator, set-tstr-type ])
 
-   tagged-exp-tstr-not-member = #6.60010([
+   tagged-exp-tstr-not-member = #6.60021([
        not-member .within set-operator, set-tstr-type ])
 
    Examples:
@@ -1717,16 +1717,16 @@ Appendix B.  Full Intel Profile CDDL
    set-tstr-expression = [ set-operator, set-tstr-type ]
    tagged-set-tstr-expression = #6.60021( set-tstr-expression )
 
-   tagged-exp-digest-member = #6.60010([
+   tagged-exp-digest-member = #6.60020([
        member .within set-operator, set-digest-type ])
 
-   tagged-exp-digest-not-member = #6.60010([
+   tagged-exp-digest-not-member = #6.60020([
        not-member .within set-operator, set-digest-type ])
 
-   tagged-exp-tstr-member = #6.60010([
+   tagged-exp-tstr-member = #6.60021([
        member .within set-operator, set-tstr-type ])
 
-   tagged-exp-tstr-not-member = #6.60010([
+   tagged-exp-tstr-not-member = #6.60021([
        not-member .within set-operator, set-tstr-type ])
 
    subset = 8

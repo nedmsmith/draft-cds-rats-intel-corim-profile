@@ -1842,16 +1842,16 @@ The set is defined by <code>set-type</code>.<a href="#section-8.1.3-12" class="p
 <p id="section-8.1.3-13">The set expression type definitions are as follows:<a href="#section-8.1.3-13" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.1.3-14">
 <pre>
-tagged-exp-digest-member = #6.60010([
+tagged-exp-digest-member = #6.60020([
     member .within set-operator, set-digest-type ])
 
-tagged-exp-digest-not-member = #6.60010([
+tagged-exp-digest-not-member = #6.60020([
     not-member .within set-operator, set-digest-type ])
 
-tagged-exp-tstr-member = #6.60010([
+tagged-exp-tstr-member = #6.60021([
     member .within set-operator, set-tstr-type ])
 
-tagged-exp-tstr-not-member = #6.60010([
+tagged-exp-tstr-not-member = #6.60021([
     not-member .within set-operator, set-tstr-type ])
 </pre><a href="#section-8.1.3-14" class="pilcrow">¶</a>
 </div>
@@ -2918,16 +2918,16 @@ set-tstr-type /= [ * tstr ]
 set-tstr-expression = [ set-operator, set-tstr-type ]
 tagged-set-tstr-expression = #6.60021( set-tstr-expression )
 
-tagged-exp-digest-member = #6.60010([
+tagged-exp-digest-member = #6.60020([
     member .within set-operator, set-digest-type ])
 
-tagged-exp-digest-not-member = #6.60010([
+tagged-exp-digest-not-member = #6.60020([
     not-member .within set-operator, set-digest-type ])
 
-tagged-exp-tstr-member = #6.60010([
+tagged-exp-tstr-member = #6.60021([
     member .within set-operator, set-tstr-type ])
 
-tagged-exp-tstr-not-member = #6.60010([
+tagged-exp-tstr-not-member = #6.60021([
     not-member .within set-operator, set-tstr-type ])
 
 subset = 8
