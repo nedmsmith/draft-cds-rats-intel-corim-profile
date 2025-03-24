@@ -13,8 +13,8 @@
         [
           / measurement-map / {
             / mval / 1 : / measurement-values-map / { 
-              / miscselect / -81 : 60040([ / mask-eq / 1, h'00000000', h'FBFFFFFF' ]),
-              / attributes / -82 : 60040([ / mask-eq / 1, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000' ]),
+              / miscselect / -81 : 60040([ / mask-eq / 0, h'00000000', h'FBFFFFFF' ]),
+              / attributes / -82 : 60040([ / mask-eq / 0, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000' ]),
               / isvsvn / -73 : 60010([ / op.ge / 2, 6 ]),
               / advisory-ids /  -89 : 60021([ /member/ 6, [ "INTEL-SA-00078", "INTEL-SA-00079"  ]]),
               / tcbstatus /  -88 : 60021([ /member/ 6, [ "UpToDate"  ]]),

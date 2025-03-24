@@ -1,4 +1,4 @@
-mask-eq = 1
+mask-eq = 0
 mask-operator = mask-eq
 mask-type = bstr
 mask-expression = [ mask-operator, value: mask-type, mask: mask-type]

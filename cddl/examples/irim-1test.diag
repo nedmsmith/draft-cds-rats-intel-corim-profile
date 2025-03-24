@@ -15,8 +15,8 @@
             / mval / 1 : / measurement-values-map / { 
               / tcbdate / -72 : 60031([ 2, 0("2023-02-15T01:00:00Z")]), / *** tagged-exp-tdate-ge *** /
               / isvsvn / -73 : 60010([ / op.ge / 2, 6 ]),
-              / miscselect / -81 : 60040([ / mask-eq / 1, h'00000000', h'FBFFFFFF' ]),
-              / attributes / -82 : 60040([ / mask-eq / 1, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000' ]),
+              / miscselect / -81 : 60040([ / mask-eq / 0, h'00000000', h'FBFFFFFF' ]),
+              / attributes / -82 : 60040([ / mask-eq / 0, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000' ]),
               / mrsigner / -84 : 60020([ / member / 6, 
                 [
                   [ / digest-type / 
