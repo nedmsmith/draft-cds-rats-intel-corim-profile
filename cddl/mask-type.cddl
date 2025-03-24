@@ -2,4 +2,4 @@ mask-eq = 1
 mask-operator = mask-eq
 mask-type = bstr
 mask-expression = [ mask-operator, value: mask-type, mask: mask-type]
-tagged-mask-expression = #6.60010( mask-expression )
+tagged-mask-expression = #6.60040( mask-expression )

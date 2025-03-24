@@ -1,15 +1,15 @@
-tagged-exp-tdate-gt = #6.60010([ 
+tagged-exp-tdate-gt = #6.60031([ 
     gt .within tdate-operator,
     tdate ])
 
-tagged-exp-tdate-ge = #6.60010([ 
+tagged-exp-tdate-ge = #6.60031([ 
     ge .within tdate-operator,
     tdate ])
 
-tagged-exp-tdate-lt = #6.60010([
+tagged-exp-tdate-lt = #6.60031([
     lt .within tdate-operator,
     tdate ])
 
-tagged-exp-tdate-le = #6.60010([
+tagged-exp-tdate-le = #6.60031([
     le .within tdate-operator,
     tdate ])

@@ -1,3 +1,3 @@
 tdate-operator = numeric-operator ; converts tdate to numeric
 tdate-expression = [ tdate-operator, tdate ] ;#6.0(string)
-tagged-tdate-expression = #6.60010( tdate-expression )
+tagged-tdate-expression = #6.60031( tdate-expression )
