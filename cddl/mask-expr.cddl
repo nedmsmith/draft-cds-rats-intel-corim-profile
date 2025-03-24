@@ -1,3 +1,1 @@
-tagged-exp-mask-eq = #6.60040([
-    mask-eq .within mask-operator, 
-    value: mask-type, mask: mask-type ] )
+tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )

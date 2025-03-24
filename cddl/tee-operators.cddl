@@ -1,0 +1,10 @@
+op.eq=0
+op.gt=1
+op.ge=2
+op.lt=3
+op.le=4
+op.mem=6
+op.nmem=7
+op.sub=8
+op.sup=9
+op.dif=10

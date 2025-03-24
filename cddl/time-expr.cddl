@@ -1,15 +1,19 @@
+tagged-exp-time-eq = #6.60030([ 
+    op.eq .within time-operators,
+    time ])
+
 tagged-exp-time-gt = #6.60030([ 
-    gt .within time-operator,
+    op.gt .within time-operators,
     time ])
 
 tagged-exp-time-ge = #6.60030([ 
-    ge .within time-operator,
+    op.ge .within time-operators,
     time ])
 
 tagged-exp-time-lt = #6.60030([
-    lt .within time-operator,
+    op.lt .within time-operators,
     time ])
 
 tagged-exp-time-le = #6.60030([
-    le .within time-operator,
+    op.le .within time-operators,
     time ])

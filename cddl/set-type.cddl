@@ -1,11 +1,12 @@
 member = 6
 not-member = 7
-set-operator = member / not-member
+set-operators /= op.mem 
+set-operators /= op.nmem
 
 set-digest-type /= [ * digest ]
-set-digest-expression = [ set-operator, set-digest-type ]
+set-digest-expression = [ set-operators, set-digest-type ]
 tagged-set-digest-expression = #6.60020( set-digest-expression )
 
 set-tstr-type /= [ * tstr ]
-set-tstr-expression = [ set-operator, set-tstr-type ]
+set-tstr-expression = [ set-operators, set-tstr-type ]
 tagged-set-tstr-expression = #6.60021( set-tstr-expression )
