@@ -927,7 +927,7 @@ Table of Contents
 
    The masked data type definitions are as follows:
 
-   mask-eq = 1
+   mask-eq = 0
    mask-operator = mask-eq
    mask-type = bstr
    mask-expression = [ mask-operator, value: mask-type, mask: mask-type]
@@ -1746,7 +1746,7 @@ Appendix B.  Full Intel Profile CDDL
    tagged-exp-disjoint = #6.60010([
        disjoint .within set-of-set-operator, set-of-set-type ])
 
-   mask-eq = 1
+   mask-eq = 0
    mask-operator = mask-eq
    mask-type = bstr
    mask-expression = [ mask-operator, value: mask-type, mask: mask-type]
