@@ -23,6 +23,7 @@ PROFILE_FRAGS += tee-instance-id-type.cddl
 PROFILE_FRAGS += tee-isvprodid-type.cddl
 PROFILE_FRAGS += tee-miscselect-type.cddl
 PROFILE_FRAGS += tee-model-type.cddl
+PROFILE_FRAGS += tee-operators.cddl
 PROFILE_FRAGS += tee-pceid-type.cddl
 PROFILE_FRAGS += tee-svn-type.cddl
 PROFILE_FRAGS += tee-tcb-comp-svn-type.cddl

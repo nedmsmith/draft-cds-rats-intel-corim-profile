@@ -1,4 +1,6 @@
-tdate-operator = numeric-operator ; converts tdate to numeric
-tdate-type = ~tdate
-tdate-expression = [ tdate-operator, tdate-type ]
-tagged-tdate-expression = #6.60010( tdate-expression )
+tdate-operators /= op.gt 
+tdate-operators /= op.ge
+tdate-operators /= op.lt
+tdate-operators /= op.le
+tdate-expression = [ tdate-operators, tdate ] ;#6.0(string) - tdate converts to numeric
+tagged-tdate-expression = #6.60031( tdate-expression )

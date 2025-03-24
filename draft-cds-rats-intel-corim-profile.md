@@ -126,6 +126,9 @@ informative:
     date: August 2023
     target: https://download.01.org/intel-sgx/latest/dcap-latest/linux/docs/Intel_SGX_ECDSA_QuoteLibReference_DCAP_API.pdf
 
+entity:
+  SELF: "RFCthis"
+
 --- abstract
 
 This document is a profile of various IETF and TCG standards that support remote attestation.
@@ -349,11 +352,11 @@ Expression records are CBOR tagged to indicate the following CBOR is to be evalu
 Expression statements found in Reference Values informs the Verifier that Evidence is needed to complete
 the expression equation. Appraisal processing MUST evaluate the expression.
 
-This profile anticipates use of the CBOR tag `#6.60010` to identify expression arrays. See {{sec-iana-considerations}}.
+This profile anticipates use of the CBOR tag `#6.600XX` to identify expression arrays. See {{sec-iana-considerations}}.
 
 For example:
 
-* `#6.60010([ operator, operand_2, operand_3, ... ])`.
+* `#6.600XX([ operator, operand_2, operand_3, ... ])`.
 
 ### Expression Operators {#sec-expression-operators}
 
@@ -1038,13 +1041,24 @@ The security of this profile depends on the security considerations of the vario
 
 # IANA Considerations {#sec-iana-considerations}
 
+IANA is requested to allocate the following tags in the CBOR Tags registry {{!IANA.cbor-tags}}, preferably with the CBOR tag value requested.
 
+|     Tag | Data Item           | Semantics                                                     | Reference |
+|     --- | ---------           | ---------                                                     | --------- |
+|   60010 | `tag`               | Numeric Expressions, see {{sec-numeric-expressions}}          | {{&SELF}} |
+|   60020 | `tag`               | Set digest Expressions, see  {{sec-set-expressions}}          | {{&SELF}} |
+|   60021 | `tag`               | Set tstr Expressions, see  {{sec-set-expressions}}            | {{&SELF}} |
+|   60030 | `tag`               | Time Expressions,  see {{sec-time-expressions}}               | {{&SELF}} |
+|   60031 | `tag`               | Date Expressions, see {{sec-time-expressions}}                | {{&SELF}} |
+|   60040 | `tag`               | Mask Expressions, see {{sec-mask-expression}}                 | {{&SELF}} |
+
+{: #tbl-iana-intel-profile-reg-items title="Intel Profile Tag Registration Code Points"}
 
 --- back
 
 # Acknowledgments
 
-The authors wish to thank Shanwei Cen, Piotr Zmijewski, Francisco J. Chinchilla, Yogesh Despande and Dionna Amalie Glaze for their valuable contributions.
+The authors wish to thank Shanwei Cen, Piotr Zmijewski, Francisco J. Chinchilla and Dionna Amalie Glaze for their valuable contributions.
 
 # Full Intel Profile CDDL
 

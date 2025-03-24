@@ -1,11 +1,11 @@
-tagged-exp-digest-member = #6.60010([
-    member .within set-operator, set-digest-type ])
+tagged-exp-digest-member = #6.60020([
+    op.mem .within set-operators, set-digest-type ])
     
-tagged-exp-digest-not-member = #6.60010([
-    not-member .within set-operator, set-digest-type ])
+tagged-exp-digest-not-member = #6.60020([
+    op.nmem .within set-operators, set-digest-type ])
 
-tagged-exp-tstr-member = #6.60010([
-    member .within set-operator, set-tstr-type ])
+tagged-exp-tstr-member = #6.60021([
+    op.mem .within set-operators, set-tstr-type ])
     
-tagged-exp-tstr-not-member = #6.60010([
-    not-member .within set-operator, set-tstr-type ])
+tagged-exp-tstr-not-member = #6.60021([
+    op.nmem .within set-operators, set-tstr-type ])
