@@ -3,3 +3,10 @@ $$measurement-values-map-extension //= (
 )
 $tee-epoch-type /= $epoch-timestamp-type
 $tee-epoch-type /= tagged-exp-epoch-gt
+$tee-epoch-type /= tagged-exp-epoch-ge
+$tee-epoch-type /= tagged-exp-epoch-lt
+$tee-epoch-type /= tagged-exp-epoch-le
+$tee-epoch-type /= tagged-exp-epoch-id-gt
+$tee-epoch-type /= tagged-exp-epoch-id-ge
+$tee-epoch-type /= tagged-exp-epoch-id-lt
+$tee-epoch-type /= tagged-exp-epoch-id-le

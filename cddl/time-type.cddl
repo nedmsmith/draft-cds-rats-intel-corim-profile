@@ -1,3 +1,4 @@
 time-operator = numeric-operator
-time-expression = [ time-operator, time ] ;#6.1(number)
+time-type = ~time ;#6.1(integer or float)
+time-expression = [ time-operator, time-type ] 
 tagged-time-expression = #6.60010( time-expression )

@@ -14,7 +14,7 @@
         [
           / measurement-map / {
             / mval / 1 : {
-              / tcbdate / -72 : 0("2023-02-15T00:00:00Z")
+              / tcbdate / -72 : "2023-02-15T00:00:00Z"
             }
           },
           {
@@ -33,7 +33,13 @@
         [
           / measurement-map / {
             / mval / 1 : {
-              / tcbdate / -72 : 60010([ 2, 0("2023-02-15T01:00:00Z")]) / *** tagged-exp-tdate-ge *** /
+              / tcbdate / -72 : 60010([ 2, "2023-02-15T01:00:00Z" ]) / *** tagged-exp-tdate-ge *** /
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : "test1",
+            / mval / 1 : {
+              / tcbdate / -72 : 60010([ 2, 3600, 0("2025-02-15T01:00:00Z") ]) / *** tagged-exp-epoch-id-ge *** /
             }
           }
         ]
@@ -50,18 +56,9 @@
             / mval / 1 : {
               / tcbdate / -72 : 60010([ 2, 3600]) / *** tagged-exp-epoch-ge *** /
             }
-          }
-        ]
-      ],
-      [
-        / environment-map / {
-          / class / 0 : {
-            / class-id / 0 :
-              / tagged-uuid-type / 37(h'e5c51cb6a7fe11ed89f400155d09de33')
-          }
-        },
-        [
+          },
           / measurement-map / {
+            / mkey / 0 : "test1",
             / mval / 1 : {
               / tcbdate / -72 : 60010([ 2, -3600]) / *** tagged-exp-epoch-ge *** /
             }
