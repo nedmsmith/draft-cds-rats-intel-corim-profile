@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-23T01:38:23.354863+00:00",
+  "timestamp": "2025-03-25T01:26:41.333606+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -125,6 +125,22 @@
           "updatedAt": "2024-11-13T22:17:29Z"
         }
       ]
+    },
+    {
+      "number": 44,
+      "id": "I_kwDOJvkHy86vcMjW",
+      "title": "Fix broken Expression CDDL",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/44",
+      "state": "CLOSED",
+      "author": "yogeshbdeshpande",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The Reference Values CDDL as it stands today is broken.\n\n\nThe primary reason been, for all expressions Intel Profile use Code Point #6.60010\n\nAnd then the Operator has ambiguous ranges, meaning: \n \nBUG 1:\n \nnumeric-operator = gt / ge / lt / le with gt = 1\n \nAND AT THE SAME TIME\n \nmask-expression = [ mask-operator, \uf0e8 With mask-eq = 1\n",
+      "createdAt": "2025-03-24T14:12:53Z",
+      "updatedAt": "2025-03-24T22:40:53Z",
+      "closedAt": "2025-03-24T22:40:53Z",
+      "comments": []
     }
   ],
   "pulls": [
@@ -2012,6 +2028,106 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 43,
+      "id": "PR_kwDOJvkHy86P4EqP",
+      "title": "Resolve overlapping code points for Expressions",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/43",
+      "state": "MERGED",
+      "author": "yogeshbdeshpande",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "yogeshbdeshpande"
+      ],
+      "labels": [],
+      "body": "Fixes #44 ",
+      "createdAt": "2025-03-24T13:58:41Z",
+      "updatedAt": "2025-03-24T22:40:57Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "0a19943b5b8ee6e870ea07b2c737056c7696c74f",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "express-tag-additions",
+      "headRefOid": "1c181fd15abc7e06ff331bb97d832b0cba06ed76",
+      "closedAt": "2025-03-24T22:40:52Z",
+      "mergedAt": "2025-03-24T22:40:52Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "37bd3293f3555c42585525f2568ab347ca0bd9f8"
+      },
+      "comments": [
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "Fixed examples.",
+          "createdAt": "2025-03-24T16:53:09Z",
+          "updatedAt": "2025-03-24T16:53:09Z"
+        },
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@nedmsmith Thank you for enhancing the Examples!",
+          "createdAt": "2025-03-24T16:57:21Z",
+          "updatedAt": "2025-03-24T16:57:21Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86hl8lt",
+          "commit": {
+            "abbreviatedOid": "fad62bb"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-24T16:53:29Z",
+          "updatedAt": "2025-03-24T16:53:29Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86hoSHA",
+          "commit": {
+            "abbreviatedOid": "1c181fd"
+          },
+          "author": "pzmijews",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-24T21:12:01Z",
+          "updatedAt": "2025-03-24T21:12:01Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "id": "PR_kwDOJvkHy86P6_DK",
+      "title": "Cleanup tdate time and epoch",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/45",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "typing between tdate-type, time-type and epoch-type is cleaned up to make the separation more well defined.",
+      "createdAt": "2025-03-24T19:09:31Z",
+      "updatedAt": "2025-03-24T22:55:17Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "37bd3293f3555c42585525f2568ab347ca0bd9f8",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "option1",
+      "headRefOid": "a060b09acd89c752f632708c28f1e21dc7f8f115",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
