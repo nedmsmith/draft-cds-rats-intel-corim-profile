@@ -1050,6 +1050,7 @@ IANA is requested to allocate the following tags in the CBOR Tags registry {{!IA
 |   60021 | `tag`               | Set tstr Expressions, see  {{sec-set-expressions}}            | {{&SELF}} |
 |   60030 | `tag`               | Time Expressions,  see {{sec-time-expressions}}               | {{&SELF}} |
 |   60031 | `tag`               | Date Expressions, see {{sec-time-expressions}}                | {{&SELF}} |
+|   60032 | `tag`               | Epoch Expressions, see {{sec-time-expressions}}               | {{&SELF}} |
 |   60040 | `tag`               | Mask Expressions, see {{sec-mask-expression}}                 | {{&SELF}} |
 
 {: #tbl-iana-intel-profile-reg-items title="Intel Profile Tag Registration Code Points"}

@@ -35,12 +35,6 @@
             / mval / 1 : {
               / tcbdate / -72 : 60031([ 2, "2023-02-15T01:00:00Z" ]) / *** tagged-exp-tdate-ge *** /
             }
-          },
-          / measurement-map / {
-            / mkey / 0 : "test1",
-            / mval / 1 : {
-              / tcbdate / -72 : 60031([ 2, 3600, 0("2025-02-15T01:00:00Z") ]) / *** tagged-exp-epoch-id-ge *** /
-            }
           }
         ]
       ],
@@ -54,13 +48,13 @@
         [
           / measurement-map / {
             / mval / 1 : {
-              / tcbdate / -72 : 60010([ 2, 3600]) / *** tagged-exp-epoch-ge *** /
+              / tcbdate / -90 : 60032([ 2, 3600]) / *** tagged-exp-epoch-ge *** /
             }
           },
           / measurement-map / {
             / mkey / 0 : "test1",
             / mval / 1 : {
-              / tcbdate / -72 : 60010([ 2, -3600]) / *** tagged-exp-epoch-ge *** /
+              / tcbdate / -90 : 60032([ 2, -3600]) / *** tagged-exp-epoch-ge *** /
             }
           }
         ]

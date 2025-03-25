@@ -1,19 +1,19 @@
 tagged-exp-time-eq = #6.60030([ 
     op.eq .within time-operators,
-    time ])
+    time-type ])
 
 tagged-exp-time-gt = #6.60030([ 
     op.gt .within time-operators,
-    time ])
+    time-type ])
 
 tagged-exp-time-ge = #6.60030([ 
     op.ge .within time-operators,
-    time ])
+    time-type ])
 
 tagged-exp-time-lt = #6.60030([
     op.lt .within time-operators,
-    time ])
+    time-type ])
 
 tagged-exp-time-le = #6.60030([
     op.le .within time-operators,
-    time ])
+    time-type ])
