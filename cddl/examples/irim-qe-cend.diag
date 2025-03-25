@@ -73,7 +73,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2023-02-15T00:00:00Z"),
+                  / tcbdate / -72 : "2023-02-15T00:00:00Z",
                   / tcbstatus / -88 : [ "UpToDate" ],
                   / tcb-eval-num / -86 : 15
                 }
@@ -99,7 +99,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2021-11-10T00:00:00Z"),
+                  / tcbdate / -72 : "2021-11-10T00:00:00Z",
                   / tcbstatus / -88 : [ "OutOfDate" ]
                 }
               }
@@ -116,7 +116,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2020-11-11T00:00:00Z"),
+                  / tcbdate / -72 : "2020-11-11T00:00:00Z",
                   / tcbstatus / -88 : [ "OutOfDate" ]
                 }
               }
@@ -133,7 +133,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2019-11-13T00:00:00Z"),
+                  / tcbdate / -72 : "2019-11-13T00:00:00Z",
                   / tcbstatus / -88 : [ "OutOfDate" ]
                 }
               }
@@ -150,7 +150,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2019-05-15T00:00:00Z"),
+                  / tcbdate / -72 : "2019-05-15T00:00:00Z",
                   / tcbstatus / -88 : [ "OutOfDate" ]
                 }
               }
@@ -167,7 +167,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2018-08-15T00:00:00Z"),
+                  / tcbdate / -72 : "2018-08-15T00:00:00Z",
                   / tcbstatus / -88 : [ "OutOfDate" ]
                 }
               }

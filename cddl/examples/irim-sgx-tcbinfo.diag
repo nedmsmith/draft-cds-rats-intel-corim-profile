@@ -85,7 +85,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2022-11-09T00:00:00Z"),
+                  / tcbdate / -72 : "2022-11-09T00:00:00Z",
                   / tcbstatus / -88 : [ "UpToDate" ],
                   / tcb-eval-num / -86 : 5
                 }
@@ -120,7 +120,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2020-03-22T00:00:00Z"),
+                  / tcbdate / -72 : "2020-03-22T00:00:00Z",
                   / tcbstatus / -88 : [ "OutOfDate" ],
                   / tcb-eval-num / -86 : 5
                 }
@@ -155,7 +155,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2019-01-01T00:00:00Z"),
+                  / tcbdate / -72 : "2019-01-01T00:00:00Z",
                   / tcbstatus / -88 : [ "OutOfDate", "ConfigurationNeeded" ],
                   / advisory-ids / -89 : [ "INTEL-SA-00079" ],
                   / tcb-eval-num / -86 : 5
@@ -191,7 +191,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2018-01-01T00:00:00Z"),
+                  / tcbdate / -72 : "2018-01-01T00:00:00Z",
                   / tcbstatus / -88 : [ "OutOfDate", "ConfigurationNeeded" ],
                   / advisory-ids / -89 : [ "INTEL-SA-00078", "INTEL-SA-00077" ],
                   / tcb-eval-num / -86 : 5

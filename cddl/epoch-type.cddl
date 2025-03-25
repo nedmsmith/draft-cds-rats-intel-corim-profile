@@ -3,12 +3,14 @@ epoch-operators /= op.gt
 epoch-operators /= op.ge
 epoch-operators /= op.lt
 epoch-operators /= op.le
-epoch-seconds-type = int
+epoch-seconds-type = ~time
+$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+$tagged-epoch-id /= time ; int or float
+$epoch-timestamp-type /= ~tdate
+$epoch-timestamp-type /= ~time
 epoch-expression = [ 
     epoch-operators,
     grace-period: epoch-seconds-type,
-    ? $tagged-epoch-id
+    ? epoch-id: $tagged-epoch-id
 ]
-tagged-epoch-expression = #6.60010( epoch-expression )
-$tagged-epoch-id /= tdate
-$epoch-timestamp-type /= $tagged-epoch-id
+tagged-epoch-expression = #6.60032( epoch-expression )

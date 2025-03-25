@@ -14,10 +14,34 @@
         },
         [
           / measurement-map / {
+            / mkey / 0 : "test1", / *** epoch as ~tdate timestamp *** /
+            / mval / 1 : { -90 : "2023-06-09T00:00:00Z" } 
+          },
+          / measurement-map / {
+            / mkey / 0 : "test2", / *** epoch as ~time timestamp *** /
+            / mval / 1 : { -90 : 1742590255 } 
+          },
+          / measurement-map / { / *** tagged-epoch-ge *** /
             / mval / 1 : {
-              / epoch / -90 : 60010(
-                [ / gt / 1, / grace period seconds / 120 ]
-              )
+              / epoch / -90 : 60032([ / ge / 2, / grace sec / 120 ])
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : "test1", / *** tagged-epoch-gt *** /
+            / mval / 1 : {
+              / epoch / -90 : 60032([ / gt / 1, / grace sec / -120 ])
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : "test2", / *** tagged-epoch-id-lt *** /
+            / mval / 1 : {
+              / epoch / -90 : 60032([ / lt / 3, / grace sec / 3600, / epoch id/ 1(1742596974) ])
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : "test3", / *** tagged-epoch-id-le *** /
+            / mval / 1 : {
+              / epoch / -90 : 60032([ / le / 4, / grace sec / -3600, / epoch id / 0("2023-06-09T00:00:00Z") ])
             }
           }
         ]

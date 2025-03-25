@@ -1,15 +1,15 @@
 tagged-exp-tdate-gt = #6.60031([ 
     op.gt .within tdate-operators,
-    tdate ])
+    tdate-type ])
 
 tagged-exp-tdate-ge = #6.60031([ 
     op.ge .within tdate-operators,
-    tdate ])
+    tdate-type ])
 
 tagged-exp-tdate-lt = #6.60031([
     op.lt .within tdate-operators,
-    tdate ])
+    tdate-type ])
 
 tagged-exp-tdate-le = #6.60031([
     op.le .within tdate-operators,
-    tdate ])
+    tdate-type ])

@@ -1,6 +1,7 @@
 $$measurement-values-map-extension //= (
   &(tee.tcbdate: -72) => $tee-date-type
 )
-$tee-date-type /= tdate
+$tee-date-type /= tdate-type
 $tee-date-type /= tagged-exp-tdate-ge
-$tee-date-type /= tagged-exp-epoch-ge
+;$tee-date-type /= tagged-exp-epoch-ge
+;$tee-date-type /= tagged-exp-epoch-id-ge

@@ -68,7 +68,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2021-06-09T00:00:00Z"),
+                  / tcbdate / -72 : "2021-06-09T00:00:00Z",
                   / tcbstatus / -88 : [ "UpToDate" ],
                   / tcb-eval-num / -86 : 11
                 }
@@ -103,7 +103,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2020-11-11T00:00:00Z"),
+                  / tcbdate / -72 : "2020-11-11T00:00:00Z",
                   / tcbstatus / -88 : [ "OutOfDate" ],
                   / tcb-eval-num / -86 : 11
                 }
@@ -138,7 +138,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2021-06-09T00:00:00Z"),
+                  / tcbdate / -72 : "2021-06-09T00:00:00Z",
                   / tcbstatus / -88 : [ "ConfigurationNeeded" ],
                   / tcb-eval-num / -86 : 11
                 }
@@ -173,7 +173,7 @@
             [ / addition /
               / measurement-map / {
                 / measurement-values-map / 1 : {
-                  / tcbdate / -72 : 0("2020-11-11T00:00:00Z"),
+                  / tcbdate / -72 : "2020-11-11T00:00:00Z",
                   / tcbstatus / -88 : [ "OutOfDate", "ConfigurationNeeded" ],
                   / tcb-eval-num / -86 : 11
                 }

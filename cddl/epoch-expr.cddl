@@ -1,15 +1,35 @@
-tagged-exp-epoch-gt = #6.60010([
+tagged-exp-epoch-gt = #6.60032([
     op.gt .within epoch-operators
     grace-period: epoch-seconds-type ])
 
-tagged-exp-epoch-ge = #6.60010([
+tagged-exp-epoch-ge = #6.60032([
     op.ge .within epoch-operators
     grace-period: epoch-seconds-type ])
 
-tagged-exp-epoch-lt = #6.60010([
+tagged-exp-epoch-lt = #6.60032([
     op.lt .within epoch-operators
     grace-period: epoch-seconds-type ])
 
-tagged-exp-epoch-le = #6.60010([
+tagged-exp-epoch-le = #6.60032([
     op.le .within epoch-operators
     grace-period: epoch-seconds-type ])
+
+tagged-exp-epoch-id-gt = #6.60032([
+    op.gt .within epoch-operators
+    grace-period: epoch-seconds-type,
+    epoch-id: $tagged-epoch-id ])
+
+tagged-exp-epoch-id-ge = #6.60032([
+    op.ge .within epoch-operators
+    grace-period: epoch-seconds-type,
+    epoch-id: $tagged-epoch-id ])
+
+tagged-exp-epoch-id-lt = #6.60032([
+    op.lt .within epoch-operators
+    grace-period: epoch-seconds-type,
+    epoch-id: $tagged-epoch-id ])
+
+tagged-exp-epoch-id-le = #6.60032([
+    op.le .within epoch-operators
+    grace-period: epoch-seconds-type,
+    epoch-id: $tagged-epoch-id ])

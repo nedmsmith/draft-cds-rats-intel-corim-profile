@@ -12,13 +12,15 @@
         },
         [
           / measurement-map / {
-            / mval / 1 : {
-              / epoch / -90 : 0("2023-06-09T00:00:00Z")
-            }
+            / mval / 1 : { -90 : "2023-06-09T00:00:00Z" } / epoch as ~tdate timestamp /
           },
-          {
-            / mkey / 0 : 90, / epoch /
-            / mval / 1 : { 11 : "2023-06-09T00:00:00Z" }
+          / measurement-map / {
+            / mkey / 0 : 90,
+            / mval / 1 : { 11 : "2023-06-09T00:00:00Z" }  / epoch as ~tdate timestamp /
+          },
+          / measurement-map / {
+            / mkey / 0 : "test1",
+            / mval / 1 : { -90 : 1742590255 } / epoch as ~time timestamp /
           }
         ]
       ]
