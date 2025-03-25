@@ -861,7 +861,7 @@ Table of Contents
    epoch-operators /= op.ge
    epoch-operators /= op.lt
    epoch-operators /= op.le
-   epoch-seconds-type = int
+   epoch-seconds-type = ~time
    $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
    $tagged-epoch-id /= time ; int or float
    $epoch-timestamp-type /= ~tdate
@@ -1892,7 +1892,7 @@ Appendix B.  Full Intel Profile CDDL
    epoch-operators /= op.ge
    epoch-operators /= op.lt
    epoch-operators /= op.le
-   epoch-seconds-type = int
+   epoch-seconds-type = ~time
    $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
    $tagged-epoch-id /= time ; int or float
    $epoch-timestamp-type /= ~tdate
