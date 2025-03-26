@@ -2,6 +2,8 @@ tagged-exp-epoch-gt = #6.60032([
     op.gt .within epoch-operators
     grace-period: epoch-seconds-type ])
 
+tagged-exp-epochm-ge = #6.60032([ op.ge, epoch-marker ])
+
 tagged-exp-epoch-ge = #6.60032([
     op.ge .within epoch-operators
     grace-period: epoch-seconds-type ])
