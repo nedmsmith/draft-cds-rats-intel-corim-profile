@@ -5,13 +5,13 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 26 September 2025                               ARM Corporation
+Expires: 27 September 2025                               ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                           25 March 2025
+                                                           26 March 2025
 
 
                   Intel Profile for Remote Attestation
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 September 2025.
+   This Internet-Draft will expire on 27 September 2025.
 
 Copyright Notice
 
@@ -758,7 +758,8 @@ Table of Contents
    time-operators /= op.ge
    time-operators /= op.lt
    time-operators /= op.le
-   time-expression = [ time-operators, time ] ;#6.1(int or float)
+   time-type = ~time
+   time-expression = [ time-operators, time-type ] ;#6.1(int or float)
    tagged-time-expression = #6.60030( time-expression )
 
    The string date-time data type definitions are as follows:
@@ -1848,7 +1849,8 @@ Appendix B.  Full Intel Profile CDDL
    time-operators /= op.ge
    time-operators /= op.lt
    time-operators /= op.le
-   time-expression = [ time-operators, time ] ;#6.1(int or float)
+   time-type = ~time
+   time-expression = [ time-operators, time-type ] ;#6.1(int or float)
    tagged-time-expression = #6.60030( time-expression )
 
    tagged-exp-epoch-gt = #6.60032([
