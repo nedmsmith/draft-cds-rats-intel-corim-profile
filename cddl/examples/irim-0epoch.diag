@@ -28,6 +28,16 @@
             / mval / 1 : {
               / epoch / -90 : 60032([ 2, [ 26991([ 1(1742590255), 3600]), {1: h'0000'} ] ]) 
             }
+          },
+          / measurement-map / {
+            / mkey / 0 : "test4",
+            / mval / 1 : {
+              / epoch / -90 : [ 26991([ 1(1742590255), 3600]) ] / *** epoch-marker.grace-time *** /
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : "test5",
+            / mval / 1 : { -90 : [ 1(1742590255) ] } / *** epoch-marker.time *** /
           }
         ]
       ]
