@@ -1141,8 +1141,8 @@ Table of Contents
    $$measurement-values-map-extension //= (
      &(tee.tcbdate: -72) => $tee-date-type
    )
-   $tee-date-type /= tdate-type
-   $tee-date-type /= tagged-exp-tdate-ge
+   $tee-date-type /= $epoch-timestamp-type
+   $tee-date-type /= epoch-marker
 
    tdate strings must be converted to numeric time before the tdate-
    operator, which is a numeric operator, can be applied.
@@ -1932,8 +1932,8 @@ Appendix B.  Full Intel Profile CDDL
    $$measurement-values-map-extension //= (
      &(tee.tcbdate: -72) => $tee-date-type
    )
-   $tee-date-type /= tdate-type
-   $tee-date-type /= tagged-exp-tdate-ge
+   $tee-date-type /= $epoch-timestamp-type
+   $tee-date-type /= epoch-marker
 
    $$measurement-values-map-extension //= (
      &(tee.mrtee: -83) => $tee-digest-type

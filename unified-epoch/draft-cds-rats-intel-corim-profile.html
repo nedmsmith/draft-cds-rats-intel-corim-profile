@@ -2332,8 +2332,8 @@ When used for a Reference Value, either a <code>tagged-tdate-expression</code> o
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbdate: -72) =&gt; $tee-date-type
 )
-$tee-date-type /= tdate-type
-$tee-date-type /= tagged-exp-tdate-ge
+$tee-date-type /= $epoch-timestamp-type
+$tee-date-type /= epoch-marker
 </pre><a href="#section-8.2.4-3" class="pilcrow">¶</a>
 </div>
 <p id="section-8.2.4-4"><code>tdate</code> strings must be converted to numeric <code>time</code> before the <code>tdate-operator</code>, which is a numeric operator, can be applied.<a href="#section-8.2.4-4" class="pilcrow">¶</a></p>
@@ -3139,8 +3139,8 @@ $tee-cryptokey-type /= $crypto-key-type-choice
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbdate: -72) =&gt; $tee-date-type
 )
-$tee-date-type /= tdate-type
-$tee-date-type /= tagged-exp-tdate-ge
+$tee-date-type /= $epoch-timestamp-type
+$tee-date-type /= epoch-marker
 
 $$measurement-values-map-extension //= (
   &amp;(tee.mrtee: -83) =&gt; $tee-digest-type
