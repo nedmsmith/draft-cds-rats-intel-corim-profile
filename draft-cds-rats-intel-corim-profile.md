@@ -576,13 +576,13 @@ Example:
 The numeric date-time expression definitions are as follows:
 
 ~~~ cddl
-{::include cddl/time-expr.cddl}
+{::include cddl/epoch-type.cddl}
 ~~~
 
 The string date-time expression definitions are as follows:
 
 ~~~ cddl
-{::include cddl/tdate-expr.cddl}
+{::include cddl/epoch-type.cddl}
 ~~~
 
 #### Epoch Expressions {#sec-epoch-expressions}
@@ -612,7 +612,7 @@ the value `#6.60010`.
 The epoch expression definitions are as follows:
 
 ~~~ cddl
-{::include cddl/epoch-expr.cddl}
+{::include cddl/epoch-type.cddl}
 ~~~
 
 A variety of epoch expressions can be defined that convenently constrain epoch definition.
