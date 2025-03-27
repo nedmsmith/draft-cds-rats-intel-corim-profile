@@ -2065,45 +2065,85 @@ The Reference Value expression contains a time comparison operator and <em>opera
 <p id="section-8.1.4.1-16">The numeric date-time expression definitions are as follows:<a href="#section-8.1.4.1-16" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.1.4.1-17">
 <pre>
-tagged-exp-time-eq = #6.60030([
-    op.eq .within time-operators,
-    time-type ])
+epoch-seconds-type = int
+$epoch-timestamp-type /= ~tdate
+$epoch-timestamp-type /= ~time
 
-tagged-exp-time-gt = #6.60030([
-    op.gt .within time-operators,
-    time-type ])
+$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+$tagged-epoch-id /= time ; int or float
+$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+$tagged-epoch-id /= #6.26991( epoch-grace-time)
 
-tagged-exp-time-ge = #6.60030([
-    op.ge .within time-operators,
-    time-type ])
+epoch-grace-tdate = [
+    epoch: tdate
+    grace-period: epoch-seconds-type
+]
 
-tagged-exp-time-lt = #6.60030([
-    op.lt .within time-operators,
-    time-type ])
+epoch-grace-time = [
+    epoch: time
+    grace-period: epoch-seconds-type
+]
 
-tagged-exp-time-le = #6.60030([
-    op.le .within time-operators,
-    time-type ])
+;
+; draft-ietf-rats-epoch-markers
+;
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
+
+; veracity of the bell
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
+
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
 </pre><a href="#section-8.1.4.1-17" class="pilcrow">¶</a>
 </div>
 <p id="section-8.1.4.1-18">The string date-time expression definitions are as follows:<a href="#section-8.1.4.1-18" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.1.4.1-19">
 <pre>
-tagged-exp-tdate-gt = #6.60031([
-    op.gt .within tdate-operators,
-    tdate-type ])
+epoch-seconds-type = int
+$epoch-timestamp-type /= ~tdate
+$epoch-timestamp-type /= ~time
 
-tagged-exp-tdate-ge = #6.60031([
-    op.ge .within tdate-operators,
-    tdate-type ])
+$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+$tagged-epoch-id /= time ; int or float
+$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+$tagged-epoch-id /= #6.26991( epoch-grace-time)
 
-tagged-exp-tdate-lt = #6.60031([
-    op.lt .within tdate-operators,
-    tdate-type ])
+epoch-grace-tdate = [
+    epoch: tdate
+    grace-period: epoch-seconds-type
+]
 
-tagged-exp-tdate-le = #6.60031([
-    op.le .within tdate-operators,
-    tdate-type ])
+epoch-grace-time = [
+    epoch: time
+    grace-period: epoch-seconds-type
+]
+
+;
+; draft-ietf-rats-epoch-markers
+;
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
+
+; veracity of the bell
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
+
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
 </pre><a href="#section-8.1.4.1-19" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2169,43 +2209,43 @@ the value <code>#6.60010</code>.<a href="#section-8.1.4.2-7" class="pilcrow">¶<
 <p id="section-8.1.4.2-8">The epoch expression definitions are as follows:<a href="#section-8.1.4.2-8" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.1.4.2-9">
 <pre>
-tagged-exp-epoch-gt = #6.60032([
-    op.gt .within epoch-operators
-    grace-period: epoch-seconds-type ])
+epoch-seconds-type = int
+$epoch-timestamp-type /= ~tdate
+$epoch-timestamp-type /= ~time
 
-tagged-exp-epochm-ge = #6.60032([ op.ge, epoch-marker ])
+$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+$tagged-epoch-id /= time ; int or float
+$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+$tagged-epoch-id /= #6.26991( epoch-grace-time)
 
-tagged-exp-epoch-ge = #6.60032([
-    op.ge .within epoch-operators
-    grace-period: epoch-seconds-type ])
+epoch-grace-tdate = [
+    epoch: tdate
+    grace-period: epoch-seconds-type
+]
 
-tagged-exp-epoch-lt = #6.60032([
-    op.lt .within epoch-operators
-    grace-period: epoch-seconds-type ])
+epoch-grace-time = [
+    epoch: time
+    grace-period: epoch-seconds-type
+]
 
-tagged-exp-epoch-le = #6.60032([
-    op.le .within epoch-operators
-    grace-period: epoch-seconds-type ])
+;
+; draft-ietf-rats-epoch-markers
+;
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
 
-tagged-exp-epoch-id-gt = #6.60032([
-    op.gt .within epoch-operators
-    grace-period: epoch-seconds-type,
-    epoch-id: $tagged-epoch-id ])
+; veracity of the bell
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
 
-tagged-exp-epoch-id-ge = #6.60032([
-    op.ge .within epoch-operators
-    grace-period: epoch-seconds-type,
-    epoch-id: $tagged-epoch-id ])
-
-tagged-exp-epoch-id-lt = #6.60032([
-    op.lt .within epoch-operators
-    grace-period: epoch-seconds-type,
-    epoch-id: $tagged-epoch-id ])
-
-tagged-exp-epoch-id-le = #6.60032([
-    op.le .within epoch-operators
-    grace-period: epoch-seconds-type,
-    epoch-id: $tagged-epoch-id ])
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
 </pre><a href="#section-8.1.4.2-9" class="pilcrow">¶</a>
 </div>
 <p id="section-8.1.4.2-10">A variety of epoch expressions can be defined that convenently constrain epoch definition.
@@ -3080,30 +3120,6 @@ mask-expression = [ mask-operators, value: mask-type, mask: mask-type]
 tagged-mask-expression = #6.60040( mask-expression )
 
 tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
-
-tagged-exp-tdate-gt = #6.60031([
-    op.gt .within tdate-operators,
-    tdate-type ])
-
-tagged-exp-tdate-ge = #6.60031([
-    op.ge .within tdate-operators,
-    tdate-type ])
-
-tagged-exp-tdate-lt = #6.60031([
-    op.lt .within tdate-operators,
-    tdate-type ])
-
-tagged-exp-tdate-le = #6.60031([
-    op.le .within tdate-operators,
-    tdate-type ])
-
-tdate-operators /= op.gt
-tdate-operators /= op.ge
-tdate-operators /= op.lt
-tdate-operators /= op.le
-tdate-type = ~tdate
-tdate-expression = [ tdate-operators, tdate-type ] ;#6.0(string) - tdate converts to numeric
-tagged-tdate-expression = #6.60031( tdate-expression )
 
 epoch-seconds-type = int
 $epoch-timestamp-type /= ~tdate
