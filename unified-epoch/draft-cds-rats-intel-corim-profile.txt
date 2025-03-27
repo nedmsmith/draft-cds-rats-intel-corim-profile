@@ -1213,17 +1213,8 @@ Table of Contents
      &(tee.tcbdate-epoch: -90) => $tee-epoch-type
    )
 
-   $tee-epoch-type /= $epoch-timestamp-type ; evidence form
-   $tee-epoch-type /= epoch-marker ; evidence and reference form
-   $tee-epoch-type /= tagged-exp-epochm-ge ; to be removed
-   $tee-epoch-type /= tagged-exp-epoch-gt ; to be removed
-   $tee-epoch-type /= tagged-exp-epoch-ge ; to be removed
-   ;$tee-epoch-type /= tagged-exp-epoch-lt
-   ;$tee-epoch-type /= tagged-exp-epoch-le
-   ;$tee-epoch-type /= tagged-exp-epoch-id-gt
-   ;$tee-epoch-type /= tagged-exp-epoch-id-ge
-   $tee-epoch-type /= tagged-exp-epoch-id-lt ; to be removed
-   $tee-epoch-type /= tagged-exp-epoch-id-le ; to be removed
+   $tee-epoch-type /= $epoch-timestamp-type
+   $tee-epoch-type /= epoch-marker
 
    Alternatively, for Evidence, the TEE epoch timestamp may be encoded
    using mkey where mkey contains the non-negative tee.epoch and
@@ -1951,13 +1942,8 @@ Appendix B.  Full Intel Profile CDDL
      &(tee.tcbdate-epoch: -90) => $tee-epoch-type
    )
 
-   $tee-epoch-type /= $epoch-timestamp-type ; evidence form
-   $tee-epoch-type /= epoch-marker ; evidence and reference form
-   $tee-epoch-type /= tagged-exp-epochm-ge ; to be removed
-   $tee-epoch-type /= tagged-exp-epoch-gt ; to be removed
-   $tee-epoch-type /= tagged-exp-epoch-ge ; to be removed
-   $tee-epoch-type /= tagged-exp-epoch-id-lt ; to be removed
-   $tee-epoch-type /= tagged-exp-epoch-id-le ; to be removed
+   $tee-epoch-type /= $epoch-timestamp-type
+   $tee-epoch-type /= epoch-marker
 
    $$measurement-values-map-extension //= (
      &(tee.instance-id: -77) => $tee-instance-id-type

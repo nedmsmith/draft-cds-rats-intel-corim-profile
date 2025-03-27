@@ -2398,17 +2398,8 @@ $$measurement-values-map-extension //= (
   &amp;(tee.tcbdate-epoch: -90) =&gt; $tee-epoch-type
 )
 
-$tee-epoch-type /= $epoch-timestamp-type ; evidence form
-$tee-epoch-type /= epoch-marker ; evidence and reference form
-$tee-epoch-type /= tagged-exp-epochm-ge ; to be removed
-$tee-epoch-type /= tagged-exp-epoch-gt ; to be removed
-$tee-epoch-type /= tagged-exp-epoch-ge ; to be removed
-;$tee-epoch-type /= tagged-exp-epoch-lt
-;$tee-epoch-type /= tagged-exp-epoch-le
-;$tee-epoch-type /= tagged-exp-epoch-id-gt
-;$tee-epoch-type /= tagged-exp-epoch-id-ge
-$tee-epoch-type /= tagged-exp-epoch-id-lt ; to be removed
-$tee-epoch-type /= tagged-exp-epoch-id-le ; to be removed
+$tee-epoch-type /= $epoch-timestamp-type
+$tee-epoch-type /= epoch-marker
 </pre><a href="#section-8.2.6-5" class="pilcrow">¶</a>
 </div>
 <p id="section-8.2.6-6">Alternatively, for Evidence, the TEE epoch timestamp may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.epoch</code> and <code>mval</code>.<code>name</code> contains the string representation <code>$tagged-epoch-id</code> without the CBOR tag (i.e., ~tdate).<a href="#section-8.2.6-6" class="pilcrow">¶</a></p>
@@ -3158,13 +3149,8 @@ $$measurement-values-map-extension //= (
   &amp;(tee.tcbdate-epoch: -90) =&gt; $tee-epoch-type
 )
 
-$tee-epoch-type /= $epoch-timestamp-type ; evidence form
-$tee-epoch-type /= epoch-marker ; evidence and reference form
-$tee-epoch-type /= tagged-exp-epochm-ge ; to be removed
-$tee-epoch-type /= tagged-exp-epoch-gt ; to be removed
-$tee-epoch-type /= tagged-exp-epoch-ge ; to be removed
-$tee-epoch-type /= tagged-exp-epoch-id-lt ; to be removed
-$tee-epoch-type /= tagged-exp-epoch-id-le ; to be removed
+$tee-epoch-type /= $epoch-timestamp-type
+$tee-epoch-type /= epoch-marker
 
 $$measurement-values-map-extension //= (
   &amp;(tee.instance-id: -77) =&gt; $tee-instance-id-type
