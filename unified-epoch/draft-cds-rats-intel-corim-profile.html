@@ -2397,20 +2397,20 @@ and a <code>$tagged-epoch-expression</code> when used as a Reference Value.<a hr
 <div class="lang-cddl sourcecode" id="section-8.2.6-5">
 <pre>
 $$measurement-values-map-extension //= (
-  &amp;(tee.epoch: -90) =&gt; $tee-epoch-type
+  &amp;(tee.tcbdate-epoch: -90) =&gt; $tee-epoch-type
 )
 
-$tee-epoch-type /= $epoch-timestamp-type
-$tee-epoch-type /= epoch-marker
-$tee-epoch-type /= tagged-exp-epochm-ge
-$tee-epoch-type /= tagged-exp-epoch-gt
-$tee-epoch-type /= tagged-exp-epoch-ge
+$tee-epoch-type /= $epoch-timestamp-type ; evidence form
+$tee-epoch-type /= epoch-marker ; evidence and reference form
+$tee-epoch-type /= tagged-exp-epochm-ge ; to be removed
+$tee-epoch-type /= tagged-exp-epoch-gt ; to be removed
+$tee-epoch-type /= tagged-exp-epoch-ge ; to be removed
 ;$tee-epoch-type /= tagged-exp-epoch-lt
 ;$tee-epoch-type /= tagged-exp-epoch-le
 ;$tee-epoch-type /= tagged-exp-epoch-id-gt
 ;$tee-epoch-type /= tagged-exp-epoch-id-ge
-$tee-epoch-type /= tagged-exp-epoch-id-lt
-$tee-epoch-type /= tagged-exp-epoch-id-le
+$tee-epoch-type /= tagged-exp-epoch-id-lt ; to be removed
+$tee-epoch-type /= tagged-exp-epoch-id-le ; to be removed
 </pre><a href="#section-8.2.6-5" class="pilcrow">¶</a>
 </div>
 <p id="section-8.2.6-6">Alternatively, for Evidence, the TEE epoch timestamp may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.epoch</code> and <code>mval</code>.<code>name</code> contains the string representation <code>$tagged-epoch-id</code> without the CBOR tag (i.e., ~tdate).<a href="#section-8.2.6-6" class="pilcrow">¶</a></p>
@@ -3224,16 +3224,16 @@ $tee-digest-type /= tagged-exp-digest-member
 $tee-digest-type /= tagged-exp-digest-not-member
 
 $$measurement-values-map-extension //= (
-  &amp;(tee.epoch: -90) =&gt; $tee-epoch-type
+  &amp;(tee.tcbdate-epoch: -90) =&gt; $tee-epoch-type
 )
 
-$tee-epoch-type /= $epoch-timestamp-type
-$tee-epoch-type /= epoch-marker
-$tee-epoch-type /= tagged-exp-epochm-ge
-$tee-epoch-type /= tagged-exp-epoch-gt
-$tee-epoch-type /= tagged-exp-epoch-ge
-$tee-epoch-type /= tagged-exp-epoch-id-lt
-$tee-epoch-type /= tagged-exp-epoch-id-le
+$tee-epoch-type /= $epoch-timestamp-type ; evidence form
+$tee-epoch-type /= epoch-marker ; evidence and reference form
+$tee-epoch-type /= tagged-exp-epochm-ge ; to be removed
+$tee-epoch-type /= tagged-exp-epoch-gt ; to be removed
+$tee-epoch-type /= tagged-exp-epoch-ge ; to be removed
+$tee-epoch-type /= tagged-exp-epoch-id-lt ; to be removed
+$tee-epoch-type /= tagged-exp-epoch-id-le ; to be removed
 
 $$measurement-values-map-extension //= (
   &amp;(tee.instance-id: -77) =&gt; $tee-instance-id-type
