@@ -37,27 +37,6 @@
             }
           }
         ]
-      ],
-      [
-        / environment-map / {
-          / class / 0 : {
-            / class-id / 0 :
-              / tagged-uuid-type / 37(h'e5c51cb6a7fe11ed89f400155d09de32')
-          }
-        },
-        [
-          / measurement-map / {
-            / mval / 1 : {
-              / tcbdate / -90 : 60032([ 2, 3600]) / *** tagged-exp-epoch-ge *** /
-            }
-          },
-          / measurement-map / {
-            / mkey / 0 : "test1",
-            / mval / 1 : {
-              / tcbdate / -90 : 60032([ 2, -3600]) / *** tagged-exp-epoch-ge *** /
-            }
-          }
-        ]
       ]
     ]
   }
