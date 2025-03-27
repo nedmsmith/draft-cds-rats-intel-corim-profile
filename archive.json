@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-25T01:26:41.333606+00:00",
+  "timestamp": "2025-03-27T01:26:00.332399+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -114,7 +114,7 @@
       "labels": [],
       "body": "Given that we've restored multiplicity to measurements, it seems prudent to avoid re-specifying types of measurements for measured fields and instead use mkey numbers to represent the field, no?\r\n\r\nThinking from the perspective of tooling, it would be much simpler to give insights about reference values if folks stick to the standard types, and we can just have a mapping of class-id + mkey => colloquial measured field name, and visualization of particular values would not need any further enlightenment.\r\n\r\nI'm wondering if we can try to avoid new profiles for every kind of attestation technology when they're not expressing fundamentally new concepts. The expression language you have here is something else.\r\n\r\nExample:\r\n\r\n```\r\n$$measurement-values-map-extension //= (\r\n     &(tee.pceid: -80) => $tee-pceid-type\r\n   )\r\n   $tee-pceid-type /= tstr\r\n```\r\ncould be\r\n\r\n> tee.pceid from TDQUOTE is transformed to\r\n```\r\n[/ mkey: / 0: 80, / mval: / 1: {/ name: / 11: tee.pceid}]\r\n```",
       "createdAt": "2024-11-13T19:15:44Z",
-      "updatedAt": "2024-11-13T22:17:29Z",
+      "updatedAt": "2025-03-25T18:18:21Z",
       "closedAt": null,
       "comments": [
         {
@@ -123,6 +123,13 @@
           "body": "Yes, that would be a way to reduce dependence on the mvm extensions, however, that might only work for evidence as reference values (for at least several measurements) uses non-exact match semantics, so we might still need the extension points. There is also the matter of timing profiles with product releases.\r\n\r\nA possible way forward is to work on a second profile that models some alternatives that make better use of base types. ",
           "createdAt": "2024-11-13T22:17:03Z",
           "updatedAt": "2024-11-13T22:17:29Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "OK to close?",
+          "createdAt": "2025-03-25T18:18:19Z",
+          "updatedAt": "2025-03-25T18:18:19Z"
         }
       ]
     },
@@ -141,6 +148,41 @@
       "updatedAt": "2025-03-24T22:40:53Z",
       "closedAt": "2025-03-24T22:40:53Z",
       "comments": []
+    },
+    {
+      "number": 46,
+      "id": "I_kwDOJvkHy86vrh56",
+      "title": "Uniform approach for date time and epoch markers",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/46",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith",
+        "pzmijews",
+        "yogeshbdeshpande"
+      ],
+      "labels": [],
+      "body": "There are primitives for time, date (tdate), and epoch markers that have overlapping semantics. It might make sense to combine them into a more comprehensive approach where a simple timestamp can be considered a simplified epoch marker where secure time / synchronized clocks are assumed (out of scope).\n\nThe epoch markers expression type can treat grace seconds as optional. By populating epoch-id with a timestamp value, the current simple use case for timestamps can be accommodated. \n\nOnly one CBOR expression type 60030 is needed to handle the various forms for expressing epochs. \n\n",
+      "createdAt": "2025-03-25T18:23:16Z",
+      "updatedAt": "2025-03-25T18:37:41Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Makes sense, i think, it will make the whole thing lot less complex (infact very simple)",
+          "createdAt": "2025-03-25T18:26:32Z",
+          "updatedAt": "2025-03-25T18:26:32Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "The general idea is to allow grace period to be optional:\n```\nepoch-expression = [ \n    epoch-operators,\n    grace-period: epoch-seconds-type,\n    ? epoch-id: $tagged-epoch-id\n]\n```\nbecomes:\n```\nepoch-expression = [ \n    epoch-operators,\n    non-empty<{\n        ? grace-period: epoch-seconds-type\n        ? epoch-id: $tagged-epoch-id\n   }>\n]\n```\nIf grace-period is populated but not epoch-id, then current time is the defailt epoch-id.\nIf epoch-id is populated but not grace-period, then the epoch-id is used with a default clock drift to compute roughly equivalent times.\nIf both are specified then the epoch-id can be time or tdate (with CBOR tag) and grace-period is in ~time (seconds + or -).\nIf a more elaborate epoch marker is invented it just needs to be behind a CBOR tag.\n\nIdeally, the draft-ietf-rats-epoch-markers doesn't define cddl too rigidly that this approach is considered compliant.\n",
+          "createdAt": "2025-03-25T18:36:34Z",
+          "updatedAt": "2025-03-25T18:37:40Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -2106,7 +2148,7 @@
       "id": "PR_kwDOJvkHy86P6_DK",
       "title": "Cleanup tdate time and epoch",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/45",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -2115,19 +2157,113 @@
       "labels": [],
       "body": "typing between tdate-type, time-type and epoch-type is cleaned up to make the separation more well defined.",
       "createdAt": "2025-03-24T19:09:31Z",
-      "updatedAt": "2025-03-24T22:55:17Z",
+      "updatedAt": "2025-03-25T21:42:30Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "37bd3293f3555c42585525f2568ab347ca0bd9f8",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "option1",
-      "headRefOid": "a060b09acd89c752f632708c28f1e21dc7f8f115",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "511f118b2c04537098c41bb838c59f5b2b91c5fb",
+      "closedAt": "2025-03-25T21:42:30Z",
+      "mergedAt": "2025-03-25T21:42:30Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "0d142164354d228aec343d6a431e0cd5d6e71235"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86hzbiU",
+          "commit": {
+            "abbreviatedOid": "1fdf5a7"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM!",
+          "createdAt": "2025-03-25T17:32:13Z",
+          "updatedAt": "2025-03-25T17:32:13Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86h0XP-",
+          "commit": {
+            "abbreviatedOid": "8588f47"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-25T18:48:23Z",
+          "updatedAt": "2025-03-25T18:48:23Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "id": "PR_kwDOJvkHy86QHXMV",
+      "title": "Update time-type.cddl",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/47",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "define time-type so it can be used externally",
+      "createdAt": "2025-03-25T21:53:50Z",
+      "updatedAt": "2025-03-26T18:54:26Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "0d142164354d228aec343d6a431e0cd5d6e71235",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "time-type",
+      "headRefOid": "3a32962076b49ccd5fb4058559577d56048c5e86",
+      "closedAt": "2025-03-26T18:54:23Z",
+      "mergedAt": "2025-03-26T18:54:23Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "3161722d5639cd20e93fb137cff57189ec146e6e"
+      },
+      "comments": [
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "One more change that didn't make it into PR #45",
+          "createdAt": "2025-03-25T21:55:02Z",
+          "updatedAt": "2025-03-25T21:55:02Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86iBdxj",
+          "commit": {
+            "abbreviatedOid": "3a32962"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-26T18:39:50Z",
+          "updatedAt": "2025-03-26T18:39:50Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86iBki1",
+          "commit": {
+            "abbreviatedOid": "3a32962"
+          },
+          "author": "jdbeaney",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-26T18:51:12Z",
+          "updatedAt": "2025-03-26T18:51:12Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
