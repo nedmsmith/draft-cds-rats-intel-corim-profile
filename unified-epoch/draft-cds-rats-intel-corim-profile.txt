@@ -857,45 +857,14 @@ Table of Contents
 
    The epoch data type definitions are as follows:
 
-   epoch-operators /= op.eq
-   epoch-operators /= op.gt
-   epoch-operators /= op.ge
-   epoch-operators /= op.lt
-   epoch-operators /= op.le
    epoch-seconds-type = int
    $epoch-timestamp-type /= ~tdate
    $epoch-timestamp-type /= ~time
-   epoch-expression = [
-       epoch-operators
-       epoch-seconds-type
-       ? $tagged-epoch-id
-   ]
-   epoch-expression2 = [ ; replaces epoch-expression when examples are ported
-       epoch-operators
-       epoch-marker
-   ]
-   tagged-epoch-expression = #6.60032( epoch-expression / epoch-expression2)
 
    $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
    $tagged-epoch-id /= time ; int or float
    $tagged-epoch-id /= #6.26990( epoch-grace-tdate)
    $tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-   epoch-marker = [
-       epoch-id: $tagged-epoch-id
-       ? bell-veracity-proof
-   ]
-
-   ; veracity of the bell
-   bell-veracity-proof = non-empty<{
-     ? remote-attestation-evidence ; could be EAT or Concise Evidence
-     ? remote-attestation-result ; hopefully EAT with AR4SI Claims
-     ? scitt-receipt ; SCITT receipt
-   }>
-
-   remote-attestation-evidence = (1: bytes)
-   remote-attestation-result = (2: bytes)
-   scitt-receipt = (3: bytes)
 
    epoch-grace-tdate = [
        epoch: tdate
@@ -905,8 +874,26 @@ Table of Contents
    epoch-grace-time = [
        epoch: time
        grace-period: epoch-seconds-type
-
    ]
+
+   ;
+   ; draft-ietf-rats-epoch-markers
+   ;
+   epoch-marker = [
+       epoch-id: $tagged-epoch-id
+       ? bell-veracity-proof
+   ]
+
+   ; veracity of the bell
+   bell-veracity-proof = non-empty<{
+     ? remote-attestation-evidence
+     ? remote-attestation-result
+     ? scitt-receipt
+   }>
+
+   remote-attestation-evidence = (1: bytes)
+   remote-attestation-result = (2: bytes)
+   scitt-receipt = (3: bytes)
 
    An epoch expression array contains an epoch-operator followed by a
    grace period in seconds that is optionally followed by a $tagged-
@@ -1852,44 +1839,14 @@ Appendix B.  Full Intel Profile CDDL
    tdate-expression = [ tdate-operators, tdate-type ] ;#6.0(string) - tdate converts to numeric
    tagged-tdate-expression = #6.60031( tdate-expression )
 
-   epoch-operators /= op.eq
-   epoch-operators /= op.gt
-   epoch-operators /= op.ge
-   epoch-operators /= op.lt
-   epoch-operators /= op.le
    epoch-seconds-type = int
    $epoch-timestamp-type /= ~tdate
    $epoch-timestamp-type /= ~time
-   epoch-expression = [
-       epoch-operators
-       epoch-seconds-type
-       ? $tagged-epoch-id
-   ]
-   epoch-expression2 = [ ; replaces epoch-expression when examples are ported
-       epoch-operators
-       epoch-marker
-   ]
-   tagged-epoch-expression = #6.60032( epoch-expression / epoch-expression2)
 
    $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
    $tagged-epoch-id /= time ; int or float
    $tagged-epoch-id /= #6.26990( epoch-grace-tdate)
    $tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-   epoch-marker = [
-       epoch-id: $tagged-epoch-id
-       ? bell-veracity-proof
-   ]
-
-   bell-veracity-proof = non-empty<{
-     ? remote-attestation-evidence ; could be EAT or Concise Evidence
-     ? remote-attestation-result ; hopefully EAT with AR4SI Claims
-     ? scitt-receipt ; SCITT receipt
-   }>
-
-   remote-attestation-evidence = (1: bytes)
-   remote-attestation-result = (2: bytes)
-   scitt-receipt = (3: bytes)
 
    epoch-grace-tdate = [
        epoch: tdate
@@ -1899,8 +1856,22 @@ Appendix B.  Full Intel Profile CDDL
    epoch-grace-time = [
        epoch: time
        grace-period: epoch-seconds-type
-
    ]
+
+   epoch-marker = [
+       epoch-id: $tagged-epoch-id
+       ? bell-veracity-proof
+   ]
+
+   bell-veracity-proof = non-empty<{
+     ? remote-attestation-evidence
+     ? remote-attestation-result
+     ? scitt-receipt
+   }>
+
+   remote-attestation-evidence = (1: bytes)
+   remote-attestation-result = (2: bytes)
+   scitt-receipt = (3: bytes)
 
    $$measurement-values-map-extension //= (
      &(tee.advisory-ids: -89) => $tee-advisory-ids-type

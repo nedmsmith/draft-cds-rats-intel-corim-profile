@@ -2059,47 +2059,16 @@ By default, the Verifier's current time implicitly defines an epoch.
 A grace period defines the epoch window differential, in seconds, that a timestamp must fall within to be valid.<a href="#section-8.1.4.2-1" class="pilcrow">¶</a></p>
 <p id="section-8.1.4.2-2">Epochs don't have to rely on current time. <span>[<a href="#I-D.birkholz-rats-epoch-markers" class="cite xref">I-D.birkholz-rats-epoch-markers</a>]</span> defines several.<a href="#section-8.1.4.2-2" class="pilcrow">¶</a></p>
 <p id="section-8.1.4.2-3">The epoch data type definitions are as follows:<a href="#section-8.1.4.2-3" class="pilcrow">¶</a></p>
-<div class="breakable lang-cddl sourcecode" id="section-8.1.4.2-4">
+<div class="lang-cddl sourcecode" id="section-8.1.4.2-4">
 <pre>
-epoch-operators /= op.eq
-epoch-operators /= op.gt
-epoch-operators /= op.ge
-epoch-operators /= op.lt
-epoch-operators /= op.le
 epoch-seconds-type = int
 $epoch-timestamp-type /= ~tdate
 $epoch-timestamp-type /= ~time
-epoch-expression = [
-    epoch-operators
-    epoch-seconds-type
-    ? $tagged-epoch-id
-]
-epoch-expression2 = [ ; replaces epoch-expression when examples are ported
-    epoch-operators
-    epoch-marker
-]
-tagged-epoch-expression = #6.60032( epoch-expression / epoch-expression2)
 
 $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
 $tagged-epoch-id /= time ; int or float
 $tagged-epoch-id /= #6.26990( epoch-grace-tdate)
 $tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-epoch-marker = [
-    epoch-id: $tagged-epoch-id
-    ? bell-veracity-proof
-]
-
-; veracity of the bell
-bell-veracity-proof = non-empty&lt;{
-  ? remote-attestation-evidence ; could be EAT or Concise Evidence
-  ? remote-attestation-result ; hopefully EAT with AR4SI Claims
-  ? scitt-receipt ; SCITT receipt
-}&gt;
-
-remote-attestation-evidence = (1: bytes)
-remote-attestation-result = (2: bytes)
-scitt-receipt = (3: bytes)
 
 epoch-grace-tdate = [
     epoch: tdate
@@ -2109,8 +2078,26 @@ epoch-grace-tdate = [
 epoch-grace-time = [
     epoch: time
     grace-period: epoch-seconds-type
-
 ]
+
+;
+; draft-ietf-rats-epoch-markers
+;
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
+
+; veracity of the bell
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
+
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
 </pre><a href="#section-8.1.4.2-4" class="pilcrow">¶</a>
 </div>
 <p id="section-8.1.4.2-5">An epoch expression array contains an <code>epoch-operator</code> followed by a grace period in seconds that is optionally followed
@@ -3059,44 +3046,14 @@ tdate-type = ~tdate
 tdate-expression = [ tdate-operators, tdate-type ] ;#6.0(string) - tdate converts to numeric
 tagged-tdate-expression = #6.60031( tdate-expression )
 
-epoch-operators /= op.eq
-epoch-operators /= op.gt
-epoch-operators /= op.ge
-epoch-operators /= op.lt
-epoch-operators /= op.le
 epoch-seconds-type = int
 $epoch-timestamp-type /= ~tdate
 $epoch-timestamp-type /= ~time
-epoch-expression = [
-    epoch-operators
-    epoch-seconds-type
-    ? $tagged-epoch-id
-]
-epoch-expression2 = [ ; replaces epoch-expression when examples are ported
-    epoch-operators
-    epoch-marker
-]
-tagged-epoch-expression = #6.60032( epoch-expression / epoch-expression2)
 
 $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
 $tagged-epoch-id /= time ; int or float
 $tagged-epoch-id /= #6.26990( epoch-grace-tdate)
 $tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-epoch-marker = [
-    epoch-id: $tagged-epoch-id
-    ? bell-veracity-proof
-]
-
-bell-veracity-proof = non-empty&lt;{
-  ? remote-attestation-evidence ; could be EAT or Concise Evidence
-  ? remote-attestation-result ; hopefully EAT with AR4SI Claims
-  ? scitt-receipt ; SCITT receipt
-}&gt;
-
-remote-attestation-evidence = (1: bytes)
-remote-attestation-result = (2: bytes)
-scitt-receipt = (3: bytes)
 
 epoch-grace-tdate = [
     epoch: tdate
@@ -3106,8 +3063,22 @@ epoch-grace-tdate = [
 epoch-grace-time = [
     epoch: time
     grace-period: epoch-seconds-type
-
 ]
+
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
+
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
+
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
 
 $$measurement-values-map-extension //= (
   &amp;(tee.advisory-ids: -89) =&gt; $tee-advisory-ids-type
