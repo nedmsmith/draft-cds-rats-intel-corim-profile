@@ -753,24 +753,83 @@ Table of Contents
 
    The numeric date-time data type definitions are as follows:
 
-   time-operators /= op.eq
-   time-operators /= op.gt
-   time-operators /= op.ge
-   time-operators /= op.lt
-   time-operators /= op.le
-   time-type = ~time
-   time-expression = [ time-operators, time-type ] ;#6.1(int or float)
-   tagged-time-expression = #6.60030( time-expression )
+   epoch-seconds-type = int
+   $epoch-timestamp-type /= ~tdate
+   $epoch-timestamp-type /= ~time
+
+   $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+   $tagged-epoch-id /= time ; int or float
+   $tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+   $tagged-epoch-id /= #6.26991( epoch-grace-time)
+
+   epoch-grace-tdate = [
+       epoch: tdate
+       grace-period: epoch-seconds-type
+   ]
+
+   epoch-grace-time = [
+       epoch: time
+       grace-period: epoch-seconds-type
+   ]
+
+   ;
+   ; draft-ietf-rats-epoch-markers
+   ;
+   epoch-marker = [
+       epoch-id: $tagged-epoch-id
+       ? bell-veracity-proof
+   ]
+
+   ; veracity of the bell
+   bell-veracity-proof = non-empty<{
+     ? remote-attestation-evidence
+     ? remote-attestation-result
+     ? scitt-receipt
+   }>
+
+   remote-attestation-evidence = (1: bytes)
+   remote-attestation-result = (2: bytes)
+   scitt-receipt = (3: bytes)
 
    The string date-time data type definitions are as follows:
 
-   tdate-operators /= op.gt
-   tdate-operators /= op.ge
-   tdate-operators /= op.lt
-   tdate-operators /= op.le
-   tdate-type = ~tdate
-   tdate-expression = [ tdate-operators, tdate-type ] ;#6.0(string) - tdate converts to numeric
-   tagged-tdate-expression = #6.60031( tdate-expression )
+   epoch-seconds-type = int
+   $epoch-timestamp-type /= ~tdate
+   $epoch-timestamp-type /= ~time
+
+   $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+   $tagged-epoch-id /= time ; int or float
+   $tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+   $tagged-epoch-id /= #6.26991( epoch-grace-time)
+
+   epoch-grace-tdate = [
+       epoch: tdate
+       grace-period: epoch-seconds-type
+   ]
+
+   epoch-grace-time = [
+       epoch: time
+       grace-period: epoch-seconds-type
+   ]
+
+   ;
+   ; draft-ietf-rats-epoch-markers
+   ;
+   epoch-marker = [
+       epoch-id: $tagged-epoch-id
+       ? bell-veracity-proof
+   ]
+
+   ; veracity of the bell
+   bell-veracity-proof = non-empty<{
+     ? remote-attestation-evidence
+     ? remote-attestation-result
+     ? scitt-receipt
+   }>
+
+   remote-attestation-evidence = (1: bytes)
+   remote-attestation-result = (2: bytes)
+   scitt-receipt = (3: bytes)
 
    The date-time expressions for evaluating time consist of a CBOR
    tagged record containing a time operator followed by a date-time
