@@ -1267,10 +1267,10 @@ Parser implementations can recognize the Intel profile by profile identifier val
                     <p id="section-toc.1-1.8.2.2.2.4.1"><a href="#section-8.2.4" class="auto internal xref">8.2.4</a>.  <a href="#name-the-tee-date-type-measureme" class="internal xref">The tee-date-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.5">
-                    <p id="section-toc.1-1.8.2.2.2.5.1"><a href="#section-8.2.5" class="auto internal xref">8.2.5</a>.  <a href="#name-the-tee-digest-type-measure" class="internal xref">The tee-digest-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.8.2.2.2.5.1"><a href="#section-8.2.5" class="auto internal xref">8.2.5</a>.  <a href="#name-the-tee-epoch-type-measurem" class="internal xref">The tee-epoch-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.6">
-                    <p id="section-toc.1-1.8.2.2.2.6.1"><a href="#section-8.2.6" class="auto internal xref">8.2.6</a>.  <a href="#name-the-tee-epoch-type-measurem" class="internal xref">The tee-epoch-type Measurement Extension</a></p>
+                    <p id="section-toc.1-1.8.2.2.2.6.1"><a href="#section-8.2.6" class="auto internal xref">8.2.6</a>.  <a href="#name-the-tee-digest-type-measure" class="internal xref">The tee-digest-type Measurement Extension</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.7">
                     <p id="section-toc.1-1.8.2.2.2.7.1"><a href="#section-8.2.7" class="auto internal xref">8.2.7</a>.  <a href="#name-the-tee-instance-id-type-me" class="internal xref">The tee-instance-id-type Measurement Extension</a></p>
@@ -2426,18 +2426,45 @@ $tee-date-type /= epoch-marker
 <p id="section-8.2.4-5">Alternatively, the TEE tcbdate may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.tcbdate</code> and <code>mval</code>.<code>name</code> contains the string representation <code>$tee-date-type</code> without the CBOR tag (i.e., ~tdate).<a href="#section-8.2.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-tee-digest-type">
+<div id="sec-tee-epoch-type">
 <section id="section-8.2.5">
-          <h4 id="name-the-tee-digest-type-measure">
-<a href="#section-8.2.5" class="section-number selfRef">8.2.5. </a><a href="#name-the-tee-digest-type-measure" class="section-name selfRef">The tee-digest-type Measurement Extension</a>
+          <h4 id="name-the-tee-epoch-type-measurem">
+<a href="#section-8.2.5" class="section-number selfRef">8.2.5. </a><a href="#name-the-tee-epoch-type-measurem" class="section-name selfRef">The tee-epoch-type Measurement Extension</a>
           </h4>
-<p id="section-8.2.5-1">The <code>tee.mrtee</code> extension enables an Attester to report digests for the SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).
-The <code>tee.mrsigner</code> extension enables an Attester to report the signer of the TEE digest (e.g., MRSIGNER).<a href="#section-8.2.5-1" class="pilcrow">¶</a></p>
-<p id="section-8.2.5-2">The <code>$tee-digest-type</code> has multiple type structures involving digest values. A singleton digest has a hash algorithm identifier and the digest value.
+<p id="section-8.2.5-1">The <code>tee.epoch</code> extension enables the Attester to report an epoch Evidence measurement,
+and a RVP to assert an epoch Reference Value.<a href="#section-8.2.5-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.5-2">As Evidence, the <code>$tee-epoch-type</code> is a <code>tdate</code> timestamp.<a href="#section-8.2.5-2" class="pilcrow">¶</a></p>
+<p id="section-8.2.5-3">As a Reference Value, the <code>$tee-epoch-type</code> is a grace period, in seconds, that is relative to the
+Verifier's current date and time, and an epoch operator: <code>gt</code>, <code>ge</code>, <code>lt</code>, or <code>le</code>.
+The Verifier evaluates whether the timestamp is within the grace period relative to the current date and time.
+The current date and time is implicit, and is assumed to be in <code>tdate</code> format.<a href="#section-8.2.5-3" class="pilcrow">¶</a></p>
+<p id="section-8.2.5-4">The <code>$tee-epoch-type</code> is an <code>$epoch-timestamp-type</code> when used as Evidence or Endorsement
+and a <code>$tagged-epoch-expression</code> when used as a Reference Value.<a href="#section-8.2.5-4" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.5-5">
+<pre>
+$$measurement-values-map-extension //= (
+  &amp;(tee.tcbdate-epoch: -90) =&gt; $tee-epoch-type
+)
+
+$tee-epoch-type /= $epoch-timestamp-type
+$tee-epoch-type /= epoch-marker
+</pre><a href="#section-8.2.5-5" class="pilcrow">¶</a>
+</div>
+<p id="section-8.2.5-6">Alternatively, for Evidence, the TEE epoch timestamp may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.epoch</code> and <code>mval</code>.<code>name</code> contains the string representation <code>$tagged-epoch-id</code> without the CBOR tag (i.e., ~tdate).<a href="#section-8.2.5-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-tee-digest-type">
+<section id="section-8.2.6">
+          <h4 id="name-the-tee-digest-type-measure">
+<a href="#section-8.2.6" class="section-number selfRef">8.2.6. </a><a href="#name-the-tee-digest-type-measure" class="section-name selfRef">The tee-digest-type Measurement Extension</a>
+          </h4>
+<p id="section-8.2.6-1">The <code>tee.mrtee</code> extension enables an Attester to report digests for the SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).
+The <code>tee.mrsigner</code> extension enables an Attester to report the signer of the TEE digest (e.g., MRSIGNER).<a href="#section-8.2.6-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.6-2">The <code>$tee-digest-type</code> has multiple type structures involving digest values. A singleton digest has a hash algorithm identifier and the digest value.
 When used as Evidence, either a signleton digest or a set of digests can be reported.
 When used as Reference Values or Endorsements, a set of digests can be asserted signifying equivalence matching.
-Alternatively, matching may be expressed as set membership or set difference expressions.<a href="#section-8.2.5-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.2.5-3">
+Alternatively, matching may be expressed as set membership or set difference expressions.<a href="#section-8.2.6-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.6-3">
 <pre>
 $$measurement-values-map-extension //= (
   &amp;(tee.mrtee: -83) =&gt; $tee-digest-type
@@ -2450,45 +2477,18 @@ $tee-digest-type /= digests-type ; see corim
 $tee-digest-type /= set-digest-type
 $tee-digest-type /= tagged-exp-digest-member
 $tee-digest-type /= tagged-exp-digest-not-member
-</pre><a href="#section-8.2.5-3" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.6-3" class="pilcrow">¶</a>
 </div>
-<p id="section-8.2.5-4">Alternatively, the TEE digests may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.mrtee</code> or <code>tee.mrsigner</code> and <code>mval</code>.<code>digests</code> contains a <code>digests-type</code> value.<a href="#section-8.2.5-4" class="pilcrow">¶</a></p>
+<p id="section-8.2.6-4">Alternatively, the TEE digests may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.mrtee</code> or <code>tee.mrsigner</code> and <code>mval</code>.<code>digests</code> contains a <code>digests-type</code> value.<a href="#section-8.2.6-4" class="pilcrow">¶</a></p>
 <div id="sec-tee-digest-comp">
-<section id="section-8.2.5.1">
+<section id="section-8.2.6.1">
             <h5 id="name-the-tee-digest-type-compari">
-<a href="#section-8.2.5.1" class="section-number selfRef">8.2.5.1. </a><a href="#name-the-tee-digest-type-compari" class="section-name selfRef">The tee-digest-type Comparison Algorithm</a>
+<a href="#section-8.2.6.1" class="section-number selfRef">8.2.6.1. </a><a href="#name-the-tee-digest-type-compari" class="section-name selfRef">The tee-digest-type Comparison Algorithm</a>
             </h5>
-<p id="section-8.2.5.1-1">The comparison algorithm for <code>tee-digest-type</code> is used when the condition statement in an Endorsement or Reference Values triple is matched with an Environment Claim Tuple (ECT) from the Verifier's Accepted Claims Set (ACS).
-The comparison algorithm for set of digests is defined in <a href="#sec-ca-sets" class="auto internal xref">Section 9.2</a>.<a href="#section-8.2.5.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.6.1-1">The comparison algorithm for <code>tee-digest-type</code> is used when the condition statement in an Endorsement or Reference Values triple is matched with an Environment Claim Tuple (ECT) from the Verifier's Accepted Claims Set (ACS).
+The comparison algorithm for set of digests is defined in <a href="#sec-ca-sets" class="auto internal xref">Section 9.2</a>.<a href="#section-8.2.6.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-</section>
-</div>
-<div id="sec-tee-epoch-type">
-<section id="section-8.2.6">
-          <h4 id="name-the-tee-epoch-type-measurem">
-<a href="#section-8.2.6" class="section-number selfRef">8.2.6. </a><a href="#name-the-tee-epoch-type-measurem" class="section-name selfRef">The tee-epoch-type Measurement Extension</a>
-          </h4>
-<p id="section-8.2.6-1">The <code>tee.epoch</code> extension enables the Attester to report an epoch Evidence measurement,
-and a RVP to assert an epoch Reference Value.<a href="#section-8.2.6-1" class="pilcrow">¶</a></p>
-<p id="section-8.2.6-2">As Evidence, the <code>$tee-epoch-type</code> is a <code>tdate</code> timestamp.<a href="#section-8.2.6-2" class="pilcrow">¶</a></p>
-<p id="section-8.2.6-3">As a Reference Value, the <code>$tee-epoch-type</code> is a grace period, in seconds, that is relative to the
-Verifier's current date and time, and an epoch operator: <code>gt</code>, <code>ge</code>, <code>lt</code>, or <code>le</code>.
-The Verifier evaluates whether the timestamp is within the grace period relative to the current date and time.
-The current date and time is implicit, and is assumed to be in <code>tdate</code> format.<a href="#section-8.2.6-3" class="pilcrow">¶</a></p>
-<p id="section-8.2.6-4">The <code>$tee-epoch-type</code> is an <code>$epoch-timestamp-type</code> when used as Evidence or Endorsement
-and a <code>$tagged-epoch-expression</code> when used as a Reference Value.<a href="#section-8.2.6-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.2.6-5">
-<pre>
-$$measurement-values-map-extension //= (
-  &amp;(tee.tcbdate-epoch: -90) =&gt; $tee-epoch-type
-)
-
-$tee-epoch-type /= $epoch-timestamp-type
-$tee-epoch-type /= epoch-marker
-</pre><a href="#section-8.2.6-5" class="pilcrow">¶</a>
-</div>
-<p id="section-8.2.6-6">Alternatively, for Evidence, the TEE epoch timestamp may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.epoch</code> and <code>mval</code>.<code>name</code> contains the string representation <code>$tagged-epoch-id</code> without the CBOR tag (i.e., ~tdate).<a href="#section-8.2.6-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-instance-id-type">

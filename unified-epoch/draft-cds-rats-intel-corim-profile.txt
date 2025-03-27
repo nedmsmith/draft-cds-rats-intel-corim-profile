@@ -116,8 +116,8 @@ Table of Contents
        8.2.2.  The tee-attributes-type Measurement Extension
        8.2.3.  The tee-cryptokey-type Measurement Extension
        8.2.4.  The tee-date-type Measurement Extension
-       8.2.5.  The tee-digest-type Measurement Extension
-       8.2.6.  The tee-epoch-type Measurement Extension
+       8.2.5.  The tee-epoch-type Measurement Extension
+       8.2.6.  The tee-digest-type Measurement Extension
        8.2.7.  The tee-instance-id-type Measurement Extension
        8.2.8.  The tee-platform-instance-id-type Measurement Extension
        8.2.9.  The tee-isvprodid-type Measurement Extension
@@ -1238,7 +1238,37 @@ Table of Contents
    string representation $tee-date-type without the CBOR tag (i.e.,
    ~tdate).
 
-8.2.5.  The tee-digest-type Measurement Extension
+8.2.5.  The tee-epoch-type Measurement Extension
+
+   The tee.epoch extension enables the Attester to report an epoch
+   Evidence measurement, and a RVP to assert an epoch Reference Value.
+
+   As Evidence, the $tee-epoch-type is a tdate timestamp.
+
+   As a Reference Value, the $tee-epoch-type is a grace period, in
+   seconds, that is relative to the Verifier's current date and time,
+   and an epoch operator: gt, ge, lt, or le.  The Verifier evaluates
+   whether the timestamp is within the grace period relative to the
+   current date and time.  The current date and time is implicit, and is
+   assumed to be in tdate format.
+
+   The $tee-epoch-type is an $epoch-timestamp-type when used as Evidence
+   or Endorsement and a $tagged-epoch-expression when used as a
+   Reference Value.
+
+   $$measurement-values-map-extension //= (
+     &(tee.tcbdate-epoch: -90) => $tee-epoch-type
+   )
+
+   $tee-epoch-type /= $epoch-timestamp-type
+   $tee-epoch-type /= epoch-marker
+
+   Alternatively, for Evidence, the TEE epoch timestamp may be encoded
+   using mkey where mkey contains the non-negative tee.epoch and
+   mval.name contains the string representation $tagged-epoch-id without
+   the CBOR tag (i.e., ~tdate).
+
+8.2.6.  The tee-digest-type Measurement Extension
 
    The tee.mrtee extension enables an Attester to report digests for the
    SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).  The tee.mrsigner
@@ -1269,43 +1299,13 @@ Table of Contents
    contains the non-negative tee.mrtee or tee.mrsigner and mval.digests
    contains a digests-type value.
 
-8.2.5.1.  The tee-digest-type Comparison Algorithm
+8.2.6.1.  The tee-digest-type Comparison Algorithm
 
    The comparison algorithm for tee-digest-type is used when the
    condition statement in an Endorsement or Reference Values triple is
    matched with an Environment Claim Tuple (ECT) from the Verifier's
    Accepted Claims Set (ACS).  The comparison algorithm for set of
    digests is defined in Section 9.2.
-
-8.2.6.  The tee-epoch-type Measurement Extension
-
-   The tee.epoch extension enables the Attester to report an epoch
-   Evidence measurement, and a RVP to assert an epoch Reference Value.
-
-   As Evidence, the $tee-epoch-type is a tdate timestamp.
-
-   As a Reference Value, the $tee-epoch-type is a grace period, in
-   seconds, that is relative to the Verifier's current date and time,
-   and an epoch operator: gt, ge, lt, or le.  The Verifier evaluates
-   whether the timestamp is within the grace period relative to the
-   current date and time.  The current date and time is implicit, and is
-   assumed to be in tdate format.
-
-   The $tee-epoch-type is an $epoch-timestamp-type when used as Evidence
-   or Endorsement and a $tagged-epoch-expression when used as a
-   Reference Value.
-
-   $$measurement-values-map-extension //= (
-     &(tee.tcbdate-epoch: -90) => $tee-epoch-type
-   )
-
-   $tee-epoch-type /= $epoch-timestamp-type
-   $tee-epoch-type /= epoch-marker
-
-   Alternatively, for Evidence, the TEE epoch timestamp may be encoded
-   using mkey where mkey contains the non-negative tee.epoch and
-   mval.name contains the string representation $tagged-epoch-id without
-   the CBOR tag (i.e., ~tdate).
 
 8.2.7.  The tee-instance-id-type Measurement Extension
 
