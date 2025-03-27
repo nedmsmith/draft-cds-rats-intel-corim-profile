@@ -561,80 +561,20 @@ The masked data expression definitions are as follows:
 {::include cddl/mask-expr.cddl}
 ~~~
 
-### Timestamps and Epoch Markers {#sec-epoch}
+## Timestamps and Epoch Markers {#sec-epoch}
 
-#### Date-Time Expressions {#sec-date-time-expressions}
+### Timestamps {#sec-timestamp}
 
-Date-time can be expressed in both string `tdate` or numeric `time` formats.
-There are four operators that are defined for date-time expressions:
+Timestamps can be used in Evidence to report the date and time and in Reference Values to assert an expected timestamp.
+Endorsements can use timestamps to associate a validity period to a component.
+Timestamps can be expressed in string (`~tdate`) or numeric (`~time`) formats (see `$epoch-timestamp-type` in {{sec-epoch-type}}).
 
-1.  **lt** determines if a date-time Evidence value is less than a Reference Values date-time.
+Timestamps formatted as strings are converted to numeric (~time) when numeric operations are used.
 
-1.  **le** determines if a date-time Evidence value is less than or equal to a Reference Values date-time.
+### Epoch Markers {#sec-epoch-type}
 
-1.  **gt** determines if a data-time Evidence value is greater than a Reference Values date-time.
-
-1.  **ge** determines if a data-time Evidence value is greater than or equal to a Reference Values date-time.
-
-The date-time operators are in fact numeric. Expressions involving string date-time values must be converted to numeric format before the numeric comparison
-operator can be applied.
-
-The numeric date-time data type definitions are as follows:
-
-~~~ cddl
-{::include cddl/epoch-type.cddl}
-~~~
-
-The string date-time data type definitions are as follows:
-
-~~~ cddl
-{::include cddl/epoch-type.cddl}
-~~~
-
-The date-time expressions for evaluating time consist of a CBOR tagged record containing a time operator followed by a date-time value.
-
-The `gt` expression compares a date-time value contained in Evidence to a Reference Values date-time.
-If the Evidence date-time value is greater-than to the Reference Value,
-then the Evidence value is accepted.
-
-The `ge` expression compares a date-time value contained in Evidence to a Reference Values date-time.
-If the Evidence date-time value is greater-than-or-equal to the Reference Value,
-then the Evidence value is accepted.
-
-The `lt` expression compares a date-time value contained in Evidence to a Reference Values date-time.
-If the Evidence date-time value is less-than to the Reference Value,
-then the Evidence value is accepted.
-
-The `le` expression compares a date-time value contained in Evidence to a Reference Values date-time.
-If the Evidence date-time value is less-than-or-equal to the Reference Value,
-then the Evidence value is accepted.
-
-In *infix* notation, a date-time value reported as Evidence in *operand_1*.
-The Reference Value expression contains a time comparison operator and *operand_2* contains a reference date-time.
-
-Example:
-
-* <`evidence_date_time`> <`gt`> <`reference_date_time`>
-
-The numeric date-time expression definitions are as follows:
-
-~~~ cddl
-{::include cddl/epoch-type.cddl}
-~~~
-
-The string date-time expression definitions are as follows:
-
-~~~ cddl
-{::include cddl/epoch-type.cddl}
-~~~
-
-#### Epoch Expressions {#sec-epoch-expressions}
-
-An epoch expression defines a timing window that can be used to determine recentness of a time stampped message.
-By default, the Verifier's current time implicitly defines an epoch.
-A grace period defines the epoch window differential, in seconds, that a timestamp must fall within to be valid.
-
-Epochs don't have to rely on current time. {{-epoch-markers}} defines several.
+An `epoch-marker` defines a timing window that can be used to determine recentness of a time stamped message.
+See {{-epoch-markers}}.
 
 The epoch data type definitions are as follows:
 
@@ -642,32 +582,16 @@ The epoch data type definitions are as follows:
 {::include cddl/epoch-type.cddl}
 ~~~
 
-An epoch expression array contains an `epoch-operator` followed by a grace period in seconds that is optionally followed
-by a `$tagged-epoch-id`. Epoch operators can be: `gt`, `ge`, `lt`, or `le`. The operator defines the position of
-the grace window relative to the epoch and `epoch-grace-seconds` defines the size of the window in seconds.
+The XXX defines the position of the grace window relative to the epoch and `epoch-grace-seconds` defines the size of the window in seconds.
 If the default epoch type is not used, `$tagged-epoch-id` defines the alternate epoch scheme.
 
-The `$epoch-timestamp-type` defines the timestamp type for the epoch scheme. By default, the timestamp is `tdate`.
+#### The epoch-grace-tdate and epoch-grace-time Epoch Markers
 
-The `tagged-epoch-expression` is an `epoch-expression` preceded by a CBOR tag for an expression array that has
-the value `#6.60010`.
+By default, the Verifier's current time implicitly defines an epoch.
+A grace period defines the epoch window differential, in seconds, that a timestamp must fall within to be valid.
 
-The epoch expression definitions are as follows:
-
-~~~ cddl
-{::include cddl/epoch-type.cddl}
-~~~
-
-A variety of epoch expressions can be defined that convenently constrain epoch definition.
-The `tagged-exp-epoch-gt` expression defines an epoch window that is greater than the current date and time
-by the supplied grace period.
-
-In *infix* notation, the timestamp value is within an epoch window that is defined by the current time,
+The `epoch` timestamp value is within an epoch window that is defined by the current time,
 plus the grace period, and where the `epoch-operator` defines the shape of the epoch window.
-
-Example epoch expression:
-
-* <`evidence_timestamp`> <`epoch-operator`> <`grace_period`> <`current_time`>
 
 The Verifier adds `grace_period` to `current_time` to obtain the epoch window then applies the operator to
 determine if the `evidence_timestamp` is within the window.
@@ -685,7 +609,7 @@ Expected Verifier behavior is defined in {{sec-intel-appraisal-algorithm}}
 
 The measurement extensions that follow are assumed to be appraised according to the appriasal steps described in {{Section 8.1 of -corim}}.
 
-### The tee-advisory-ids-type Measurement Extension {#sec-tee-advisory-ids-type}
+### The tee.advisory-ids Measurement Extension {#sec-tee-advisory-ids-type}
 
 The `tee.advisory-ids` extension enables Attesters to report known security advisories and for
 Reference Values Providers (RVP) to assert updated security advisories.
@@ -711,7 +635,7 @@ When used with Reference Values or Endorsements the `set-tstr-type`, `tagged-exp
 The comparison algorithm for `tee-advisory-ids-type` is used when Endorsement or Reference Values triples conditions are matched with an Environment Claims Tuple (ECT) in the Verifier's Accepted Claims Set (ACS).
 The triple condition containing a `tee-advisory-ids-type` Claim matches an ACS ECT according to the comparison algorithm for set of strings as defined in {{sec-ca-sets}}.
 
-### The tee-attributes-type Measurement Extension {#sec-tee-attributes-type}
+### The tee.attributes Measurement Extension {#sec-tee-attributes-type}
 
 The `tee.attributes` extension enables the Attester to report TEE attributes and an RVP to assert a reference
 TEE attributes and mask.
@@ -728,7 +652,7 @@ and a tuple containing the reference and mask when used as a Reference Value.
 
 Alternatively, the TEE attributes may be encoded using `mkey` where `mkey` contains the non-negative `tee.attributes` and `mval`.`raw-value` contains the `$tee-attributes-type`.`mask-type` value.
 
-### The tee-cryptokey-type Measurement Extension {#sec-tee-cryptokey-type}
+### The tee.cryptokeys Measurement Extension {#sec-tee-cryptokey-type}
 
 The `tee.cryptokeys` extension identifies cryptographic keys associated with a Target Environment.
 If multiple `$crypto-key-type-choice` measurements are supplied, array position disambiguates each entry.
@@ -740,43 +664,29 @@ Appraisal compares values indexed by array position.
 
 Alternatively, the TEE cryptokeys may be encoded using `mkey` where `mkey` contains the non-negative `tee.cryptokeys` and `mval`.`cryptokeys` contains the `$tee-cryptokey-type` value.
 
-### The tee-date-type Measurement Extension {#sec-tee-date-type}
+### The tee.tcbdate Measurement Extension {#sec-tee-date-type}
 
-The `tee.tcbdate` extension enables the Attester or Endorser to report the TEE date attribute and a RVP to assert a valid TEE matching operation.
+The `tee.tcbdate` (code point -72) extension is used by Endorsers or Attesters to assert validity of a TEE component.
+It can be used to in conditional endorsements to locate components with a specific timestamp to further annotate or assert Claims.
+It can also be used in Reference Values to express expected validity of a TEE component.
 
-The `$tee-date-type` is a date-time string when used for Evidence or Endorsement.
-When used for a Reference Value, either a `tagged-tdate-expression` or a `tagged-epoch-expression` describes the TCB validity.
+The `$tee-date-type` timestamp can be expressed in several formats:
+
+- ISO 8601 strings of the form YYYY-MM-DDTHH:MM:SSZ.
+
+- POSIX time which is the number of seconds since January 1, 1970 (midnight UTC).
+
+- `epoch-markers` (see {{sec-epoch}}).
 
 ~~~ cddl
 {::include cddl/tee-date-type.cddl}
 ~~~
 
-`tdate` strings must be converted to numeric `time` before the `tdate-operator`, which is a numeric operator, can be applied.
+`~tdate` strings must be converted to a numeric value (i.e.,`~time`) before operations involving time are applied.
 
-Alternatively, the TEE tcbdate may be encoded using `mkey` where `mkey` contains the non-negative `tee.tcbdate` and `mval`.`name` contains the string representation `$tee-date-type` without the CBOR tag (i.e., ~tdate).
+Alternatively, `tee.tcbdate` may be encoded using `mkey` where `mkey` contains the non-negative code point value and where `mval`.`name` contains the string representation `$tee-date-type` without the CBOR tag (i.e., ~tdate).
 
-### The tee-epoch-type Measurement Extension {#sec-tee-epoch-type}
-
-The `tee.epoch` extension enables the Attester to report an epoch Evidence measurement,
-and a RVP to assert an epoch Reference Value.
-
-As Evidence, the `$tee-epoch-type` is a `tdate` timestamp.
-
-As a Reference Value, the `$tee-epoch-type` is a grace period, in seconds, that is relative to the
-Verifier's current date and time, and an epoch operator: `gt`, `ge`, `lt`, or `le`.
-The Verifier evaluates whether the timestamp is within the grace period relative to the current date and time.
-The current date and time is implicit, and is assumed to be in `tdate` format.
-
-The `$tee-epoch-type` is an `$epoch-timestamp-type` when used as Evidence or Endorsement
-and a `$tagged-epoch-expression` when used as a Reference Value.
-
-~~~ cddl
-{::include cddl/tee-epoch-type.cddl}
-~~~
-
-Alternatively, for Evidence, the TEE epoch timestamp may be encoded using `mkey` where `mkey` contains the non-negative `tee.epoch` and `mval`.`name` contains the string representation `$tagged-epoch-id` without the CBOR tag (i.e., ~tdate).
-
-### The tee-digest-type Measurement Extension {#sec-tee-digest-type}
+### The tee.mrtee and tee.mrsigner Measurement Extension {#sec-tee-digest-type}
 
 The `tee.mrtee` extension enables an Attester to report digests for the SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).
 The `tee.mrsigner` extension enables an Attester to report the signer of the TEE digest (e.g., MRSIGNER).
@@ -797,7 +707,7 @@ Alternatively, the TEE digests may be encoded using `mkey` where `mkey` contains
 The comparison algorithm for `tee-digest-type` is used when the condition statement in an Endorsement or Reference Values triple is matched with an Environment Claim Tuple (ECT) from the Verifier's Accepted Claims Set (ACS).
 The comparison algorithm for set of digests is defined in {{sec-ca-sets}}.
 
-### The tee-instance-id-type Measurement Extension {#sec-tee-instance-id-type}
+### The tee.instance-id Measurement Extension {#sec-tee-instance-id-type}
 
 The `tee.instance-id` extension enables the Attester to report the TEE (TD or enclave) instance identifier as an Evidence value and the RVP to assert an exact-match Reference Value.
 
@@ -809,7 +719,7 @@ The `$tee-instance-id-type` is an unsigned integer or `bstr`.
 
 Alternatively, the TEE instance ID may be encoded using `mkey` where `mkey` contains the non-negative `tee.instance-id` and `mval`.`raw-value` contains the `$tee-instance-id-type` value. If the `$tee-instance-id-type` is an unsigned integer, the integer values is converted to a single byte `bstr`.
 
-### The tee-platform-instance-id-type Measurement Extension {#sec-tee-platform-instance-id-type}
+### The tee.platform-instance-id Measurement Extension {#sec-tee-platform-instance-id-type}
 
 Platform Instance ID is a globally unique identifier generated by the platform during Platform Establishment. This value remains consistent across trusted computing base (TCB) recoveries, but is regenerated during Platform Establishment due to desire to reset keys or to add and remove hardware. See (Section 3.7 {{-dcap}}).
 
@@ -823,7 +733,7 @@ The `$tee-platform-instance-id-type` is a `bstr`.
 
 Alternatively, the platform instance ID may be encoded using `mkey` where `mkey` contains the non-negative `tee.platform-instance-id` and `mval`.`raw-value` contains the `$tee-platform-instance-id-type` value.
 
-### The tee-isvprodid-type Measurement Extension {#sec-tee-isvprodid-type}
+### The tee.isvprodid Measurement Extension {#sec-tee-isvprodid-type}
 
 The `tee.isvprodid` extension enables the Attester to report the ISV product identifier Evidence value
 and the RVP to assert an exact-match Reference Value.
@@ -838,7 +748,7 @@ The `$tee-isvprodid-type` is an exact match measurement.
 
 Alternatively, the TEE product ID may be encoded using `mkey` where `mkey` contains the non-negative `tee.isvprodid` and `mval`.`raw-value` contains the `$tee-isvprodid-type` value.
 
-### The tee-miscselect-type Measurement Extension {#sec-tee-miscselect-type}
+### The tee.miscselect Measurement Extension {#sec-tee-miscselect-type}
 
 The `tee.miscselect` extension enables the Attester to report the (TBD:miscselect-description) Evidence value
 and the RVP to assert a Reference Value and mask.
@@ -854,7 +764,7 @@ and a `tagged-mask-expression` when used a Reference Value.
 
 Alternatively, the TEE miscselect may be encoded using `mkey` where `mkey` contains the non-negative `tee.miscselect` and `mval`.`raw-value` contains the measurement value and `mval`.raw-value-mask` contains the mask value.
 
-### The tee-model-type Measurement Extension {#sec-tee-model-type}
+### The tee.model Measurement Extension {#sec-tee-model-type}
 
 The `tee.model` extension enables the Attester to report the TEE model string as Evidence
 and the RVP to assert an exact-match Reference Value.
@@ -869,7 +779,7 @@ The `$tee-model-type` is an exact match measurement.
 
 Alternatively, the TEE model may be encoded using `mkey` where `mkey` contains the non-negative `tee.model` and `mval`.`name` contains the `$tee-model-type` value.
 
-### The tee-pceid-type Measurement Extension {#sec-tee-pceid-type}
+### The tee.pceid Measurement Extension {#sec-tee-pceid-type}
 
 The `tee.pceid` extension enables the Attester to report the PCEID as Evidence and the RVP to assert an exact-match Reference Value.
 
@@ -883,7 +793,7 @@ The `$tee-pceid-type` is an exact match measurement.
 
 Alternatively, the PCEID may be encoded using `mkey` where `mkey` contains the non-negative `tee.pceid` and `mval`.`name` contains the `$tee-pceid-type` value.
 
-### The tee-svn-type Measurement Extension {#sec-tee-svn-type}
+### The tee.isvsvn Measurement Extension {#sec-tee-svn-type}
 
 The `tee.isvsvn` extension enables the Attester to report the SVN for the independent software vendor supplied
 component as Evidence and the RVP to assert a Reference Value that is greater-than-or-equal to the reported SVN.
@@ -899,7 +809,7 @@ The `$tee-svn-type` is a `svn-type` when used as Endorsement or Evidence and a `
 
 Alternatively, the TEE isvsvn may be encoded using `mkey` where `mkey` contains the non-negative `tee.isvsvn` and `mval`.`svn` contains the svn value as `svn-type`.
 
-### The tee-tcb-comp-svn-type Measurement Extension {#sec-tee-tcb-comp-svn-type}
+### The tee.tcb-comp-svn Measurement Extension {#sec-tee-tcb-comp-svn-type}
 
 The `tee.tcb-comp-svn` extension enables the Attester to report an array of SVN values for the TCB when asserted
 as Evidence and an array of `tagged-numeric-ge` entries when asserted as a Reference Value.
@@ -915,7 +825,7 @@ The array of SVN Evidence is accepted.
 {::include cddl/tee-tcb-comp-svn-type.cddl}
 ~~~
 
-### The tee-tcb-eval-num-type Measurement Extension {#sec-tee-tcb-eval-num-type}
+### The tee.tcb-eval-num Measurement Extension {#sec-tee-tcb-eval-num-type}
 
 The `tee.tcb-eval-num` extension enables the Attester to report a TCB evaluation number as Evidence and the RVP to assert a Reference Value expression that compares the tcb-eval-num Evidence with the Reference Value using the greater-than-or-equal operator.
 
@@ -927,7 +837,7 @@ The `$tee-tcb-eval-num-type` is an unsigned integer when reported as Evidence an
 
 Alternatively, the TEE tcb-eval-num Evidence may be encoded using `mkey` where `mkey` contains the non-negative `tee.tcb-eval-num` and `mval`.`raw-value` contains the tcb-eval-num encoded as 4-byte bstr value.
 
-### The tee-tcbstatus-type Measurement Extension {#sec-tee-tcbstatus-type}
+### The tee.tcb-status Measurement Extension {#sec-tee-tcbstatus-type}
 
 The `tee.tcb-status` extension enables Attesters to report the status of the TEE trusted computing base (TCB)
 and for Reference Value Providers (RVP) to assert expected TCB status.
@@ -948,7 +858,7 @@ When describing Reference Values or Endorsements the `set-tstr-type`, `tagged-ex
 The comparison algorithm for `tee-tcbstatus-type` is used when Endorsement or Reference Values triples conditions are matched with an Environment Claims Tuple (ECT) in the Verifier's Accepted Claims Set (ACS).
 The triple condition containing a `tee-tcbstatuss-type` Claim matches an ACS ECT according to the comparison algorithm for set of strings as defined in {{sec-ca-sets}}.
 
-### The tee-vendor-type Measurement Extension {#sec-tee-vendor-type}
+### The tee.vendor Measurement Extension {#sec-tee-vendor-type}
 
 The `tee.vendor` extension enables the Attester to report the TEE vendor name as Evidence and for the RVP to assert
 the TEE vendor name.
