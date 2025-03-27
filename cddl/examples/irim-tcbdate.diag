@@ -13,27 +13,18 @@
         },
         [
           / measurement-map / {
-            / mval / 1 : {
+            / mval / 1 : { / *** epoch-timestamp tdate *** /
               / tcbdate / -72 : "2023-02-15T00:00:00Z"
             }
           },
-          {
+          / measurement-map / {
             / mkey / 0 : 72, / tcbdate /
             / mval / 1 : { 11 : "2023-02-15T00:00:00Z" }
-          }
-        ]
-      ],
-      [
-        / environment-map / {
-          / class / 0 : {
-            / class-id / 0 :
-              / tagged-uuid-type / 37(h'e5c51cb6a7fe11ed89f400155d09de31')
-          }
-        },
-        [
+          },
           / measurement-map / {
-            / mval / 1 : {
-              / tcbdate / -72 : 60031([ 2, "2023-02-15T01:00:00Z" ]) / *** tagged-exp-tdate-ge *** /
+            / mkey / 0 : "test1",
+            / mval / 1 : { / *** epoch-marker tdate *** /
+              / tcbdate / -72 : [ 0("2023-06-09T00:00:00Z")]
             }
           }
         ]
