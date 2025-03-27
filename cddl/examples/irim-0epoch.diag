@@ -12,32 +12,24 @@
         },
         [
           / measurement-map / {
-            / mkey / 0 : "test1", / *** tagged-epochm-ge tdate *** /
-            / mval / 1 : {
-              / epoch / -90 : 60032([ / ge / 2, [ 0("2023-06-09T00:00:00Z") ] ])
-            }
+            / mkey / 0 : "test0", / *** epoch-marker.tdate *** /
+            / mval / 1 : { / epoch / -90 : [ 0("2023-06-09T00:00:00Z") ] } 
           },
           / measurement-map / {
-            / mkey / 0 : "test2", / *** tagged-epochm-ge 26990 *** /
-            / mval / 1 : {
-              / epoch / -90 : 60032([ 2, [ 26990([ 0("2023-06-09T00:00:00Z"), 3600]) ] ]) 
-            }
+            / mkey / 0 : "test1", / *** epoch-marker.time *** /
+            / mval / 1 : { -90 : [ 1(1742590255) ] } 
           },
           / measurement-map / {
-            / mkey / 0 : "test3", / *** tagged-epochm-ge 26991 bell *** /
-            / mval / 1 : {
-              / epoch / -90 : 60032([ 2, [ 26991([ 1(1742590255), 3600]), {1: h'0000'} ] ]) 
-            }
+            / mkey / 0 : "test2", / *** epoch-marker.grace-time *** /
+            / mval / 1 : { -90 : [ 26991([ 1(1742590255), 3600]) ] }
           },
           / measurement-map / {
-            / mkey / 0 : "test4",
-            / mval / 1 : {
-              / epoch / -90 : [ 26991([ 1(1742590255), 3600]) ] / *** epoch-marker.grace-time *** /
-            }
+            / mkey / 0 : "test3", / *** epoch-marker.grace-time bell *** /
+            / mval / 1 : { -90 : [ 26991([ 1(1742590255), 3600]), {1: h'00FF'} ] }
           },
           / measurement-map / {
-            / mkey / 0 : "test5",
-            / mval / 1 : { -90 : [ 1(1742590255) ] } / *** epoch-marker.time *** /
+            / mkey / 0 : "test4", / *** epoch-marker.grace-tdate bell *** /
+            / mval / 1 : { -90 : [ 26990([ 0("2023-06-09T00:00:00Z"), 3600]), {1: h'00FF'} ] }
           }
         ]
       ]
