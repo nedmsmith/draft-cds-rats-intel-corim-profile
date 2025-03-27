@@ -109,8 +109,8 @@ Table of Contents
        8.1.1.  Expression Operators
        8.1.2.  Numeric Expressions
        8.1.3.  Set Expressions
-       8.1.4.  Time Expressions
-       8.1.5.  Mask Expression
+       8.1.4.  Mask Expression
+       8.1.5.  Timestamps and Epoch Markers
      8.2.  Measurement Extensions
        8.2.1.  The tee-advisory-ids-type Measurement Extension
        8.2.2.  The tee-attributes-type Measurement Extension
@@ -727,9 +727,59 @@ Table of Contents
    tagged-exp-disjoint = #6.60010([
        disjoint .within set-of-set-operator, set-of-set-type ])
 
-8.1.4.  Time Expressions
+8.1.4.  Mask Expression
 
-8.1.4.1.  Date-Time Expressions
+   Reference Values expressed as an array of bits or bytes that uses a
+   mask can indicate to a Verifier which bits or bytes of Evidence to
+   ignore.
+
+   Reference Value and mask arrays MUST be the same length for the mask
+   to be applied correctly.  Normally, Evidence would not supply a mask,
+   while Endorsed Values would.  The mask-eq operator indicates that an
+   Evidence value of type mask-type is compared with a Reference Value
+   of type mask-type, and that a mask of type mask-type is applied to
+   both values before comparing values.  If the operator is mask-eq,
+   then a binary equivalence comparison is applied.
+
+   The Verifier MUST ensure the lengths of values and mask are
+   equivalent.  If the mask is shorter than the values, the mask is
+   padded with zeros (0) until it is the same length as the largest
+   value.  If the Evidence or Reference Value length is shorter than the
+   mask, the value is padded with zeros (0) to the length of the mask.
+
+   The masked data type definitions are as follows:
+
+   mask-operators /= op.eq
+   mask-type = bstr
+   mask-expression = [ mask-operators, value: mask-type, mask: mask-type]
+   tagged-mask-expression = #6.60040( mask-expression )
+
+   If the Evidence bit field is a different length from the Reference
+   Value and mask, the shorter length bit field is padded with zeros to
+   accommodate the larger bit field.
+
+   The tagged-exp-mask-eq expression defines a tagged expression that
+   applies the mask equivalence operator to an Evidence value and a
+   Reference Value using the supplied mask.
+
+   In _infix_ notation, the Evidence value is _operand_1_, followed by
+   the mask operator, followed by a Reference Value, _operand_2_,
+   followed by the mask, _operand_3_.
+
+   Example:
+
+   *  <evidence_value> <mask-eq> <reference_value> <mask>
+
+   If each bit in Evidence has a corresponding matching bit in the
+   Reference Value, then the Evidence value is accepted.
+
+   The masked data expression definitions are as follows:
+
+   tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
+
+8.1.5.  Timestamps and Epoch Markers
+
+8.1.5.1.  Date-Time Expressions
 
    Date-time can be expressed in both string tdate or numeric time
    formats.  There are four operators that are defined for date-time
@@ -943,7 +993,7 @@ Table of Contents
    remote-attestation-result = (2: bytes)
    scitt-receipt = (3: bytes)
 
-8.1.4.2.  Epoch Expressions
+8.1.5.2.  Epoch Expressions
 
    An epoch expression defines a timing window that can be used to
    determine recentness of a time stampped message.  By default, the
@@ -1065,56 +1115,6 @@ Table of Contents
    The Verifier adds grace_period to current_time to obtain the epoch
    window then applies the operator to determine if the
    evidence_timestamp is within the window.
-
-8.1.5.  Mask Expression
-
-   Reference Values expressed as an array of bits or bytes that uses a
-   mask can indicate to a Verifier which bits or bytes of Evidence to
-   ignore.
-
-   Reference Value and mask arrays MUST be the same length for the mask
-   to be applied correctly.  Normally, Evidence would not supply a mask,
-   while Endorsed Values would.  The mask-eq operator indicates that an
-   Evidence value of type mask-type is compared with a Reference Value
-   of type mask-type, and that a mask of type mask-type is applied to
-   both values before comparing values.  If the operator is mask-eq,
-   then a binary equivalence comparison is applied.
-
-   The Verifier MUST ensure the lengths of values and mask are
-   equivalent.  If the mask is shorter than the values, the mask is
-   padded with zeros (0) until it is the same length as the largest
-   value.  If the Evidence or Reference Value length is shorter than the
-   mask, the value is padded with zeros (0) to the length of the mask.
-
-   The masked data type definitions are as follows:
-
-   mask-operators /= op.eq
-   mask-type = bstr
-   mask-expression = [ mask-operators, value: mask-type, mask: mask-type]
-   tagged-mask-expression = #6.60040( mask-expression )
-
-   If the Evidence bit field is a different length from the Reference
-   Value and mask, the shorter length bit field is padded with zeros to
-   accommodate the larger bit field.
-
-   The tagged-exp-mask-eq expression defines a tagged expression that
-   applies the mask equivalence operator to an Evidence value and a
-   Reference Value using the supplied mask.
-
-   In _infix_ notation, the Evidence value is _operand_1_, followed by
-   the mask operator, followed by a Reference Value, _operand_2_,
-   followed by the mask, _operand_3_.
-
-   Example:
-
-   *  <evidence_value> <mask-eq> <reference_value> <mask>
-
-   If each bit in Evidence has a corresponding matching bit in the
-   Reference Value, then the Evidence value is accepted.
-
-   The masked data expression definitions are as follows:
-
-   tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
 
 8.2.  Measurement Extensions
 
@@ -1689,17 +1689,8 @@ Table of Contents
         | 60021 | tag       | Set tstr Expressions,   | RFCthis   |
         |       |           | see Section 8.1.3       |           |
         +-------+-----------+-------------------------+-----------+
-        | 60030 | tag       | Time Expressions, see   | RFCthis   |
-        |       |           | Section 8.1.4           |           |
-        +-------+-----------+-------------------------+-----------+
-        | 60031 | tag       | Date Expressions, see   | RFCthis   |
-        |       |           | Section 8.1.4           |           |
-        +-------+-----------+-------------------------+-----------+
-        | 60032 | tag       | Epoch Expressions, see  | RFCthis   |
-        |       |           | Section 8.1.4           |           |
-        +-------+-----------+-------------------------+-----------+
         | 60040 | tag       | Mask Expressions, see   | RFCthis   |
-        |       |           | Section 8.1.5           |           |
+        |       |           | Section 8.1.4           |           |
         +-------+-----------+-------------------------+-----------+
 
                                   Table 3

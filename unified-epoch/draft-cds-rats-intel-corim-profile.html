@@ -1244,10 +1244,10 @@ Parser implementations can recognize the Intel profile by profile identifier val
                     <p id="section-toc.1-1.8.2.1.2.3.1"><a href="#section-8.1.3" class="auto internal xref">8.1.3</a>.  <a href="#name-set-expressions" class="internal xref">Set Expressions</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1.2.4">
-                    <p id="section-toc.1-1.8.2.1.2.4.1"><a href="#section-8.1.4" class="auto internal xref">8.1.4</a>.  <a href="#name-time-expressions" class="internal xref">Time Expressions</a></p>
+                    <p id="section-toc.1-1.8.2.1.2.4.1"><a href="#section-8.1.4" class="auto internal xref">8.1.4</a>.  <a href="#name-mask-expression" class="internal xref">Mask Expression</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1.2.5">
-                    <p id="section-toc.1-1.8.2.1.2.5.1"><a href="#section-8.1.5" class="auto internal xref">8.1.5</a>.  <a href="#name-mask-expression" class="internal xref">Mask Expression</a></p>
+                    <p id="section-toc.1-1.8.2.1.2.5.1"><a href="#section-8.1.5" class="auto internal xref">8.1.5</a>.  <a href="#name-timestamps-and-epoch-marker" class="internal xref">Timestamps and Epoch Markers</a></p>
 </li>
                 </ul>
 </li>
@@ -1929,385 +1929,385 @@ tagged-exp-disjoint = #6.60010([
 </div>
 </section>
 </div>
-<div id="sec-time-expressions">
-<section id="section-8.1.4">
-          <h4 id="name-time-expressions">
-<a href="#section-8.1.4" class="section-number selfRef">8.1.4. </a><a href="#name-time-expressions" class="section-name selfRef">Time Expressions</a>
-          </h4>
-<div id="sec-date-time-expressions">
-<section id="section-8.1.4.1">
-            <h5 id="name-date-time-expressions">
-<a href="#section-8.1.4.1" class="section-number selfRef">8.1.4.1. </a><a href="#name-date-time-expressions" class="section-name selfRef">Date-Time Expressions</a>
-            </h5>
-<p id="section-8.1.4.1-1">Date-time can be expressed in both string <code>tdate</code> or numeric <code>time</code> formats.
-There are four operators that are defined for date-time expressions:<a href="#section-8.1.4.1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-8.1.4.1-2">
-<li id="section-8.1.4.1-2.1">
-                <p id="section-8.1.4.1-2.1.1"><strong>lt</strong> determines if a date-time Evidence value is less than a Reference Values date-time.<a href="#section-8.1.4.1-2.1.1" class="pilcrow">¶</a></p>
-</li>
-              <li id="section-8.1.4.1-2.2">
-                <p id="section-8.1.4.1-2.2.1"><strong>le</strong> determines if a date-time Evidence value is less than or equal to a Reference Values date-time.<a href="#section-8.1.4.1-2.2.1" class="pilcrow">¶</a></p>
-</li>
-              <li id="section-8.1.4.1-2.3">
-                <p id="section-8.1.4.1-2.3.1"><strong>gt</strong> determines if a data-time Evidence value is greater than a Reference Values date-time.<a href="#section-8.1.4.1-2.3.1" class="pilcrow">¶</a></p>
-</li>
-              <li id="section-8.1.4.1-2.4">
-                <p id="section-8.1.4.1-2.4.1"><strong>ge</strong> determines if a data-time Evidence value is greater than or equal to a Reference Values date-time.<a href="#section-8.1.4.1-2.4.1" class="pilcrow">¶</a></p>
-</li>
-            </ol>
-<p id="section-8.1.4.1-3">The date-time operators are in fact numeric. Expressions involving string date-time values must be converted to numeric format before the numeric comparison
-operator can be applied.<a href="#section-8.1.4.1-3" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.1-4">The numeric date-time data type definitions are as follows:<a href="#section-8.1.4.1-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.1.4.1-5">
-<pre>
-epoch-seconds-type = int
-$epoch-timestamp-type /= ~tdate
-$epoch-timestamp-type /= ~time
-
-$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
-$tagged-epoch-id /= time ; int or float
-$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
-$tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-epoch-grace-tdate = [
-    epoch: tdate
-    grace-period: epoch-seconds-type
-]
-
-epoch-grace-time = [
-    epoch: time
-    grace-period: epoch-seconds-type
-]
-
-;
-; draft-ietf-rats-epoch-markers
-;
-epoch-marker = [
-    epoch-id: $tagged-epoch-id
-    ? bell-veracity-proof
-]
-
-; veracity of the bell
-bell-veracity-proof = non-empty&lt;{
-  ? remote-attestation-evidence
-  ? remote-attestation-result
-  ? scitt-receipt
-}&gt;
-
-remote-attestation-evidence = (1: bytes)
-remote-attestation-result = (2: bytes)
-scitt-receipt = (3: bytes)
-</pre><a href="#section-8.1.4.1-5" class="pilcrow">¶</a>
-</div>
-<p id="section-8.1.4.1-6">The string date-time data type definitions are as follows:<a href="#section-8.1.4.1-6" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.1.4.1-7">
-<pre>
-epoch-seconds-type = int
-$epoch-timestamp-type /= ~tdate
-$epoch-timestamp-type /= ~time
-
-$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
-$tagged-epoch-id /= time ; int or float
-$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
-$tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-epoch-grace-tdate = [
-    epoch: tdate
-    grace-period: epoch-seconds-type
-]
-
-epoch-grace-time = [
-    epoch: time
-    grace-period: epoch-seconds-type
-]
-
-;
-; draft-ietf-rats-epoch-markers
-;
-epoch-marker = [
-    epoch-id: $tagged-epoch-id
-    ? bell-veracity-proof
-]
-
-; veracity of the bell
-bell-veracity-proof = non-empty&lt;{
-  ? remote-attestation-evidence
-  ? remote-attestation-result
-  ? scitt-receipt
-}&gt;
-
-remote-attestation-evidence = (1: bytes)
-remote-attestation-result = (2: bytes)
-scitt-receipt = (3: bytes)
-</pre><a href="#section-8.1.4.1-7" class="pilcrow">¶</a>
-</div>
-<p id="section-8.1.4.1-8">The date-time expressions for evaluating time consist of a CBOR tagged record containing a time operator followed by a date-time value.<a href="#section-8.1.4.1-8" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.1-9">The <code>gt</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
-If the Evidence date-time value is greater-than to the Reference Value,
-then the Evidence value is accepted.<a href="#section-8.1.4.1-9" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.1-10">The <code>ge</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
-If the Evidence date-time value is greater-than-or-equal to the Reference Value,
-then the Evidence value is accepted.<a href="#section-8.1.4.1-10" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.1-11">The <code>lt</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
-If the Evidence date-time value is less-than to the Reference Value,
-then the Evidence value is accepted.<a href="#section-8.1.4.1-11" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.1-12">The <code>le</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
-If the Evidence date-time value is less-than-or-equal to the Reference Value,
-then the Evidence value is accepted.<a href="#section-8.1.4.1-12" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.1-13">In <em>infix</em> notation, a date-time value reported as Evidence in <em>operand_1</em>.
-The Reference Value expression contains a time comparison operator and <em>operand_2</em> contains a reference date-time.<a href="#section-8.1.4.1-13" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.1-14">Example:<a href="#section-8.1.4.1-14" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-8.1.4.1-15.1">
-                <p id="section-8.1.4.1-15.1.1">&lt;<code>evidence_date_time</code>&gt; &lt;<code>gt</code>&gt; &lt;<code>reference_date_time</code>&gt;<a href="#section-8.1.4.1-15.1.1" class="pilcrow">¶</a></p>
-</li>
-            </ul>
-<p id="section-8.1.4.1-16">The numeric date-time expression definitions are as follows:<a href="#section-8.1.4.1-16" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.1.4.1-17">
-<pre>
-epoch-seconds-type = int
-$epoch-timestamp-type /= ~tdate
-$epoch-timestamp-type /= ~time
-
-$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
-$tagged-epoch-id /= time ; int or float
-$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
-$tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-epoch-grace-tdate = [
-    epoch: tdate
-    grace-period: epoch-seconds-type
-]
-
-epoch-grace-time = [
-    epoch: time
-    grace-period: epoch-seconds-type
-]
-
-;
-; draft-ietf-rats-epoch-markers
-;
-epoch-marker = [
-    epoch-id: $tagged-epoch-id
-    ? bell-veracity-proof
-]
-
-; veracity of the bell
-bell-veracity-proof = non-empty&lt;{
-  ? remote-attestation-evidence
-  ? remote-attestation-result
-  ? scitt-receipt
-}&gt;
-
-remote-attestation-evidence = (1: bytes)
-remote-attestation-result = (2: bytes)
-scitt-receipt = (3: bytes)
-</pre><a href="#section-8.1.4.1-17" class="pilcrow">¶</a>
-</div>
-<p id="section-8.1.4.1-18">The string date-time expression definitions are as follows:<a href="#section-8.1.4.1-18" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.1.4.1-19">
-<pre>
-epoch-seconds-type = int
-$epoch-timestamp-type /= ~tdate
-$epoch-timestamp-type /= ~time
-
-$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
-$tagged-epoch-id /= time ; int or float
-$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
-$tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-epoch-grace-tdate = [
-    epoch: tdate
-    grace-period: epoch-seconds-type
-]
-
-epoch-grace-time = [
-    epoch: time
-    grace-period: epoch-seconds-type
-]
-
-;
-; draft-ietf-rats-epoch-markers
-;
-epoch-marker = [
-    epoch-id: $tagged-epoch-id
-    ? bell-veracity-proof
-]
-
-; veracity of the bell
-bell-veracity-proof = non-empty&lt;{
-  ? remote-attestation-evidence
-  ? remote-attestation-result
-  ? scitt-receipt
-}&gt;
-
-remote-attestation-evidence = (1: bytes)
-remote-attestation-result = (2: bytes)
-scitt-receipt = (3: bytes)
-</pre><a href="#section-8.1.4.1-19" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="sec-epoch-expressions">
-<section id="section-8.1.4.2">
-            <h5 id="name-epoch-expressions">
-<a href="#section-8.1.4.2" class="section-number selfRef">8.1.4.2. </a><a href="#name-epoch-expressions" class="section-name selfRef">Epoch Expressions</a>
-            </h5>
-<p id="section-8.1.4.2-1">An epoch expression defines a timing window that can be used to determine recentness of a time stampped message.
-By default, the Verifier's current time implicitly defines an epoch.
-A grace period defines the epoch window differential, in seconds, that a timestamp must fall within to be valid.<a href="#section-8.1.4.2-1" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.2-2">Epochs don't have to rely on current time. <span>[<a href="#I-D.birkholz-rats-epoch-markers" class="cite xref">I-D.birkholz-rats-epoch-markers</a>]</span> defines several.<a href="#section-8.1.4.2-2" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.2-3">The epoch data type definitions are as follows:<a href="#section-8.1.4.2-3" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.1.4.2-4">
-<pre>
-epoch-seconds-type = int
-$epoch-timestamp-type /= ~tdate
-$epoch-timestamp-type /= ~time
-
-$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
-$tagged-epoch-id /= time ; int or float
-$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
-$tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-epoch-grace-tdate = [
-    epoch: tdate
-    grace-period: epoch-seconds-type
-]
-
-epoch-grace-time = [
-    epoch: time
-    grace-period: epoch-seconds-type
-]
-
-;
-; draft-ietf-rats-epoch-markers
-;
-epoch-marker = [
-    epoch-id: $tagged-epoch-id
-    ? bell-veracity-proof
-]
-
-; veracity of the bell
-bell-veracity-proof = non-empty&lt;{
-  ? remote-attestation-evidence
-  ? remote-attestation-result
-  ? scitt-receipt
-}&gt;
-
-remote-attestation-evidence = (1: bytes)
-remote-attestation-result = (2: bytes)
-scitt-receipt = (3: bytes)
-</pre><a href="#section-8.1.4.2-4" class="pilcrow">¶</a>
-</div>
-<p id="section-8.1.4.2-5">An epoch expression array contains an <code>epoch-operator</code> followed by a grace period in seconds that is optionally followed
-by a <code>$tagged-epoch-id</code>. Epoch operators can be: <code>gt</code>, <code>ge</code>, <code>lt</code>, or <code>le</code>. The operator defines the position of
-the grace window relative to the epoch and <code>epoch-grace-seconds</code> defines the size of the window in seconds.
-If the default epoch type is not used, <code>$tagged-epoch-id</code> defines the alternate epoch scheme.<a href="#section-8.1.4.2-5" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.2-6">The <code>$epoch-timestamp-type</code> defines the timestamp type for the epoch scheme. By default, the timestamp is <code>tdate</code>.<a href="#section-8.1.4.2-6" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.2-7">The <code>tagged-epoch-expression</code> is an <code>epoch-expression</code> preceded by a CBOR tag for an expression array that has
-the value <code>#6.60010</code>.<a href="#section-8.1.4.2-7" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.2-8">The epoch expression definitions are as follows:<a href="#section-8.1.4.2-8" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.1.4.2-9">
-<pre>
-epoch-seconds-type = int
-$epoch-timestamp-type /= ~tdate
-$epoch-timestamp-type /= ~time
-
-$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
-$tagged-epoch-id /= time ; int or float
-$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
-$tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-epoch-grace-tdate = [
-    epoch: tdate
-    grace-period: epoch-seconds-type
-]
-
-epoch-grace-time = [
-    epoch: time
-    grace-period: epoch-seconds-type
-]
-
-;
-; draft-ietf-rats-epoch-markers
-;
-epoch-marker = [
-    epoch-id: $tagged-epoch-id
-    ? bell-veracity-proof
-]
-
-; veracity of the bell
-bell-veracity-proof = non-empty&lt;{
-  ? remote-attestation-evidence
-  ? remote-attestation-result
-  ? scitt-receipt
-}&gt;
-
-remote-attestation-evidence = (1: bytes)
-remote-attestation-result = (2: bytes)
-scitt-receipt = (3: bytes)
-</pre><a href="#section-8.1.4.2-9" class="pilcrow">¶</a>
-</div>
-<p id="section-8.1.4.2-10">A variety of epoch expressions can be defined that convenently constrain epoch definition.
-The <code>tagged-exp-epoch-gt</code> expression defines an epoch window that is greater than the current date and time
-by the supplied grace period.<a href="#section-8.1.4.2-10" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.2-11">In <em>infix</em> notation, the timestamp value is within an epoch window that is defined by the current time,
-plus the grace period, and where the <code>epoch-operator</code> defines the shape of the epoch window.<a href="#section-8.1.4.2-11" class="pilcrow">¶</a></p>
-<p id="section-8.1.4.2-12">Example epoch expression:<a href="#section-8.1.4.2-12" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-8.1.4.2-13.1">
-                <p id="section-8.1.4.2-13.1.1">&lt;<code>evidence_timestamp</code>&gt; &lt;<code>epoch-operator</code>&gt; &lt;<code>grace_period</code>&gt; &lt;<code>current_time</code>&gt;<a href="#section-8.1.4.2-13.1.1" class="pilcrow">¶</a></p>
-</li>
-            </ul>
-<p id="section-8.1.4.2-14">The Verifier adds <code>grace_period</code> to <code>current_time</code> to obtain the epoch window then applies the operator to
-determine if the <code>evidence_timestamp</code> is within the window.<a href="#section-8.1.4.2-14" class="pilcrow">¶</a></p>
-</section>
-</div>
-</section>
-</div>
 <div id="sec-mask-expression">
-<section id="section-8.1.5">
+<section id="section-8.1.4">
           <h4 id="name-mask-expression">
-<a href="#section-8.1.5" class="section-number selfRef">8.1.5. </a><a href="#name-mask-expression" class="section-name selfRef">Mask Expression</a>
+<a href="#section-8.1.4" class="section-number selfRef">8.1.4. </a><a href="#name-mask-expression" class="section-name selfRef">Mask Expression</a>
           </h4>
-<p id="section-8.1.5-1">Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
-bits or bytes of Evidence to ignore.<a href="#section-8.1.5-1" class="pilcrow">¶</a></p>
-<p id="section-8.1.5-2">Reference Value and mask arrays <span class="bcp14">MUST</span> be the same length for the mask to be applied correctly.
+<p id="section-8.1.4-1">Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
+bits or bytes of Evidence to ignore.<a href="#section-8.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.4-2">Reference Value and mask arrays <span class="bcp14">MUST</span> be the same length for the mask to be applied correctly.
 Normally, Evidence would not supply a mask, while Endorsed Values would.
 The <code>mask-eq</code> operator indicates that an Evidence value of type <code>mask-type</code> is compared with
 a Reference Value of type <code>mask-type</code>, and that a mask of type <code>mask-type</code> is applied to both
-values before comparing values. If the operator is <code>mask-eq</code>, then a binary equivalence comparison is applied.<a href="#section-8.1.5-2" class="pilcrow">¶</a></p>
-<p id="section-8.1.5-3">The Verifier <span class="bcp14">MUST</span> ensure the lengths of values and mask are equivalent. If the mask is shorter
+values before comparing values. If the operator is <code>mask-eq</code>, then a binary equivalence comparison is applied.<a href="#section-8.1.4-2" class="pilcrow">¶</a></p>
+<p id="section-8.1.4-3">The Verifier <span class="bcp14">MUST</span> ensure the lengths of values and mask are equivalent. If the mask is shorter
 than the values, the mask is padded with zeros (0) until it is the same length as the largest value.
 If the Evidence or Reference Value length is shorter than the mask, the value is padded with
-zeros (0) to the length of the mask.<a href="#section-8.1.5-3" class="pilcrow">¶</a></p>
-<p id="section-8.1.5-4">The masked data type definitions are as follows:<a href="#section-8.1.5-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.1.5-5">
+zeros (0) to the length of the mask.<a href="#section-8.1.4-3" class="pilcrow">¶</a></p>
+<p id="section-8.1.4-4">The masked data type definitions are as follows:<a href="#section-8.1.4-4" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.4-5">
 <pre>
 mask-operators /= op.eq
 mask-type = bstr
 mask-expression = [ mask-operators, value: mask-type, mask: mask-type]
 tagged-mask-expression = #6.60040( mask-expression )
-</pre><a href="#section-8.1.5-5" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.4-5" class="pilcrow">¶</a>
 </div>
-<p id="section-8.1.5-6">If the Evidence bit field is a different length from the Reference Value and mask,
-the shorter length bit field is padded with zeros to accommodate the larger bit field.<a href="#section-8.1.5-6" class="pilcrow">¶</a></p>
-<p id="section-8.1.5-7">The <code>tagged-exp-mask-eq</code> expression defines a tagged expression that applies the mask equivalence  operator to an Evidence value and a Reference Value using the supplied mask.<a href="#section-8.1.5-7" class="pilcrow">¶</a></p>
-<p id="section-8.1.5-8">In <em>infix</em> notation, the Evidence value is <em>operand_1</em>, followed by the mask operator, followed by a
-Reference Value, <em>operand_2</em>, followed by the mask, <em>operand_3</em>.<a href="#section-8.1.5-8" class="pilcrow">¶</a></p>
-<p id="section-8.1.5-9">Example:<a href="#section-8.1.5-9" class="pilcrow">¶</a></p>
+<p id="section-8.1.4-6">If the Evidence bit field is a different length from the Reference Value and mask,
+the shorter length bit field is padded with zeros to accommodate the larger bit field.<a href="#section-8.1.4-6" class="pilcrow">¶</a></p>
+<p id="section-8.1.4-7">The <code>tagged-exp-mask-eq</code> expression defines a tagged expression that applies the mask equivalence  operator to an Evidence value and a Reference Value using the supplied mask.<a href="#section-8.1.4-7" class="pilcrow">¶</a></p>
+<p id="section-8.1.4-8">In <em>infix</em> notation, the Evidence value is <em>operand_1</em>, followed by the mask operator, followed by a
+Reference Value, <em>operand_2</em>, followed by the mask, <em>operand_3</em>.<a href="#section-8.1.4-8" class="pilcrow">¶</a></p>
+<p id="section-8.1.4-9">Example:<a href="#section-8.1.4-9" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-8.1.5-10.1">
-              <p id="section-8.1.5-10.1.1">&lt;<code>evidence_value</code>&gt; &lt;<code>mask-eq</code>&gt; &lt;<code>reference_value</code>&gt; &lt;<code>mask</code>&gt;<a href="#section-8.1.5-10.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.1.4-10.1">
+              <p id="section-8.1.4-10.1.1">&lt;<code>evidence_value</code>&gt; &lt;<code>mask-eq</code>&gt; &lt;<code>reference_value</code>&gt; &lt;<code>mask</code>&gt;<a href="#section-8.1.4-10.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-8.1.5-11">If each bit in Evidence has a corresponding matching bit in the Reference Value, then the Evidence
-value is accepted.<a href="#section-8.1.5-11" class="pilcrow">¶</a></p>
-<p id="section-8.1.5-12">The masked data expression definitions are as follows:<a href="#section-8.1.5-12" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.1.5-13">
+<p id="section-8.1.4-11">If each bit in Evidence has a corresponding matching bit in the Reference Value, then the Evidence
+value is accepted.<a href="#section-8.1.4-11" class="pilcrow">¶</a></p>
+<p id="section-8.1.4-12">The masked data expression definitions are as follows:<a href="#section-8.1.4-12" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.4-13">
 <pre>
 tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
-</pre><a href="#section-8.1.5-13" class="pilcrow">¶</a>
+</pre><a href="#section-8.1.4-13" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="sec-epoch">
+<section id="section-8.1.5">
+          <h4 id="name-timestamps-and-epoch-marker">
+<a href="#section-8.1.5" class="section-number selfRef">8.1.5. </a><a href="#name-timestamps-and-epoch-marker" class="section-name selfRef">Timestamps and Epoch Markers</a>
+          </h4>
+<div id="sec-date-time-expressions">
+<section id="section-8.1.5.1">
+            <h5 id="name-date-time-expressions">
+<a href="#section-8.1.5.1" class="section-number selfRef">8.1.5.1. </a><a href="#name-date-time-expressions" class="section-name selfRef">Date-Time Expressions</a>
+            </h5>
+<p id="section-8.1.5.1-1">Date-time can be expressed in both string <code>tdate</code> or numeric <code>time</code> formats.
+There are four operators that are defined for date-time expressions:<a href="#section-8.1.5.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-8.1.5.1-2">
+<li id="section-8.1.5.1-2.1">
+                <p id="section-8.1.5.1-2.1.1"><strong>lt</strong> determines if a date-time Evidence value is less than a Reference Values date-time.<a href="#section-8.1.5.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li id="section-8.1.5.1-2.2">
+                <p id="section-8.1.5.1-2.2.1"><strong>le</strong> determines if a date-time Evidence value is less than or equal to a Reference Values date-time.<a href="#section-8.1.5.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li id="section-8.1.5.1-2.3">
+                <p id="section-8.1.5.1-2.3.1"><strong>gt</strong> determines if a data-time Evidence value is greater than a Reference Values date-time.<a href="#section-8.1.5.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li id="section-8.1.5.1-2.4">
+                <p id="section-8.1.5.1-2.4.1"><strong>ge</strong> determines if a data-time Evidence value is greater than or equal to a Reference Values date-time.<a href="#section-8.1.5.1-2.4.1" class="pilcrow">¶</a></p>
+</li>
+            </ol>
+<p id="section-8.1.5.1-3">The date-time operators are in fact numeric. Expressions involving string date-time values must be converted to numeric format before the numeric comparison
+operator can be applied.<a href="#section-8.1.5.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.1-4">The numeric date-time data type definitions are as follows:<a href="#section-8.1.5.1-4" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.5.1-5">
+<pre>
+epoch-seconds-type = int
+$epoch-timestamp-type /= ~tdate
+$epoch-timestamp-type /= ~time
+
+$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+$tagged-epoch-id /= time ; int or float
+$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+$tagged-epoch-id /= #6.26991( epoch-grace-time)
+
+epoch-grace-tdate = [
+    epoch: tdate
+    grace-period: epoch-seconds-type
+]
+
+epoch-grace-time = [
+    epoch: time
+    grace-period: epoch-seconds-type
+]
+
+;
+; draft-ietf-rats-epoch-markers
+;
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
+
+; veracity of the bell
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
+
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
+</pre><a href="#section-8.1.5.1-5" class="pilcrow">¶</a>
+</div>
+<p id="section-8.1.5.1-6">The string date-time data type definitions are as follows:<a href="#section-8.1.5.1-6" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.5.1-7">
+<pre>
+epoch-seconds-type = int
+$epoch-timestamp-type /= ~tdate
+$epoch-timestamp-type /= ~time
+
+$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+$tagged-epoch-id /= time ; int or float
+$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+$tagged-epoch-id /= #6.26991( epoch-grace-time)
+
+epoch-grace-tdate = [
+    epoch: tdate
+    grace-period: epoch-seconds-type
+]
+
+epoch-grace-time = [
+    epoch: time
+    grace-period: epoch-seconds-type
+]
+
+;
+; draft-ietf-rats-epoch-markers
+;
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
+
+; veracity of the bell
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
+
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
+</pre><a href="#section-8.1.5.1-7" class="pilcrow">¶</a>
+</div>
+<p id="section-8.1.5.1-8">The date-time expressions for evaluating time consist of a CBOR tagged record containing a time operator followed by a date-time value.<a href="#section-8.1.5.1-8" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.1-9">The <code>gt</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
+If the Evidence date-time value is greater-than to the Reference Value,
+then the Evidence value is accepted.<a href="#section-8.1.5.1-9" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.1-10">The <code>ge</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
+If the Evidence date-time value is greater-than-or-equal to the Reference Value,
+then the Evidence value is accepted.<a href="#section-8.1.5.1-10" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.1-11">The <code>lt</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
+If the Evidence date-time value is less-than to the Reference Value,
+then the Evidence value is accepted.<a href="#section-8.1.5.1-11" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.1-12">The <code>le</code> expression compares a date-time value contained in Evidence to a Reference Values date-time.
+If the Evidence date-time value is less-than-or-equal to the Reference Value,
+then the Evidence value is accepted.<a href="#section-8.1.5.1-12" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.1-13">In <em>infix</em> notation, a date-time value reported as Evidence in <em>operand_1</em>.
+The Reference Value expression contains a time comparison operator and <em>operand_2</em> contains a reference date-time.<a href="#section-8.1.5.1-13" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.1-14">Example:<a href="#section-8.1.5.1-14" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8.1.5.1-15.1">
+                <p id="section-8.1.5.1-15.1.1">&lt;<code>evidence_date_time</code>&gt; &lt;<code>gt</code>&gt; &lt;<code>reference_date_time</code>&gt;<a href="#section-8.1.5.1-15.1.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+<p id="section-8.1.5.1-16">The numeric date-time expression definitions are as follows:<a href="#section-8.1.5.1-16" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.5.1-17">
+<pre>
+epoch-seconds-type = int
+$epoch-timestamp-type /= ~tdate
+$epoch-timestamp-type /= ~time
+
+$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+$tagged-epoch-id /= time ; int or float
+$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+$tagged-epoch-id /= #6.26991( epoch-grace-time)
+
+epoch-grace-tdate = [
+    epoch: tdate
+    grace-period: epoch-seconds-type
+]
+
+epoch-grace-time = [
+    epoch: time
+    grace-period: epoch-seconds-type
+]
+
+;
+; draft-ietf-rats-epoch-markers
+;
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
+
+; veracity of the bell
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
+
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
+</pre><a href="#section-8.1.5.1-17" class="pilcrow">¶</a>
+</div>
+<p id="section-8.1.5.1-18">The string date-time expression definitions are as follows:<a href="#section-8.1.5.1-18" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.5.1-19">
+<pre>
+epoch-seconds-type = int
+$epoch-timestamp-type /= ~tdate
+$epoch-timestamp-type /= ~time
+
+$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+$tagged-epoch-id /= time ; int or float
+$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+$tagged-epoch-id /= #6.26991( epoch-grace-time)
+
+epoch-grace-tdate = [
+    epoch: tdate
+    grace-period: epoch-seconds-type
+]
+
+epoch-grace-time = [
+    epoch: time
+    grace-period: epoch-seconds-type
+]
+
+;
+; draft-ietf-rats-epoch-markers
+;
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
+
+; veracity of the bell
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
+
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
+</pre><a href="#section-8.1.5.1-19" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="sec-epoch-expressions">
+<section id="section-8.1.5.2">
+            <h5 id="name-epoch-expressions">
+<a href="#section-8.1.5.2" class="section-number selfRef">8.1.5.2. </a><a href="#name-epoch-expressions" class="section-name selfRef">Epoch Expressions</a>
+            </h5>
+<p id="section-8.1.5.2-1">An epoch expression defines a timing window that can be used to determine recentness of a time stampped message.
+By default, the Verifier's current time implicitly defines an epoch.
+A grace period defines the epoch window differential, in seconds, that a timestamp must fall within to be valid.<a href="#section-8.1.5.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.2-2">Epochs don't have to rely on current time. <span>[<a href="#I-D.birkholz-rats-epoch-markers" class="cite xref">I-D.birkholz-rats-epoch-markers</a>]</span> defines several.<a href="#section-8.1.5.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.2-3">The epoch data type definitions are as follows:<a href="#section-8.1.5.2-3" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.5.2-4">
+<pre>
+epoch-seconds-type = int
+$epoch-timestamp-type /= ~tdate
+$epoch-timestamp-type /= ~time
+
+$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+$tagged-epoch-id /= time ; int or float
+$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+$tagged-epoch-id /= #6.26991( epoch-grace-time)
+
+epoch-grace-tdate = [
+    epoch: tdate
+    grace-period: epoch-seconds-type
+]
+
+epoch-grace-time = [
+    epoch: time
+    grace-period: epoch-seconds-type
+]
+
+;
+; draft-ietf-rats-epoch-markers
+;
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
+
+; veracity of the bell
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
+
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
+</pre><a href="#section-8.1.5.2-4" class="pilcrow">¶</a>
+</div>
+<p id="section-8.1.5.2-5">An epoch expression array contains an <code>epoch-operator</code> followed by a grace period in seconds that is optionally followed
+by a <code>$tagged-epoch-id</code>. Epoch operators can be: <code>gt</code>, <code>ge</code>, <code>lt</code>, or <code>le</code>. The operator defines the position of
+the grace window relative to the epoch and <code>epoch-grace-seconds</code> defines the size of the window in seconds.
+If the default epoch type is not used, <code>$tagged-epoch-id</code> defines the alternate epoch scheme.<a href="#section-8.1.5.2-5" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.2-6">The <code>$epoch-timestamp-type</code> defines the timestamp type for the epoch scheme. By default, the timestamp is <code>tdate</code>.<a href="#section-8.1.5.2-6" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.2-7">The <code>tagged-epoch-expression</code> is an <code>epoch-expression</code> preceded by a CBOR tag for an expression array that has
+the value <code>#6.60010</code>.<a href="#section-8.1.5.2-7" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.2-8">The epoch expression definitions are as follows:<a href="#section-8.1.5.2-8" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.1.5.2-9">
+<pre>
+epoch-seconds-type = int
+$epoch-timestamp-type /= ~tdate
+$epoch-timestamp-type /= ~time
+
+$tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+$tagged-epoch-id /= time ; int or float
+$tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+$tagged-epoch-id /= #6.26991( epoch-grace-time)
+
+epoch-grace-tdate = [
+    epoch: tdate
+    grace-period: epoch-seconds-type
+]
+
+epoch-grace-time = [
+    epoch: time
+    grace-period: epoch-seconds-type
+]
+
+;
+; draft-ietf-rats-epoch-markers
+;
+epoch-marker = [
+    epoch-id: $tagged-epoch-id
+    ? bell-veracity-proof
+]
+
+; veracity of the bell
+bell-veracity-proof = non-empty&lt;{
+  ? remote-attestation-evidence
+  ? remote-attestation-result
+  ? scitt-receipt
+}&gt;
+
+remote-attestation-evidence = (1: bytes)
+remote-attestation-result = (2: bytes)
+scitt-receipt = (3: bytes)
+</pre><a href="#section-8.1.5.2-9" class="pilcrow">¶</a>
+</div>
+<p id="section-8.1.5.2-10">A variety of epoch expressions can be defined that convenently constrain epoch definition.
+The <code>tagged-exp-epoch-gt</code> expression defines an epoch window that is greater than the current date and time
+by the supplied grace period.<a href="#section-8.1.5.2-10" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.2-11">In <em>infix</em> notation, the timestamp value is within an epoch window that is defined by the current time,
+plus the grace period, and where the <code>epoch-operator</code> defines the shape of the epoch window.<a href="#section-8.1.5.2-11" class="pilcrow">¶</a></p>
+<p id="section-8.1.5.2-12">Example epoch expression:<a href="#section-8.1.5.2-12" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8.1.5.2-13.1">
+                <p id="section-8.1.5.2-13.1.1">&lt;<code>evidence_timestamp</code>&gt; &lt;<code>epoch-operator</code>&gt; &lt;<code>grace_period</code>&gt; &lt;<code>current_time</code>&gt;<a href="#section-8.1.5.2-13.1.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+<p id="section-8.1.5.2-14">The Verifier adds <code>grace_period</code> to <code>current_time</code> to obtain the epoch window then applies the operator to
+determine if the <code>evidence_timestamp</code> is within the window.<a href="#section-8.1.5.2-14" class="pilcrow">¶</a></p>
+</section>
 </div>
 </section>
 </div>
@@ -2892,38 +2892,11 @@ that the Relying Party and Verifier both support the extensions defined in this 
             <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">60030</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <code>tag</code>
-</td>
-            <td class="text-left" rowspan="1" colspan="1">Time Expressions,  see <a href="#sec-time-expressions" class="auto internal xref">Section 8.1.4</a>
-</td>
-            <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">60031</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <code>tag</code>
-</td>
-            <td class="text-left" rowspan="1" colspan="1">Date Expressions, see <a href="#sec-time-expressions" class="auto internal xref">Section 8.1.4</a>
-</td>
-            <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">60032</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <code>tag</code>
-</td>
-            <td class="text-left" rowspan="1" colspan="1">Epoch Expressions, see <a href="#sec-time-expressions" class="auto internal xref">Section 8.1.4</a>
-</td>
-            <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
-          </tr>
-          <tr>
             <td class="text-left" rowspan="1" colspan="1">60040</td>
             <td class="text-left" rowspan="1" colspan="1">
               <code>tag</code>
 </td>
-            <td class="text-left" rowspan="1" colspan="1">Mask Expressions, see <a href="#sec-mask-expression" class="auto internal xref">Section 8.1.5</a>
+            <td class="text-left" rowspan="1" colspan="1">Mask Expressions, see <a href="#sec-mask-expression" class="auto internal xref">Section 8.1.4</a>
 </td>
             <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
           </tr>
