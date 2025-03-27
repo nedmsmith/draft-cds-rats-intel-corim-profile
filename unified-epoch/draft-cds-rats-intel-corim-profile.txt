@@ -1216,6 +1216,7 @@ Table of Contents
    )
 
    $tee-epoch-type /= $epoch-timestamp-type
+   $tee-epoch-type /= epoch-marker
    $tee-epoch-type /= tagged-exp-epochm-ge
    $tee-epoch-type /= tagged-exp-epoch-gt
    $tee-epoch-type /= tagged-exp-epoch-ge
@@ -2020,6 +2021,7 @@ Appendix B.  Full Intel Profile CDDL
    )
 
    $tee-epoch-type /= $epoch-timestamp-type
+   $tee-epoch-type /= epoch-marker
    $tee-epoch-type /= tagged-exp-epochm-ge
    $tee-epoch-type /= tagged-exp-epoch-gt
    $tee-epoch-type /= tagged-exp-epoch-ge
