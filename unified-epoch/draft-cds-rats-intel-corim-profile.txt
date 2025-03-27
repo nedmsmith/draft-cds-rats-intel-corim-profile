@@ -5,13 +5,13 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 27 September 2025                               ARM Corporation
+Expires: 28 September 2025                               ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                           26 March 2025
+                                                           27 March 2025
 
 
                   Intel Profile for Remote Attestation
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 September 2025.
+   This Internet-Draft will expire on 28 September 2025.
 
 Copyright Notice
 
@@ -862,17 +862,51 @@ Table of Contents
    epoch-operators /= op.ge
    epoch-operators /= op.lt
    epoch-operators /= op.le
-   epoch-seconds-type = ~time
-   $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
-   $tagged-epoch-id /= time ; int or float
+   epoch-seconds-type = int
    $epoch-timestamp-type /= ~tdate
    $epoch-timestamp-type /= ~time
    epoch-expression = [
-       epoch-operators,
-       grace-period: epoch-seconds-type,
-       ? epoch-id: $tagged-epoch-id
+       epoch-operators
+       epoch-seconds-type
+       ? $tagged-epoch-id
    ]
-   tagged-epoch-expression = #6.60032( epoch-expression )
+   epoch-expression2 = [ ; replaces epoch-expression when examples are ported
+       epoch-operators
+       epoch-marker
+   ]
+   tagged-epoch-expression = #6.60032( epoch-expression / epoch-expression2)
+
+   $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+   $tagged-epoch-id /= time ; int or float
+   $tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+   $tagged-epoch-id /= #6.26991( epoch-grace-time)
+
+   epoch-marker = [
+       epoch-id: $tagged-epoch-id
+       ? bell-veracity-proof
+   ]
+
+   ; veracity of the bell
+   bell-veracity-proof = non-empty<{
+     ? remote-attestation-evidence ; could be EAT or Concise Evidence
+     ? remote-attestation-result ; hopefully EAT with AR4SI Claims
+     ? scitt-receipt ; SCITT receipt
+   }>
+
+   remote-attestation-evidence = (1: bytes)
+   remote-attestation-result = (2: bytes)
+   scitt-receipt = (3: bytes)
+
+   epoch-grace-tdate = [
+       epoch: tdate
+       grace-period: epoch-seconds-type
+   ]
+
+   epoch-grace-time = [
+       epoch: time
+       grace-period: epoch-seconds-type
+
+   ]
 
    An epoch expression array contains an epoch-operator followed by a
    grace period in seconds that is optionally followed by a $tagged-
@@ -1180,13 +1214,15 @@ Table of Contents
    $$measurement-values-map-extension //= (
      &(tee.epoch: -90) => $tee-epoch-type
    )
+
    $tee-epoch-type /= $epoch-timestamp-type
+   $tee-epoch-type /= tagged-exp-epochm-ge
    $tee-epoch-type /= tagged-exp-epoch-gt
    $tee-epoch-type /= tagged-exp-epoch-ge
-   $tee-epoch-type /= tagged-exp-epoch-lt
-   $tee-epoch-type /= tagged-exp-epoch-le
-   $tee-epoch-type /= tagged-exp-epoch-id-gt
-   $tee-epoch-type /= tagged-exp-epoch-id-ge
+   ;$tee-epoch-type /= tagged-exp-epoch-lt
+   ;$tee-epoch-type /= tagged-exp-epoch-le
+   ;$tee-epoch-type /= tagged-exp-epoch-id-gt
+   ;$tee-epoch-type /= tagged-exp-epoch-id-ge
    $tee-epoch-type /= tagged-exp-epoch-id-lt
    $tee-epoch-type /= tagged-exp-epoch-id-le
 
@@ -1898,17 +1934,50 @@ Appendix B.  Full Intel Profile CDDL
    epoch-operators /= op.ge
    epoch-operators /= op.lt
    epoch-operators /= op.le
-   epoch-seconds-type = ~time
-   $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
-   $tagged-epoch-id /= time ; int or float
+   epoch-seconds-type = int
    $epoch-timestamp-type /= ~tdate
    $epoch-timestamp-type /= ~time
    epoch-expression = [
-       epoch-operators,
-       grace-period: epoch-seconds-type,
-       ? epoch-id: $tagged-epoch-id
+       epoch-operators
+       epoch-seconds-type
+       ? $tagged-epoch-id
    ]
-   tagged-epoch-expression = #6.60032( epoch-expression )
+   epoch-expression2 = [ ; replaces epoch-expression when examples are ported
+       epoch-operators
+       epoch-marker
+   ]
+   tagged-epoch-expression = #6.60032( epoch-expression / epoch-expression2)
+
+   $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
+   $tagged-epoch-id /= time ; int or float
+   $tagged-epoch-id /= #6.26990( epoch-grace-tdate)
+   $tagged-epoch-id /= #6.26991( epoch-grace-time)
+
+   epoch-marker = [
+       epoch-id: $tagged-epoch-id
+       ? bell-veracity-proof
+   ]
+
+   bell-veracity-proof = non-empty<{
+     ? remote-attestation-evidence ; could be EAT or Concise Evidence
+     ? remote-attestation-result ; hopefully EAT with AR4SI Claims
+     ? scitt-receipt ; SCITT receipt
+   }>
+
+   remote-attestation-evidence = (1: bytes)
+   remote-attestation-result = (2: bytes)
+   scitt-receipt = (3: bytes)
+
+   epoch-grace-tdate = [
+       epoch: tdate
+       grace-period: epoch-seconds-type
+   ]
+
+   epoch-grace-time = [
+       epoch: time
+       grace-period: epoch-seconds-type
+
+   ]
 
    $$measurement-values-map-extension //= (
      &(tee.advisory-ids: -89) => $tee-advisory-ids-type
@@ -1949,13 +2018,11 @@ Appendix B.  Full Intel Profile CDDL
    $$measurement-values-map-extension //= (
      &(tee.epoch: -90) => $tee-epoch-type
    )
+
    $tee-epoch-type /= $epoch-timestamp-type
+   $tee-epoch-type /= tagged-exp-epochm-ge
    $tee-epoch-type /= tagged-exp-epoch-gt
    $tee-epoch-type /= tagged-exp-epoch-ge
-   $tee-epoch-type /= tagged-exp-epoch-lt
-   $tee-epoch-type /= tagged-exp-epoch-le
-   $tee-epoch-type /= tagged-exp-epoch-id-gt
-   $tee-epoch-type /= tagged-exp-epoch-id-ge
    $tee-epoch-type /= tagged-exp-epoch-id-lt
    $tee-epoch-type /= tagged-exp-epoch-id-le
 
