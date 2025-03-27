@@ -539,13 +539,13 @@ operator can be applied.
 The numeric date-time data type definitions are as follows:
 
 ~~~ cddl
-{::include cddl/time-type.cddl}
+{::include cddl/epoch-type.cddl}
 ~~~
 
 The string date-time data type definitions are as follows:
 
 ~~~ cddl
-{::include cddl/tdate-type.cddl}
+{::include cddl/epoch-type.cddl}
 ~~~
 
 The date-time expressions for evaluating time consist of a CBOR tagged record containing a time operator followed by a date-time value.
