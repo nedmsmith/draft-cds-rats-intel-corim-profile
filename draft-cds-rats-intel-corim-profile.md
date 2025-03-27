@@ -755,27 +755,6 @@ When used for a Reference Value, either a `tagged-tdate-expression` or a `tagged
 
 Alternatively, the TEE tcbdate may be encoded using `mkey` where `mkey` contains the non-negative `tee.tcbdate` and `mval`.`name` contains the string representation `$tee-date-type` without the CBOR tag (i.e., ~tdate).
 
-### The tee-digest-type Measurement Extension {#sec-tee-digest-type}
-
-The `tee.mrtee` extension enables an Attester to report digests for the SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).
-The `tee.mrsigner` extension enables an Attester to report the signer of the TEE digest (e.g., MRSIGNER).
-
-The `$tee-digest-type` has multiple type structures involving digest values. A singleton digest has a hash algorithm identifier and the digest value.
-When used as Evidence, either a signleton digest or a set of digests can be reported.
-When used as Reference Values or Endorsements, a set of digests can be asserted signifying equivalence matching.
-Alternatively, matching may be expressed as set membership or set difference expressions.
-
-~~~ cddl
-{::include cddl/tee-digest-type.cddl}
-~~~
-
-Alternatively, the TEE digests may be encoded using `mkey` where `mkey` contains the non-negative `tee.mrtee` or `tee.mrsigner` and `mval`.`digests` contains a `digests-type` value.
-
-#### The tee-digest-type Comparison Algorithm {#sec-tee-digest-comp}
-
-The comparison algorithm for `tee-digest-type` is used when the condition statement in an Endorsement or Reference Values triple is matched with an Environment Claim Tuple (ECT) from the Verifier's Accepted Claims Set (ACS).
-The comparison algorithm for set of digests is defined in {{sec-ca-sets}}.
-
 ### The tee-epoch-type Measurement Extension {#sec-tee-epoch-type}
 
 The `tee.epoch` extension enables the Attester to report an epoch Evidence measurement,
@@ -796,6 +775,27 @@ and a `$tagged-epoch-expression` when used as a Reference Value.
 ~~~
 
 Alternatively, for Evidence, the TEE epoch timestamp may be encoded using `mkey` where `mkey` contains the non-negative `tee.epoch` and `mval`.`name` contains the string representation `$tagged-epoch-id` without the CBOR tag (i.e., ~tdate).
+
+### The tee-digest-type Measurement Extension {#sec-tee-digest-type}
+
+The `tee.mrtee` extension enables an Attester to report digests for the SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).
+The `tee.mrsigner` extension enables an Attester to report the signer of the TEE digest (e.g., MRSIGNER).
+
+The `$tee-digest-type` has multiple type structures involving digest values. A singleton digest has a hash algorithm identifier and the digest value.
+When used as Evidence, either a signleton digest or a set of digests can be reported.
+When used as Reference Values or Endorsements, a set of digests can be asserted signifying equivalence matching.
+Alternatively, matching may be expressed as set membership or set difference expressions.
+
+~~~ cddl
+{::include cddl/tee-digest-type.cddl}
+~~~
+
+Alternatively, the TEE digests may be encoded using `mkey` where `mkey` contains the non-negative `tee.mrtee` or `tee.mrsigner` and `mval`.`digests` contains a `digests-type` value.
+
+#### The tee-digest-type Comparison Algorithm {#sec-tee-digest-comp}
+
+The comparison algorithm for `tee-digest-type` is used when the condition statement in an Endorsement or Reference Values triple is matched with an Environment Claim Tuple (ECT) from the Verifier's Accepted Claims Set (ACS).
+The comparison algorithm for set of digests is defined in {{sec-ca-sets}}.
 
 ### The tee-instance-id-type Measurement Extension {#sec-tee-instance-id-type}
 
