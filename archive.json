@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-27T01:26:00.332399+00:00",
+  "timestamp": "2025-03-30T01:40:26.071339+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -165,7 +165,7 @@
       "labels": [],
       "body": "There are primitives for time, date (tdate), and epoch markers that have overlapping semantics. It might make sense to combine them into a more comprehensive approach where a simple timestamp can be considered a simplified epoch marker where secure time / synchronized clocks are assumed (out of scope).\n\nThe epoch markers expression type can treat grace seconds as optional. By populating epoch-id with a timestamp value, the current simple use case for timestamps can be accommodated. \n\nOnly one CBOR expression type 60030 is needed to handle the various forms for expressing epochs. \n\n",
       "createdAt": "2025-03-25T18:23:16Z",
-      "updatedAt": "2025-03-25T18:37:41Z",
+      "updatedAt": "2025-03-27T17:18:16Z",
       "closedAt": null,
       "comments": [
         {
@@ -181,6 +181,39 @@
           "body": "The general idea is to allow grace period to be optional:\n```\nepoch-expression = [ \n    epoch-operators,\n    grace-period: epoch-seconds-type,\n    ? epoch-id: $tagged-epoch-id\n]\n```\nbecomes:\n```\nepoch-expression = [ \n    epoch-operators,\n    non-empty<{\n        ? grace-period: epoch-seconds-type\n        ? epoch-id: $tagged-epoch-id\n   }>\n]\n```\nIf grace-period is populated but not epoch-id, then current time is the defailt epoch-id.\nIf epoch-id is populated but not grace-period, then the epoch-id is used with a default clock drift to compute roughly equivalent times.\nIf both are specified then the epoch-id can be time or tdate (with CBOR tag) and grace-period is in ~time (seconds + or -).\nIf a more elaborate epoch marker is invented it just needs to be behind a CBOR tag.\n\nIdeally, the draft-ietf-rats-epoch-markers doesn't define cddl too rigidly that this approach is considered compliant.\n",
           "createdAt": "2025-03-25T18:36:34Z",
           "updatedAt": "2025-03-25T18:37:40Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "There is an issue in the epoch-markers repo that suggests that cbor-epoch-id isn't needed (https://github.com/ietf-rats/draft-birkholz-rats-epoch-marker/issues/36). If eliminated, time, tdate, and etime are elevated to epoch-id definitions:\n```\n$tagged-epoch-id /= tdate\n$tagged-epoch-id /= time\n$tagged-epoch-id /= etime\n```\nThe epoch markers draft doesn't define operators per se for each epoch-id form. Instead, the CBOR tag implies semantics for its use. For example, given the following expression:\n```\ntagged-exp-epochm-ge = #6.60032([ op.ge, epoch-marker ])\n$tagged-epoch-id /= #6.26991( epoch-grace-time)\n```\nThe epoch `time` signifies a meridian epoch and grace-period can be either +/- seconds from the meridian. Hence, the expression operator op.ge/op.le isn't needed.\n\nAll of the epoch-ids can be defined in such a way that there is no need for an expression abstraction.",
+          "createdAt": "2025-03-27T17:18:15Z",
+          "updatedAt": "2025-03-27T17:18:15Z"
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "id": "I_kwDOJvkHy86wPIcb",
+      "title": "TDX profile does not need Mask Expressions",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/48",
+      "state": "OPEN",
+      "author": "yogeshbdeshpande",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Mask as defined in base [CoRIM specification](https://datatracker.ietf.org/doc/draft-ietf-rats-corim/)\n\nis always matched exactly.\n\nThere is no need for an expression into the Mask based types.\n\nExamples include:\nTEE-TCB-STATUS \nTEE-MISC-SELECT\n\nThere are all, masks which exactly need to appear in an identical fashion in Evidence and Reference Value and they are an Exact Match\n\nThe Intel Profile needs to be tidied up to use the mask type from Base Spec and remove Mask Expressions altogether!\n",
+      "createdAt": "2025-03-28T17:27:39Z",
+      "updatedAt": "2025-03-28T22:55:58Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "One option is to continue using the negative code point (for example `&(tee.attributes: -82)` ) and define `$tee-attributes-type = tagged-masked-raw-value`.  This can still be matched to Evidence expressed as `bytes`. The  `value` and `mask` in `tagged-masked-raw-value` corresponds to the `value` and `mask` in `mask-expression`. The operator is not needed.\n\nAnother option is to use mkey with a value of `82` and use `&(raw-value: 4)` to specify the `value` and `mask` using `tagged-masked-raw-value` for Reference Values and `tagged-bytes` for Evidence.",
+          "createdAt": "2025-03-28T22:55:09Z",
+          "updatedAt": "2025-03-28T22:55:09Z"
         }
       ]
     }
