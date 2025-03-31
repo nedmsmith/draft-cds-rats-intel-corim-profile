@@ -5,13 +5,13 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 28 September 2025                               ARM Corporation
+Expires: 2 October 2025                                  ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                           27 March 2025
+                                                           31 March 2025
 
 
                   Intel Profile for Remote Attestation
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 September 2025.
+   This Internet-Draft will expire on 2 October 2025.
 
 Copyright Notice
 
@@ -1573,6 +1573,68 @@ Appendix B.  Full Intel Profile CDDL
    numeric-expression = [ numeric-operators, numeric-type ]
    tagged-numeric-expression = #6.60010(numeric-expression)
 
+   Etime = #6.1001(etime-detailed)
+
+   etime-framework = {
+     uint => any ; at least one base time
+     * (nint/text) => any ; elective supplementary information
+     * uint => any ; critical supplementary information
+   }
+
+   etime-detailed = ({
+     $$ETIME-BASETIME
+     ClockQuality-group
+     * $$ETIME-ELECTIVE
+     * $$ETIME-CRITICAL
+     * ((nint/text) .feature "etime-elective-extension") => any
+     * (uint .feature "etime-critical-extension") => any
+   }) .within etime-framework
+
+   $$ETIME-BASETIME //= (1: ~time)
+   $$ETIME-BASETIME //= (4: ~decfrac)
+   $$ETIME-BASETIME //= (5: ~bigfloat)
+   $$ETIME-ELECTIVE //= (-3: uint)
+   $$ETIME-ELECTIVE //= (-6: uint)
+   $$ETIME-ELECTIVE //= (-9: uint)
+   $$ETIME-ELECTIVE //= (-12: uint)
+   $$ETIME-ELECTIVE //= (-15: uint)
+   $$ETIME-ELECTIVE //= (-18: uint)
+   $$ETIME-ELECTIVE //= (-1 => $ETIME-TIMESCALE)
+   $$ETIME-ELECTIVE //= (-13 => $ETIME-TIMESCALE)
+   $$ETIME-CRITICAL //= (13 => $ETIME-TIMESCALE)
+   $ETIME-TIMESCALE /= &(etime-utc: 0)
+   $ETIME-TIMESCALE /= &(etime-tai: 1)
+
+   ClockQuality-group = (
+     ? &(ClockClass: -2) => uint .size 1 ; PTP/RFC8575
+     ? &(ClockAccuracy: -4) => uint .size 1 ; PTP/RFC8575
+     ? &(OffsetScaledLogVariance: -5) => uint .size 2 ; PTP/RFC8575
+     ? &(Uncertainty: -7) => ~time/~duration
+     ? &(Guarantee: -8) => ~time/~duration
+   )
+
+   Duration = #6.1002(etime-detailed)
+
+   simple-Period = #6.1003([
+     start: ~Etime / null
+     end: ~Etime / null
+     ? duration: ~Duration
+   ])
+
+   Period = #6.1003([
+     (start: ~Etime,
+      ((end: ~Etime) //
+       (end: null,
+        duration: ~Duration))) //
+     (start: null,
+      end: ~Etime,
+      duration: ~Duration)
+   ])
+
+   etime = #6.1001({* (int/tstr) => any})
+   duration = #6.1002({* (int/tstr) => any})
+   period = #6.1003([~etime/null, ~etime/null, ?~duration])
+
    member = 6
    not-member = 7
    set-operators /= op.mem
@@ -1698,6 +1760,7 @@ Appendix B.  Full Intel Profile CDDL
 
    $tee-epoch-type /= $epoch-timestamp-type
    $tee-epoch-type /= epoch-marker
+   $tee-epoch-type /= etime
 
    $$measurement-values-map-extension //= (
      &(tee.instance-id: -77) => $tee-instance-id-type
