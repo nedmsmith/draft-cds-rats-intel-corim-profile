@@ -974,8 +974,9 @@ Table of Contents
    $$measurement-values-map-extension //= (
      &(tee.tcbdate: -72) => $tee-date-type
    )
-   $tee-date-type /= $epoch-timestamp-type
-   $tee-date-type /= epoch-marker
+   $tee-date-type /= $epoch-timestamp-type ; Intel profile ~time / ~tdate
+   $tee-date-type /= epoch-marker ; draft-ietf-rats-epoch-markers
+   $tee-date-type /= etime ; RFC9581
 
    ~tdate strings must be converted to a numeric value (i.e.,~time)
    before operations involving time are applied.
@@ -1739,8 +1740,9 @@ Appendix B.  Full Intel Profile CDDL
    $$measurement-values-map-extension //= (
      &(tee.tcbdate: -72) => $tee-date-type
    )
-   $tee-date-type /= $epoch-timestamp-type
-   $tee-date-type /= epoch-marker
+   $tee-date-type /= $epoch-timestamp-type ; Intel profile ~time / ~tdate
+   $tee-date-type /= epoch-marker ; draft-ietf-rats-epoch-markers
+   $tee-date-type /= etime ; RFC9581
 
    $$measurement-values-map-extension //= (
      &(tee.mrtee: -83) => $tee-digest-type

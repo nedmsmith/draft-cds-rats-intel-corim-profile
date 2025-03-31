@@ -2183,8 +2183,9 @@ It can also be used in Reference Values to express expected validity of a TEE co
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbdate: -72) =&gt; $tee-date-type
 )
-$tee-date-type /= $epoch-timestamp-type
-$tee-date-type /= epoch-marker
+$tee-date-type /= $epoch-timestamp-type ; Intel profile ~time / ~tdate
+$tee-date-type /= epoch-marker ; draft-ietf-rats-epoch-markers
+$tee-date-type /= etime ; RFC9581
 </pre><a href="#section-8.3.4-4" class="pilcrow">¶</a>
 </div>
 <p id="section-8.3.4-5"><code>~tdate</code> strings must be converted to a numeric value (i.e.,<code>~time</code>) before operations involving time are applied.<a href="#section-8.3.4-5" class="pilcrow">¶</a></p>
@@ -2949,8 +2950,9 @@ $tee-cryptokey-type /= $crypto-key-type-choice
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbdate: -72) =&gt; $tee-date-type
 )
-$tee-date-type /= $epoch-timestamp-type
-$tee-date-type /= epoch-marker
+$tee-date-type /= $epoch-timestamp-type ; Intel profile ~time / ~tdate
+$tee-date-type /= epoch-marker ; draft-ietf-rats-epoch-markers
+$tee-date-type /= etime ; RFC9581
 
 $$measurement-values-map-extension //= (
   &amp;(tee.mrtee: -83) =&gt; $tee-digest-type
