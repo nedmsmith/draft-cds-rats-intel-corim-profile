@@ -110,26 +110,23 @@ Table of Contents
        8.1.2.  Numeric Expressions
        8.1.3.  Set Expressions
        8.1.4.  Mask Expression
-     8.2.  Timestamps and Epoch Markers
-       8.2.1.  Timestamps
-       8.2.2.  Epoch Markers
-     8.3.  Measurement Extensions
-       8.3.1.  The tee.advisory-ids Measurement Extension
-       8.3.2.  The tee.attributes Measurement Extension
-       8.3.3.  The tee.cryptokeys Measurement Extension
-       8.3.4.  The tee.tcbdate Measurement Extension
-       8.3.5.  The tee.mrtee and tee.mrsigner Measurement Extension
-       8.3.6.  The tee.instance-id Measurement Extension
-       8.3.7.  The tee.platform-instance-id Measurement Extension
-       8.3.8.  The tee.isvprodid Measurement Extension
-       8.3.9.  The tee.miscselect Measurement Extension
-       8.3.10. The tee.model Measurement Extension
-       8.3.11. The tee.pceid Measurement Extension
-       8.3.12. The tee.isvsvn Measurement Extension
-       8.3.13. The tee.tcb-comp-svn Measurement Extension
-       8.3.14. The tee.tcb-eval-num Measurement Extension
-       8.3.15. The tee.tcb-status Measurement Extension
-       8.3.16. The tee.vendor Measurement Extension
+     8.2.  Measurement Extensions
+       8.2.1.  The tee.advisory-ids Measurement Extension
+       8.2.2.  The tee.attributes Measurement Extension
+       8.2.3.  The tee.cryptokeys Measurement Extension
+       8.2.4.  The tee.tcbdate Measurement Extension
+       8.2.5.  The tee.mrtee and tee.mrsigner Measurement Extension
+       8.2.6.  The tee.instance-id Measurement Extension
+       8.2.7.  The tee.platform-instance-id Measurement Extension
+       8.2.8.  The tee.isvprodid Measurement Extension
+       8.2.9.  The tee.miscselect Measurement Extension
+       8.2.10. The tee.model Measurement Extension
+       8.2.11. The tee.pceid Measurement Extension
+       8.2.12. The tee.isvsvn Measurement Extension
+       8.2.13. The tee.tcb-comp-svn Measurement Extension
+       8.2.14. The tee.tcb-eval-num Measurement Extension
+       8.2.15. The tee.tcb-status Measurement Extension
+       8.2.16. The tee.vendor Measurement Extension
    9.  Appraisal Algorithm
      9.1.  Complex Expressions
      9.2.  Comparison Algorithm for Sets
@@ -348,7 +345,7 @@ Table of Contents
    documents evidence mapping from DiceTcbInfo and SPDM Measurement
    Block to CoMID, as defined by [DICE.CoRIM].
 
-   The CoMID extensions defined by this profile Section 8.3 are applied
+   The CoMID extensions defined by this profile Section 8.2 are applied
    to concise-evidence so that Verifiers that support this profile can
    consistently apply a common schema across Evidence, Reference Values,
    and Endorsements.
@@ -778,85 +775,7 @@ Table of Contents
 
    tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
 
-8.2.  Timestamps and Epoch Markers
-
-8.2.1.  Timestamps
-
-   Timestamps can be used in Evidence to report the date and time and in
-   Reference Values to assert an expected timestamp.  Endorsements can
-   use timestamps to associate a validity period to a component.
-   Timestamps can be expressed in string (~tdate) or numeric (~time)
-   formats (see $epoch-timestamp-type in Section 8.2.2).
-
-   Timestamps formatted as strings are converted to numeric (~time) when
-   numeric operations are used.
-
-8.2.2.  Epoch Markers
-
-   An epoch-marker defines a timing window that can be used to determine
-   recentness of a time stamped message.  See
-   [I-D.birkholz-rats-epoch-markers].
-
-   The epoch data type definitions are as follows:
-
-   epoch-seconds-type = int
-   $epoch-timestamp-type /= ~tdate
-   $epoch-timestamp-type /= ~time
-
-   $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
-   $tagged-epoch-id /= time ; int or float
-   $tagged-epoch-id /= #6.26990( epoch-grace-tdate)
-   $tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-   epoch-grace-tdate = [
-       epoch: tdate
-       grace-period: epoch-seconds-type
-   ]
-
-   epoch-grace-time = [
-       epoch: time
-       grace-period: epoch-seconds-type
-   ]
-
-   ;
-   ; draft-ietf-rats-epoch-markers
-   ;
-   epoch-marker = [
-       epoch-id: $tagged-epoch-id
-       ? bell-veracity-proof
-   ]
-
-   ; veracity of the bell
-   bell-veracity-proof = non-empty<{
-     ? remote-attestation-evidence
-     ? remote-attestation-result
-     ? scitt-receipt
-   }>
-
-   remote-attestation-evidence = (1: bytes)
-   remote-attestation-result = (2: bytes)
-   scitt-receipt = (3: bytes)
-
-   The XXX defines the position of the grace window relative to the
-   epoch and epoch-grace-seconds defines the size of the window in
-   seconds.  If the default epoch type is not used, $tagged-epoch-id
-   defines the alternate epoch scheme.
-
-8.2.2.1.  The epoch-grace-tdate and epoch-grace-time Epoch Markers
-
-   By default, the Verifier's current time implicitly defines an epoch.
-   A grace period defines the epoch window differential, in seconds,
-   that a timestamp must fall within to be valid.
-
-   The epoch timestamp value is within an epoch window that is defined
-   by the current time, plus the grace period, and where the epoch-
-   operator defines the shape of the epoch window.
-
-   The Verifier adds grace_period to current_time to obtain the epoch
-   window then applies the operator to determine if the
-   evidence_timestamp is within the window.
-
-8.3.  Measurement Extensions
+8.2.  Measurement Extensions
 
    This profile extends the CoMID measurement-values-map with additional
    code point definitions, that accommodate Intel SGX and similar
@@ -875,7 +794,7 @@ Table of Contents
    according to the appriasal steps described in Section 8.1 of
    [I-D.ietf-rats-corim].
 
-8.3.1.  The tee.advisory-ids Measurement Extension
+8.2.1.  The tee.advisory-ids Measurement Extension
 
    The tee.advisory-ids extension enables Attesters to report known
    security advisories and for Reference Values Providers (RVP) to
@@ -906,7 +825,7 @@ Table of Contents
    $tee-advisory-ids-type /= tagged-exp-tstr-not-member
    $tee-advisory-ids-type /= tagged-exp-tstr-member
 
-8.3.1.1.  The tee-advisory-ids-type Comparison Algorithm
+8.2.1.1.  The tee-advisory-ids-type Comparison Algorithm
 
    The comparison algorithm for tee-advisory-ids-type is used when
    Endorsement or Reference Values triples conditions are matched with
@@ -915,7 +834,7 @@ Table of Contents
    Claim matches an ACS ECT according to the comparison algorithm for
    set of strings as defined in Section 9.2.
 
-8.3.2.  The tee.attributes Measurement Extension
+8.2.2.  The tee.attributes Measurement Extension
 
    The tee.attributes extension enables the Attester to report TEE
    attributes and an RVP to assert a reference TEE attributes and mask.
@@ -938,7 +857,7 @@ Table of Contents
    mkey contains the non-negative tee.attributes and mval.raw-value
    contains the $tee-attributes-type.mask-type value.
 
-8.3.3.  The tee.cryptokeys Measurement Extension
+8.2.3.  The tee.cryptokeys Measurement Extension
 
    The tee.cryptokeys extension identifies cryptographic keys associated
    with a Target Environment.  If multiple $crypto-key-type-choice
@@ -954,27 +873,28 @@ Table of Contents
    mkey contains the non-negative tee.cryptokeys and mval.cryptokeys
    contains the $tee-cryptokey-type value.
 
-8.3.4.  The tee.tcbdate Measurement Extension
+8.2.4.  The tee.tcbdate Measurement Extension
 
-   The tee.tcbdate (code point -72) extension is used by Endorsers or
-   Attesters to assert validity of a TEE component.  It can be used to
-   in conditional endorsements to locate components with a specific
-   timestamp to further annotate or assert Claims.  It can also be used
-   in Reference Values to express expected validity of a TEE component.
+   The tee.tcbdate (code point -72) extension is used by Endorsers to
+   assert validity of a TEE component.  For example, a conditional
+   endorsement might locate a component based on a few expected Claims,
+   then augment them with a tee.tcbdate Claim.
 
-   The $tee-date-type timestamp can be expressed in several formats:
+   The $tee-date-type can be expressed in several ways:
 
    *  ISO 8601 strings of the form YYYY-MM-DDTHH:MM:SSZ.
 
    *  POSIX time which is the number of seconds since January 1, 1970
       (midnight UTC).
 
-   *  epoch-markers (see Section 8.2).
+   *  RFC9581 etime [RFC9581].
 
    $$measurement-values-map-extension //= (
      &(tee.tcbdate: -72) => $tee-date-type
    )
-   $tee-date-type /= $epoch-timestamp-type ; Intel profile ~time / ~tdate
+   $tee-date-type /= ~tdate
+   $tee-date-type /= tdate
+   $tee-date-type /= time
    $tee-date-type /= etime ; RFC9581
 
    ~tdate strings must be converted to a numeric value (i.e.,~time)
@@ -985,7 +905,7 @@ Table of Contents
    contains the string representation $tee-date-type without the CBOR
    tag (i.e., ~tdate).
 
-8.3.5.  The tee.mrtee and tee.mrsigner Measurement Extension
+8.2.5.  The tee.mrtee and tee.mrsigner Measurement Extension
 
    The tee.mrtee extension enables an Attester to report digests for the
    SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).  The tee.mrsigner
@@ -1016,7 +936,7 @@ Table of Contents
    contains the non-negative tee.mrtee or tee.mrsigner and mval.digests
    contains a digests-type value.
 
-8.3.5.1.  The tee-digest-type Comparison Algorithm
+8.2.5.1.  The tee-digest-type Comparison Algorithm
 
    The comparison algorithm for tee-digest-type is used when the
    condition statement in an Endorsement or Reference Values triple is
@@ -1024,7 +944,7 @@ Table of Contents
    Accepted Claims Set (ACS).  The comparison algorithm for set of
    digests is defined in Section 9.2.
 
-8.3.6.  The tee.instance-id Measurement Extension
+8.2.6.  The tee.instance-id Measurement Extension
 
    The tee.instance-id extension enables the Attester to report the TEE
    (TD or enclave) instance identifier as an Evidence value and the RVP
@@ -1044,7 +964,7 @@ Table of Contents
    type is an unsigned integer, the integer values is converted to a
    single byte bstr.
 
-8.3.7.  The tee.platform-instance-id Measurement Extension
+8.2.7.  The tee.platform-instance-id Measurement Extension
 
    Platform Instance ID is a globally unique identifier generated by the
    platform during Platform Establishment.  This value remains
@@ -1067,7 +987,7 @@ Table of Contents
    where mkey contains the non-negative tee.platform-instance-id and
    mval.raw-value contains the $tee-platform-instance-id-type value.
 
-8.3.8.  The tee.isvprodid Measurement Extension
+8.2.8.  The tee.isvprodid Measurement Extension
 
    The tee.isvprodid extension enables the Attester to report the ISV
    product identifier Evidence value and the RVP to assert an exact-
@@ -1087,7 +1007,7 @@ Table of Contents
    mkey contains the non-negative tee.isvprodid and mval.raw-value
    contains the $tee-isvprodid-type value.
 
-8.3.9.  The tee.miscselect Measurement Extension
+8.2.9.  The tee.miscselect Measurement Extension
 
    The tee.miscselect extension enables the Attester to report the
    (TBD:miscselect-description) Evidence value and the RVP to assert a
@@ -1110,7 +1030,7 @@ Table of Contents
    contains the measurement value and mval.raw-value-mask` contains the
    mask value.
 
-8.3.10.  The tee.model Measurement Extension
+8.2.10.  The tee.model Measurement Extension
 
    The tee.model extension enables the Attester to report the TEE model
    string as Evidence and the RVP to assert an exact-match Reference
@@ -1129,7 +1049,7 @@ Table of Contents
    contains the non-negative tee.model and mval.name contains the $tee-
    model-type value.
 
-8.3.11.  The tee.pceid Measurement Extension
+8.2.11.  The tee.pceid Measurement Extension
 
    The tee.pceid extension enables the Attester to report the PCEID as
    Evidence and the RVP to assert an exact-match Reference Value.
@@ -1147,7 +1067,7 @@ Table of Contents
    contains the non-negative tee.pceid and mval.name contains the $tee-
    pceid-type value.
 
-8.3.12.  The tee.isvsvn Measurement Extension
+8.2.12.  The tee.isvsvn Measurement Extension
 
    The tee.isvsvn extension enables the Attester to report the SVN for
    the independent software vendor supplied component as Evidence and
@@ -1172,7 +1092,7 @@ Table of Contents
    contains the non-negative tee.isvsvn and mval.svn contains the svn
    value as svn-type.
 
-8.3.13.  The tee.tcb-comp-svn Measurement Extension
+8.2.13.  The tee.tcb-comp-svn Measurement Extension
 
    The tee.tcb-comp-svn extension enables the Attester to report an
    array of SVN values for the TCB when asserted as Evidence and an
@@ -1195,7 +1115,7 @@ Table of Contents
    $tee-tcb-comp-svn-type /=
      [ 16*16 tagged-numeric-ge ]
 
-8.3.14.  The tee.tcb-eval-num Measurement Extension
+8.2.14.  The tee.tcb-eval-num Measurement Extension
 
    The tee.tcb-eval-num extension enables the Attester to report a TCB
    evaluation number as Evidence and the RVP to assert a Reference Value
@@ -1217,7 +1137,7 @@ Table of Contents
    mval.raw-value contains the tcb-eval-num encoded as 4-byte bstr
    value.
 
-8.3.15.  The tee.tcb-status Measurement Extension
+8.2.15.  The tee.tcb-status Measurement Extension
 
    The tee.tcb-status extension enables Attesters to report the status
    of the TEE trusted computing base (TCB) and for Reference Value
@@ -1240,7 +1160,7 @@ Table of Contents
    $tee-tcbstatus-type /= tagged-exp-tstr-member
    $tee-tcbstatus-type /= tagged-exp-tstr-not-member
 
-8.3.15.1.  The tee-tcbstatus-type Comparison Algorithm
+8.2.15.1.  The tee-tcbstatus-type Comparison Algorithm
 
    The comparison algorithm for tee-tcbstatus-type is used when
    Endorsement or Reference Values triples conditions are matched with
@@ -1249,7 +1169,7 @@ Table of Contents
    Claim matches an ACS ECT according to the comparison algorithm for
    set of strings as defined in Section 9.2.
 
-8.3.16.  The tee.vendor Measurement Extension
+8.2.16.  The tee.vendor Measurement Extension
 
    The tee.vendor extension enables the Attester to report the TEE
    vendor name as Evidence and for the RVP to assert the TEE vendor
@@ -1296,7 +1216,7 @@ Table of Contents
    endorsement-series-triples describe complex Endorsement expressions.
 
    This profile uses these triples with the reference measurement values
-   extensions described in Section 8.3.
+   extensions described in Section 8.2.
 
 9.2.  Comparison Algorithm for Sets
 
@@ -1469,6 +1389,11 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC9581]  Bormann, C., Gamari, B., and H. Birkholz, "Concise Binary
+              Object Representation (CBOR) Tags for Time, Duration, and
+              Period", RFC 9581, DOI 10.17487/RFC9581, August 2024,
+              <https://www.rfc-editor.org/rfc/rfc9581>.
 
    [TCG.CE]   Trusted Computing Group (TCG), "TCG DICE Concise Evidence
               Binding for SPDM", Version 1.0, Revision 0.54 , January
@@ -1684,40 +1609,6 @@ Appendix B.  Full Intel Profile CDDL
 
    tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
 
-   epoch-seconds-type = int
-   $epoch-timestamp-type /= ~tdate
-   $epoch-timestamp-type /= ~time
-
-   $tagged-epoch-id /= tdate ; string - converted to ~time for comparisons
-   $tagged-epoch-id /= time ; int or float
-   $tagged-epoch-id /= #6.26990( epoch-grace-tdate)
-   $tagged-epoch-id /= #6.26991( epoch-grace-time)
-
-   epoch-grace-tdate = [
-       epoch: tdate
-       grace-period: epoch-seconds-type
-   ]
-
-   epoch-grace-time = [
-       epoch: time
-       grace-period: epoch-seconds-type
-   ]
-
-   epoch-marker = [
-       epoch-id: $tagged-epoch-id
-       ? bell-veracity-proof
-   ]
-
-   bell-veracity-proof = non-empty<{
-     ? remote-attestation-evidence
-     ? remote-attestation-result
-     ? scitt-receipt
-   }>
-
-   remote-attestation-evidence = (1: bytes)
-   remote-attestation-result = (2: bytes)
-   scitt-receipt = (3: bytes)
-
    $$measurement-values-map-extension //= (
      &(tee.advisory-ids: -89) => $tee-advisory-ids-type
    )
@@ -1739,7 +1630,9 @@ Appendix B.  Full Intel Profile CDDL
    $$measurement-values-map-extension //= (
      &(tee.tcbdate: -72) => $tee-date-type
    )
-   $tee-date-type /= $epoch-timestamp-type ; Intel profile ~time / ~tdate
+   $tee-date-type /= ~tdate
+   $tee-date-type /= tdate
+   $tee-date-type /= time
    $tee-date-type /= etime ; RFC9581
 
    $$measurement-values-map-extension //= (
