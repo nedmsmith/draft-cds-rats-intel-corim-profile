@@ -13,7 +13,7 @@
         [
           / measurement-map / {
             / mval / 1 : / measurement-values-map / { 
-              / tcbdate / -72 : [ 0("2023-06-09T00:00:00Z")], / *** epoch-marker tdate *** /
+              / tcbdate / -72 : "2023-06-09T00:00:00Z", / *** ~tdate *** /
               / isvsvn / -73 : 60010([ / op.ge / 2, 6 ]),
               / miscselect / -81 : 60040([ / mask-eq / 0, h'00000000', h'FBFFFFFF' ]),
               / attributes / -82 : 60040([ / mask-eq / 0, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000' ]),

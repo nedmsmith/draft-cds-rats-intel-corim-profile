@@ -13,19 +13,13 @@
         },
         [
           / measurement-map / {
-            / mval / 1 : { / *** epoch-timestamp tdate *** /
+            / mval / 1 : { / *** ~tdate *** /
               / tcbdate / -72 : "2023-02-15T00:00:00Z"
             }
           },
           / measurement-map / {
             / mkey / 0 : 72, / tcbdate /
             / mval / 1 : { 11 : "2023-02-15T00:00:00Z" }
-          },
-          / measurement-map / {
-            / mkey / 0 : "test1",
-            / mval / 1 : { / *** epoch-marker tdate *** /
-              / tcbdate / -72 : [ 0("2023-06-09T00:00:00Z")]
-            }
           }
         ]
       ]
