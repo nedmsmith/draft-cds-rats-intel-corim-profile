@@ -1,5 +1,7 @@
 $$measurement-values-map-extension //= (
   &(tee.tcbdate: -72) => $tee-date-type
 )
-$tee-date-type /= $epoch-timestamp-type ; Intel profile ~time / ~tdate
+$tee-date-type /= ~tdate
+$tee-date-type /= tdate
+$tee-date-type /= time
 $tee-date-type /= etime ; RFC9581
