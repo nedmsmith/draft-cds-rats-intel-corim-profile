@@ -4,3 +4,4 @@ $$measurement-values-map-extension //= (
 
 $tee-epoch-type /= $epoch-timestamp-type
 $tee-epoch-type /= epoch-marker
+$tee-epoch-type /= etime

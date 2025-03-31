@@ -1,6 +1,7 @@
 PROFILE_FRAGS := 
 PROFILE_FRAGS += numeric-expr.cddl
 PROFILE_FRAGS += numeric-type.cddl
+PROFILE_FRAGS += rfc9581.cddl
 PROFILE_FRAGS += set-type.cddl
 PROFILE_FRAGS += set-expr.cddl
 PROFILE_FRAGS += set-of-set-type.cddl

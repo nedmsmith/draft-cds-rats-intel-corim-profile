@@ -30,6 +30,10 @@
           / measurement-map / {
             / mkey / 0 : "test4", / *** epoch-marker.grace-tdate bell *** /
             / mval / 1 : { -90 : [ 26990([ 0("2023-06-09T00:00:00Z"), 3600]), {1: h'00FF'} ] }
+          },
+          / measurement-map / {
+            / mkey / 0 : "test5", / *** epoch-marker.etime *** /
+            / mval / 1 : { -90 : 1001({1: 1697724754, -7: {1: 3600}}) } / timestamp + grace seconds /
           }
         ]
       ]
