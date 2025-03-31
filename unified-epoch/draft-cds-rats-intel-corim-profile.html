@@ -2843,14 +2843,6 @@ $tee-digest-type /= tagged-exp-digest-member
 $tee-digest-type /= tagged-exp-digest-not-member
 
 $$measurement-values-map-extension //= (
-  &amp;(tee.epoch: -90) =&gt; $tee-epoch-type
-)
-
-$tee-epoch-type /= $epoch-timestamp-type ; Intel profile - ~time / ~tdate
-$tee-epoch-type /= epoch-marker ; draft-ietf-rats-epoch-markers
-$tee-epoch-type /= etime ; RFC9581
-
-$$measurement-values-map-extension //= (
   &amp;(tee.instance-id: -77) =&gt; $tee-instance-id-type
 )
 $tee-instance-id-type /= uint
