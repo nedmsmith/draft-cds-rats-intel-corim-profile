@@ -93,6 +93,7 @@ normative:
     target: https://trustedcomputinggroup.org/wp-content/uploads/TCG-DICE-Concise-Evidence-Binding-for-SPDM-Version-1.0-Revision-54_pub.pdf
   I-D.ietf-rats-msg-wrap: cmw
   I-D.ietf-rats-eat: eat
+  RFC9581: rfc9581
 
 informative:
   RFC9334: rats-arch
@@ -561,41 +562,6 @@ The masked data expression definitions are as follows:
 {::include cddl/mask-expr.cddl}
 ~~~
 
-## Timestamps and Epoch Markers {#sec-epoch}
-
-### Timestamps {#sec-timestamp}
-
-Timestamps can be used in Evidence to report the date and time and in Reference Values to assert an expected timestamp.
-Endorsements can use timestamps to associate a validity period to a component.
-Timestamps can be expressed in string (`~tdate`) or numeric (`~time`) formats (see `$epoch-timestamp-type` in {{sec-epoch-type}}).
-
-Timestamps formatted as strings are converted to numeric (~time) when numeric operations are used.
-
-### Epoch Markers {#sec-epoch-type}
-
-An `epoch-marker` defines a timing window that can be used to determine recentness of a time stamped message.
-See {{-epoch-markers}}.
-
-The epoch data type definitions are as follows:
-
-~~~ cddl
-{::include cddl/epoch-type.cddl}
-~~~
-
-The XXX defines the position of the grace window relative to the epoch and `epoch-grace-seconds` defines the size of the window in seconds.
-If the default epoch type is not used, `$tagged-epoch-id` defines the alternate epoch scheme.
-
-#### The epoch-grace-tdate and epoch-grace-time Epoch Markers
-
-By default, the Verifier's current time implicitly defines an epoch.
-A grace period defines the epoch window differential, in seconds, that a timestamp must fall within to be valid.
-
-The `epoch` timestamp value is within an epoch window that is defined by the current time,
-plus the grace period, and where the `epoch-operator` defines the shape of the epoch window.
-
-The Verifier adds `grace_period` to `current_time` to obtain the epoch window then applies the operator to
-determine if the `evidence_timestamp` is within the window.
-
 ##  Measurement Extensions {#sec-measurement-extensions}
 
 This profile extends the CoMID `measurement-values-map` with additional code point definitions,
@@ -666,17 +632,16 @@ Alternatively, the TEE cryptokeys may be encoded using `mkey` where `mkey` conta
 
 ### The tee.tcbdate Measurement Extension {#sec-tee-date-type}
 
-The `tee.tcbdate` (code point -72) extension is used by Endorsers or Attesters to assert validity of a TEE component.
-It can be used to in conditional endorsements to locate components with a specific timestamp to further annotate or assert Claims.
-It can also be used in Reference Values to express expected validity of a TEE component.
+The `tee.tcbdate` (code point -72) extension is used by Endorsers to assert validity of a TEE component.
+For example, a conditional endorsement might locate a component based on a few expected Claims, then augment them with a `tee.tcbdate` Claim.
 
-The `$tee-date-type` timestamp can be expressed in several formats:
+The `$tee-date-type` can be expressed in several ways:
 
 - ISO 8601 strings of the form YYYY-MM-DDTHH:MM:SSZ.
 
 - POSIX time which is the number of seconds since January 1, 1970 (midnight UTC).
 
-- `epoch-markers` (see {{sec-epoch}}).
+- RFC9581 etime {{-rfc9581}}.
 
 ~~~ cddl
 {::include cddl/tee-date-type.cddl}
