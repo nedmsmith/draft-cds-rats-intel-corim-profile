@@ -3,7 +3,7 @@
     / tag-id / 0 : "Sample tcbdate tag"
   },
   / triples / 4 : {
-    / reference-triples / 0 : [
+    / endorsed-triples / 1 : [
       [
         / environment-map / {
           / class / 0 : {
@@ -11,15 +11,27 @@
               / tagged-uuid-type / 37(h'e5c51cb6a7fe11ed89f400155d09de30')
           }
         },
-        [
+        [ / *** tcbdate examples *** /
           / measurement-map / {
-            / mval / 1 : { / *** ~tdate *** /
+            / mval / 1 : { / ~tdate /
               / tcbdate / -72 : "2023-02-15T00:00:00Z"
             }
           },
           / measurement-map / {
-            / mkey / 0 : 72, / tcbdate /
+            / mkey / 0 : 72, / ~tdate overloading 'name' /
             / mval / 1 : { 11 : "2023-02-15T00:00:00Z" }
+          },
+          / measurement-map / {
+            / mkey / 0 : "time example",
+            / mval / 1 : { -72 : 1(1697724754) }
+          },
+          / measurement-map / {
+            / mkey / 0 : "tdate example",
+            / mval / 1 : { -72 : 0("2023-02-15T00:00:00Z") }
+          },
+          / measurement-map / {
+            / mkey / 0 : "etime example", / timestamp + uncertainty seconds /
+            / mval / 1 : { -72 : 1001({1: 1697724754, -7: {1: 3600}}) } 
           }
         ]
       ]
