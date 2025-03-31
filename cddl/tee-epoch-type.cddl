@@ -2,6 +2,6 @@ $$measurement-values-map-extension //= (
   &(tee.tcbdate-epoch: -90) => $tee-epoch-type
 )
 
-$tee-epoch-type /= $epoch-timestamp-type
-$tee-epoch-type /= epoch-marker
-$tee-epoch-type /= etime
+$tee-epoch-type /= $epoch-timestamp-type ; Intel profile
+$tee-epoch-type /= epoch-marker ; draft-ietf-rats-epoch-markers
+$tee-epoch-type /= etime ; RFC9581
