@@ -1755,7 +1755,7 @@ Appendix B.  Full Intel Profile CDDL
    $tee-digest-type /= tagged-exp-digest-not-member
 
    $$measurement-values-map-extension //= (
-     &(tee.tcbdate-epoch: -90) => $tee-epoch-type
+     &(tee.epoch: -90) => $tee-epoch-type
    )
 
    $tee-epoch-type /= $epoch-timestamp-type ; Intel profile
