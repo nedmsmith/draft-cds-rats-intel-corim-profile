@@ -1942,10 +1942,9 @@ zeros (0) to the length of the mask.<a href="#section-8.1.4-3" class="pilcrow">�
 <p id="section-8.1.4-4">The masked data type definitions are as follows:<a href="#section-8.1.4-4" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.1.4-5">
 <pre>
-mask-operators /= op.eq
 mask-type = bstr
-mask-expression = [ mask-operators, value: mask-type, mask: mask-type]
-tagged-mask-expression = #6.60040( mask-expression )
+$masked-value-type /= mask-type
+$masked-value-type /= tagged-masked-raw-value
 </pre><a href="#section-8.1.4-5" class="pilcrow">¶</a>
 </div>
 <p id="section-8.1.4-6">If the Evidence bit field is a different length from the Reference Value and mask,
@@ -1964,7 +1963,7 @@ value is accepted.<a href="#section-8.1.4-11" class="pilcrow">¶</a></p>
 <p id="section-8.1.4-12">The masked data expression definitions are as follows:<a href="#section-8.1.4-12" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.1.4-13">
 <pre>
-tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
+;tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
 </pre><a href="#section-8.1.4-13" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2037,8 +2036,7 @@ and a tuple containing the reference and mask when used as a Reference Value.<a 
 $$measurement-values-map-extension //= (
   &amp;(tee.attributes: -82) =&gt; $tee-attributes-type
 )
-$tee-attributes-type /= mask-type
-$tee-attributes-type /= tagged-exp-mask-eq
+$tee-attributes-type /= $masked-value-type
 </pre><a href="#section-8.2.2-4" class="pilcrow">¶</a>
 </div>
 <p id="section-8.2.2-5">Alternatively, the TEE attributes may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.attributes</code> and <code>mval</code>.<code>raw-value</code> contains the <code>$tee-attributes-type</code>.<code>mask-type</code> value.<a href="#section-8.2.2-5" class="pilcrow">¶</a></p>
@@ -2209,8 +2207,7 @@ and a <code>tagged-mask-expression</code> when used a Reference Value.<a href="#
 $$measurement-values-map-extension //= (
   &amp;(tee.miscselect: -81) =&gt; $tee-miscselect-type
 )
-$tee-miscselect-type /= mask-type
-$tee-miscselect-type /= tagged-exp-mask-eq
+$tee-miscselect-type /= $masked-value-type
 </pre><a href="#section-8.2.9-4" class="pilcrow">¶</a>
 </div>
 <p id="section-8.2.9-5">Alternatively, the TEE miscselect may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.miscselect</code> and <code>mval</code>.<code>raw-value</code> contains the measurement value and <code>mval</code>.raw-value-mask` contains the mask value.<a href="#section-8.2.9-5" class="pilcrow">¶</a></p>
@@ -2797,12 +2794,9 @@ tagged-exp-superset = #6.60010([
 tagged-exp-disjoint = #6.60010([
     disjoint .within set-of-set-operator, set-of-set-type ])
 
-mask-operators /= op.eq
 mask-type = bstr
-mask-expression = [ mask-operators, value: mask-type, mask: mask-type]
-tagged-mask-expression = #6.60040( mask-expression )
-
-tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
+$masked-value-type /= mask-type
+$masked-value-type /= tagged-masked-raw-value
 
 $$measurement-values-map-extension //= (
   &amp;(tee.advisory-ids: -89) =&gt; $tee-advisory-ids-type
@@ -2814,8 +2808,7 @@ $tee-advisory-ids-type /= tagged-exp-tstr-member
 $$measurement-values-map-extension //= (
   &amp;(tee.attributes: -82) =&gt; $tee-attributes-type
 )
-$tee-attributes-type /= mask-type
-$tee-attributes-type /= tagged-exp-mask-eq
+$tee-attributes-type /= $masked-value-type
 
 $$measurement-values-map-extension //= (
   &amp;(tee.cryptokeys: -91) =&gt; [ + $tee-cryptokey-type ]
@@ -2857,8 +2850,7 @@ $tee-isvprodid-type /= bstr
 $$measurement-values-map-extension //= (
   &amp;(tee.miscselect: -81) =&gt; $tee-miscselect-type
 )
-$tee-miscselect-type /= mask-type
-$tee-miscselect-type /= tagged-exp-mask-eq
+$tee-miscselect-type /= $masked-value-type
 
 $$measurement-values-map-extension //= (
   &amp;(tee.model: -71) =&gt; $tee-model-type
