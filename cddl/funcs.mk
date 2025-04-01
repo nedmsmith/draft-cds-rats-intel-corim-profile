@@ -3,6 +3,9 @@
 define cddl_autogen_template
 check-$(1): $(1)-autogen.cddl
 
+# Generate rfc9581 cddl into autoconfig - uncomment when debugged
+# %.cddl: %.cddlx ; echo cddlc ; cddlc -2tcddl $$< > $$@
+
 $(1)-autogen.cddl: $(2)
 	echo ">>> generating" $(1)"-autogen.cddl"
 	for f in $$^ ; do ( grep -v '^;' $$$$f ; echo ) ; done > $$@
