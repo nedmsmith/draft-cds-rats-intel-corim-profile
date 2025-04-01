@@ -43,8 +43,8 @@
           [
             / measurement-map / {
               / mval / 1 : / measurement-values-map / {
-                / miscselect / -81 : 60040([ / mask-eq / 0, h'00000000', h'FFFFFFFF' ]),
-                / attributes / -82 : 60040([ / mask-eq / 0, h'11000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000']), / *** 16 bytes *** /
+                / miscselect / -81 : 563([ h'00000000', h'FFFFFFFF' ]),
+                / attributes / -82 : 563([ h'11000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000']), / *** 16 bytes *** /
                 / mrsigner / -84 : 60020([ / op.member / 6, 
                   / digests-type / [
                     [

@@ -7,7 +7,6 @@ PROFILE_FRAGS += set-expr.cddl
 PROFILE_FRAGS += set-of-set-type.cddl
 PROFILE_FRAGS += set-of-set-expr.cddl
 PROFILE_FRAGS += mask-type.cddl
-PROFILE_FRAGS += mask-expr.cddl
 PROFILE_FRAGS += tee-advisory-ids-type.cddl
 PROFILE_FRAGS += tee-attributes-type.cddl
 PROFILE_FRAGS += tee-cryptokey-type.cddl

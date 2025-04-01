@@ -15,8 +15,6 @@
             / mval / 1 : / measurement-values-map / { 
               / tcbdate / -72 : "2023-06-09T00:00:00Z", / *** ~tdate *** /
               / isvsvn / -73 : 60010([ / op.ge / 2, 6 ]),
-              / miscselect / -81 : 60040([ / mask-eq / 0, h'00000000', h'FBFFFFFF' ]),
-              / attributes / -82 : 60040([ / mask-eq / 0, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000' ]),
               / mrsigner / -84 : 60020([ / member / 6, 
                 [
                   [ / digest-type / 
@@ -62,6 +60,27 @@
           / measurement-map / {
             / mval / 1 : / measurement-values-map / { 
               / tcb-eval-num / -86 : 11 / *** endorsement *** / 
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : "mask examples simple",
+            / mval / 1 : / measurement-values-map / { 
+              / miscselect / -81 : h'00000000',
+              / attributes / -82 : h'C0000000000000000000000000000000',
+              / raw-value / 4 : 560(h'00000000')
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : "mask examples tagged-masked-raw-value profile",
+            / mval / 1 : / measurement-values-map / { 
+              / miscselect / -81 : 563([ h'00000000', h'FBFFFFFF' ]),
+              / attributes / -82 : 563([ h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000' ])
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : 81, / mask examples tagged-masked-raw-value /
+            / mval / 1 : / measurement-values-map / { 
+              / raw-value / 4 : 563([ h'00000000', h'FBFFFFFF' ])
             }
           }
         ]

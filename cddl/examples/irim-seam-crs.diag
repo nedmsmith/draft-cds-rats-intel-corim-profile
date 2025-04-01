@@ -17,7 +17,7 @@
               / mval / 1 : / measurement-values-map / {
                 / vendor / -70 : "Intel Corporation",
                 / model / -71 : "TDX SEAM",
-                / attributes / -82 : 60040([ / mask-eq / 0, h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000']), / *** 16 bytes *** /
+                / attributes / -82 : 563([ h'C0000000000000000000000000000000', h'FBFFFFFFFFFFFFFF0000000000000000']), / *** 16 bytes *** /
                 / isvprodid / -85 : 1,
                 / isvsvn / -73 : 60010([ /op.ge/ 2, 6 ]),
                 / mrsigner / -84 : [
