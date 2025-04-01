@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-30T01:40:26.071339+00:00",
+  "timestamp": "2025-04-01T01:44:50.126120+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -2297,6 +2297,34 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 49,
+      "id": "PR_kwDOJvkHy86Q2KQW",
+      "title": "Remove dependence on epoch ",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/49",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "This PR removes dependency on epochs / epoch-markers and instead uses tdate / time / etime to realize tcbdate use cases.",
+      "createdAt": "2025-03-31T23:40:19Z",
+      "updatedAt": "2025-03-31T23:46:37Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "3161722d5639cd20e93fb137cff57189ec146e6e",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "unified-epoch",
+      "headRefOid": "139849fc99b93598dff8e28fd5bc635372ed0513",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
