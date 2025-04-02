@@ -1,0 +1,6 @@
+$$measurement-values-map-extension //= (
+  &(raw-uint: -1) => raw-uint-type-choice
+)
+raw-uint-type-choice = uint / tagged-uint-range
+uint-range = [min: uint / positive-inf, max: uint / positive-inf]
+tagged-uint-range = #6.60011(uint-range) 
