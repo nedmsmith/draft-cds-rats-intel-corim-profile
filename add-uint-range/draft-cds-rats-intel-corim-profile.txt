@@ -1110,6 +1110,7 @@ Table of Contents
    )
    $tee-tcb-eval-num-type /= uint .within numeric-type
    $tee-tcb-eval-num-type /= tagged-numeric-ge
+   $tee-tcb-eval-num-type /= tagged-uint-range
 
    Alternatively, the TEE tcb-eval-num Evidence may be encoded using
    mkey where mkey contains the non-negative tee.tcb-eval-num and
@@ -1583,6 +1584,13 @@ Appendix B.  Full Intel Profile CDDL
    $masked-value-type /= tagged-masked-raw-value
 
    $$measurement-values-map-extension //= (
+     &(raw-uint: -1) => raw-uint-type-choice
+   )
+   raw-uint-type-choice = uint / tagged-uint-range
+   uint-range = [min: uint / positive-inf, max: uint / positive-inf]
+   tagged-uint-range = #6.60011(uint-range)
+
+   $$measurement-values-map-extension //= (
      &(tee.advisory-ids: -89) => $tee-advisory-ids-type
    )
    $tee-advisory-ids-type /= set-tstr-type
@@ -1676,6 +1684,7 @@ Appendix B.  Full Intel Profile CDDL
    )
    $tee-tcb-eval-num-type /= uint .within numeric-type
    $tee-tcb-eval-num-type /= tagged-numeric-ge
+   $tee-tcb-eval-num-type /= tagged-uint-range
 
    $$measurement-values-map-extension //= (
      &(tee.tcbstatus: -88) => $tee-tcbstatus-type

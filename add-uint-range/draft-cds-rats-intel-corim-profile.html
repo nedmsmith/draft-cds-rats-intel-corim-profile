@@ -2308,6 +2308,7 @@ $$measurement-values-map-extension //= (
 )
 $tee-tcb-eval-num-type /= uint .within numeric-type
 $tee-tcb-eval-num-type /= tagged-numeric-ge
+$tee-tcb-eval-num-type /= tagged-uint-range
 </pre><a href="#section-8.3.14-3" class="pilcrow">¶</a>
 </div>
 <p id="section-8.3.14-4">Alternatively, the TEE tcb-eval-num Evidence may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.tcb-eval-num</code> and <code>mval</code>.<code>raw-value</code> contains the tcb-eval-num encoded as 4-byte bstr value.<a href="#section-8.3.14-4" class="pilcrow">¶</a></p>
@@ -2784,6 +2785,13 @@ $masked-value-type /= mask-type
 $masked-value-type /= tagged-masked-raw-value
 
 $$measurement-values-map-extension //= (
+  &amp;(raw-uint: -1) =&gt; raw-uint-type-choice
+)
+raw-uint-type-choice = uint / tagged-uint-range
+uint-range = [min: uint / positive-inf, max: uint / positive-inf]
+tagged-uint-range = #6.60011(uint-range)
+
+$$measurement-values-map-extension //= (
   &amp;(tee.advisory-ids: -89) =&gt; $tee-advisory-ids-type
 )
 $tee-advisory-ids-type /= set-tstr-type
@@ -2877,6 +2885,7 @@ $$measurement-values-map-extension //= (
 )
 $tee-tcb-eval-num-type /= uint .within numeric-type
 $tee-tcb-eval-num-type /= tagged-numeric-ge
+$tee-tcb-eval-num-type /= tagged-uint-range
 
 $$measurement-values-map-extension //= (
   &amp;(tee.tcbstatus: -88) =&gt; $tee-tcbstatus-type
