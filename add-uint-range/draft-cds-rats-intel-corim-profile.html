@@ -2287,10 +2287,9 @@ The array of SVN Evidence is accepted.<a href="#section-8.3.13-2" class="pilcrow
 $$measurement-values-map-extension //= (
   &amp;(tee.tcb-comp-svn: -125) =&gt; $tee-tcb-comp-svn-type
 )
-$tee-tcb-comp-svn-type /=
-  [ 16*16 svn-type .within numeric-type ]
-$tee-tcb-comp-svn-type /=
-  [ 16*16 tagged-numeric-ge ]
+$tee-tcb-comp-svn-type /= [ 16*16 svn-type .within numeric-type ]
+$tee-tcb-comp-svn-type /= [ 16*16 tagged-numeric-ge ]
+$tee-tcb-comp-svn-type /= [ 16*16 tagged-uint-range ]
 </pre><a href="#section-8.3.13-3" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2877,10 +2876,9 @@ $tee-svn-type /= tagged-uint-range
 $$measurement-values-map-extension //= (
   &amp;(tee.tcb-comp-svn: -125) =&gt; $tee-tcb-comp-svn-type
 )
-$tee-tcb-comp-svn-type /=
-  [ 16*16 svn-type .within numeric-type ]
-$tee-tcb-comp-svn-type /=
-  [ 16*16 tagged-numeric-ge ]
+$tee-tcb-comp-svn-type /= [ 16*16 svn-type .within numeric-type ]
+$tee-tcb-comp-svn-type /= [ 16*16 tagged-numeric-ge ]
+$tee-tcb-comp-svn-type /= [ 16*16 tagged-uint-range ]
 
 $$measurement-values-map-extension //= (
   &amp;(tee-tcb-eval-num: -86) =&gt; $tee-tcb-eval-num-type

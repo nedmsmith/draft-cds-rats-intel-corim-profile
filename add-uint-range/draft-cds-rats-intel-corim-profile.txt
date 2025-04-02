@@ -1090,10 +1090,9 @@ Table of Contents
    $$measurement-values-map-extension //= (
      &(tee.tcb-comp-svn: -125) => $tee-tcb-comp-svn-type
    )
-   $tee-tcb-comp-svn-type /=
-     [ 16*16 svn-type .within numeric-type ]
-   $tee-tcb-comp-svn-type /=
-     [ 16*16 tagged-numeric-ge ]
+   $tee-tcb-comp-svn-type /= [ 16*16 svn-type .within numeric-type ]
+   $tee-tcb-comp-svn-type /= [ 16*16 tagged-numeric-ge ]
+   $tee-tcb-comp-svn-type /= [ 16*16 tagged-uint-range ]
 
 8.3.14.  The tee.tcb-eval-num Measurement Extension
 
@@ -1676,10 +1675,9 @@ Appendix B.  Full Intel Profile CDDL
    $$measurement-values-map-extension //= (
      &(tee.tcb-comp-svn: -125) => $tee-tcb-comp-svn-type
    )
-   $tee-tcb-comp-svn-type /=
-     [ 16*16 svn-type .within numeric-type ]
-   $tee-tcb-comp-svn-type /=
-     [ 16*16 tagged-numeric-ge ]
+   $tee-tcb-comp-svn-type /= [ 16*16 svn-type .within numeric-type ]
+   $tee-tcb-comp-svn-type /= [ 16*16 tagged-numeric-ge ]
+   $tee-tcb-comp-svn-type /= [ 16*16 tagged-uint-range ]
 
    $$measurement-values-map-extension //= (
      &(tee-tcb-eval-num: -86) => $tee-tcb-eval-num-type
