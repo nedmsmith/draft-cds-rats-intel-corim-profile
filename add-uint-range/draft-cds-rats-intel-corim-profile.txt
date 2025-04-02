@@ -1067,6 +1067,7 @@ Table of Contents
    $tee-svn-type /= svn-type .within numeric-type
    $tee-svn-type /= tagged-numeric-ge
    $tee-svn-type /= tagged-uint-range
+   $tee-svn-type /= tagged-min-svn
 
    Alternatively, the TEE isvsvn may be encoded using mkey where mkey
    contains the non-negative tee.isvsvn and mval.svn contains the svn
@@ -1093,6 +1094,7 @@ Table of Contents
    $tee-tcb-comp-svn-type /= [ 16*16 svn-type .within numeric-type ]
    $tee-tcb-comp-svn-type /= [ 16*16 tagged-numeric-ge ]
    $tee-tcb-comp-svn-type /= [ 16*16 tagged-uint-range ]
+   $tee-tcb-comp-svn-type /= [ 16*16 tagged-min-svn ]
 
 8.3.14.  The tee.tcb-eval-num Measurement Extension
 
@@ -1671,6 +1673,7 @@ Appendix B.  Full Intel Profile CDDL
    $tee-svn-type /= svn-type .within numeric-type
    $tee-svn-type /= tagged-numeric-ge
    $tee-svn-type /= tagged-uint-range
+   $tee-svn-type /= tagged-min-svn
 
    $$measurement-values-map-extension //= (
      &(tee.tcb-comp-svn: -125) => $tee-tcb-comp-svn-type
@@ -1678,6 +1681,7 @@ Appendix B.  Full Intel Profile CDDL
    $tee-tcb-comp-svn-type /= [ 16*16 svn-type .within numeric-type ]
    $tee-tcb-comp-svn-type /= [ 16*16 tagged-numeric-ge ]
    $tee-tcb-comp-svn-type /= [ 16*16 tagged-uint-range ]
+   $tee-tcb-comp-svn-type /= [ 16*16 tagged-min-svn ]
 
    $$measurement-values-map-extension //= (
      &(tee-tcb-eval-num: -86) => $tee-tcb-eval-num-type
