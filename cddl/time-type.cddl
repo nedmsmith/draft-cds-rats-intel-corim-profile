@@ -1,8 +1,0 @@
-time-operators /= op.eq
-time-operators /= op.gt
-time-operators /= op.ge
-time-operators /= op.lt
-time-operators /= op.le
-time-type = ~time
-time-expression = [ time-operators, time-type ] ;#6.1(int or float)
-tagged-time-expression = #6.60030( time-expression )
