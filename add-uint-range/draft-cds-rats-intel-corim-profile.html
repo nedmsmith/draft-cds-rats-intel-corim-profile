@@ -2263,6 +2263,7 @@ $$measurement-values-map-extension //= (
 )
 $tee-svn-type /= svn-type .within numeric-type
 $tee-svn-type /= tagged-numeric-ge
+$tee-svn-type /= tagged-uint-range
 </pre><a href="#section-8.3.12-4" class="pilcrow">¶</a>
 </div>
 <p id="section-8.3.12-5">Alternatively, the TEE isvsvn may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.isvsvn</code> and <code>mval</code>.<code>svn</code> contains the svn value as <code>svn-type</code>.<a href="#section-8.3.12-5" class="pilcrow">¶</a></p>
@@ -2871,6 +2872,7 @@ $$measurement-values-map-extension //= (
 )
 $tee-svn-type /= svn-type .within numeric-type
 $tee-svn-type /= tagged-numeric-ge
+$tee-svn-type /= tagged-uint-range
 
 $$measurement-values-map-extension //= (
   &amp;(tee.tcb-comp-svn: -125) =&gt; $tee-tcb-comp-svn-type

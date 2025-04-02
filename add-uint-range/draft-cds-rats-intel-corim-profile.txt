@@ -1066,6 +1066,7 @@ Table of Contents
    )
    $tee-svn-type /= svn-type .within numeric-type
    $tee-svn-type /= tagged-numeric-ge
+   $tee-svn-type /= tagged-uint-range
 
    Alternatively, the TEE isvsvn may be encoded using mkey where mkey
    contains the non-negative tee.isvsvn and mval.svn contains the svn
@@ -1670,6 +1671,7 @@ Appendix B.  Full Intel Profile CDDL
    )
    $tee-svn-type /= svn-type .within numeric-type
    $tee-svn-type /= tagged-numeric-ge
+   $tee-svn-type /= tagged-uint-range
 
    $$measurement-values-map-extension //= (
      &(tee.tcb-comp-svn: -125) => $tee-tcb-comp-svn-type
