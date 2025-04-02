@@ -66,6 +66,24 @@
             / mval / 1 : {
               / isvsvn / -73 : 60010([2, 6 ])
             }
+          },
+          / measurement-map / {
+            / mkey / 0 : "isvsvn min-svn",
+            / mval / 1 : {
+              / isvsvn / -73 : 553(6)
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : 73, / isvsvn / 
+            / mval / 1 : {
+              / svn / 1 : 553(6)
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : "isvsvn as svn-type-choice",
+            / mval / 1 : {
+              / svn / 1 : 6
+            }
           }
         ]
       ]
