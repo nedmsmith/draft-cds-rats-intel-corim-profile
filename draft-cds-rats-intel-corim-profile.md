@@ -327,7 +327,33 @@ The Intel Profile extends `measurement-values-map` which is used by Evidence, Re
 
 Reference Values extensions define types that can have multiple Reference Values that "match" a singleton Evidence value called "non-exact match" matching.
 Reference state expressions define non-exact-match matching semantics in terms of numeric ranges, date-time ranges, sets, and masks.
-Reference Values data types are identified by the CBOR tag `#6.60010(...)`.
+
+## Data Types {#sec-data-types}
+
+### Mask Type {#sec-mask}
+
+Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
+bits or bytes of Evidence to ignore.
+
+Reference Value and mask arrays MUST be the same length for the mask to be applied correctly.
+Normally, Evidence would not supply a mask, while Endorsed Values would.
+The `tagged-masked-raw-value` indicates that an Evidence value of type `mask-type` is compared with
+a Reference Value of type `mask-type`, and that a mask of type `mask-type` is applied to both
+values before comparing values.
+
+The Verifier MUST ensure the lengths of values and mask are equivalent. If the mask is shorter
+than the values, the mask is padded with zeros (0) until it is the same length as the largest value.
+If the value length is shorter than the mask length, the value is padded with
+zeros (0) to the length of the mask.
+
+The mask data type definitions are as follows:
+
+~~~ cddl
+{::include cddl/mask-type.cddl}
+~~~
+
+If the Evidence bit field is a different length from the Reference Value and mask,
+the shorter length bit field is padded with zeros to accommodate the larger bit field.
 
 ## Expressions {#sec-expressions}
 
@@ -519,49 +545,6 @@ The set of sets expression definitions are as follows:
 {::include cddl/set-of-set-expr.cddl}
 ~~~
 
-### Mask Expression {#sec-mask-expression}
-
-Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
-bits or bytes of Evidence to ignore.
-
-Reference Value and mask arrays MUST be the same length for the mask to be applied correctly.
-Normally, Evidence would not supply a mask, while Endorsed Values would.
-The `mask-eq` operator indicates that an Evidence value of type `mask-type` is compared with
-a Reference Value of type `mask-type`, and that a mask of type `mask-type` is applied to both
-values before comparing values. If the operator is `mask-eq`, then a binary equivalence comparison is applied.
-
-The Verifier MUST ensure the lengths of values and mask are equivalent. If the mask is shorter
-than the values, the mask is padded with zeros (0) until it is the same length as the largest value.
-If the Evidence or Reference Value length is shorter than the mask, the value is padded with
-zeros (0) to the length of the mask.
-
-The masked data type definitions are as follows:
-
-~~~ cddl
-{::include cddl/mask-type.cddl}
-~~~
-
-If the Evidence bit field is a different length from the Reference Value and mask,
-the shorter length bit field is padded with zeros to accommodate the larger bit field.
-
-The `tagged-exp-mask-eq` expression defines a tagged expression that applies the mask equivalence  operator to an Evidence value and a Reference Value using the supplied mask.
-
-In *infix* notation, the Evidence value is *operand_1*, followed by the mask operator, followed by a
-Reference Value, *operand_2*, followed by the mask, *operand_3*.
-
-Example:
-
-* <`evidence_value`> <`mask-eq`> <`reference_value`> <`mask`>
-
-If each bit in Evidence has a corresponding matching bit in the Reference Value, then the Evidence
-value is accepted.
-
-The masked data expression definitions are as follows:
-
-~~~ cddl
-{::include cddl/mask-expr.cddl}
-~~~
-
 ##  Measurement Extensions {#sec-measurement-extensions}
 
 This profile extends the CoMID `measurement-values-map` with additional code point definitions,
@@ -721,7 +704,7 @@ and the RVP to assert a Reference Value and mask.
 The `$tee-miscselect-type` is a 4 byte value and mask.
 
 The `$tee-miscselect-type` is a singleton `mask-type` value when used as Endorsement or Evidence
-and a `tagged-mask-expression` when used a Reference Value.
+and a `tagged-masked-raw-value` when used a Reference Value.
 
 ~~~ cddl
 {::include cddl/tee-miscselect-type.cddl}
@@ -923,7 +906,6 @@ IANA is requested to allocate the following tags in the CBOR Tags registry {{!IA
 |   60010 | `tag`               | Numeric Expressions, see {{sec-numeric-expressions}}          | {{&SELF}} |
 |   60020 | `tag`               | Set digest Expressions, see  {{sec-set-expressions}}          | {{&SELF}} |
 |   60021 | `tag`               | Set tstr Expressions, see  {{sec-set-expressions}}            | {{&SELF}} |
-|   60040 | `tag`               | Mask Expressions, see {{sec-mask-expression}}                 | {{&SELF}} |
 
 {: #tbl-iana-intel-profile-reg-items title="Intel Profile Tag Registration Code Points"}
 
