@@ -14,7 +14,6 @@
           / measurement-map / {
             / mval / 1 : / measurement-values-map / { 
               / tcbdate / -72 : "2023-06-09T00:00:00Z", / *** ~tdate *** /
-              / isvsvn / -73 : 60010([ / op.ge / 2, 6 ]),
               / mrsigner / -84 : 60020([ / member / 6, 
                 [
                   [ / digest-type / 
@@ -54,6 +53,18 @@
             / mkey / 0 : 86, / tcb-eval-num /
             / mval / 1 : / measurement-values-map / { 
               / raw-uint / -1 : 60011([/min:/ 11, /max:/ null ])  
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : "isvsvn range",
+            / mval / 1 : {
+              / isvsvn / -73 : 60011([/min:/ 6, /max:/ null ])
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : "isvsvn expr",
+            / mval / 1 : {
+              / isvsvn / -73 : 60010([2, 6 ])
             }
           }
         ]
