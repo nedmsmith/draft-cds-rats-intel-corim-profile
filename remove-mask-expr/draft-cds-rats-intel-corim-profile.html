@@ -1235,7 +1235,7 @@ Parser implementations can recognize the Intel profile by profile identifier val
                 <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-data-types" class="internal xref">Data Types</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1.2.1">
-                    <p id="section-toc.1-1.8.2.1.2.1.1"><a href="#section-8.1.1" class="auto internal xref">8.1.1</a>.  <a href="#name-mask-type" class="internal xref">Mask Type</a></p>
+                    <p id="section-toc.1-1.8.2.1.2.1.1"><a href="#section-8.1.1" class="auto internal xref">8.1.1</a>.  <a href="#name-masked-values" class="internal xref">Masked Values</a></p>
 </li>
                 </ul>
 </li>
@@ -1639,29 +1639,28 @@ Reference state expressions define non-exact-match matching semantics in terms o
         </h3>
 <div id="sec-mask">
 <section id="section-8.1.1">
-          <h4 id="name-mask-type">
-<a href="#section-8.1.1" class="section-number selfRef">8.1.1. </a><a href="#name-mask-type" class="section-name selfRef">Mask Type</a>
+          <h4 id="name-masked-values">
+<a href="#section-8.1.1" class="section-number selfRef">8.1.1. </a><a href="#name-masked-values" class="section-name selfRef">Masked Values</a>
           </h4>
-<p id="section-8.1.1-1">Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
-bits or bytes of Evidence to ignore.<a href="#section-8.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-8.1.1-2">Reference Value and mask arrays <span class="bcp14">MUST</span> be the same length for the mask to be applied correctly.
-Normally, Evidence would not supply a mask, while Endorsed Values should.
-The <code>$masked-value-type</code> type choice can be either <code>~tagged-bytes</code> or <code>$raw-value-type-choice</code>.
+<p id="section-8.1.1-1">Masked values are a string of bytes (e.g., <code>bstr</code>) that may have a companion mask value.
+The mask indicates which bits in the value are ignored when doing bit-wise equivalency comparisons.
+Verifier matching applies the equivalency test, allowing dissimilar Evidence and Reference values to be considered equivalent even if the two values (Evidence and Reference) are dissimilar.
+Evidence typically does not supply a mask.
+A Reference Value may omit the mask if bit-wise equivalency is desired.<a href="#section-8.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.1-2">The <code>$masked-value-type</code> type choice can be either <code>~tagged-bytes</code> or <code>$raw-value-type-choice</code>.
 Evidence might be encoded as <code>~tagged-bytes</code> or <code>tagged-bytes</code> which omits a mask value,
 while Reference Values of type <code>tagged-masked-raw-value</code> includes the mask value.<a href="#section-8.1.1-2" class="pilcrow">¶</a></p>
 <p id="section-8.1.1-3">The Verifier <span class="bcp14">MUST</span> ensure the lengths of values and mask are equivalent. If the mask is shorter
-than the values, the mask is padded with zeros (0) until it is the same length as the largest value.
-If the value length is shorter than the mask length, the value is padded with
-zeros (0) to the length of the mask.<a href="#section-8.1.1-3" class="pilcrow">¶</a></p>
-<p id="section-8.1.1-4">The mask data type definitions are as follows:<a href="#section-8.1.1-4" class="pilcrow">¶</a></p>
+than the longest value, the mask is appended with zeros (0) until it is the same length as the longest value, either Evidence or Reference Value.
+If the mask is longer than the longest value, the mask is truncated to the length of the longest value.
+All values are are evaluated from left to right (big-endian) applying bit-wise comparisons.<a href="#section-8.1.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.1.1-4">The masked value data types are as follows:<a href="#section-8.1.1-4" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.1.1-5">
 <pre>
 $masked-value-type /= ~tagged-bytes
 $masked-value-type /= $raw-value-type-choice
 </pre><a href="#section-8.1.1-5" class="pilcrow">¶</a>
 </div>
-<p id="section-8.1.1-6">If the Evidence bit field is a different length from the Reference Value and mask,
-the shorter length bit field is padded with zeros to accommodate the larger bit field.<a href="#section-8.1.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2600,10 +2599,6 @@ that the Relying Party and Verifier both support the extensions defined in this 
 <dt id="DMTF.SPDM">[DMTF.SPDM]</dt>
         <dd>
 <span class="refAuthor">Distributed Managability Task Force (DMTF)</span>, <span class="refTitle">"Security Protocol and Data Mmodel (SPDM) Specification"</span>, <span class="seriesInfo">Version 1.2.1 </span>, <time datetime="2022-05" class="refDate">May 2022</time>, <span>&lt;<a href="https://www.dmtf.org/sites/default/files/standards/documents/DSP0274_1.2.1.pdf">https://www.dmtf.org/sites/default/files/standards/documents/DSP0274_1.2.1.pdf</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.birkholz-rats-epoch-markers">[I-D.birkholz-rats-epoch-markers]</dt>
-        <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Pan, W.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Epoch Markers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-birkholz-rats-epoch-markers-08</span>, <time datetime="2024-07-22" class="refDate">22 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-birkholz-rats-epoch-markers-08">https://datatracker.ietf.org/doc/html/draft-birkholz-rats-epoch-markers-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-rats-ar4si">[I-D.ietf-rats-ar4si]</dt>
         <dd>

@@ -106,7 +106,7 @@ Table of Contents
      7.2.  Raw Value Measurements
    8.  CoRIM Extensions
      8.1.  Data Types
-       8.1.1.  Mask Type
+       8.1.1.  Masked Values
      8.2.  Expressions
        8.2.1.  Expression Operators
        8.2.2.  Numeric Expressions
@@ -451,34 +451,34 @@ Table of Contents
 
 8.1.  Data Types
 
-8.1.1.  Mask Type
+8.1.1.  Masked Values
 
-   Reference Values expressed as an array of bits or bytes that uses a
-   mask can indicate to a Verifier which bits or bytes of Evidence to
-   ignore.
+   Masked values are a string of bytes (e.g., bstr) that may have a
+   companion mask value.  The mask indicates which bits in the value are
+   ignored when doing bit-wise equivalency comparisons.  Verifier
+   matching applies the equivalency test, allowing dissimilar Evidence
+   and Reference values to be considered equivalent even if the two
+   values (Evidence and Reference) are dissimilar.  Evidence typically
+   does not supply a mask.  A Reference Value may omit the mask if bit-
+   wise equivalency is desired.
 
-   Reference Value and mask arrays MUST be the same length for the mask
-   to be applied correctly.  Normally, Evidence would not supply a mask,
-   while Endorsed Values should.  The $masked-value-type type choice can
-   be either ~tagged-bytes or $raw-value-type-choice.  Evidence might be
-   encoded as ~tagged-bytes or tagged-bytes which omits a mask value,
-   while Reference Values of type tagged-masked-raw-value includes the
-   mask value.
+   The $masked-value-type type choice can be either ~tagged-bytes or
+   $raw-value-type-choice.  Evidence might be encoded as ~tagged-bytes
+   or tagged-bytes which omits a mask value, while Reference Values of
+   type tagged-masked-raw-value includes the mask value.
 
    The Verifier MUST ensure the lengths of values and mask are
-   equivalent.  If the mask is shorter than the values, the mask is
-   padded with zeros (0) until it is the same length as the largest
-   value.  If the value length is shorter than the mask length, the
-   value is padded with zeros (0) to the length of the mask.
+   equivalent.  If the mask is shorter than the longest value, the mask
+   is appended with zeros (0) until it is the same length as the longest
+   value, either Evidence or Reference Value.  If the mask is longer
+   than the longest value, the mask is truncated to the length of the
+   longest value.  All values are are evaluated from left to right (big-
+   endian) applying bit-wise comparisons.
 
-   The mask data type definitions are as follows:
+   The masked value data types are as follows:
 
    $masked-value-type /= ~tagged-bytes
    $masked-value-type /= $raw-value-type-choice
-
-   If the Evidence bit field is a different length from the Reference
-   Value and mask, the shorter length bit field is padded with zeros to
-   accommodate the larger bit field.
 
 8.2.  Expressions
 
@@ -1393,13 +1393,6 @@ Table of Contents
               1.2.1 , May 2022,
               <https://www.dmtf.org/sites/default/files/standards/
               documents/DSP0274_1.2.1.pdf>.
-
-   [I-D.birkholz-rats-epoch-markers]
-              Birkholz, H., Fossati, T., Pan, W., and C. Bormann, "Epoch
-              Markers", Work in Progress, Internet-Draft, draft-
-              birkholz-rats-epoch-markers-08, 22 July 2024,
-              <https://datatracker.ietf.org/doc/html/draft-birkholz-
-              rats-epoch-markers-08>.
 
    [I-D.ietf-rats-ar4si]
               Voit, E., Birkholz, H., Hardjono, T., Fossati, T., and V.
