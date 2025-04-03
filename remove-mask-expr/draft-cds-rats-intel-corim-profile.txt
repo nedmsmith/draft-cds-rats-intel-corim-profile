@@ -459,10 +459,11 @@ Table of Contents
 
    Reference Value and mask arrays MUST be the same length for the mask
    to be applied correctly.  Normally, Evidence would not supply a mask,
-   while Endorsed Values would.  The tagged-masked-raw-value indicates
-   that an Evidence value of type mask-type is compared with a Reference
-   Value of type mask-type, and that a mask of type mask-type is applied
-   to both values before comparing values.
+   while Endorsed Values should.  The $masked-value-type type choice can
+   be either ~tagged-bytes or $raw-value-type-choice.  Evidence might be
+   encoded as ~tagged-bytes or tagged-bytes which omits a mask value,
+   while Reference Values of type tagged-masked-raw-value includes the
+   mask value.
 
    The Verifier MUST ensure the lengths of values and mask are
    equivalent.  If the mask is shorter than the values, the mask is

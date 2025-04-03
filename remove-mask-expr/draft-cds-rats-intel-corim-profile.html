@@ -1645,10 +1645,10 @@ Reference state expressions define non-exact-match matching semantics in terms o
 <p id="section-8.1.1-1">Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
 bits or bytes of Evidence to ignore.<a href="#section-8.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-8.1.1-2">Reference Value and mask arrays <span class="bcp14">MUST</span> be the same length for the mask to be applied correctly.
-Normally, Evidence would not supply a mask, while Endorsed Values would.
-The <code>tagged-masked-raw-value</code> indicates that an Evidence value of type <code>mask-type</code> is compared with
-a Reference Value of type <code>mask-type</code>, and that a mask of type <code>mask-type</code> is applied to both
-values before comparing values.<a href="#section-8.1.1-2" class="pilcrow">¶</a></p>
+Normally, Evidence would not supply a mask, while Endorsed Values should.
+The <code>$masked-value-type</code> type choice can be either <code>~tagged-bytes</code> or <code>$raw-value-type-choice</code>.
+Evidence might be encoded as <code>~tagged-bytes</code> or <code>tagged-bytes</code> which omits a mask value,
+while Reference Values of type <code>tagged-masked-raw-value</code> includes the mask value.<a href="#section-8.1.1-2" class="pilcrow">¶</a></p>
 <p id="section-8.1.1-3">The Verifier <span class="bcp14">MUST</span> ensure the lengths of values and mask are equivalent. If the mask is shorter
 than the values, the mask is padded with zeros (0) until it is the same length as the largest value.
 If the value length is shorter than the mask length, the value is padded with
