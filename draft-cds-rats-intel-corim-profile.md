@@ -99,6 +99,7 @@ informative:
   RFC9334: rats-arch
   RFC5280: x509
   RFC8392: cwt
+  RFC8610: cddl
   I-D.ietf-rats-ar4si: ar4si
   DMTF.SPDM:
     -: spdm
@@ -622,7 +623,7 @@ The `$tee-date-type` can be expressed in several ways:
 
 `~tdate` strings must be converted to a numeric value (i.e.,`~time`) before operations involving time are applied.
 
-Alternatively, `tee.tcbdate` may be encoded using `mkey` where `mkey` contains the non-negative code point value and where `mval`.`name` contains the string representation `$tee-date-type` without the CBOR tag (i.e., ~tdate).
+Alternatively, `tee.tcbdate` may be encoded using `mkey` where `mkey` contains the non-negative code point value and where `mval`.`name` contains the string representation `$tee-date-type` without the CBOR tag (i.e., ~tdate - see Section 3.7 {{-cddl}}).
 
 ### The tee.mrtee and tee.mrsigner Measurement Extension {#sec-tee-digest-type}
 
