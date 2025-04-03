@@ -344,7 +344,7 @@ while Reference Values of type `tagged-masked-raw-value` includes the mask value
 The Verifier MUST ensure the lengths of values and mask are equivalent. If the mask is shorter
 than the longest value, the mask is appended with zeros (0) until it is the same length as the longest value, either Evidence or Reference Value.
 If the mask is longer than the longest value, the mask is truncated to the length of the longest value.
-All values are are evaluated from left to right (big-endian) applying bit-wise comparisons.
+All values are evaluated from left to right (big-endian) applying bit-wise comparisons.
 
 The masked value data types are as follows:
 
