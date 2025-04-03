@@ -32,7 +32,12 @@ $(eval $(call cddl_targets,ice,$(PROFILE_DEPS)))
 $(eval $(call cddl_targets,ispdm,$(PROFILE_DEPS)))
 $(eval $(call cddl_targets,profile,$(PROFILE_DEPS)))
 
-check-examples:
+check-all: check-cddl check-examples
+
+check-cddl:
+	$(MAKE) -C $(CDDL_DIR) check-corim check-irim check-ice check-ispdm
+	
+check-examples: check-cddl
 	$(MAKE) -C $(CDDL_DIR) check-corim-examples check-irim-examples check-ice-examples check-ispdm-examples
 
 export-intel-profile:

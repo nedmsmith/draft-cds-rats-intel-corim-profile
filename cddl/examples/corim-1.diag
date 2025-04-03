@@ -1,116 +1,116 @@
 / *** COSE-Sign1-corim.payload ***/
-/ corim / 500(
-  / tagged-corim-map / 501(
-    {
-      / corim.id / 0 : h'284e6c3e5d9f4f6b851f5a4247f243a7',
-      / corim.tags / 1 : [
-        / tagged-concise-bom-tag / 508( <<
-          / concise-bom-tag / {
-            / tag-identity-map / 0 : {
-              / tag-id / 0 : h'1f06af63a93c11e4979700505690773f' / * example cobom tag * /
-            },
-            / tags-list / 1 : [
-              { / tag-id / 0 : h'3f06af63a93c11e4979700505690773f' }, / *** the comid tag below *** /
-              { / tag-id / 0 : "com.acme.rrd2013-ce-sp1-v4-1-5-0" } / *** the coswid tag below *** /
-            ],
-            / BOM validity / 2 : {
-              / not before / 0 : 1(1686168550),
-              / not after / 1 : 1(1697179543)
-            }
+
+/ tagged-corim-map / 501(
+  {
+    / corim.id / 0 : h'284e6c3e5d9f4f6b851f5a4247f243a7',
+    / corim.tags / 1 : [
+      / tagged-concise-bom-tag / 508( <<
+        / concise-bom-tag / {
+          / tag-identity-map / 0 : {
+            / tag-id / 0 : h'1f06af63a93c11e4979700505690773f' / * example cobom tag * /
+          },
+          / tags-list / 1 : [
+            { / tag-id / 0 : h'3f06af63a93c11e4979700505690773f' }, / *** the comid tag below *** /
+            { / tag-id / 0 : "com.acme.rrd2013-ce-sp1-v4-1-5-0" } / *** the coswid tag below *** /
+          ],
+          / BOM validity / 2 : {
+            / not before / 0 : 1(1686168550),
+            / not after / 1 : 1(1697179543)
           }
-        >> ),
-        / tagged-concise-mid-tag / 506( <<
-          / concise-mid-tag / {
-            / comid.tag-identity / 1 : {
-              / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f' / * example comid tag * /
-            },
-            / entity / 2 : [ {
-              / entity-name / 0 : "INTEL",
-              / reg-id / 1 : 32("https://intel.com"),
-              / role / 2 : [ 1,0,2 ] / creator, tag-creator, maintainer /
-            } ],
-            / comid.triples / 4 : {
-              / comid.reference-triples / 0 : [ [
-                / environment-map / {
-                  / comid.class / 0 : {
-                    / comid.class-id / 0 :
-                      / tagged-uuid-type / 37(h'67b28b6c34cc40a19117ab5b05911e37'),
-                    / comid.vendor / 1 : "INTEL",
-                    / comid.model / 2 : "Intel Product X"
-                  }
-                },
-                [
-                  / measurement-map / {
-                    / mval / 1 : {
-                      / version-map / 0 : {
-                        / version / 0 : "1.0.0",
-                        / version-scheme / 1 : 16384 / semver /
-                      }
+        }
+      >> ),
+      / tagged-concise-mid-tag / 506( <<
+        / concise-mid-tag / {
+          / comid.tag-identity / 1 : {
+            / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f' / * example comid tag * /
+          },
+          / entity / 2 : [ {
+            / entity-name / 0 : "INTEL",
+            / reg-id / 1 : 32("https://intel.com"),
+            / role / 2 : [ 1,0,2 ] / creator, tag-creator, maintainer /
+          } ],
+          / comid.triples / 4 : {
+            / comid.reference-triples / 0 : [ [
+              / environment-map / {
+                / comid.class / 0 : {
+                  / comid.class-id / 0 :
+                    / tagged-uuid-type / 37(h'67b28b6c34cc40a19117ab5b05911e37'),
+                  / comid.vendor / 1 : "INTEL",
+                  / comid.model / 2 : "Intel Product X"
+                }
+              },
+              [
+                / measurement-map / {
+                  / mval / 1 : {
+                    / version-map / 0 : {
+                      / version / 0 : "1.0.0",
+                      / version-scheme / 1 : 16384 / semver /
                     }
                   }
-                ]
-              ] ]
-            }
+                }
+              ]
+            ] ]
           }
-        >> ),
-        / tagged-concise-swid-tag / 505( <<
-          {
-            / tag-id / 0: "com.acme.rrd2013-ce-sp1-v4-1-5-0",
-            / tag-version / 12: 0,
-            / software-name / 1: "ACME Roadrunner Detector 2013 Coyote Edition SP1",
-             / software-version / 13: "4.1.5",
-             / software-meta / 5: {
-              / activation-status / 43: "trial",
-              / colloquial-version / 45: "2013",
-              / edition / 47: "coyote",
-              / product / 52: "Roadrunner Detector",
-              / revision / 54: "sp1"
-             },
-            / entity-entry / 2: [
-              {
-                / entity-name / 31: "The ACME Corporation",
-                / reg-id / 32: 32("acme.com"), 
-                / role / 33: [ / tag-creator / 1, / software-creator / 2]
-              },
-              {
-                / entity-name / 31: "Coyote Services, Inc.",
-                / reg-id / 32: 32("mycoyote.com"),
-                / role / 33: / distributor / 4
-              }
-            ],
-            / link-entry / 4: {
-              / href / 38: 32("www.gnu.org/licenses/gpl.txt"),
-              / rel / 40: "license"
+        }
+      >> ),
+      / tagged-concise-swid-tag / 505( <<
+        {
+          / tag-id / 0: "com.acme.rrd2013-ce-sp1-v4-1-5-0",
+          / tag-version / 12: 0,
+          / software-name / 1: "ACME Roadrunner Detector 2013 Coyote Edition SP1",
+            / software-version / 13: "4.1.5",
+            / software-meta / 5: {
+            / activation-status / 43: "trial",
+            / colloquial-version / 45: "2013",
+            / edition / 47: "coyote",
+            / product / 52: "Roadrunner Detector",
+            / revision / 54: "sp1"
             },
-            / payload / 6: {
-              / directory / 16: {
-                / fs-name / 24: "rrdetector",
-                / root / 25: "%programdata%",
-                / path-elements / 26: {
-                  / file / 17: {
-                    / fs-name / 24: "rrdetector.exe",
-                    / size / 20: 532712,
-                    / hash / 7: [
-                      / alg-id / 1,
-                      / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
-                    ]
-                  }
+          / entity-entry / 2: [
+            {
+              / entity-name / 31: "The ACME Corporation",
+              / reg-id / 32: 32("acme.com"), 
+              / role / 33: [ / tag-creator / 1, / software-creator / 2]
+            },
+            {
+              / entity-name / 31: "Coyote Services, Inc.",
+              / reg-id / 32: 32("mycoyote.com"),
+              / role / 33: / distributor / 4
+            }
+          ],
+          / link-entry / 4: {
+            / href / 38: 32("www.gnu.org/licenses/gpl.txt"),
+            / rel / 40: "license"
+          },
+          / payload / 6: {
+            / directory / 16: {
+              / fs-name / 24: "rrdetector",
+              / root / 25: "%programdata%",
+              / path-elements / 26: {
+                / file / 17: {
+                  / fs-name / 24: "rrdetector.exe",
+                  / size / 20: 532712,
+                  / hash / 7: [
+                    / alg-id / 1,
+                    / digest / h'A314FC2DC663AE7A6B6BC6787594057396E6B3F569CD50FD5DDB4D1BBAFD2B6A'
+                  ]
                 }
               }
             }
           }
-        >> )
-      ],
-      / dependent-rims / 2 : [ / ** links to related RIMs ** /
-        { 
-          / href / 0 : 32("https://rims.example.intel.com/path/to/file_adkfhaeria-dfka_efkj.rim")
         }
-      ],
-      / Intel profile / 3 : 111(h'6086480186F84D011001'), / 2.16.840.1.113741.1.16.1 /
-      / RIM validity / 4 : {
-        / not before / 0 : 1(1686168550),
-        / not after / 1 : 1(1697179543)
+      >> )
+    ],
+    / dependent-rims / 2 : [ / ** links to related RIMs ** /
+      { 
+        / href / 0 : 32("https://rims.example.intel.com/path/to/file_adkfhaeria-dfka_efkj.rim")
       }
+    ],
+    / Intel profile / 3 : 111(h'6086480186F84D011001'), / 2.16.840.1.113741.1.16.1 /
+    / RIM validity / 4 : {
+      / not before / 0 : 1(1686168550),
+      / not after / 1 : 1(1697179543)
     }
-  )
+  }
 )
+

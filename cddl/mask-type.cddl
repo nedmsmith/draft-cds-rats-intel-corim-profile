@@ -1,4 +1,2 @@
-mask-operators /= op.eq
-mask-type = bstr
-mask-expression = [ mask-operators, value: mask-type, mask: mask-type]
-tagged-mask-expression = #6.60040( mask-expression )
+$masked-value-type /= ~tagged-bytes
+$masked-value-type /= $raw-value-type-choice
