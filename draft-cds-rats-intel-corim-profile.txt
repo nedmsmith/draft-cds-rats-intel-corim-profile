@@ -5,13 +5,13 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 4 October 2025                                  ARM Corporation
+Expires: 5 October 2025                                  ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                            2 April 2025
+                                                            3 April 2025
 
 
                   Intel Profile for Remote Attestation
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 October 2025.
+   This Internet-Draft will expire on 5 October 2025.
 
 Copyright Notice
 
@@ -105,28 +105,29 @@ Table of Contents
      7.1.  Concise Module ID Tag (CoMID)
      7.2.  Raw Value Measurements
    8.  CoRIM Extensions
-     8.1.  Expressions
-       8.1.1.  Expression Operators
-       8.1.2.  Numeric Expressions
-       8.1.3.  Set Expressions
-       8.1.4.  Mask Expression
-     8.2.  Measurement Extensions
-       8.2.1.  The tee.advisory-ids Measurement Extension
-       8.2.2.  The tee.attributes Measurement Extension
-       8.2.3.  The tee.cryptokeys Measurement Extension
-       8.2.4.  The tee.tcbdate Measurement Extension
-       8.2.5.  The tee.mrtee and tee.mrsigner Measurement Extension
-       8.2.6.  The tee.instance-id Measurement Extension
-       8.2.7.  The tee.platform-instance-id Measurement Extension
-       8.2.8.  The tee.isvprodid Measurement Extension
-       8.2.9.  The tee.miscselect Measurement Extension
-       8.2.10. The tee.model Measurement Extension
-       8.2.11. The tee.pceid Measurement Extension
-       8.2.12. The tee.isvsvn Measurement Extension
-       8.2.13. The tee.tcb-comp-svn Measurement Extension
-       8.2.14. The tee.tcb-eval-num Measurement Extension
-       8.2.15. The tee.tcb-status Measurement Extension
-       8.2.16. The tee.vendor Measurement Extension
+     8.1.  Data Types
+       8.1.1.  Masked Values
+     8.2.  Expressions
+       8.2.1.  Expression Operators
+       8.2.2.  Numeric Expressions
+       8.2.3.  Set Expressions
+     8.3.  Measurement Extensions
+       8.3.1.  The tee.advisory-ids Measurement Extension
+       8.3.2.  The tee.attributes Measurement Extension
+       8.3.3.  The tee.cryptokeys Measurement Extension
+       8.3.4.  The tee.tcbdate Measurement Extension
+       8.3.5.  The tee.mrtee and tee.mrsigner Measurement Extension
+       8.3.6.  The tee.instance-id Measurement Extension
+       8.3.7.  The tee.platform-instance-id Measurement Extension
+       8.3.8.  The tee.isvprodid Measurement Extension
+       8.3.9.  The tee.miscselect Measurement Extension
+       8.3.10. The tee.model Measurement Extension
+       8.3.11. The tee.pceid Measurement Extension
+       8.3.12. The tee.isvsvn Measurement Extension
+       8.3.13. The tee.tcb-comp-svn Measurement Extension
+       8.3.14. The tee.tcb-eval-num Measurement Extension
+       8.3.15. The tee.tcb-status Measurement Extension
+       8.3.16. The tee.vendor Measurement Extension
    9.  Appraisal Algorithm
      9.1.  Complex Expressions
      9.2.  Comparison Algorithm for Sets
@@ -345,7 +346,7 @@ Table of Contents
    documents evidence mapping from DiceTcbInfo and SPDM Measurement
    Block to CoMID, as defined by [DICE.CoRIM].
 
-   The CoMID extensions defined by this profile Section 8.2 are applied
+   The CoMID extensions defined by this profile Section 8.3 are applied
    to concise-evidence so that Verifiers that support this profile can
    consistently apply a common schema across Evidence, Reference Values,
    and Endorsements.
@@ -445,11 +446,41 @@ Table of Contents
    Reference Values extensions define types that can have multiple
    Reference Values that "match" a singleton Evidence value called "non-
    exact match" matching.  Reference state expressions define non-exact-
-   match matching semantics in terms of numeric ranges, date-time
-   ranges, sets, and masks.  Reference Values data types are identified
-   by the CBOR tag #6.60010(...).
+   match matching semantics in terms of numeric ranges, time, sets, and
+   masks.
 
-8.1.  Expressions
+8.1.  Data Types
+
+8.1.1.  Masked Values
+
+   Masked values are a string of bytes (e.g., bstr) that may have a
+   companion mask value.  The mask indicates which bits in the value are
+   ignored when doing bit-wise equivalency comparisons.  Verifier
+   matching applies the equivalency test, allowing dissimilar Evidence
+   and Reference values to be considered equivalent even if the two
+   values (Evidence and Reference) are dissimilar.  Evidence typically
+   does not supply a mask.  A Reference Value may omit the mask if bit-
+   wise equivalency is desired.
+
+   The $masked-value-type type choice can be either ~tagged-bytes or
+   $raw-value-type-choice.  Evidence might be encoded as ~tagged-bytes
+   or tagged-bytes which omits a mask value, while Reference Values of
+   type tagged-masked-raw-value includes the mask value.
+
+   The Verifier MUST ensure the lengths of values and mask are
+   equivalent.  If the mask is shorter than the longest value, the mask
+   is appended with zeros (0) until it is the same length as the longest
+   value, either Evidence or Reference Value.  If the mask is longer
+   than the longest value, the mask is truncated to the length of the
+   longest value.  All values are evaluated from left to right (big-
+   endian) applying bit-wise comparisons.
+
+   The masked value data types are as follows:
+
+   $masked-value-type /= ~tagged-bytes
+   $masked-value-type /= $raw-value-type-choice
+
+8.2.  Expressions
 
    Expressions are used to specify richer Reference Values measurements
    that expect non-exact matching semantics.  The Reference Value
@@ -488,9 +519,9 @@ Table of Contents
 
    *  #6.600XX([ operator, operand_2, operand_3, ... ]).
 
-8.1.1.  Expression Operators
+8.2.1.  Expression Operators
 
-   There are several classes of operators as follows:
+   There are two classes of operators as follows:
 
    1.  *Numeric*: The numeric operand can be an integer, unsigned
        integer, or floading point value.
@@ -500,24 +531,13 @@ Table of Contents
        position of the items in a set is unordered, while the position
        of items in an array within a set is ordered.
 
-   3.  *Date-Time*: The date-time operators compare two date-time
-       values, while the epoch operators determine if a date-time value
-       is within a range defined by an epoch and a grece period relative
-       to the epoch.
-
-   4.  *Mask*: The mask operator compares two bit fields where a bit-
-       field is compared to a second bit-field using a bit-field-mask
-       that selects the bits to be compared.  The bit-field may contain
-       a sequence of bytes of any length.  The bit-field-mask should be
-       the same length as the bit-field.
-
-8.1.1.1.  Equivalence Operator
+8.2.1.1.  Equivalence Operator
 
    By default, _exact_ match rules are assumed.  Consequently, no
    operator artifact is needed when Evidence values are identical to
    Reference Values.
 
-8.1.2.  Numeric Expressions
+8.2.2.  Numeric Expressions
 
    Numeric operators apply to values that are integers, unsigned
    integers or floating point numbers.  There are four numeric
@@ -591,7 +611,7 @@ Table of Contents
        op.le .within numeric-operators,
        reference-value: numeric-type ] )
 
-8.1.3.  Set Expressions
+8.2.3.  Set Expressions
 
    Set operators allow Reference Values, that are expressed as a set, to
    be compared with Evidence that is expressed as either a primitive
@@ -725,57 +745,7 @@ Table of Contents
    tagged-exp-disjoint = #6.60010([
        disjoint .within set-of-set-operator, set-of-set-type ])
 
-8.1.4.  Mask Expression
-
-   Reference Values expressed as an array of bits or bytes that uses a
-   mask can indicate to a Verifier which bits or bytes of Evidence to
-   ignore.
-
-   Reference Value and mask arrays MUST be the same length for the mask
-   to be applied correctly.  Normally, Evidence would not supply a mask,
-   while Endorsed Values would.  The mask-eq operator indicates that an
-   Evidence value of type mask-type is compared with a Reference Value
-   of type mask-type, and that a mask of type mask-type is applied to
-   both values before comparing values.  If the operator is mask-eq,
-   then a binary equivalence comparison is applied.
-
-   The Verifier MUST ensure the lengths of values and mask are
-   equivalent.  If the mask is shorter than the values, the mask is
-   padded with zeros (0) until it is the same length as the largest
-   value.  If the Evidence or Reference Value length is shorter than the
-   mask, the value is padded with zeros (0) to the length of the mask.
-
-   The masked data type definitions are as follows:
-
-   mask-operators /= op.eq
-   mask-type = bstr
-   mask-expression = [ mask-operators, value: mask-type, mask: mask-type]
-   tagged-mask-expression = #6.60040( mask-expression )
-
-   If the Evidence bit field is a different length from the Reference
-   Value and mask, the shorter length bit field is padded with zeros to
-   accommodate the larger bit field.
-
-   The tagged-exp-mask-eq expression defines a tagged expression that
-   applies the mask equivalence operator to an Evidence value and a
-   Reference Value using the supplied mask.
-
-   In _infix_ notation, the Evidence value is _operand_1_, followed by
-   the mask operator, followed by a Reference Value, _operand_2_,
-   followed by the mask, _operand_3_.
-
-   Example:
-
-   *  <evidence_value> <mask-eq> <reference_value> <mask>
-
-   If each bit in Evidence has a corresponding matching bit in the
-   Reference Value, then the Evidence value is accepted.
-
-   The masked data expression definitions are as follows:
-
-   tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
-
-8.2.  Measurement Extensions
+8.3.  Measurement Extensions
 
    This profile extends the CoMID measurement-values-map with additional
    code point definitions, that accommodate Intel SGX and similar
@@ -784,7 +754,7 @@ Table of Contents
    compliance of the input evidence and reference values, as it defines
    the acceptable data types in evidence and the expression operator
    that is explicitly supplied with the Reference Values, see
-   Section 8.1.1.
+   Section 8.2.1.
 
    In cases where Evidence does not exactly match Reference Values, the
    operator definition determines the expected data types of the
@@ -794,7 +764,7 @@ Table of Contents
    according to the appriasal steps described in Section 8.1 of
    [I-D.ietf-rats-corim].
 
-8.2.1.  The tee.advisory-ids Measurement Extension
+8.3.1.  The tee.advisory-ids Measurement Extension
 
    The tee.advisory-ids extension enables Attesters to report known
    security advisories and for Reference Values Providers (RVP) to
@@ -825,7 +795,7 @@ Table of Contents
    $tee-advisory-ids-type /= tagged-exp-tstr-not-member
    $tee-advisory-ids-type /= tagged-exp-tstr-member
 
-8.2.1.1.  The tee-advisory-ids-type Comparison Algorithm
+8.3.1.1.  The tee-advisory-ids-type Comparison Algorithm
 
    The comparison algorithm for tee-advisory-ids-type is used when
    Endorsement or Reference Values triples conditions are matched with
@@ -834,7 +804,7 @@ Table of Contents
    Claim matches an ACS ECT according to the comparison algorithm for
    set of strings as defined in Section 9.2.
 
-8.2.2.  The tee.attributes Measurement Extension
+8.3.2.  The tee.attributes Measurement Extension
 
    The tee.attributes extension enables the Attester to report TEE
    attributes and an RVP to assert a reference TEE attributes and mask.
@@ -850,14 +820,13 @@ Table of Contents
    $$measurement-values-map-extension //= (
      &(tee.attributes: -82) => $tee-attributes-type
    )
-   $tee-attributes-type /= mask-type
-   $tee-attributes-type /= tagged-exp-mask-eq
+   $tee-attributes-type /= $masked-value-type
 
    Alternatively, the TEE attributes may be encoded using mkey where
    mkey contains the non-negative tee.attributes and mval.raw-value
    contains the $tee-attributes-type.mask-type value.
 
-8.2.3.  The tee.cryptokeys Measurement Extension
+8.3.3.  The tee.cryptokeys Measurement Extension
 
    The tee.cryptokeys extension identifies cryptographic keys associated
    with a Target Environment.  If multiple $crypto-key-type-choice
@@ -873,7 +842,7 @@ Table of Contents
    mkey contains the non-negative tee.cryptokeys and mval.cryptokeys
    contains the $tee-cryptokey-type value.
 
-8.2.4.  The tee.tcbdate Measurement Extension
+8.3.4.  The tee.tcbdate Measurement Extension
 
    The tee.tcbdate (code point -72) extension is used by Endorsers to
    assert validity of a TEE component.  For example, a conditional
@@ -903,9 +872,9 @@ Table of Contents
    Alternatively, tee.tcbdate may be encoded using mkey where mkey
    contains the non-negative code point value and where mval.name
    contains the string representation $tee-date-type without the CBOR
-   tag (i.e., ~tdate).
+   tag (i.e., ~tdate - see Section 3.7 [RFC8610]).
 
-8.2.5.  The tee.mrtee and tee.mrsigner Measurement Extension
+8.3.5.  The tee.mrtee and tee.mrsigner Measurement Extension
 
    The tee.mrtee extension enables an Attester to report digests for the
    SGX enclave or TDX TD (e.g., MRENCLAVE, MRTD).  The tee.mrsigner
@@ -936,7 +905,7 @@ Table of Contents
    contains the non-negative tee.mrtee or tee.mrsigner and mval.digests
    contains a digests-type value.
 
-8.2.5.1.  The tee-digest-type Comparison Algorithm
+8.3.5.1.  The tee-digest-type Comparison Algorithm
 
    The comparison algorithm for tee-digest-type is used when the
    condition statement in an Endorsement or Reference Values triple is
@@ -944,7 +913,7 @@ Table of Contents
    Accepted Claims Set (ACS).  The comparison algorithm for set of
    digests is defined in Section 9.2.
 
-8.2.6.  The tee.instance-id Measurement Extension
+8.3.6.  The tee.instance-id Measurement Extension
 
    The tee.instance-id extension enables the Attester to report the TEE
    (TD or enclave) instance identifier as an Evidence value and the RVP
@@ -964,7 +933,7 @@ Table of Contents
    type is an unsigned integer, the integer values is converted to a
    single byte bstr.
 
-8.2.7.  The tee.platform-instance-id Measurement Extension
+8.3.7.  The tee.platform-instance-id Measurement Extension
 
    Platform Instance ID is a globally unique identifier generated by the
    platform during Platform Establishment.  This value remains
@@ -987,7 +956,7 @@ Table of Contents
    where mkey contains the non-negative tee.platform-instance-id and
    mval.raw-value contains the $tee-platform-instance-id-type value.
 
-8.2.8.  The tee.isvprodid Measurement Extension
+8.3.8.  The tee.isvprodid Measurement Extension
 
    The tee.isvprodid extension enables the Attester to report the ISV
    product identifier Evidence value and the RVP to assert an exact-
@@ -1007,7 +976,7 @@ Table of Contents
    mkey contains the non-negative tee.isvprodid and mval.raw-value
    contains the $tee-isvprodid-type value.
 
-8.2.9.  The tee.miscselect Measurement Extension
+8.3.9.  The tee.miscselect Measurement Extension
 
    The tee.miscselect extension enables the Attester to report the
    (TBD:miscselect-description) Evidence value and the RVP to assert a
@@ -1016,21 +985,20 @@ Table of Contents
    The $tee-miscselect-type is a 4 byte value and mask.
 
    The $tee-miscselect-type is a singleton mask-type value when used as
-   Endorsement or Evidence and a tagged-mask-expression when used a
+   Endorsement or Evidence and a tagged-masked-raw-value when used a
    Reference Value.
 
    $$measurement-values-map-extension //= (
      &(tee.miscselect: -81) => $tee-miscselect-type
    )
-   $tee-miscselect-type /= mask-type
-   $tee-miscselect-type /= tagged-exp-mask-eq
+   $tee-miscselect-type /= $masked-value-type
 
    Alternatively, the TEE miscselect may be encoded using mkey where
    mkey contains the non-negative tee.miscselect and mval.raw-value
    contains the measurement value and mval.raw-value-mask` contains the
    mask value.
 
-8.2.10.  The tee.model Measurement Extension
+8.3.10.  The tee.model Measurement Extension
 
    The tee.model extension enables the Attester to report the TEE model
    string as Evidence and the RVP to assert an exact-match Reference
@@ -1049,7 +1017,7 @@ Table of Contents
    contains the non-negative tee.model and mval.name contains the $tee-
    model-type value.
 
-8.2.11.  The tee.pceid Measurement Extension
+8.3.11.  The tee.pceid Measurement Extension
 
    The tee.pceid extension enables the Attester to report the PCEID as
    Evidence and the RVP to assert an exact-match Reference Value.
@@ -1067,7 +1035,7 @@ Table of Contents
    contains the non-negative tee.pceid and mval.name contains the $tee-
    pceid-type value.
 
-8.2.12.  The tee.isvsvn Measurement Extension
+8.3.12.  The tee.isvsvn Measurement Extension
 
    The tee.isvsvn extension enables the Attester to report the SVN for
    the independent software vendor supplied component as Evidence and
@@ -1092,7 +1060,7 @@ Table of Contents
    contains the non-negative tee.isvsvn and mval.svn contains the svn
    value as svn-type.
 
-8.2.13.  The tee.tcb-comp-svn Measurement Extension
+8.3.13.  The tee.tcb-comp-svn Measurement Extension
 
    The tee.tcb-comp-svn extension enables the Attester to report an
    array of SVN values for the TCB when asserted as Evidence and an
@@ -1115,7 +1083,7 @@ Table of Contents
    $tee-tcb-comp-svn-type /=
      [ 16*16 tagged-numeric-ge ]
 
-8.2.14.  The tee.tcb-eval-num Measurement Extension
+8.3.14.  The tee.tcb-eval-num Measurement Extension
 
    The tee.tcb-eval-num extension enables the Attester to report a TCB
    evaluation number as Evidence and the RVP to assert a Reference Value
@@ -1137,7 +1105,7 @@ Table of Contents
    mval.raw-value contains the tcb-eval-num encoded as 4-byte bstr
    value.
 
-8.2.15.  The tee.tcb-status Measurement Extension
+8.3.15.  The tee.tcb-status Measurement Extension
 
    The tee.tcb-status extension enables Attesters to report the status
    of the TEE trusted computing base (TCB) and for Reference Value
@@ -1160,7 +1128,7 @@ Table of Contents
    $tee-tcbstatus-type /= tagged-exp-tstr-member
    $tee-tcbstatus-type /= tagged-exp-tstr-not-member
 
-8.2.15.1.  The tee-tcbstatus-type Comparison Algorithm
+8.3.15.1.  The tee-tcbstatus-type Comparison Algorithm
 
    The comparison algorithm for tee-tcbstatus-type is used when
    Endorsement or Reference Values triples conditions are matched with
@@ -1169,7 +1137,7 @@ Table of Contents
    Claim matches an ACS ECT according to the comparison algorithm for
    set of strings as defined in Section 9.2.
 
-8.2.16.  The tee.vendor Measurement Extension
+8.3.16.  The tee.vendor Measurement Extension
 
    The tee.vendor extension enables the Attester to report the TEE
    vendor name as Evidence and for the RVP to assert the TEE vendor
@@ -1197,13 +1165,15 @@ Table of Contents
    profile extends the appraisal algorithm to recognize profile
    extensions that form equations.  An Evidence measurement forms one of
    the operands: (evidence operand).  A Reference Value forms the
-   operator and remaining operands: [(expression operator), (reference
-   value operand), ...].  For example, if a numeric reference value is
-   14, and the expressions operator is gt the Reference Value might
-   contain the Claim: #6.60010([ 1, 14]).  Evidence might contain the
-   measurement: '15'.  In infix construction, the equation would be:
-   (15) (gt) (14).  The Verifier evaluates whether 15 is greater-than
-   14.
+   operator and remaining operands:
+
+   *  [expression operator, reference value operand, etc...]
+
+   For example, if a numeric Reference Value is 14, and the expressions
+   operator is gt the Reference Value might contain the Claim:
+   #6.60010([ 1, 14]).  Given Evidence contains the value: 15.  The in-
+   fix construction of the equation would be: 15 gt 14.  The Verifier
+   evaluates whether 15 is greater-than 14.
 
 9.1.  Complex Expressions
 
@@ -1216,7 +1186,7 @@ Table of Contents
    endorsement-series-triples describe complex Endorsement expressions.
 
    This profile uses these triples with the reference measurement values
-   extensions described in Section 8.2.
+   extensions described in Section 8.3.
 
 9.2.  Comparison Algorithm for Sets
 
@@ -1318,16 +1288,13 @@ Table of Contents
         | Tag   | Data Item | Semantics               | Reference |
         +=======+===========+=========================+===========+
         | 60010 | tag       | Numeric Expressions,    | RFCthis   |
-        |       |           | see Section 8.1.2       |           |
+        |       |           | see Section 8.2.2       |           |
         +-------+-----------+-------------------------+-----------+
         | 60020 | tag       | Set digest Expressions, | RFCthis   |
-        |       |           | see Section 8.1.3       |           |
+        |       |           | see Section 8.2.3       |           |
         +-------+-----------+-------------------------+-----------+
         | 60021 | tag       | Set tstr Expressions,   | RFCthis   |
-        |       |           | see Section 8.1.3       |           |
-        +-------+-----------+-------------------------+-----------+
-        | 60040 | tag       | Mask Expressions, see   | RFCthis   |
-        |       |           | Section 8.1.4           |           |
+        |       |           | see Section 8.2.3       |           |
         +-------+-----------+-------------------------+-----------+
 
                                   Table 3
@@ -1418,13 +1385,6 @@ Table of Contents
               <https://www.dmtf.org/sites/default/files/standards/
               documents/DSP0274_1.2.1.pdf>.
 
-   [I-D.birkholz-rats-epoch-markers]
-              Birkholz, H., Fossati, T., Pan, W., and C. Bormann, "Epoch
-              Markers", Work in Progress, Internet-Draft, draft-
-              birkholz-rats-epoch-markers-08, 22 July 2024,
-              <https://datatracker.ietf.org/doc/html/draft-birkholz-
-              rats-epoch-markers-08>.
-
    [I-D.ietf-rats-ar4si]
               Voit, E., Birkholz, H., Hardjono, T., Fossati, T., and V.
               Scarlata, "Attestation Results for Secure Interactions",
@@ -1464,6 +1424,12 @@ Table of Contents
    [RFC8392]  Jones, M., Wahlstroem, E., Erdtman, S., and H. Tschofenig,
               "CBOR Web Token (CWT)", RFC 8392, DOI 10.17487/RFC8392,
               May 2018, <https://www.rfc-editor.org/rfc/rfc8392>.
+
+   [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
+              Definition Language (CDDL): A Notational Convention to
+              Express Concise Binary Object Representation (CBOR) and
+              JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
+              June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
 
    [RFC9334]  Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
               W. Pan, "Remote ATtestation procedureS (RATS)
@@ -1602,12 +1568,8 @@ Appendix B.  Full Intel Profile CDDL
    tagged-exp-disjoint = #6.60010([
        disjoint .within set-of-set-operator, set-of-set-type ])
 
-   mask-operators /= op.eq
-   mask-type = bstr
-   mask-expression = [ mask-operators, value: mask-type, mask: mask-type]
-   tagged-mask-expression = #6.60040( mask-expression )
-
-   tagged-exp-mask-eq = #6.60040([ op.eq .within mask-operators, value: mask-type, mask: mask-type ] )
+   $masked-value-type /= ~tagged-bytes
+   $masked-value-type /= $raw-value-type-choice
 
    $$measurement-values-map-extension //= (
      &(tee.advisory-ids: -89) => $tee-advisory-ids-type
@@ -1619,8 +1581,7 @@ Appendix B.  Full Intel Profile CDDL
    $$measurement-values-map-extension //= (
      &(tee.attributes: -82) => $tee-attributes-type
    )
-   $tee-attributes-type /= mask-type
-   $tee-attributes-type /= tagged-exp-mask-eq
+   $tee-attributes-type /= $masked-value-type
 
    $$measurement-values-map-extension //= (
      &(tee.cryptokeys: -91) => [ + $tee-cryptokey-type ]
@@ -1662,8 +1623,7 @@ Appendix B.  Full Intel Profile CDDL
    $$measurement-values-map-extension //= (
      &(tee.miscselect: -81) => $tee-miscselect-type
    )
-   $tee-miscselect-type /= mask-type
-   $tee-miscselect-type /= tagged-exp-mask-eq
+   $tee-miscselect-type /= $masked-value-type
 
    $$measurement-values-map-extension //= (
      &(tee.model: -71) => $tee-model-type
