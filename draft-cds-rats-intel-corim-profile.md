@@ -325,7 +325,7 @@ Environments that project vendor-specific semantics are as follows:
 The Intel Profile extends `measurement-values-map` which is used by Evidence, Reference Values, and Endorsed Values by defining code points from the negative integer range.
 
 Reference Values extensions define types that can have multiple Reference Values that "match" a singleton Evidence value called "non-exact match" matching.
-Reference state expressions define non-exact-match matching semantics in terms of numeric ranges, date-time ranges, sets, and masks.
+Reference state expressions define non-exact-match matching semantics in terms of numeric ranges, time, sets, and masks.
 
 ## Data Types {#sec-data-types}
 
@@ -384,19 +384,12 @@ For example:
 
 ### Expression Operators {#sec-expression-operators}
 
-There are several classes of operators as follows:
+There are two classes of operators as follows:
 
 1. **Numeric**: The `numeric` operand can be an integer, unsigned integer, or floading point value.
 1. **Set**: The `set` operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
 The position of the items in a set is unordered, while the position of items in an array within a set
 is ordered.
-1. **Date-Time**: The date-time operators compare two date-time values,
-while the `epoch` operators determine if a date-time value
-is within a range defined by an epoch and a grece period relative to the epoch.
-1. **Mask**: The `mask` operator compares two bit fields where a bit-field is compared to
-a second bit-field using a bit-field-mask that selects the bits to be compared.
-The bit-field may contain a sequence of bytes of any length.
-The bit-field-mask should be the same length as the bit-field.
 
 #### Equivalence Operator {#sec-equivalance-operator}
 
@@ -824,10 +817,13 @@ Alternatively, the TEE vendor may be encoded using `mkey` where `mkey` contains 
 The Intel profile anticipates appraisal algorithms will be based on the appraisal algorithm defined in {{-corim}}.
 This profile extends the appraisal algorithm to recognize profile extensions that form equations.
 An Evidence measurement forms one of the operands: (evidence operand).
-A Reference Value forms the operator and remaining operands: [(expression operator), (reference value operand), ...].
-For example, if a numeric reference value is 14, and the expressions operator is `gt` the Reference Value might contain the Claim: `#6.60010([ 1, 14])`.
-Evidence might contain the measurement: '15'.
-In infix construction, the equation would be: (`15`) (`gt`) (`14`).
+A Reference Value forms the operator and remaining operands:
+
+* \[expression operator, reference value operand, etc...\]
+
+For example, if a numeric Reference Value is 14, and the expressions operator is `gt` the Reference Value might contain the Claim: `#6.60010([ 1, 14])`.
+Given Evidence contains the value: 15.
+The in-fix construction of the equation would be: `15 gt 14`.
 The Verifier evaluates whether `15` is greater-than `14`.
 
 ## Complex Expressions {#sec-complex-expressions}
