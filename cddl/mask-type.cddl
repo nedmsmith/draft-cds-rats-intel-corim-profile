@@ -1,3 +1,2 @@
-mask-type = bstr
-$masked-value-type /= mask-type
-$masked-value-type /= tagged-masked-raw-value
+$masked-value-type /= ~tagged-bytes
+$masked-value-type /= $raw-value-type-choice
