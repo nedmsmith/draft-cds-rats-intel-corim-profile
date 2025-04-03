@@ -446,8 +446,8 @@ Table of Contents
    Reference Values extensions define types that can have multiple
    Reference Values that "match" a singleton Evidence value called "non-
    exact match" matching.  Reference state expressions define non-exact-
-   match matching semantics in terms of numeric ranges, date-time
-   ranges, sets, and masks.
+   match matching semantics in terms of numeric ranges, time, sets, and
+   masks.
 
 8.1.  Data Types
 
@@ -472,7 +472,7 @@ Table of Contents
    is appended with zeros (0) until it is the same length as the longest
    value, either Evidence or Reference Value.  If the mask is longer
    than the longest value, the mask is truncated to the length of the
-   longest value.  All values are are evaluated from left to right (big-
+   longest value.  All values are evaluated from left to right (big-
    endian) applying bit-wise comparisons.
 
    The masked value data types are as follows:
@@ -521,7 +521,7 @@ Table of Contents
 
 8.2.1.  Expression Operators
 
-   There are several classes of operators as follows:
+   There are two classes of operators as follows:
 
    1.  *Numeric*: The numeric operand can be an integer, unsigned
        integer, or floading point value.
@@ -530,17 +530,6 @@ Table of Contents
        value or a set of arrays containing any primitive value.  The
        position of the items in a set is unordered, while the position
        of items in an array within a set is ordered.
-
-   3.  *Date-Time*: The date-time operators compare two date-time
-       values, while the epoch operators determine if a date-time value
-       is within a range defined by an epoch and a grece period relative
-       to the epoch.
-
-   4.  *Mask*: The mask operator compares two bit fields where a bit-
-       field is compared to a second bit-field using a bit-field-mask
-       that selects the bits to be compared.  The bit-field may contain
-       a sequence of bytes of any length.  The bit-field-mask should be
-       the same length as the bit-field.
 
 8.2.1.1.  Equivalence Operator
 
@@ -1176,13 +1165,15 @@ Table of Contents
    profile extends the appraisal algorithm to recognize profile
    extensions that form equations.  An Evidence measurement forms one of
    the operands: (evidence operand).  A Reference Value forms the
-   operator and remaining operands: [(expression operator), (reference
-   value operand), ...].  For example, if a numeric reference value is
-   14, and the expressions operator is gt the Reference Value might
-   contain the Claim: #6.60010([ 1, 14]).  Evidence might contain the
-   measurement: '15'.  In infix construction, the equation would be:
-   (15) (gt) (14).  The Verifier evaluates whether 15 is greater-than
-   14.
+   operator and remaining operands:
+
+   *  [expression operator, reference value operand, etc...]
+
+   For example, if a numeric Reference Value is 14, and the expressions
+   operator is gt the Reference Value might contain the Claim:
+   #6.60010([ 1, 14]).  Given Evidence contains the value: 15.  The in-
+   fix construction of the equation would be: 15 gt 14.  The Verifier
+   evaluates whether 15 is greater-than 14.
 
 9.1.  Complex Expressions
 

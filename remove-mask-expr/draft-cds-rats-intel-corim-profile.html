@@ -1631,7 +1631,7 @@ Additionally, specific <code>environment-map</code> values can supply vendor-spe
       </h2>
 <p id="section-8-1">The Intel Profile extends <code>measurement-values-map</code> which is used by Evidence, Reference Values, and Endorsed Values by defining code points from the negative integer range.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <p id="section-8-2">Reference Values extensions define types that can have multiple Reference Values that "match" a singleton Evidence value called "non-exact match" matching.
-Reference state expressions define non-exact-match matching semantics in terms of numeric ranges, date-time ranges, sets, and masks.<a href="#section-8-2" class="pilcrow">¶</a></p>
+Reference state expressions define non-exact-match matching semantics in terms of numeric ranges, time, sets, and masks.<a href="#section-8-2" class="pilcrow">¶</a></p>
 <div id="sec-data-types">
 <section id="section-8.1">
         <h3 id="name-data-types">
@@ -1653,7 +1653,7 @@ while Reference Values of type <code>tagged-masked-raw-value</code> includes the
 <p id="section-8.1.1-3">The Verifier <span class="bcp14">MUST</span> ensure the lengths of values and mask are equivalent. If the mask is shorter
 than the longest value, the mask is appended with zeros (0) until it is the same length as the longest value, either Evidence or Reference Value.
 If the mask is longer than the longest value, the mask is truncated to the length of the longest value.
-All values are are evaluated from left to right (big-endian) applying bit-wise comparisons.<a href="#section-8.1.1-3" class="pilcrow">¶</a></p>
+All values are evaluated from left to right (big-endian) applying bit-wise comparisons.<a href="#section-8.1.1-3" class="pilcrow">¶</a></p>
 <p id="section-8.1.1-4">The masked value data types are as follows:<a href="#section-8.1.1-4" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.1.1-5">
 <pre>
@@ -1702,7 +1702,7 @@ the expression equation. Appraisal processing <span class="bcp14">MUST</span> ev
           <h4 id="name-expression-operators">
 <a href="#section-8.2.1" class="section-number selfRef">8.2.1. </a><a href="#name-expression-operators" class="section-name selfRef">Expression Operators</a>
           </h4>
-<p id="section-8.2.1-1">There are several classes of operators as follows:<a href="#section-8.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.1-1">There are two classes of operators as follows:<a href="#section-8.2.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-8.2.1-2">
 <li id="section-8.2.1-2.1">
               <p id="section-8.2.1-2.1.1"><strong>Numeric</strong>: The <code>numeric</code> operand can be an integer, unsigned integer, or floading point value.<a href="#section-8.2.1-2.1.1" class="pilcrow">¶</a></p>
@@ -1711,17 +1711,6 @@ the expression equation. Appraisal processing <span class="bcp14">MUST</span> ev
               <p id="section-8.2.1-2.2.1"><strong>Set</strong>: The <code>set</code> operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
 The position of the items in a set is unordered, while the position of items in an array within a set
 is ordered.<a href="#section-8.2.1-2.2.1" class="pilcrow">¶</a></p>
-</li>
-            <li id="section-8.2.1-2.3">
-              <p id="section-8.2.1-2.3.1"><strong>Date-Time</strong>: The date-time operators compare two date-time values,
-while the <code>epoch</code> operators determine if a date-time value
-is within a range defined by an epoch and a grece period relative to the epoch.<a href="#section-8.2.1-2.3.1" class="pilcrow">¶</a></p>
-</li>
-            <li id="section-8.2.1-2.4">
-              <p id="section-8.2.1-2.4.1"><strong>Mask</strong>: The <code>mask</code> operator compares two bit fields where a bit-field is compared to
-a second bit-field using a bit-field-mask that selects the bits to be compared.
-The bit-field may contain a sequence of bytes of any length.
-The bit-field-mask should be the same length as the bit-field.<a href="#section-8.2.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 <div id="sec-equivalance-operator">
@@ -2377,11 +2366,16 @@ $tee-vendor-type /= tstr
 <p id="section-9-1">The Intel profile anticipates appraisal algorithms will be based on the appraisal algorithm defined in <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.
 This profile extends the appraisal algorithm to recognize profile extensions that form equations.
 An Evidence measurement forms one of the operands: (evidence operand).
-A Reference Value forms the operator and remaining operands: [(expression operator), (reference value operand), ...].
-For example, if a numeric reference value is 14, and the expressions operator is <code>gt</code> the Reference Value might contain the Claim: <code>#6.60010([ 1, 14])</code>.
-Evidence might contain the measurement: '15'.
-In infix construction, the equation would be: (<code>15</code>) (<code>gt</code>) (<code>14</code>).
-The Verifier evaluates whether <code>15</code> is greater-than <code>14</code>.<a href="#section-9-1" class="pilcrow">¶</a></p>
+A Reference Value forms the operator and remaining operands:<a href="#section-9-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9-2.1">
+          <p id="section-9-2.1.1">[expression operator, reference value operand, etc...]<a href="#section-9-2.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-9-3">For example, if a numeric Reference Value is 14, and the expressions operator is <code>gt</code> the Reference Value might contain the Claim: <code>#6.60010([ 1, 14])</code>.
+Given Evidence contains the value: 15.
+The in-fix construction of the equation would be: <code>15 gt 14</code>.
+The Verifier evaluates whether <code>15</code> is greater-than <code>14</code>.<a href="#section-9-3" class="pilcrow">¶</a></p>
 <div id="sec-complex-expressions">
 <section id="section-9.1">
         <h3 id="name-complex-expressions">
