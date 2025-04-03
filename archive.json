@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-01T01:44:50.126120+00:00",
+  "timestamp": "2025-04-03T01:26:33.056238+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -2303,7 +2303,7 @@
       "id": "PR_kwDOJvkHy86Q2KQW",
       "title": "Remove dependence on epoch ",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/49",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -2312,13 +2312,124 @@
       "labels": [],
       "body": "This PR removes dependency on epochs / epoch-markers and instead uses tdate / time / etime to realize tcbdate use cases.",
       "createdAt": "2025-03-31T23:40:19Z",
-      "updatedAt": "2025-03-31T23:46:37Z",
+      "updatedAt": "2025-04-02T15:56:57Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "3161722d5639cd20e93fb137cff57189ec146e6e",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "unified-epoch",
       "headRefOid": "139849fc99b93598dff8e28fd5bc635372ed0513",
+      "closedAt": "2025-04-02T15:56:52Z",
+      "mergedAt": "2025-04-02T15:56:52Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "9fa33c642d23f1f02dbae6bc29708ed5ee935944"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86jBlGF",
+          "commit": {
+            "abbreviatedOid": "139849f"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM!",
+          "createdAt": "2025-04-02T08:17:19Z",
+          "updatedAt": "2025-04-02T08:17:19Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jIJVS",
+          "commit": {
+            "abbreviatedOid": "139849f"
+          },
+          "author": "pzmijews",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-02T15:56:16Z",
+          "updatedAt": "2025-04-02T15:56:16Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "id": "PR_kwDOJvkHy86Q-3R6",
+      "title": "Remove mask expr replaced by corim tagged-masked-raw-value",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/50",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "The CoRIM `tagged-masked-raw-value` is similar to the mask expression 60040(). Examples are updated to use CoRIM definition but retains the Intel Profile code points.",
+      "createdAt": "2025-04-01T19:08:00Z",
+      "updatedAt": "2025-04-02T17:51:18Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "3161722d5639cd20e93fb137cff57189ec146e6e",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "remove-mask-expr",
+      "headRefOid": "ac0eae12cd1b9da182e922e46a41c2533cbd92a5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 51,
+      "id": "PR_kwDOJvkHy86RJWMa",
+      "title": "Add uint range",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/51",
+      "state": "CLOSED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Defines tagged-uint-range patterned after tagged-int-range in corim. It's used in use cases where a numeric expression that evaluates greater-than-or-equal such as tcb-eval-num.",
+      "createdAt": "2025-04-02T20:15:14Z",
+      "updatedAt": "2025-04-02T20:17:44Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "9fa33c642d23f1f02dbae6bc29708ed5ee935944",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "add-uint-range",
+      "headRefOid": "497a0277e719de58bbb9dc0443f12dac55996049",
+      "closedAt": "2025-04-02T20:17:44Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 52,
+      "id": "PR_kwDOJvkHy86RJYop",
+      "title": "Add uint range",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/52",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Defines tagged-uint-range patterned after tagged-int-range in corim. It's used in use cases where a numeric expression that evaluates greater-than-or-equal such as tcb-eval-num.",
+      "createdAt": "2025-04-02T20:21:11Z",
+      "updatedAt": "2025-04-02T22:01:00Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "remove-mask-expr",
+      "baseRefOid": "ac0eae12cd1b9da182e922e46a41c2533cbd92a5",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "add-uint-range",
+      "headRefOid": "1fcd78549ddb59cadbe183aa0f89efe0f6716d74",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
