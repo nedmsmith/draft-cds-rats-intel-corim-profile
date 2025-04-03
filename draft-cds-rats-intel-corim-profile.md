@@ -99,7 +99,6 @@ informative:
   RFC9334: rats-arch
   RFC5280: x509
   RFC8392: cwt
-  I-D.birkholz-rats-epoch-markers: epoch-markers
   I-D.ietf-rats-ar4si: ar4si
   DMTF.SPDM:
     -: spdm
@@ -330,30 +329,28 @@ Reference state expressions define non-exact-match matching semantics in terms o
 
 ## Data Types {#sec-data-types}
 
-### Mask Type {#sec-mask}
+### Masked Values {#sec-mask}
 
-Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
-bits or bytes of Evidence to ignore.
+Masked values are a string of bytes (e.g., `bstr`) that may have a companion mask value.
+The mask indicates which bits in the value are ignored when doing bit-wise equivalency comparisons.
+Verifier matching applies the equivalency test, allowing dissimilar Evidence and Reference values to be considered equivalent even if the two values (Evidence and Reference) are dissimilar.
+Evidence typically does not supply a mask.
+A Reference Value may omit the mask if bit-wise equivalency is desired.
 
-Reference Value and mask arrays MUST be the same length for the mask to be applied correctly.
-Normally, Evidence would not supply a mask, while Endorsed Values should.
 The `$masked-value-type` type choice can be either `~tagged-bytes` or `$raw-value-type-choice`.
 Evidence might be encoded as `~tagged-bytes` or `tagged-bytes` which omits a mask value,
 while Reference Values of type `tagged-masked-raw-value` includes the mask value.
 
 The Verifier MUST ensure the lengths of values and mask are equivalent. If the mask is shorter
-than the values, the mask is padded with zeros (0) until it is the same length as the largest value.
-If the value length is shorter than the mask length, the value is padded with
-zeros (0) to the length of the mask.
+than the longest value, the mask is appended with zeros (0) until it is the same length as the longest value, either Evidence or Reference Value.
+If the mask is longer than the longest value, the mask is truncated to the length of the longest value.
+All values are are evaluated from left to right (big-endian) applying bit-wise comparisons.
 
-The mask data type definitions are as follows:
+The masked value data types are as follows:
 
 ~~~ cddl
 {::include cddl/mask-type.cddl}
 ~~~
-
-If the Evidence bit field is a different length from the Reference Value and mask,
-the shorter length bit field is padded with zeros to accommodate the larger bit field.
 
 ## Expressions {#sec-expressions}
 
