@@ -21,20 +21,20 @@ The Evidence to Reference Values mappings are either documented by industry spec
 Reference Value Providers and Endorsers may use this profile to author mainifests containing Reference Values and Endorsements that require Intel profile support from parser implementations.
 Parser implementations can recognize the Intel profile by profile identifier values contained within attestation conceptual mmessages and from profile parameters to media types or profile specific content format identifiers. 
     " name="description">
-<meta content="xml2rfc 3.28.0" name="generator">
+<meta content="xml2rfc 3.28.1" name="generator">
 <meta content="attestation" name="keyword">
 <meta content="profile" name="keyword">
 <meta content="corim" name="keyword">
 <meta content="draft-cds-rats-intel-corim-profile-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.0
+  xml2rfc 3.28.1
     Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.0
-    platformdirs 4.3.6
+    platformdirs 4.3.7
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.3
@@ -1062,7 +1062,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Beaney, et al.</td>
-<td class="center">Expires 4 October 2025</td>
+<td class="center">Expires 5 October 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1075,12 +1075,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-cds-rats-intel-corim-profile-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-04-02" class="published">2 April 2025</time>
+<time datetime="2025-04-03" class="published">3 April 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-10-04">4 October 2025</time></dd>
+<dd class="expires"><time datetime="2025-10-05">5 October 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1154,7 +1154,7 @@ Parser implementations can recognize the Intel profile by profile identifier val
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1656,9 +1656,8 @@ zeros (0) to the length of the mask.<a href="#section-8.1.1-3" class="pilcrow">�
 <p id="section-8.1.1-4">The mask data type definitions are as follows:<a href="#section-8.1.1-4" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.1.1-5">
 <pre>
-mask-type = bstr
-$masked-value-type /= mask-type
-$masked-value-type /= tagged-masked-raw-value
+$masked-value-type /= ~tagged-bytes
+$masked-value-type /= $raw-value-type-choice
 </pre><a href="#section-8.1.1-5" class="pilcrow">¶</a>
 </div>
 <p id="section-8.1.1-6">If the Evidence bit field is a different length from the Reference Value and mask,
@@ -2779,9 +2778,8 @@ tagged-exp-superset = #6.60010([
 tagged-exp-disjoint = #6.60010([
     disjoint .within set-of-set-operator, set-of-set-type ])
 
-mask-type = bstr
-$masked-value-type /= mask-type
-$masked-value-type /= tagged-masked-raw-value
+$masked-value-type /= ~tagged-bytes
+$masked-value-type /= $raw-value-type-choice
 
 $$measurement-values-map-extension //= (
   &amp;(tee.advisory-ids: -89) =&gt; $tee-advisory-ids-type
