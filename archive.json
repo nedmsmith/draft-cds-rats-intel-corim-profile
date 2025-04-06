@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-03T01:26:33.056238+00:00",
+  "timestamp": "2025-04-06T01:39:23.244766+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -2360,7 +2360,7 @@
       "id": "PR_kwDOJvkHy86Q-3R6",
       "title": "Remove mask expr replaced by corim tagged-masked-raw-value",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/50",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -2369,19 +2369,353 @@
       "labels": [],
       "body": "The CoRIM `tagged-masked-raw-value` is similar to the mask expression 60040(). Examples are updated to use CoRIM definition but retains the Intel Profile code points.",
       "createdAt": "2025-04-01T19:08:00Z",
-      "updatedAt": "2025-04-02T17:51:18Z",
+      "updatedAt": "2025-04-03T21:26:55Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "3161722d5639cd20e93fb137cff57189ec146e6e",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "remove-mask-expr",
-      "headRefOid": "ac0eae12cd1b9da182e922e46a41c2533cbd92a5",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "headRefOid": "5a9768d9c7b7ba76f5fcb1cf9001aef6ef2f48be",
+      "closedAt": "2025-04-03T21:26:51Z",
+      "mergedAt": "2025-04-03T21:26:51Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "a87a25262bedd89219c641c85b993d3574aa58ff"
+      },
+      "comments": [
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "ok, understood it is for the legacy reasons!",
+          "createdAt": "2025-04-03T14:36:25Z",
+          "updatedAt": "2025-04-03T14:36:25Z"
+        },
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "leave it just bytes for now and we are done with this!",
+          "createdAt": "2025-04-03T14:36:47Z",
+          "updatedAt": "2025-04-03T14:36:47Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "> leave it just bytes for now and we are done with this!\r\n\r\nIt is an option to document use of `&(raw-value: 4)` with an `mkey` of `81` or `82` to support `miscselect` and `attributes` use cases. This approach would allow exact match in reference values based on `tagged-bytes`.",
+          "createdAt": "2025-04-03T14:48:23Z",
+          "updatedAt": "2025-04-03T14:48:23Z"
+        },
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > leave it just bytes for now and we are done with this!\r\n> \r\n> It is an option to document use of `&(raw-value: 4)` with an `mkey` of `81` or `82` to support `miscselect` and `attributes` use cases. This approach would allow exact match in reference values based on `tagged-bytes`.\r\n\r\nYes, thats what I was thinking. but you might have some products with just `bytes`, already encoded in evidence.\r\n\r\nSo how that would be handled if we encode it as coRIM `raw-value` ??",
+          "createdAt": "2025-04-03T14:52:40Z",
+          "updatedAt": "2025-04-03T14:52:40Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "> So how that would be handled if we encode it as coRIM `raw-value` ??\r\n\r\nThe verifier would have to recognize that `mkey=81` is the same as the code point `-81`. If evidence is encoded with code point -81 and reference is encoded with mkey=81 then treat this as an equivalent expression. \r\n\r\nIf in the future evidence is expressed with mkey=81, then Verifiers that don't support the Intel profile can process this. ",
+          "createdAt": "2025-04-03T14:56:39Z",
+          "updatedAt": "2025-04-03T14:56:39Z"
+        },
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > So how that would be handled if we encode it as coRIM `raw-value` ??\r\n> \r\n> The verifier would have to recognize that `mkey=81` is the same as the code point `-81`. If evidence is encoded with code point -81 and reference is encoded with mkey=81 then treat this as an equivalent expression.\r\n> \r\n> If in the future evidence is expressed with mkey=81, then Verifiers that don't support the Intel profile can process this.\r\n\r\nok, makes sense, do you want to change mask-type to CoRIM raw-value?",
+          "createdAt": "2025-04-03T15:00:42Z",
+          "updatedAt": "2025-04-03T15:00:42Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "> ok, makes sense, do you want to change mask-type to CoRIM raw-value?\r\n\r\nNo, because `raw-value-type-choice` doesn't support `~tagged-bytes`.\r\n`mask-type` could become `$mask-type-choice` and then do something like:\r\n```\r\n$mask-type-choice /= ~tagged-bytes\r\n$mask-type-choice /= $raw-value-type-choice\r\n```",
+          "createdAt": "2025-04-03T15:02:18Z",
+          "updatedAt": "2025-04-03T15:05:25Z"
+        },
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> raw-value-type-choice\r\n\r\nIt does, see the latest CoRIM SPec:\r\n\r\n`\r\n$raw-value-type-choice /= tagged-bytes\r\n$raw-value-type-choice /= tagged-masked-raw-value\r\n\r\n`",
+          "createdAt": "2025-04-03T15:07:20Z",
+          "updatedAt": "2025-04-03T15:07:20Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "`~tagged-bytes` != `tagged-bytes`",
+          "createdAt": "2025-04-03T15:09:39Z",
+          "updatedAt": "2025-04-03T15:09:39Z"
+        },
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> `mask-type-choice` and then do something like:\r\n\r\nSorry i did not realized you were referring to `~tagged-bytes`.\r\nYes, in that case, we can do what you suggested..",
+          "createdAt": "2025-04-03T15:11:55Z",
+          "updatedAt": "2025-04-03T15:11:55Z"
+        },
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > `mask-type-choice` and then do something like:\r\n> \r\n> Sorry i did not realized you were referring to `~tagged-bytes`. Yes, in that case, we can do what you suggested..\r\n\r\nHowever, is it necessary? WHy ~tagged-bytes",
+          "createdAt": "2025-04-03T15:13:10Z",
+          "updatedAt": "2025-04-03T15:13:10Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "I pushed an update.",
+          "createdAt": "2025-04-03T15:17:31Z",
+          "updatedAt": "2025-04-03T15:17:31Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "> However, is it necessary? WHy ~tagged-bytes\r\n\r\nEvidence formats can't change at this point. And tagged-bytes adds 2 bytes for no apparent added value.",
+          "createdAt": "2025-04-03T15:31:24Z",
+          "updatedAt": "2025-04-03T15:37:33Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86jUQE2",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T14:06:24Z",
+          "updatedAt": "2025-04-03T14:06:24Z",
+          "comments": [
+            {
+              "originalPosition": 257,
+              "body": "Where is the CDDL `time` defined ? Can you refer to the spec?",
+              "createdAt": "2025-04-03T14:06:24Z",
+              "updatedAt": "2025-04-03T14:06:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jUQpX",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "see some comments",
+          "createdAt": "2025-04-03T14:06:54Z",
+          "updatedAt": "2025-04-03T14:06:54Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jUfJC",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T14:19:05Z",
+          "updatedAt": "2025-04-03T14:19:05Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Why this cannot be just 560(bytes), i mean `tagged-bytes`?",
+              "createdAt": "2025-04-03T14:19:05Z",
+              "updatedAt": "2025-04-03T14:19:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jUkjO",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T14:23:28Z",
+          "updatedAt": "2025-04-03T14:23:29Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "563 is an array that contains the value and mask. tagged-bytes only has one value - no mask.",
+              "createdAt": "2025-04-03T14:23:29Z",
+              "updatedAt": "2025-04-03T14:23:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jUm-r",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T14:25:41Z",
+          "updatedAt": "2025-04-03T14:25:41Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "yes, but attributes, can be either `tagged-bytes` or `tagged-mask` (which is 563), is that right assumption?",
+              "createdAt": "2025-04-03T14:25:41Z",
+              "updatedAt": "2025-04-03T14:25:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jUsIg",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T14:29:58Z",
+          "updatedAt": "2025-04-03T14:29:58Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\n$masked-value-type /= tagged-masked-raw-value\r\n$masked-value-type /= tagged-bytes\r\n```",
+              "createdAt": "2025-04-03T14:29:58Z",
+              "updatedAt": "2025-04-03T14:29:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jUsn3",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T14:30:16Z",
+          "updatedAt": "2025-04-03T14:30:17Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "Suggest we do this to allow cases when there is no mask!",
+              "createdAt": "2025-04-03T14:30:16Z",
+              "updatedAt": "2025-04-03T14:30:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jUtLc",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T14:30:36Z",
+          "updatedAt": "2025-04-03T14:30:37Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "As in the new one Mask is mandatory!",
+              "createdAt": "2025-04-03T14:30:37Z",
+              "updatedAt": "2025-04-03T14:30:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jUtcN",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "please see!",
+          "createdAt": "2025-04-03T14:30:50Z",
+          "updatedAt": "2025-04-03T14:30:50Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jUvmA",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T14:32:54Z",
+          "updatedAt": "2025-04-03T14:32:54Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "It can be \r\n```\r\nmask-type = bstr\r\n$masked-value-type /= mask-type\r\n$masked-value-type /= tagged-masked-raw-value\r\n```",
+              "createdAt": "2025-04-03T14:32:54Z",
+              "updatedAt": "2025-04-03T14:32:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jUwmR",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T14:34:12Z",
+          "updatedAt": "2025-04-03T14:34:12Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "tagged-bytes could be added. But I can't remove `mask-type` at the moment.",
+              "createdAt": "2025-04-03T14:34:12Z",
+              "updatedAt": "2025-04-03T14:34:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jU0VX",
+          "commit": {
+            "abbreviatedOid": "ac0eae1"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T14:39:08Z",
+          "updatedAt": "2025-04-03T14:39:08Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "> As in the new one Mask is mandatory!\r\n\r\nNot sure what you mean by mandatory. `$xxx-type` type-choice variants are optional.",
+              "createdAt": "2025-04-03T14:39:08Z",
+              "updatedAt": "2025-04-03T14:39:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86jVf0E",
+          "commit": {
+            "abbreviatedOid": "e99df29"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM!",
+          "createdAt": "2025-04-03T15:26:15Z",
+          "updatedAt": "2025-04-03T15:26:15Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 51,
@@ -2423,13 +2757,41 @@
       "labels": [],
       "body": "Defines tagged-uint-range patterned after tagged-int-range in corim. It's used in use cases where a numeric expression that evaluates greater-than-or-equal such as tcb-eval-num.",
       "createdAt": "2025-04-02T20:21:11Z",
-      "updatedAt": "2025-04-02T22:01:00Z",
+      "updatedAt": "2025-04-03T21:26:55Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
-      "baseRefName": "remove-mask-expr",
-      "baseRefOid": "ac0eae12cd1b9da182e922e46a41c2533cbd92a5",
+      "baseRefName": "main",
+      "baseRefOid": "a87a25262bedd89219c641c85b993d3574aa58ff",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "add-uint-range",
       "headRefOid": "1fcd78549ddb59cadbe183aa0f89efe0f6716d74",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 53,
+      "id": "PR_kwDOJvkHy86ReArd",
+      "title": "Add cddl releases",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/53",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "yml and readme files for working with CDDL releases.",
+      "createdAt": "2025-04-04T23:08:48Z",
+      "updatedAt": "2025-04-04T23:10:37Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "a87a25262bedd89219c641c85b993d3574aa58ff",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "cddl-release",
+      "headRefOid": "c879e0db2b0c791e9d29f235e8cf68ac9e47f90e",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
