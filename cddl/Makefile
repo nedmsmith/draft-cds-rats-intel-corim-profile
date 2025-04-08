@@ -69,7 +69,9 @@ $(eval $(call cddl_autogen_template,profile,$(PROFILE_FRAGS)))
 # Make exports file
 $(eval $(call cddl_exp_template,intel-profile,$(PROFILE_DEPS),$(EXPORTS_DIR)))
 
-check-imports: #$(IMPORT_DEPS)
+$(IMPORT_DEPS): check-imports
+
+check-imports:
 	$(MAKE) -C $(IMPORTS_DIR)
 
 clean: ; rm -f $(CLEANFILES)
