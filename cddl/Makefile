@@ -12,7 +12,6 @@ include funcs.mk
 %.cbor: %.diag
 	$(diag2cbor) $< > $@
 
-#check:: check-imports
 check:: check-irim check-irim-examples
 check:: check-corim check-corim-examples
 check:: check-ice check-ice-examples
@@ -27,16 +26,6 @@ PROFILE_DEPS := $(addprefix $(CDDL_DIR), $(PROFILE_FRAGS))
 # Get imports frags - no dependencies
 include $(IMPORTS_DIR)import-frags.mk
 IMPORT_DEPS := $(addprefix $(IMPORTS_DIR), $(IMPORT_FRAGS))
-
-#
-# manually link corim import file to imports/corim-import.cddl
-#
-#CORIM_IMPORT := $(addprefix $(IMPORTS_DIR), corim-import.cddl )
-
-#
-# manually link concise-evidence import file to imports/ce-import.cddl
-#
-#CE_IMPORT := $(addprefix $(IMPORTS_DIR), ce-import.cddl )
 
 # Make Intel RIM (irim) - CoMID only
 IRIM_START := "concise-mid-tag"
