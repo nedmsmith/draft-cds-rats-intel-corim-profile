@@ -12,7 +12,7 @@ include funcs.mk
 %.cbor: %.diag
 	$(diag2cbor) $< > $@
 
-check:: check-imports
+#check:: check-imports
 check:: check-irim check-irim-examples
 check:: check-corim check-corim-examples
 check:: check-ice check-ice-examples
@@ -20,59 +20,59 @@ check:: check-ispdm check-ispdm-examples
 check:: check-profile
 check:: export-intel-profile
 
-# Import profile frags - no dependencies
+# Get profile frags - no dependencies
 include $(CDDL_DIR)profile-frags.mk
 PROFILE_DEPS := $(addprefix $(CDDL_DIR), $(PROFILE_FRAGS))
+
+# Get imports frags - no dependencies
+include $(IMPORTS_DIR)import-frags.mk
+IMPORT_DEPS := $(addprefix $(IMPORTS_DIR), $(IMPORT_FRAGS))
 
 #
 # manually link corim import file to imports/corim-import.cddl
 #
-CORIM_IMPORT := $(addprefix $(IMPORTS_DIR), corim-import.cddl )
+#CORIM_IMPORT := $(addprefix $(IMPORTS_DIR), corim-import.cddl )
 
 #
 # manually link concise-evidence import file to imports/ce-import.cddl
 #
-CE_IMPORT := $(addprefix $(IMPORTS_DIR), ce-import.cddl )
+#CE_IMPORT := $(addprefix $(IMPORTS_DIR), ce-import.cddl )
 
-# Make Intel RIM - CoMID only
-IRIM_FRAGS := comid-x-start.cddl
+# Make Intel RIM (irim) - CoMID only
+IRIM_START := "concise-mid-tag"
 IRIM_FRAGS += $(PROFILE_DEPS)
-IRIM_FRAGS += $(CE_IMPORT)
-IRIM_FRAGS += $(CORIM_IMPORT)
+IRIM_FRAGS += $(IMPORT_DEPS)
 
 IRIM_EXAMPLES := $(wildcard examples/irim-*.diag)
 
-$(eval $(call cddl_check_template,irim,$(IRIM_FRAGS),$(IRIM_EXAMPLES)))
+$(eval $(call cddl_check_template,irim,$(IRIM_FRAGS),$(IRIM_EXAMPLES),$(IRIM_START)))
 
-# Make Intel CoRIM
-CORIM_FRAGS := corim-start.cddl
+# Make Intel CoRIM (corim)
+CORIM_START := "corim"
 CORIM_FRAGS += $(PROFILE_DEPS)
-CORIM_FRAGS += $(CE_IMPORT)
-CORIM_FRAGS += $(CORIM_IMPORT)
+CORIM_FRAGS += $(IMPORT_DEPS)
 
 CORIM_EXAMPLES := $(wildcard examples/corim-*.diag)
 
-$(eval $(call cddl_check_template,corim,$(CORIM_FRAGS),$(CORIM_EXAMPLES)))
+$(eval $(call cddl_check_template,corim,$(CORIM_FRAGS),$(CORIM_EXAMPLES),$(CORIM_START)))
 
-# Make Intel Concise Evidence
-ICE_FRAGS := ce-start.cddl
+# Make Intel Concise Evidence (ice)
+ICE_START := "concise-evidence"
 ICE_FRAGS += $(PROFILE_DEPS)
-ICE_FRAGS += $(CE_IMPORT)
-ICE_FRAGS += $(CORIM_IMPORT)
+ICE_FRAGS += $(IMPORT_DEPS)
 
 ICE_EXAMPLES := $(wildcard examples/ice-*.diag)
 
-$(eval $(call cddl_check_template,ice,$(ICE_FRAGS),$(ICE_EXAMPLES)))
+$(eval $(call cddl_check_template,ice,$(ICE_FRAGS),$(ICE_EXAMPLES),$(ICE_START)))
 
-# Make Intel SPDM Evidence
-ISPDM_FRAGS := spdm-start.cddl
+# Make Intel SPDM Evidence (ispdm)
+ISPDM_START := "spdm-toc"
 ISPDM_FRAGS += $(PROFILE_DEPS)
-ISPDM_FRAGS += $(CE_IMPORT)
-ISPDM_FRAGS += $(CORIM_IMPORT)
+ISPDM_FRAGS += $(IMPORT_DEPS)
 
 ISPDM_EXAMPLES := $(wildcard examples/ispdm-*.diag)
 
-$(eval $(call cddl_check_template,ispdm,$(ISPDM_FRAGS),$(ISPDM_EXAMPLES)))
+$(eval $(call cddl_check_template,ispdm,$(ISPDM_FRAGS),$(ISPDM_EXAMPLES),$(ISPDM_START)))
 
 # Make the profile autogen file
 $(eval $(call cddl_autogen_template,profile,$(PROFILE_FRAGS)))
