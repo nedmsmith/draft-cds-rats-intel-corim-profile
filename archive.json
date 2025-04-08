@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-06T01:39:23.244766+00:00",
+  "timestamp": "2025-04-08T01:27:04.945169+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -2757,7 +2757,7 @@
       "labels": [],
       "body": "Defines tagged-uint-range patterned after tagged-int-range in corim. It's used in use cases where a numeric expression that evaluates greater-than-or-equal such as tcb-eval-num.",
       "createdAt": "2025-04-02T20:21:11Z",
-      "updatedAt": "2025-04-03T21:26:55Z",
+      "updatedAt": "2025-04-07T12:00:10Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "a87a25262bedd89219c641c85b993d3574aa58ff",
@@ -2769,7 +2769,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86jtVIa",
+          "commit": {
+            "abbreviatedOid": "1fcd785"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-07T12:00:10Z",
+          "updatedAt": "2025-04-07T12:00:10Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 53,
