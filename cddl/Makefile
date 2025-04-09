@@ -16,8 +16,8 @@ check:: check-irim check-irim-examples
 check:: check-corim check-corim-examples
 check:: check-ice check-ice-examples
 check:: check-ispdm check-ispdm-examples
-check:: check-profile
-check:: export-intel-profile
+check:: check-ip
+check:: check-export-ip
 
 # Get profile frags - no dependencies
 include $(CDDL_DIR)profile-frags.mk
@@ -63,11 +63,12 @@ ISPDM_EXAMPLES := $(wildcard examples/ispdm-*.diag)
 
 $(eval $(call cddl_check_template,ispdm,$(ISPDM_FRAGS),$(ISPDM_EXAMPLES),$(ISPDM_START)))
 
-# Make the Intel profile autogen file (profile-autogen.cddl)
-$(eval $(call cddl_autogen_template,profile,$(PROFILE_FRAGS)))
+# Make the Intel profile autogen file (ip-autogen.cddl)
+$(eval $(call cddl_autogen_template,ip,$(PROFILE_FRAGS)))
+CLEANFILES += ip-autogen.cddl
 
-# Make exports file
-$(eval $(call cddl_exp_template,intel-profile,$(PROFILE_DEPS),$(EXPORTS_DIR)))
+# Make exports file (export-ip.cddl)
+$(eval $(call cddl_exp_template,ip,$(PROFILE_DEPS),$(EXPORTS_DIR)))
 
 $(IMPORT_DEPS): check-imports
 
