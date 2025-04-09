@@ -74,7 +74,7 @@ $(IMPORT_DEPS): check-imports
 check-imports:
 	$(MAKE) -C $(IMPORTS_DIR)
 
-clean: ; rm -f $(CLEANFILES)
+clean: ; rm -f $(CLEANFILES) ; $(MAKE) -C $(IMPORTS_DIR) clean
 
 # Extract the CBOR tags defined by CoRIM/CoMID (i.e., those in the 5xx space)
 cbor-tags.txt: $(wildcard *.cddl) ; grep -h '#6\.5' *cddl | sort -u -t'=' -k2 > $@
