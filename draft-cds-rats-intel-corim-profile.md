@@ -912,7 +912,7 @@ The authors wish to thank Shanwei Cen, Piotr Zmijewski, Francisco J. Chinchilla 
 # Full Intel Profile CDDL
 
 ~~~ cddl
-{::include cddl/profile-autogen.cddl}
+{::include cddl/exports/intel-profile.cddl}
 ~~~
 
 
