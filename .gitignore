@@ -27,3 +27,4 @@ cddl/imports/corim-import.cddl
 intel-profile-export.cddl
 *.cddlx
 cddl/ip-export.cddl
+cddl/exports/intel-profile.cddl
