@@ -1,5 +1,5 @@
 # $1: label
-# $2: cddl fragments
+# $2: cddl fragments without start.cddl files
 define cddl_autogen_template
 check-$(1): $(1)-autogen.cddl
 
@@ -27,14 +27,9 @@ check-$(1): $(1)-autogen.cddl
 .PHONY: check-$(1)
 
 $(1)-autogen.cddl: $(2)
-	for f in $$^ ; do ( grep -v '^;' $$$$f ; echo ) ; done > $$@
-	echo "start string: "$(4) $$@ $$@x
-	$(cddlc) -2tcddl $$@ --start=$(4) > $$@x
-	echo "copying " $$@x " to " $$@
-	cp $$@x $$@
+	$(cddlc) -2tcddl $$^ --start=$(4) > $$@
 
 CLEANFILES += $(1)-autogen.cddl
-CLEANFILES += $(1)-autogen.cddlx
 
 check-$(1)-examples: $(1)-autogen.cddl $(3:.diag=.cbor)
 	@for f in $(3:.diag=.cbor); do \

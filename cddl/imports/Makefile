@@ -11,7 +11,7 @@ check:: ce-autogen.cddl
 # Get concise-evidence import file ce-autogen.cddl - contains corim.cddl
 github := https://github.com/TrustedComputingGroup/
 ce_rel_dl := concise-evidence/releases/download/
-ce_tag := cddl-nmsmith-release-test-1
+ce_tag := cddl-e812686 # Edit cddl-xxxxx to specify which release to import
 ce_url := $(join $(github), $(join $(ce_rel_dl), $(ce_tag)))
 
 ce-autogen.cddl: ; $(curl) -LO $(ce_url)/$@ ; cp $@ $@x ; $(cddlc) -2tcddl $@x > $@
