@@ -18,7 +18,7 @@ check:: check-ice check-ice-examples
 check:: check-ispdm check-ispdm-examples
 check:: check-intel-profile # intel profile export file
 
-# Get profile frags - no dependencies
+# Get Intel Profile frags - no dependencies
 include $(CDDL_DIR)profile-frags.mk
 PROFILE_DEPS := $(addprefix $(CDDL_DIR), $(PROFILE_FRAGS))
 
