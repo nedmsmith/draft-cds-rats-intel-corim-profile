@@ -32,7 +32,7 @@ Pushing the tag to origin will trigger the associate GitHub action.
 
 ## Inspect the release files
 
-If everyhing goes as planned, "intel-profile.cddl" and the various "autogen" CDDL files will be available for download from the following locations:
+If everything goes as planned, "intel-profile.cddl" and the various "autogen" CDDL files will be available for download from the following locations:
 ```
 https://github.com/ietf-rats-wg/draft-ietf-rats-corim/releases/download/cddl-.../
 ```
