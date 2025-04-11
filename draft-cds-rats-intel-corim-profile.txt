@@ -5,13 +5,13 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 5 October 2025                                  ARM Corporation
+Expires: 13 October 2025                                 ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                            3 April 2025
+                                                           11 April 2025
 
 
                   Intel Profile for Remote Attestation
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 October 2025.
+   This Internet-Draft will expire on 13 October 2025.
 
 Copyright Notice
 
@@ -1442,6 +1442,8 @@ Appendix A.  Acknowledgments
    Chinchilla and Dionna Amalie Glaze for their valuable contributions.
 
 Appendix B.  Full Intel Profile CDDL
+
+   ; This cddl file depends on these cddl files: ce-autogen.cddl
 
    tagged-numeric-gt = #6.60010( [
        op.gt .within numeric-operators,
