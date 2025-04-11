@@ -5,10 +5,17 @@ SHELL := /bin/bash
 include ../tools.mk
 include ../funcs.mk
 
-check:: import-ce import-corim
+#check:: import-ce import-corim 
+check:: ce-autogen.cddl
 
-CORIM_IDATE := 2025-03-31
-CE_IDATE := 2025-01-07
+# Get concise-evidence import file ce-autogen.cddl - contains corim.cddl
+github := https://github.com/TrustedComputingGroup/
+ce_rel_dl := concise-evidence/releases/download/
+ce_tag := cddl-e812686 # Edit cddl-xxxxx to specify which release to import
+ce_url := $(join $(github), $(join $(ce_rel_dl), $(ce_tag)))
 
-$(eval $(call cddl_imports_template,ce,$(CE_IDATE)))
-$(eval $(call cddl_imports_template,corim,$(CORIM_IDATE)))
+ce-autogen.cddl: ; $(curl) -LO $(ce_url)/$@ ; grep -v '^@\.start\.@' $@ > $@.tmp ; mv $@.tmp $@
+
+CLEANFILES += ce-autogen.cddl
+
+clean: ; rm $(CLEANFILES)

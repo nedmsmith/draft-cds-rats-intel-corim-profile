@@ -12,7 +12,7 @@ endif
 
 CDDL_DIR := cddl/
 
-# Import profile frags - no dependencies
+# Import Intel Profile frags - no dependencies
 include $(CDDL_DIR)profile-frags.mk
 PROFILE_DEPS := $(addprefix $(CDDL_DIR), $(PROFILE_FRAGS))
 
@@ -23,14 +23,14 @@ $(drafts_txt): $(CDDL_DIR)$(1)-autogen.cddl
 $(drafts_xml): $(CDDL_DIR)$(1)-autogen.cddl
 
 $(CDDL_DIR)$(1)-autogen.cddl: $(2) 
-	$(MAKE) -C $(CDDL_DIR) check-imports check-$(1) export-intel-profile
+	$(MAKE) -C $(CDDL_DIR)
 
 endef # cddl_targets
 
 $(eval $(call cddl_targets,irim,$(PROFILE_DEPS)))
 $(eval $(call cddl_targets,ice,$(PROFILE_DEPS)))
 $(eval $(call cddl_targets,ispdm,$(PROFILE_DEPS)))
-$(eval $(call cddl_targets,profile,$(PROFILE_DEPS)))
+$(eval $(call cddl_targets,intel-profile,$(PROFILE_DEPS)))
 
 check-all: check-cddl check-examples
 
@@ -40,8 +40,9 @@ check-cddl:
 check-examples: check-cddl
 	$(MAKE) -C $(CDDL_DIR) check-corim-examples check-irim-examples check-ice-examples check-ispdm-examples
 
-export-intel-profile:
-	$(MAKE) -C $(CDDL_DIR) export-intel-profile
+# Build Intel Profile cddl (intel-profile.cddl)
+check-intel-profile:
+	$(MAKE) -C $(CDDL_DIR) check-imports check-intel-profile
 
 clean:: ; $(MAKE) -C $(CDDL_DIR) clean
 

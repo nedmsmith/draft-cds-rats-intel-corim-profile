@@ -1,5 +1,5 @@
 # $1: label
-# $2: cddl fragments
+# $2: cddl fragments without start.cddl files
 define cddl_autogen_template
 check-$(1): $(1)-autogen.cddl
 
@@ -17,6 +17,7 @@ endef # cddl_autogen_template
 # $1: label
 # $2: cddl fragments
 # $3: diag test files
+# $4: start string
 define cddl_check_template
 
 check-$(1): $(1)-autogen.cddl
@@ -26,9 +27,12 @@ check-$(1): $(1)-autogen.cddl
 .PHONY: check-$(1)
 
 $(1)-autogen.cddl: $(2)
-	for f in $$^ ; do ( grep -v '^;' $$$$f ; echo ) ; done > $$@
+	echo ">>> Creating autogen file : " $$@
+	for f in $$^ ; do ( grep -v '^;' $$$$f ; echo ) ; done > $$@x
+	$(cddlc) -2tcddl $$@x --start=$(4) > $$@ ; rm $$@x
 
 CLEANFILES += $(1)-autogen.cddl
+CLEANFILES += $(1)-autogen.cddlx
 
 check-$(1)-examples: $(1)-autogen.cddl $(3:.diag=.cbor)
 	@for f in $(3:.diag=.cbor); do \
@@ -48,38 +52,21 @@ endef # cddl_check_template
 # $(1) - export label
 # $(2) - cddl fragments 
 # $(3) - export directory
+# $(4) - import dependencies
 define cddl_exp_template
 
-export-$(1): $(3)$(1)-export.cddl
+check-$(1): $(3)$(1).cddl
 	echo ">>> Creating exportable cddl file" $(3)$(1)".cddl from:" $(2) ;
 
-.PHONY: exp-$(1)
+.PHONY: check-$(1)
 
-$(3)$(1)-export.cddl: $(2)
-	echo ">>> writing exports to" $$@
+$(3)$(1).cddl: $(2)
+	echo -e "; This cddl file depends on these cddl files: "$(4)"\n" > $$@
+	echo ">>> writing exports " $(1) " to " $$@
 	@for f in $$^ ; do \
 		( grep -v '^;' $$$$f ; echo ) ; \
-	done > $$@
+	done >> $$@
 
 CLEANFILES += $(3)$(1).cddl
 
 endef # cddl_exp_template
-
-# $(1) - label
-# $(2) - import date
-# create sym links to imported cddl files
-define cddl_imports_template
-
-import-$(1): $(1)-$(2).cddl
-	echo "Creating sym link imports" $(1) $(2) ;
-
-.PHONY: import-$(1)
-
-$(1)-$(2).cddl:
-	echo ">>> Removing sym links with: "$(RM)
-	rm -f $(1)-import.cddl
-	ln -sf $$@ $(1)-import.cddl
-
-.PHONY: $(1)-$(2).cddl
-
-endef # cddl_imports_template
