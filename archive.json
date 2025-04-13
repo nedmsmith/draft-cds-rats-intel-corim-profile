@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-10T01:27:10.664625+00:00",
+  "timestamp": "2025-04-13T02:55:05.711368+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -2790,7 +2790,7 @@
       "id": "PR_kwDOJvkHy86ReArd",
       "title": "Add cddl releases",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/53",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -2799,19 +2799,123 @@
       "labels": [],
       "body": "yml and readme files for working with CDDL releases.",
       "createdAt": "2025-04-04T23:08:48Z",
-      "updatedAt": "2025-04-09T01:18:45Z",
+      "updatedAt": "2025-04-11T18:00:25Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "a87a25262bedd89219c641c85b993d3574aa58ff",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "cddl-release",
-      "headRefOid": "4ae1dcb5b9f4f5cc6f5526dbfc860a12a3af2c60",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "headRefOid": "5fa6ba50b0d80f39afe8114f9a7f93ea0fa3b56a",
+      "closedAt": "2025-04-11T18:00:19Z",
+      "mergedAt": "2025-04-11T18:00:19Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "f2d6296bbebe1ce563d0171b0013d2399aa32abb"
+      },
+      "comments": [
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> please see a .nit\r\n\r\nI merged it on your PR, ok, to submit from my side!",
+          "createdAt": "2025-04-11T17:09:03Z",
+          "updatedAt": "2025-04-11T17:09:03Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86kilMt",
+          "commit": {
+            "abbreviatedOid": "9212601"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-11T14:22:27Z",
+          "updatedAt": "2025-04-11T14:22:27Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Why is this file in the ignore list?",
+              "createdAt": "2025-04-11T14:22:27Z",
+              "updatedAt": "2025-04-11T14:22:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86kjzla",
+          "commit": {
+            "abbreviatedOid": "9212601"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-11T16:05:26Z",
+          "updatedAt": "2025-04-11T16:05:26Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "It is a generated file. Just like the autogen files. When CI runs it will generate it on github so you don't need to upload it (I think). When this PR is approved. I'll run cddl-releases to populate a release with this file in it. ",
+              "createdAt": "2025-04-11T16:05:26Z",
+              "updatedAt": "2025-04-11T16:05:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86kkVOO",
+          "commit": {
+            "abbreviatedOid": "35e4413"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-11T17:02:35Z",
+          "updatedAt": "2025-04-11T17:02:35Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Ok. I see that it is not part of the commit anymore. LGTM.",
+              "createdAt": "2025-04-11T17:02:35Z",
+              "updatedAt": "2025-04-11T17:02:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86kkVhm",
+          "commit": {
+            "abbreviatedOid": "35e4413"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-11T17:03:10Z",
+          "updatedAt": "2025-04-11T17:03:10Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86kkXlB",
+          "commit": {
+            "abbreviatedOid": "a591511"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "please see a .nit",
+          "createdAt": "2025-04-11T17:06:28Z",
+          "updatedAt": "2025-04-11T17:08:17Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nIf everything goes as planned, \"intel-profile.cddl\" and the various \"autogen\" CDDL files will be available for download from the following locations:\r\n```",
+              "createdAt": "2025-04-11T17:06:28Z",
+              "updatedAt": "2025-04-11T17:08:17Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
