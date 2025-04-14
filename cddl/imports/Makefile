@@ -5,17 +5,34 @@ SHELL := /bin/bash
 include ../tools.mk
 include ../funcs.mk
 
-#check:: import-ce import-corim 
-check:: ce-autogen.cddl
+CORIM := corim-autogen
+CEAUTO := ce-autogen
+COEV := coev
 
-# Get concise-evidence import file ce-autogen.cddl - contains corim.cddl
-github := https://github.com/TrustedComputingGroup/
-ce_rel_dl := concise-evidence/releases/download/
-ce_tag := cddl-e812686 # Edit cddl-xxxxx to specify which release to import
-ce_url := $(join $(github), $(join $(ce_rel_dl), $(ce_tag)))
+check:: get-$(CORIM)
+check:: get-$(CEAUTO)
+check:: get-$(COEV)
 
-ce-autogen.cddl: ; $(curl) -LO $(ce_url)/$@ ; grep -v '^@\.start\.@' $@ > $@.tmp ; mv $@.tmp $@
+# Get corim-autogen.cddl
+REPO := https://github.com/ietf-rats-wg/
+DL := draft-ietf-rats-corim/releases/download/
+TAG := cddl-8c267cd
+$(eval $(call get_cddl_release,$(CORIM),$(REPO),$(DL),$(TAG)))
+CLEANFILES += $(CORIM).cddl
 
-CLEANFILES += ce-autogen.cddl
+# Get ce-autogen.cddl - contains corim.cddl
+REPO := https://github.com/TrustedComputingGroup/
+DL := concise-evidence/releases/download/
+TAG := cddl-62e4f5a
+$(eval $(call get_cddl_release,$(CEAUTO),$(REPO),$(DL),$(TAG)))
+CLEANFILES += $(CEAUTO).cddl
+
+# Get coev.cddl
+REPO := https://github.com/TrustedComputingGroup/
+DL := concise-evidence/releases/download/
+TAG := cddl-62e4f5a
+$(eval $(call get_cddl_release,$(COEV),$(REPO),$(DL),$(TAG)))
+
+CLEANFILES += $(COEV).cddl
 
 clean: ; rm $(CLEANFILES)
