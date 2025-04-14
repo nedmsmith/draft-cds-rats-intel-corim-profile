@@ -8,18 +8,19 @@ EXPORTS_DIR := $(CDDL_DIR)exports/
 
 include tools.mk
 include funcs.mk
+include $(IMPORTS_DIR)import-frags.mk
 
 %.cbor: %.diag
 	$(diag2cbor) $< > $@
 
 IRIM := irim
-CORIM := corim
+ICORIM := icorim
 ICE := ice
 ISPDM := ispdm
 INTEL_PROFILE := intel-profile
 
 check:: check-$(IRIM) check-$(IRIM)-examples
-check:: check-$(CORIM) check-$(CORIM)-examples
+check:: check-$(ICORIM) check-$(ICORIM)-examples
 check:: check-$(ICE) check-$(ICE)-examples
 check:: check-$(ISPDM) check-$(ISPDM)-examples
 check:: export-all
@@ -29,7 +30,6 @@ include $(CDDL_DIR)profile-frags.mk
 PROFILE_DEPS := $(addprefix $(CDDL_DIR), $(PROFILE_FRAGS))
 
 # Get imports frags - no dependencies
-include $(IMPORTS_DIR)import-frags.mk
 IMPORT_DEPS := $(addprefix $(IMPORTS_DIR), $(IMPORT_FRAGS))
 
 # Make Intel RIM (irim) - CoMID only
@@ -37,25 +37,25 @@ IRIM_START := concise-mid-tag
 IRIM_FRAGS += $(IMPORT_DEPS)
 IRIM_FRAGS += $(PROFILE_DEPS)
 
-IRIM_EXAMPLES := $(wildcard examples/irim-*.diag)
+IRIM_EXAMPLES := $(wildcard examples/$(IRIM)-*.diag)
 
 $(eval $(call cddl_check_template,$(IRIM),$(IRIM_FRAGS),$(IRIM_EXAMPLES),$(IRIM_START)))
 
-# Make Intel CoRIM (corim)
-CORIM_START := corim
-CORIM_FRAGS += $(IMPORT_DEPS)
-CORIM_FRAGS += $(PROFILE_DEPS)
+# Make Intel CoRIM (icorim)
+ICORIM_START := corim
+ICORIM_FRAGS += $(IMPORT_DEPS)
+ICORIM_FRAGS += $(PROFILE_DEPS)
 
-CORIM_EXAMPLES := $(wildcard examples/corim-*.diag)
+ICORIM_EXAMPLES := $(wildcard examples/$(ICORIM)-*.diag)
 
-$(eval $(call cddl_check_template,$(CORIM),$(CORIM_FRAGS),$(CORIM_EXAMPLES),$(CORIM_START)))
+$(eval $(call cddl_check_template,$(ICORIM),$(ICORIM_FRAGS),$(ICORIM_EXAMPLES),$(ICORIM_START)))
 
 # Make Intel Concise Evidence (ice)
 ICE_START := concise-evidence
 ICE_FRAGS += $(IMPORT_DEPS)
 ICE_FRAGS += $(PROFILE_DEPS)
 
-ICE_EXAMPLES := $(wildcard examples/ice-*.diag)
+ICE_EXAMPLES := $(wildcard examples/$(ICE)-*.diag)
 
 $(eval $(call cddl_check_template,$(ICE),$(ICE_FRAGS),$(ICE_EXAMPLES),$(ICE_START)))
 
@@ -64,7 +64,7 @@ ISPDM_START := spdm-toc
 ISPDM_FRAGS += $(IMPORT_DEPS)
 ISPDM_FRAGS += $(PROFILE_DEPS)
 
-ISPDM_EXAMPLES := $(wildcard examples/ispdm-*.diag)
+ISPDM_EXAMPLES := $(wildcard examples/$(SPDM)-*.diag)
 
 $(eval $(call cddl_check_template,$(ISPDM),$(ISPDM_FRAGS),$(ISPDM_EXAMPLES),$(ISPDM_START)))
 
@@ -75,17 +75,17 @@ check-imports:
 
 # Make exports
 $(eval $(call cddl_exp_template,intel-profile,$(PROFILE_DEPS),$(EXPORTS_DIR),$(IMPORT_FRAGS)))
-AUTOGEN_FRAGS := $(addprefix $(CDDL_DIR), $(CORIM)-autogen.cddl)
+AUTOGEN_FRAGS := $(addprefix $(CDDL_DIR), $(ICORIM)-autogen.cddl)
 AUTOGEN_FRAGS += $(addprefix $(CDDL_DIR), $(IRIM)-autogen.cddl)
 AUTOGEN_FRAGS += $(addprefix $(CDDL_DIR), $(ICE)-autogen.cddl)
 AUTOGEN_FRAGS += $(addprefix $(CDDL_DIR), $(ISPDM)-autogen.cddl)
 
-AUTOGEN_EXPORTS := $(addprefix $(EXPORTS_DIR), $(CORIM)-autogen.cddl)
+AUTOGEN_EXPORTS := $(addprefix $(EXPORTS_DIR), $(ICORIM)-autogen.cddl)
 AUTOGEN_EXPORTS += $(addprefix $(EXPORTS_DIR), $(IRIM)-autogen.cddl)
 AUTOGEN_EXPORTS += $(addprefix $(EXPORTS_DIR), $(ICE)-autogen.cddl)
 AUTOGEN_EXPORTS += $(addprefix $(EXPORTS_DIR), $(ISPDM)-autogen.cddl)
 
-export-all: check-$(CORIM) check-$(IRIM) check-$(ISPDM) check-$(ICE) exp-$(INTEL_PROFILE)
+export-all: check-$(ICORIM) check-$(IRIM) check-$(ISPDM) check-$(ICE) exp-$(INTEL_PROFILE)
 	cp $(AUTOGEN_FRAGS) $(EXPORTS_DIR)
 CLEANFILES += $(AUTOGEN_EXPORTS)
 
