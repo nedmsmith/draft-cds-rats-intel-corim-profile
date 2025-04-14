@@ -1443,7 +1443,7 @@ Appendix A.  Acknowledgments
 
 Appendix B.  Full Intel Profile CDDL
 
-   ; This cddl file depends on these cddl files: ce-autogen.cddl
+   ; This cddl file depends on these cddl files: coev.cddl corim-autogen.cddl
 
    tagged-numeric-gt = #6.60010( [
        op.gt .within numeric-operators,
