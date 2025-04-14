@@ -43,7 +43,6 @@ check-$(1)-examples: $(1)-autogen.cddl $(3:.diag=.cbor)
 
 CLEANFILES += $(3:.diag=.cbor)
 CLEANFILES += $(3:.diag=.pretty)
-
 endef # cddl_check_template
 
 # $(1) - export label
@@ -52,14 +51,13 @@ endef # cddl_check_template
 # $(4) - import dependencies
 define cddl_exp_template
 
-check-$(1): $(3)$(1).cddl
-	echo ">>> Creating exportable cddl file" $(3)$(1)".cddl from:" $(2) ;
+exp-$(1): $(3)$(1).cddl
+	echo ">>> Creating exportable cddl file" $$@ $$^ $(2);
 
-.PHONY: check-$(1)
+.PHONY: exp-$(1)
 
 $(3)$(1).cddl: $(2)
 	echo -e "; This cddl file depends on these cddl files: "$(4)"\n" > $$@
-	echo ">>> writing exports " $(1) " to " $$@
 	@for f in $$^ ; do \
 		( grep -v '^;' $$$$f ; echo ) ; \
 	done >> $$@
@@ -80,7 +78,7 @@ get-$(1): $(1).cddl
 $(1).cddl:
 	@{ \
 	$$(curl) -LO $$(join $(2), $$(join $(3), $$(join $(4)/, $$@))); \
-	sed -i.bak 's/^@\.start\.@//' $$@; \
+	sed -i.bak '/^@\.start\.@/d' $$@; \
 	}
 
 .PHONY: get-$(1)
