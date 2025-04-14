@@ -39,4 +39,4 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         files: |
-          ./cddl/exports/intel-profile.cddl ./cddl/*-autogen.cddl
+          ./cddl/exports/*.cddl
