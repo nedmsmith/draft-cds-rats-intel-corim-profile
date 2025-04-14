@@ -1,1 +1,1 @@
-IMPORT_FRAGS := ce-autogen.cddl
+IMPORT_FRAGS := coev.cddl corim-autogen.cddl

@@ -3,9 +3,6 @@
 define cddl_autogen_template
 check-$(1): $(1)-autogen.cddl
 
-# Generate rfc9581 cddl into autoconfig - uncomment when debugged
-#%.cddl: %.cddlx ; echo cddlc ; cddlc -2tcddl $$< > $$@
-
 $(1)-autogen.cddl: $(2)
 	echo ">>> generating" $(1)"-autogen.cddl"
 	for f in $$^ ; do ( grep -v '^;' $$$$f ; echo ) ; done > $$@
@@ -46,7 +43,6 @@ check-$(1)-examples: $(1)-autogen.cddl $(3:.diag=.cbor)
 
 CLEANFILES += $(3:.diag=.cbor)
 CLEANFILES += $(3:.diag=.pretty)
-
 endef # cddl_check_template
 
 # $(1) - export label
@@ -55,14 +51,13 @@ endef # cddl_check_template
 # $(4) - import dependencies
 define cddl_exp_template
 
-check-$(1): $(3)$(1).cddl
-	echo ">>> Creating exportable cddl file" $(3)$(1)".cddl from:" $(2) ;
+exp-$(1): $(3)$(1).cddl
+	echo ">>> Creating exportable cddl file" $$@ $$^ $(2);
 
-.PHONY: check-$(1)
+.PHONY: exp-$(1)
 
 $(3)$(1).cddl: $(2)
 	echo -e "; This cddl file depends on these cddl files: "$(4)"\n" > $$@
-	echo ">>> writing exports " $(1) " to " $$@
 	@for f in $$^ ; do \
 		( grep -v '^;' $$$$f ; echo ) ; \
 	done >> $$@
@@ -70,3 +65,22 @@ $(3)$(1).cddl: $(2)
 CLEANFILES += $(3)$(1).cddl
 
 endef # cddl_exp_template
+
+# $(1) - imported cddl file name without .cddl
+# $(2) - github url
+# $(3) - download location
+# $(4) - cddl-xxxx tag name
+define get_cddl_release
+
+get-$(1): $(1).cddl
+	echo "Fetched cddl-release: " $$^
+
+$(1).cddl:
+	@{ \
+	$$(curl) -LO $$(join $(2), $$(join $(3), $$(join $(4)/, $$@))); \
+	sed -i.bak '/^@\.start\.@/d' $$@; \
+	}
+
+.PHONY: get-$(1)
+CLEANFILES += $(1).cddl.bak
+endef # get_cddl_release
