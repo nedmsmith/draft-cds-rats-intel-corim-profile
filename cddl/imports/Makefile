@@ -23,14 +23,14 @@ CLEANFILES += $(CORIM).cddl
 # Get ce-autogen.cddl - contains corim.cddl
 REPO := https://github.com/TrustedComputingGroup/
 DL := concise-evidence/releases/download/
-TAG := cddl-62e4f5a
+TAG := cddl-9a7d5cb
 $(eval $(call get_cddl_release,$(CEAUTO),$(REPO),$(DL),$(TAG)))
 CLEANFILES += $(CEAUTO).cddl
 
 # Get coev.cddl
 REPO := https://github.com/TrustedComputingGroup/
 DL := concise-evidence/releases/download/
-TAG := cddl-62e4f5a
+TAG := cddl-9a7d5cb
 $(eval $(call get_cddl_release,$(COEV),$(REPO),$(DL),$(TAG)))
 
 CLEANFILES += $(COEV).cddl
