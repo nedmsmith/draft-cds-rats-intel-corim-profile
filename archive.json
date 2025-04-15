@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-13T02:55:05.711368+00:00",
+  "timestamp": "2025-04-15T01:38:18.079287+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -2916,6 +2916,78 @@
           ]
         }
       ]
+    },
+    {
+      "number": 54,
+      "id": "PR_kwDOJvkHy86SiUQc",
+      "title": "get corim imports",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/54",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Makefile changes to import corim exports directly rather than indirectly through concise evidence",
+      "createdAt": "2025-04-14T19:08:17Z",
+      "updatedAt": "2025-04-14T22:51:43Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "f2d6296bbebe1ce563d0171b0013d2399aa32abb",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "nms/import-ce-corim",
+      "headRefOid": "9751d6565b230bdbf0f5e7ed80a1fdff11dd7e7f",
+      "closedAt": "2025-04-14T22:51:33Z",
+      "mergedAt": "2025-04-14T22:51:33Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "c99d352e4fb3390efbb0823ac1addb8638039267"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86k2ETi",
+          "commit": {
+            "abbreviatedOid": "b3b698d"
+          },
+          "author": "pzmijews",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-04-14T20:58:45Z",
+          "updatedAt": "2025-04-14T20:58:45Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 55,
+      "id": "PR_kwDOJvkHy86SkEvy",
+      "title": "Update release-cddl.yml",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/55",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "fix export location for cddl files",
+      "createdAt": "2025-04-14T23:04:01Z",
+      "updatedAt": "2025-04-14T23:12:35Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "c99d352e4fb3390efbb0823ac1addb8638039267",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "nms/fix-cddl-releases",
+      "headRefOid": "8b1931672ebf3f9cea92db1a18e33c06de860485",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
