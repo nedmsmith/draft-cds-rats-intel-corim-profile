@@ -5,13 +5,13 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 16 October 2025                                 ARM Corporation
+Expires: 19 October 2025                                 ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                           14 April 2025
+                                                           17 April 2025
 
 
                   Intel Profile for Remote Attestation
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 October 2025.
+   This Internet-Draft will expire on 19 October 2025.
 
 Copyright Notice
 
@@ -1340,9 +1340,9 @@ Table of Contents
    [I-D.ietf-rats-msg-wrap]
               Birkholz, H., Smith, N., Fossati, T., Tschofenig, H., and
               D. Glaze, "RATS Conceptual Messages Wrapper (CMW)", Work
-              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-12,
-              28 February 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-msg-wrap-12>.
+              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-13,
+              15 April 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-msg-wrap-13>.
 
    [IANA.cbor-tags]
               IANA, "Concise Binary Object Representation (CBOR) Tags",
