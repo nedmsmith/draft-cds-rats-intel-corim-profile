@@ -615,13 +615,13 @@ The `$tee-date-type` can be expressed in several ways:
 
 - POSIX time which is the number of seconds since January 1, 1970 (midnight UTC).
 
-- RFC9581 etime {{-rfc9581}}.
+- RFC9581 etime and period {{-rfc9581}}.
+
+`~tdate` strings must be converted to a numeric value (i.e.,`~time`) before operations involving time are applied.
 
 ~~~ cddl
 {::include cddl/tee-date-type.cddl}
 ~~~
-
-`~tdate` strings must be converted to a numeric value (i.e.,`~time`) before operations involving time are applied.
 
 Alternatively, `tee.tcbdate` may be encoded using `mkey` where `mkey` contains the non-negative code point value and where `mval`.`name` contains the string representation `$tee-date-type` without the CBOR tag (i.e., ~tdate - see Section 3.7 {{-cddl}}).
 
