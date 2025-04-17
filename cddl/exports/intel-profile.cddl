@@ -152,6 +152,7 @@ $tee-date-type /= ~tdate
 $tee-date-type /= tdate
 $tee-date-type /= time
 $tee-date-type /= etime ; RFC9581
+$tee-date-type /= period ; RFC9581
 
 $$measurement-values-map-extension //= (
   &(tee.mrtee: -83) => $tee-digest-type

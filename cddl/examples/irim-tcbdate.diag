@@ -30,8 +30,12 @@
             / mval / 1 : { -72 : 0("2023-02-15T00:00:00Z") }
           },
           / measurement-map / {
-            / mkey / 0 : "etime example", / timestamp + uncertainty seconds /
+            / mkey / 0 : "RFC9581 etime example", / timestamp + uncertainty seconds /
             / mval / 1 : { -72 : 1001({1: 1697724754, -7: {1: 3600}}) } 
+          },
+          / measurement-map / {
+            / mkey / 0 : "RFC9581 period example", / period start-end /
+            / mval / 1 : { -72 : 1003([/start/{0: "2023-02-15T00:00:00Z"}, /end/ null]) }
           }
         ]
       ]
