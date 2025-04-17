@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-15T01:38:18.079287+00:00",
+  "timestamp": "2025-04-17T01:36:34.046584+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -2975,19 +2975,115 @@
       "labels": [],
       "body": "fix export location for cddl files",
       "createdAt": "2025-04-14T23:04:01Z",
-      "updatedAt": "2025-04-14T23:12:35Z",
+      "updatedAt": "2025-04-17T01:23:03Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "c99d352e4fb3390efbb0823ac1addb8638039267",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "nms/fix-cddl-releases",
-      "headRefOid": "8b1931672ebf3f9cea92db1a18e33c06de860485",
+      "headRefOid": "11e1b1bf07422c923793ba0487c3c087f0def6e4",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86lXDGh",
+          "commit": {
+            "abbreviatedOid": "11e1b1b"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-17T01:23:03Z",
+          "updatedAt": "2025-04-17T01:23:03Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "id": "PR_kwDOJvkHy86S4qdt",
+      "title": "Nms/rel md",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/56",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "fix path in RELEASE_CDDL.md",
+      "createdAt": "2025-04-16T19:00:08Z",
+      "updatedAt": "2025-04-17T01:22:51Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "c99d352e4fb3390efbb0823ac1addb8638039267",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "nms/rel-md",
+      "headRefOid": "11e1b1bf07422c923793ba0487c3c087f0def6e4",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86lXC6k",
+          "commit": {
+            "abbreviatedOid": "11e1b1b"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-17T01:22:51Z",
+          "updatedAt": "2025-04-17T01:22:51Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "id": "PR_kwDOJvkHy86S5uDs",
+      "title": "Add RFC9581 period",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/57",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Added RFC9581 period to tcbdate",
+      "createdAt": "2025-04-16T21:41:50Z",
+      "updatedAt": "2025-04-17T01:28:40Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "c99d352e4fb3390efbb0823ac1addb8638039267",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "add-rfc9581-period",
+      "headRefOid": "326a235c20ce3bb3b73c3f6a43dbeddb478f8c2f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86lXGmo",
+          "commit": {
+            "abbreviatedOid": "326a235"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-17T01:28:40Z",
+          "updatedAt": "2025-04-17T01:28:40Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
