@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-17T01:36:34.046584+00:00",
+  "timestamp": "2025-04-20T01:42:01.738464+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -2966,7 +2966,7 @@
       "id": "PR_kwDOJvkHy86SkEvy",
       "title": "Update release-cddl.yml",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/55",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -2975,17 +2975,19 @@
       "labels": [],
       "body": "fix export location for cddl files",
       "createdAt": "2025-04-14T23:04:01Z",
-      "updatedAt": "2025-04-17T01:23:03Z",
+      "updatedAt": "2025-04-17T17:21:52Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "c99d352e4fb3390efbb0823ac1addb8638039267",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "nms/fix-cddl-releases",
       "headRefOid": "11e1b1bf07422c923793ba0487c3c087f0def6e4",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-17T17:21:48Z",
+      "mergedAt": "2025-04-17T17:21:48Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "48d218bd67f39dd1e30587628133419296152ae8"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3008,7 +3010,7 @@
       "id": "PR_kwDOJvkHy86S4qdt",
       "title": "Nms/rel md",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/56",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -3017,17 +3019,19 @@
       "labels": [],
       "body": "fix path in RELEASE_CDDL.md",
       "createdAt": "2025-04-16T19:00:08Z",
-      "updatedAt": "2025-04-17T01:22:51Z",
+      "updatedAt": "2025-04-17T17:22:59Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "c99d352e4fb3390efbb0823ac1addb8638039267",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "nms/rel-md",
       "headRefOid": "11e1b1bf07422c923793ba0487c3c087f0def6e4",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-17T17:21:50Z",
+      "mergedAt": "2025-04-17T17:21:50Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "48d218bd67f39dd1e30587628133419296152ae8"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3050,24 +3054,26 @@
       "id": "PR_kwDOJvkHy86S5uDs",
       "title": "Add RFC9581 period",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/57",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Added RFC9581 period to tcbdate",
       "createdAt": "2025-04-16T21:41:50Z",
-      "updatedAt": "2025-04-17T01:28:40Z",
+      "updatedAt": "2025-04-17T17:22:41Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "c99d352e4fb3390efbb0823ac1addb8638039267",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "add-rfc9581-period",
       "headRefOid": "326a235c20ce3bb3b73c3f6a43dbeddb478f8c2f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-17T17:22:36Z",
+      "mergedAt": "2025-04-17T17:22:36Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "56686b6da391ffbfada83680c24dcf3dfa2fde89"
+      },
       "comments": [],
       "reviews": [
         {
