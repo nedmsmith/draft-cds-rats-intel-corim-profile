@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-20T01:42:01.738464+00:00",
+  "timestamp": "2025-05-01T01:46:32.135040+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -216,6 +216,22 @@
           "updatedAt": "2025-03-28T22:55:09Z"
         }
       ]
+    },
+    {
+      "number": 58,
+      "id": "I_kwDOJvkHy860uMXC",
+      "title": "Add PCK certificate extensions as claims",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/58",
+      "state": "OPEN",
+      "author": "deeglaze",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Verifying a TDX quote means checking the signatures along the collateral of PCK certificate back to Intel. https://api.portal.trustedservices.intel.com/content/documentation.html\n\nThe PPID claim in particular is important for a CSP to claim locality of specific machines in particular data centers.\nIs here an appropriate place to state how the PCK certificate should be translated into concise evidence / CoMID format for conditional endorsement triple purposes?",
+      "createdAt": "2025-04-30T17:34:04Z",
+      "updatedAt": "2025-04-30T17:34:04Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
