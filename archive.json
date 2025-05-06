@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-04T01:47:10.243675+00:00",
+  "timestamp": "2025-05-06T01:39:43.413027+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -229,7 +229,7 @@
       "labels": [],
       "body": "Verifying a TDX quote means checking the signatures along the collateral of PCK certificate back to Intel. https://api.portal.trustedservices.intel.com/content/documentation.html\n\nThe PPID claim in particular is important for a CSP to claim locality of specific machines in particular data centers.\nIs here an appropriate place to state how the PCK certificate should be translated into concise evidence / CoMID format for conditional endorsement triple purposes?",
       "createdAt": "2025-04-30T17:34:04Z",
-      "updatedAt": "2025-05-01T17:18:26Z",
+      "updatedAt": "2025-05-05T18:22:09Z",
       "closedAt": null,
       "comments": [
         {
@@ -245,6 +245,20 @@
           "body": "I'm not using the TPM notion of locality. Let's say machine residence. I'd like to provide endorsements that a machine resides in a particular Google Cloud Zone. We don't go down to data center granularity for consumers, so it wouldn't be entirely geographic location. We do tend to ensure zones are housed in appropriate jurisdictions for regulatory compliance.",
           "createdAt": "2025-05-01T17:18:26Z",
           "updatedAt": "2025-05-01T17:18:26Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "There is some flexibility in the values that could be used as platform identifiers. If PPID isn't supported long term, would a replacement that has a similar lifespan as PPID be acceptable? What is the ideal lifespan?",
+          "createdAt": "2025-05-05T17:40:43Z",
+          "updatedAt": "2025-05-05T17:40:43Z"
+        },
+        {
+          "author": "deeglaze",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The ideal lifespan of a platform identifier is the total length of ownership for the package so long as there's a way to irrevocably destroy owner secrets for after-market sales. I'm not sure what correspondence the current platform identifier claim has to the PCK PPID, but as long as we have something along those lines, we should be good.",
+          "createdAt": "2025-05-05T18:22:08Z",
+          "updatedAt": "2025-05-05T18:22:08Z"
         }
       ]
     }
