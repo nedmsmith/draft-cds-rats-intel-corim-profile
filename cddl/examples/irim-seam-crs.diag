@@ -152,22 +152,22 @@
                 / measurement-values-map / 1 : {
                   / tcb-comp-svn / -125 : [ 
                     / ** example showing tagged-uint-range ** /
-                    60011([10, null]), 
-                    60011([10, null]), 
-                    60011([2, null]), 
-                    60011([2, null]), 
-                    60011([2, null]),
-                    60011([1, null]),
-                    60011([4, null]), 
-                    60011([0, null]), 
-                    60011([0, null]), 
-                    60011([0, null]), 
-                    60011([0, null]), 
-                    60011([0, null]), 
-                    60011([0, null]), 
-                    60011([0, null]), 
-                    60011([0, null]), 
-                    60011([0, null]) 
+                    564([10, null]), 
+                    564([10, null]), 
+                    564([2, null]), 
+                    564([2, null]), 
+                    564([2, null]),
+                    564([1, null]),
+                    564([4, null]), 
+                    564([0, null]), 
+                    564([0, null]), 
+                    564([0, null]), 
+                    564([0, null]), 
+                    564([0, null]), 
+                    564([0, null]), 
+                    564([0, null]), 
+                    564([0, null]), 
+                    564([0, null]) 
                   ]
                 }
               }

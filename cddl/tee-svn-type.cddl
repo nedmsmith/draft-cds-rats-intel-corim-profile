@@ -3,5 +3,5 @@ $$measurement-values-map-extension //= (
 )
 $tee-svn-type /= svn-type .within numeric-type
 $tee-svn-type /= tagged-numeric-ge
-$tee-svn-type /= tagged-uint-range
+$tee-svn-type /= tagged-int-range
 $tee-svn-type /= tagged-min-svn

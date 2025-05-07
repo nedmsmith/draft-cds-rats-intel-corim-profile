@@ -3,4 +3,4 @@ $$measurement-values-map-extension //= (
 )
 $tee-tcb-eval-num-type /= uint .within numeric-type
 $tee-tcb-eval-num-type /= tagged-numeric-ge
-$tee-tcb-eval-num-type /= tagged-uint-range
+$tee-tcb-eval-num-type /= tagged-int-range
