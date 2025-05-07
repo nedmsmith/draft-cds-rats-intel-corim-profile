@@ -5,13 +5,13 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 7 November 2025                                 ARM Corporation
+Expires: 8 November 2025                                 ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                              6 May 2025
+                                                              7 May 2025
 
 
                   Intel Profile for Remote Attestation
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 November 2025.
+   This Internet-Draft will expire on 8 November 2025.
 
 Copyright Notice
 
@@ -1066,7 +1066,7 @@ Table of Contents
    )
    $tee-svn-type /= svn-type .within numeric-type
    $tee-svn-type /= tagged-numeric-ge
-   $tee-svn-type /= tagged-uint-range
+   $tee-svn-type /= tagged-int-range
    $tee-svn-type /= tagged-min-svn
 
    Alternatively, the TEE isvsvn may be encoded using mkey where mkey
@@ -1093,7 +1093,7 @@ Table of Contents
    )
    $tee-tcb-comp-svn-type /= [ 16*16 svn-type .within numeric-type ]
    $tee-tcb-comp-svn-type /= [ 16*16 tagged-numeric-ge ]
-   $tee-tcb-comp-svn-type /= [ 16*16 tagged-uint-range ]
+   $tee-tcb-comp-svn-type /= [ 16*16 tagged-int-range ]
    $tee-tcb-comp-svn-type /= [ 16*16 tagged-min-svn ]
 
 8.3.14.  The tee.tcb-eval-num Measurement Extension
@@ -1112,7 +1112,7 @@ Table of Contents
    )
    $tee-tcb-eval-num-type /= uint .within numeric-type
    $tee-tcb-eval-num-type /= tagged-numeric-ge
-   $tee-tcb-eval-num-type /= tagged-uint-range
+   $tee-tcb-eval-num-type /= tagged-int-range
 
    Alternatively, the TEE tcb-eval-num Evidence may be encoded using
    mkey where mkey contains the non-negative tee.tcb-eval-num and
@@ -1586,13 +1586,6 @@ Appendix B.  Full Intel Profile CDDL
    $masked-value-type /= tagged-masked-raw-value
 
    $$measurement-values-map-extension //= (
-     &(raw-uint: -1) => raw-uint-type-choice
-   )
-   raw-uint-type-choice = uint / tagged-uint-range
-   uint-range = [min: uint / positive-inf, max: uint / positive-inf]
-   tagged-uint-range = #6.60011(uint-range)
-
-   $$measurement-values-map-extension //= (
      &(tee.advisory-ids: -89) => $tee-advisory-ids-type
    )
    $tee-advisory-ids-type /= set-tstr-type
@@ -1672,7 +1665,7 @@ Appendix B.  Full Intel Profile CDDL
    )
    $tee-svn-type /= svn-type .within numeric-type
    $tee-svn-type /= tagged-numeric-ge
-   $tee-svn-type /= tagged-uint-range
+   $tee-svn-type /= tagged-int-range
    $tee-svn-type /= tagged-min-svn
 
    $$measurement-values-map-extension //= (
@@ -1680,7 +1673,7 @@ Appendix B.  Full Intel Profile CDDL
    )
    $tee-tcb-comp-svn-type /= [ 16*16 svn-type .within numeric-type ]
    $tee-tcb-comp-svn-type /= [ 16*16 tagged-numeric-ge ]
-   $tee-tcb-comp-svn-type /= [ 16*16 tagged-uint-range ]
+   $tee-tcb-comp-svn-type /= [ 16*16 tagged-int-range ]
    $tee-tcb-comp-svn-type /= [ 16*16 tagged-min-svn ]
 
    $$measurement-values-map-extension //= (
@@ -1688,7 +1681,7 @@ Appendix B.  Full Intel Profile CDDL
    )
    $tee-tcb-eval-num-type /= uint .within numeric-type
    $tee-tcb-eval-num-type /= tagged-numeric-ge
-   $tee-tcb-eval-num-type /= tagged-uint-range
+   $tee-tcb-eval-num-type /= tagged-int-range
 
    $$measurement-values-map-extension //= (
      &(tee.tcbstatus: -88) => $tee-tcbstatus-type
