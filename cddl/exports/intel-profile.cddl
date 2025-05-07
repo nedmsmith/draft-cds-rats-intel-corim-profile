@@ -167,12 +167,6 @@ $tee-digest-type /= tagged-exp-digest-member
 $tee-digest-type /= tagged-exp-digest-not-member
 
 $$measurement-values-map-extension //= (
-  &(tee.instance-id: -77) => $tee-instance-id-type
-)
-$tee-instance-id-type /= uint
-$tee-instance-id-type /= bstr
-
-$$measurement-values-map-extension //= (
   &(tee.isvprodid: -85) => $tee-isvprodid-type
 )
 $tee-isvprodid-type /= uint

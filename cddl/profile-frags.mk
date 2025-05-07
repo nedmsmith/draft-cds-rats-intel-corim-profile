@@ -12,7 +12,6 @@ PROFILE_FRAGS += tee-attributes-type.cddl
 PROFILE_FRAGS += tee-cryptokey-type.cddl
 PROFILE_FRAGS += tee-date-type.cddl
 PROFILE_FRAGS += tee-digest-type.cddl
-PROFILE_FRAGS += tee-instance-id-type.cddl
 PROFILE_FRAGS += tee-isvprodid-type.cddl
 PROFILE_FRAGS += tee-miscselect-type.cddl
 PROFILE_FRAGS += tee-model-type.cddl

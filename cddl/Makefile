@@ -64,7 +64,7 @@ ISPDM_START := spdm-toc
 ISPDM_FRAGS += $(IMPORT_DEPS)
 ISPDM_FRAGS += $(PROFILE_DEPS)
 
-ISPDM_EXAMPLES := $(wildcard examples/$(SPDM)-*.diag)
+ISPDM_EXAMPLES := $(wildcard examples/$(ISPDM)-*.diag)
 
 $(eval $(call cddl_check_template,$(ISPDM),$(ISPDM_FRAGS),$(ISPDM_EXAMPLES),$(ISPDM_START)))
 
