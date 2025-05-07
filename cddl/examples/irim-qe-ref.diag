@@ -31,7 +31,6 @@
                   ]
                 ]),
                 / isvprodid / -85 : 1,
-                / tee instance-id / -77 : 0,
                 / platform-instance-id / -101 : h'000102030405060708090A0B0C0D0E0F' / *** 16 bytes ***/
               },
               / authorized-by / 2 : [
@@ -44,10 +43,6 @@
                 4 : 560(h'C0000000'), / *** 4 bytes *** /
                 5 : h'FBFF0000' / *** 4 bytes *** /
               }            
-            },
-            / measurement-map / {  
-              / mkey / 0 : 77, / instance-id /
-              / mval / 1 : { 4 : 560(h'00') } / *** 1 byte *** /
             },
             / measurement-map / {  
               / mkey / 0 : 101, / platform-instance-id /
