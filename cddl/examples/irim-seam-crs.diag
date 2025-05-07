@@ -80,6 +80,7 @@
               / measurement-map / {
                 / measurement-values-map / 1 : {
                   / tcb-comp-svn / -125 : [ 
+                    / ** example showing tagged-numeric-ge ** /
                     60010([2,10]), 
                     60010([2,10]), 
                     60010([2,2]), 
@@ -114,25 +115,25 @@
             [ / selection / 
               / measurement-map / {
                 / measurement-values-map / 1 : {
-              / tcb-comp-svn / -125 : [ 
-                / ** example showing tagged-min-svn ** /
-                553(10), 
-                553(10),
-                553(2), 
-                553(2),  
-                553(2), 
-                553(1), 
-                553(4),  
-                553(0),  
-                553(0),  
-                553(0), 
-                553(0),  
-                553(0),  
-                553(0),  
-                553(0),  
-                553(0),  
-                553(0) 
-              ]
+                  / tcb-comp-svn / -125 : [ 
+                    / ** example showing tagged-min-svn ** /
+                    553(10), 
+                    553(10),
+                    553(2), 
+                    553(2),  
+                    553(2), 
+                    553(1), 
+                    553(4),  
+                    553(0),  
+                    553(0),  
+                    553(0), 
+                    553(0),  
+                    553(0),  
+                    553(0),  
+                    553(0),  
+                    553(0),  
+                    553(0) 
+                  ]
                 }
               }
             ],
@@ -151,7 +152,7 @@
               / measurement-map / {
                 / measurement-values-map / 1 : {
                   / tcb-comp-svn / -125 : [ 
-                    / ** example showing tagged-uint-range ** /
+                    / ** example showing tagged-int-range ** /
                     564([10, null]), 
                     564([10, null]), 
                     564([2, null]), 
