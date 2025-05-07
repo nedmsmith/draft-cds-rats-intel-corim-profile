@@ -99,7 +99,7 @@ informative:
   RFC9334: rats-arch
   RFC5280: x509
   RFC8392: cwt
-  I-D.birkholz-rats-epoch-markers: epoch-markers
+  RFC8610: cddl
   I-D.ietf-rats-ar4si: ar4si
   DMTF.SPDM:
     -: spdm
@@ -326,34 +326,32 @@ Environments that project vendor-specific semantics are as follows:
 The Intel Profile extends `measurement-values-map` which is used by Evidence, Reference Values, and Endorsed Values by defining code points from the negative integer range.
 
 Reference Values extensions define types that can have multiple Reference Values that "match" a singleton Evidence value called "non-exact match" matching.
-Reference state expressions define non-exact-match matching semantics in terms of numeric ranges, date-time ranges, sets, and masks.
+Reference state expressions define non-exact-match matching semantics in terms of numeric ranges, time, sets, and masks.
 
 ## Data Types {#sec-data-types}
 
-### Mask Type {#sec-mask}
+### Masked Values {#sec-mask}
 
-Reference Values expressed as an array of bits or bytes that uses a mask can indicate to a Verifier which
-bits or bytes of Evidence to ignore.
+Masked values are a string of bytes (e.g., `bstr`) that may have a companion mask value.
+The mask indicates which bits in the value are ignored when doing bit-wise equivalency comparisons.
+Verifier matching applies the equivalency test, allowing dissimilar Evidence and Reference values to be considered equivalent even if the two values (Evidence and Reference) are dissimilar.
+Evidence typically does not supply a mask.
+A Reference Value may omit the mask if bit-wise equivalency is desired.
 
-Reference Value and mask arrays MUST be the same length for the mask to be applied correctly.
-Normally, Evidence would not supply a mask, while Endorsed Values would.
-The `tagged-masked-raw-value` indicates that an Evidence value of type `mask-type` is compared with
-a Reference Value of type `mask-type`, and that a mask of type `mask-type` is applied to both
-values before comparing values.
+The `$masked-value-type` type choice can be either `~tagged-bytes` or `$raw-value-type-choice`.
+Evidence might be encoded as `~tagged-bytes` or `tagged-bytes` which omits a mask value,
+while Reference Values of type `tagged-masked-raw-value` includes the mask value.
 
 The Verifier MUST ensure the lengths of values and mask are equivalent. If the mask is shorter
-than the values, the mask is padded with zeros (0) until it is the same length as the largest value.
-If the value length is shorter than the mask length, the value is padded with
-zeros (0) to the length of the mask.
+than the longest value, the mask is appended with zeros (0) until it is the same length as the longest value, either Evidence or Reference Value.
+If the mask is longer than the longest value, the mask is truncated to the length of the longest value.
+All values are evaluated from left to right (big-endian) applying bit-wise comparisons.
 
-The mask data type definitions are as follows:
+The masked value data types are as follows:
 
 ~~~ cddl
 {::include cddl/mask-type.cddl}
 ~~~
-
-If the Evidence bit field is a different length from the Reference Value and mask,
-the shorter length bit field is padded with zeros to accommodate the larger bit field.
 
 ## Expressions {#sec-expressions}
 
@@ -387,19 +385,12 @@ For example:
 
 ### Expression Operators {#sec-expression-operators}
 
-There are several classes of operators as follows:
+There are two classes of operators as follows:
 
 1. **Numeric**: The `numeric` operand can be an integer, unsigned integer, or floading point value.
 1. **Set**: The `set` operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
 The position of the items in a set is unordered, while the position of items in an array within a set
 is ordered.
-1. **Date-Time**: The date-time operators compare two date-time values,
-while the `epoch` operators determine if a date-time value
-is within a range defined by an epoch and a grece period relative to the epoch.
-1. **Mask**: The `mask` operator compares two bit fields where a bit-field is compared to
-a second bit-field using a bit-field-mask that selects the bits to be compared.
-The bit-field may contain a sequence of bytes of any length.
-The bit-field-mask should be the same length as the bit-field.
 
 #### Equivalence Operator {#sec-equivalance-operator}
 
@@ -632,7 +623,7 @@ The `$tee-date-type` can be expressed in several ways:
 
 `~tdate` strings must be converted to a numeric value (i.e.,`~time`) before operations involving time are applied.
 
-Alternatively, `tee.tcbdate` may be encoded using `mkey` where `mkey` contains the non-negative code point value and where `mval`.`name` contains the string representation `$tee-date-type` without the CBOR tag (i.e., ~tdate).
+Alternatively, `tee.tcbdate` may be encoded using `mkey` where `mkey` contains the non-negative code point value and where `mval`.`name` contains the string representation `$tee-date-type` without the CBOR tag (i.e., ~tdate - see Section 3.7 {{-cddl}}).
 
 ### The tee.mrtee and tee.mrsigner Measurement Extension {#sec-tee-digest-type}
 
@@ -827,10 +818,13 @@ Alternatively, the TEE vendor may be encoded using `mkey` where `mkey` contains 
 The Intel profile anticipates appraisal algorithms will be based on the appraisal algorithm defined in {{-corim}}.
 This profile extends the appraisal algorithm to recognize profile extensions that form equations.
 An Evidence measurement forms one of the operands: (evidence operand).
-A Reference Value forms the operator and remaining operands: [(expression operator), (reference value operand), ...].
-For example, if a numeric reference value is 14, and the expressions operator is `gt` the Reference Value might contain the Claim: `#6.60010([ 1, 14])`.
-Evidence might contain the measurement: '15'.
-In infix construction, the equation would be: (`15`) (`gt`) (`14`).
+A Reference Value forms the operator and remaining operands:
+
+* \[expression operator, reference value operand, etc...\]
+
+For example, if a numeric Reference Value is 14, and the expressions operator is `gt` the Reference Value might contain the Claim: `#6.60010([ 1, 14])`.
+Given Evidence contains the value: 15.
+The in-fix construction of the equation would be: `15 gt 14`.
 The Verifier evaluates whether `15` is greater-than `14`.
 
 ## Complex Expressions {#sec-complex-expressions}
@@ -918,7 +912,7 @@ The authors wish to thank Shanwei Cen, Piotr Zmijewski, Francisco J. Chinchilla 
 # Full Intel Profile CDDL
 
 ~~~ cddl
-{::include cddl/profile-autogen.cddl}
+{::include cddl/exports/intel-profile.cddl}
 ~~~
 
 

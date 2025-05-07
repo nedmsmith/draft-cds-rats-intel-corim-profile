@@ -1,0 +1,1 @@
+IMPORT_FRAGS := coev.cddl corim-autogen.cddl
