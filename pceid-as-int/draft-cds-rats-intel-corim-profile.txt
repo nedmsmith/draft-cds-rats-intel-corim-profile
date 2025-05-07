@@ -5,13 +5,13 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 9 October 2025                                  ARM Corporation
+Expires: 8 November 2025                                 ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                            7 April 2025
+                                                              7 May 2025
 
 
                   Intel Profile for Remote Attestation
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 October 2025.
+   This Internet-Draft will expire on 8 November 2025.
 
 Copyright Notice
 
@@ -865,6 +865,7 @@ Table of Contents
    $tee-date-type /= tdate
    $tee-date-type /= time
    $tee-date-type /= etime ; RFC9581
+   $tee-date-type /= period ; RFC9581
 
    ~tdate strings must be converted to a numeric value (i.e.,~time)
    before operations involving time are applied.
@@ -1022,7 +1023,8 @@ Table of Contents
    The tee.pceid extension enables the Attester to report the PCEID as
    Evidence and the RVP to assert an exact-match Reference Value.
 
-   The $tee-pceid-type is a string.
+   The $tee-pceid-type is a string or a uint.  As string, PCEID is a
+   four character decimal value such as "0000".
 
    The $tee-pceid-type is an exact match measurement.
 
@@ -1030,10 +1032,12 @@ Table of Contents
      &(tee.pceid: -80) => $tee-pceid-type
    )
    $tee-pceid-type /= tstr
+   $tee-pceid-type /= uint
 
    Alternatively, the PCEID may be encoded using mkey where mkey
-   contains the non-negative tee.pceid and mval.name contains the $tee-
-   pceid-type value.
+   contains the non-negative tee.pceid and mval.name (code point 11)
+   contains the string representation.  Or, mval.raw-int (code point 15)
+   contains the integer representation.
 
 8.3.12.  The tee.isvsvn Measurement Extension
 
@@ -1340,9 +1344,9 @@ Table of Contents
    [I-D.ietf-rats-msg-wrap]
               Birkholz, H., Smith, N., Fossati, T., Tschofenig, H., and
               D. Glaze, "RATS Conceptual Messages Wrapper (CMW)", Work
-              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-12,
-              28 February 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-msg-wrap-12>.
+              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-13,
+              15 April 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-msg-wrap-13>.
 
    [IANA.cbor-tags]
               IANA, "Concise Binary Object Representation (CBOR) Tags",
@@ -1442,6 +1446,8 @@ Appendix A.  Acknowledgments
    Chinchilla and Dionna Amalie Glaze for their valuable contributions.
 
 Appendix B.  Full Intel Profile CDDL
+
+   ; This cddl file depends on these cddl files: coev.cddl corim-autogen.cddl
 
    tagged-numeric-gt = #6.60010( [
        op.gt .within numeric-operators,
@@ -1595,6 +1601,7 @@ Appendix B.  Full Intel Profile CDDL
    $tee-date-type /= tdate
    $tee-date-type /= time
    $tee-date-type /= etime ; RFC9581
+   $tee-date-type /= period ; RFC9581
 
    $$measurement-values-map-extension //= (
      &(tee.mrtee: -83) => $tee-digest-type
@@ -1645,6 +1652,7 @@ Appendix B.  Full Intel Profile CDDL
      &(tee.pceid: -80) => $tee-pceid-type
    )
    $tee-pceid-type /= tstr
+   $tee-pceid-type /= uint
 
    $$measurement-values-map-extension //= (
      &(tee.isvsvn: -73) => $tee-svn-type
