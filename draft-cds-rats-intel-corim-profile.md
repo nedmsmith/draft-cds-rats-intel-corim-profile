@@ -670,7 +670,7 @@ The `$tee-platform-instance-id-type` is a `bstr`.
 {::include cddl/tee-platform-instance-id-type.cddl}
 ~~~
 
-Alternatively, the platform instance ID may be encoded using `mkey` where `mkey` contains the non-negative `tee.platform-instance-id` and `mval`.`raw-value` contains the `$tee-platform-instance-id-type` value.
+Alternatively, the platform instance ID may be encoded using `mkey` where `mkey` contains the non-negative `tee.platform-instance-id` code point and `mval`.`raw-value` contains the `$tee-platform-instance-id-type` value.
 
 ### The tee.isvprodid Measurement Extension {#sec-tee-isvprodid-type}
 
