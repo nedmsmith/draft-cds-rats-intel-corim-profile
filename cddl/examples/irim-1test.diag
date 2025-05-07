@@ -33,18 +33,19 @@
           }, 
           / *** tcb-eval-num examples ***/
             / measurement-map / {
+            / mkey / 0 : 86 / tcb-eval-num as exact match /,
             / mval / 1 : / measurement-values-map / { 
-              / tcb-eval-num / -86 : 11 / *** as exact match *** / 
+              / tcb-eval-num / -86 : 11
             }
           },
           / measurement-map / {
-            / mkey / 0 : "tagged-int-range example",
+            / mkey / 0 : 86 / tcb-eval-num as tagged-int-range /,
             / mval / 1 : / measurement-values-map / { 
               / tcb-eval-num / -86 : 564([/min:/ 11, /max:/ null ]) 
             }
           },
           / measurement-map / {
-            / mkey / 0 : "tagged-numeric-ge example",
+            / mkey / 0 : 86 / tcb-eval-num as tagged-numeric-ge /,
             / mval / 1 : / measurement-values-map / { 
               / tcb-eval-num / -86 : 60010([ / op.ge / 2, 11 ]) 
             }
@@ -56,31 +57,25 @@
             }
           },
           / measurement-map / {
-            / mkey / 0 : "isvsvn int-range",
+            / mkey / 0 : 73 / isvsvn as int-range /,
             / mval / 1 : {
               / isvsvn / -73 : 564([/min:/ 6, /max:/ null ])
             }
           },
           / measurement-map / {
-            / mkey / 0 : "isvsvn expr",
+            / mkey / 0 : 73 / isvsvn as tagged-numeric-ge /,
             / mval / 1 : {
               / isvsvn / -73 : 60010([2, 6 ])
             }
           },
           / measurement-map / {
-            / mkey / 0 : "isvsvn min-svn",
-            / mval / 1 : {
-              / isvsvn / -73 : 553(6)
-            }
-          },
-          / measurement-map / {
-            / mkey / 0 : 73, / isvsvn / 
+            / mkey / 0 : 73, / isvsvn as min-svn/ 
             / mval / 1 : {
               / svn / 1 : 553(6)
             }
           },
           / measurement-map / {
-            / mkey / 0 : "isvsvn as svn-type-choice",
+            / mkey / 0 : 73 /isvsvn as svn-type-choice/,
             / mval / 1 : {
               / svn / 1 : 6
             }
