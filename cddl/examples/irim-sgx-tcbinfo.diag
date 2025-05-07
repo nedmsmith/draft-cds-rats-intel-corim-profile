@@ -51,8 +51,16 @@
               ]
             },
             { 
-              / mkey / 0 : 80, / pceid /
+              / mkey / 0 : 80, / pceid as name /
               / mval / 1 : { 11 : "0000" }
+            },
+            { 
+              / mkey / 0 : 80, / pceid as uint /
+              / mval / 1 : { -80 : 0 }
+            },
+            { 
+              / mkey / 0 : 80, / pceid as raw-int /
+              / mval / 1 : { 15 : 0 }
             }
           ]
         ],
