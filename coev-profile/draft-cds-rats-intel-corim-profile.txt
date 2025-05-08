@@ -154,23 +154,22 @@ Table of Contents
 
    The CoRIM specifications [DICE.CoRIM] and [I-D.ietf-rats-corim]
    define a baseline schema for Reference Values and Endorsements that
-   form the foundation for the extensions defined in this profile.
-   [I-D.ietf-rats-corim] contains a foundational representation for
-   Attester actual state that Evidence, as specified by [DICE.Attest],
-   [TCG.CE], and [DMTF.SPDM], Reference Values, and Endorsements can map
-   to that helps ensure compatibility with a broad spectrum of Verifier
-   implementations.  The Reference Values extensions in this profile
-   describe reference state that can be expressed as set membership or
-   value ranges.  This profile defines extensions to CoRIM that support
-   appraisal matching that is based on set membership, masked values,
-   and numeric ranges.
+   are the basis for the extensions defined by this profile.  CoRIM is
+   also a baseline for Evidence (as specified by DiceTcbInfo
+   [DICE.Attest], concise evidence (CoEV) [TCG.CE], and Security
+   Protocol and Data Model (SPDM) [DMTF.SPDM]).  Having a common
+   baseline schema for Reference Values, Endorsements, and Evidence
+   helps ensure compatibility across a spectrum of implementations.
+
+   This profile defines extensions to CoRIM that support appraisal
+   matching that is not strictly exact-match.  For example it defines
+   _sets_, _masks_, _time_, and _ranges_.
 
    The baseline CoRIM, as defined by [DICE.CoRIM] is a subset of the
-   Intel profile.  Intel products that implement exclusively to the
-   baseline CoRIM may not rely upon this profile.  The Intel profile
-   extensions may be generally useful.  Implementations based on the
-   Intel profile does not necessarily imply an implementation is an
-   Intel product.
+   Intel profile.  Intel products that implement exclusively the
+   baseline CoRIM do not need this profile.  Implementations based on
+   the Intel profile do not necessarily imply an association with Intel
+   products.
 
    This profile extends CoMID measurement-values-map, as defined by
    [DICE.CoRIM] (see also [I-D.ietf-rats-corim]), with measurement types
@@ -266,19 +265,27 @@ Table of Contents
 
 4.2.  Profile Specific Media and Content Types
 
-   This profile uses the following media types:
+   This profile utilizes and/or defines the following media types:
 
    *  "application/eat+cwt"
 
    *  "application/eat+cwt; eat_profile=2.16.840.1.113741.1.16.1"
 
-   *  "application/rim+cbor" (TBA)
+   *  "application/rim+cbor" (TBA CoRIM)
 
-   *  "application/rim+cbor" (TBA); profile=2.16.840.1.113741.1.16.1"
+   *  "application/rim+cbor" (TBA CoRIM);
+      profile=2.16.840.1.113741.1.16.1"
+
+   *  "application/ce+cbor"
 
    *  "application/ce+cbor"; profile=2.16.840.1.113741.1.16.1"
 
-   This profile uses the following content formats:
+   *  "application/toc+cbor"
+
+   *  "application/toc+cbor"; profile=2.16.840.1.113741.1.16.1"
+
+   This profile utilizes and/or defines the following content format
+   identifiers (C-F ID):
 
      +=======================================+========+=============+
      | Content Type                          | C-F ID | TN Function |
@@ -288,15 +295,21 @@ Table of Contents
      | "application/eat+cwt;                 | 10005  | 1668556861  |
      | eat_profile=2.16.840.1.113741.1.16.1" |        |             |
      +---------------------------------------+--------+-------------+
+     | "application/ce+cbor"                 | 10571  | 1668557429  |
+     +---------------------------------------+--------+-------------+
+     | "application/ce+cbor";                | TBA    | TBA         |
+     | profile=2.16.840.1.113741.1.16.1"     |        |             |
+     +---------------------------------------+--------+-------------+
      | "application/toc+cbor"                | 10570  | 1668557428  |
      +---------------------------------------+--------+-------------+
-     | "application/ce+cbor"                 | 10571  | 1668557429  |
+     | "application/toc+cbor";               | TBA    | TBA         |
+     | profile=2.16.840.1.113741.1.16.1"     |        |             |
      +---------------------------------------+--------+-------------+
 
                                  Table 1
 
-   This profile uses the following top level CBOR tags (not already
-   listed):
+   This profile utilizes the following CoRIM and concise evidence (CoEV)
+   CBOR tags:
 
    *  501, 570, 571
 
