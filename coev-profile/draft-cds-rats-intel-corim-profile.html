@@ -1431,7 +1431,7 @@ Additionally, dynamic insertion or removal of a component may result in composit
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-profile-identifier" class="section-name selfRef">Profile Identifier</a>
       </h2>
 <p id="section-4-1">This profile applies to Reference Values from a CoRIM manifest that a Verifier uses to process Evidence.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">Profile identifier structures are defined by CoRIM <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>, EAT <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span> and Concise Evidence <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span>.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-2">Profile identifier structures are defined by CoRIM <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>, EAT <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span> and Concise Evidence (CoEV) <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span>.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <div id="sec-intel-profile">
 <section id="section-4.1">
         <h3 id="name-intel-profile">
@@ -1550,7 +1550,7 @@ Keys are identified using key identifiers, public key, or certificate digests as
       </h2>
 <p id="section-6-1">Evidence may be integrity protected in various ways including: certificates <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, SPDM transcript <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>, and CBOR web token (CWT) <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span>.
 Evidence contained in a certificate may be encoded using <code>DiceTcbInfo</code> and <code>DiceTcbInfoSeq</code> <span>[<a href="#DICE.Attest" class="cite xref">DICE.Attest</a>]</span>.
-Evidence contained in an SPDM payload may be encoded using the SPDM <code>Measurement Block</code> <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>. Evidence may be formatted as <code>concise-evidence</code> <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span> and included in an alias certificate or an SPDM Measurement Manifest.<a href="#section-6-1" class="pilcrow">¶</a></p>
+Evidence contained in an SPDM payload may be encoded using the SPDM <code>Measurement Block</code> <span>[<a href="#DMTF.SPDM" class="cite xref">DMTF.SPDM</a>]</span>. Evidence may be formatted as <code>concise-evidence</code> <span>[<a href="#TCG.CE" class="cite xref">TCG.CE</a>]</span> which may be encapsulated by alias certificates, SPDM Measurement Manifests, or EAT tokens.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">The <code>DiceTcbInfo</code> and SPDM Evidence formats can be translated to CoMID.
 The concise evidence format is native to CoMID.
 This profile documents evidence mapping from <code>DiceTcbInfo</code> and SPDM <code>Measurement Block</code> to CoMID, as defined by <span>[<a href="#DICE.CoRIM" class="cite xref">DICE.CoRIM</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>

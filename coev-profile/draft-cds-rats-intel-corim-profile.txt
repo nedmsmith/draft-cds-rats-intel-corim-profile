@@ -252,7 +252,7 @@ Table of Contents
 
    Profile identifier structures are defined by CoRIM
    [I-D.ietf-rats-corim], EAT [I-D.ietf-rats-eat] and Concise Evidence
-   [TCG.CE].
+   (CoEV) [TCG.CE].
 
 4.1.  Intel Profile
 
@@ -353,8 +353,8 @@ Table of Contents
    encoded using DiceTcbInfo and DiceTcbInfoSeq [DICE.Attest].  Evidence
    contained in an SPDM payload may be encoded using the SPDM
    Measurement Block [DMTF.SPDM].  Evidence may be formatted as concise-
-   evidence [TCG.CE] and included in an alias certificate or an SPDM
-   Measurement Manifest.
+   evidence [TCG.CE] which may be encapsulated by alias certificates,
+   SPDM Measurement Manifests, or EAT tokens.
 
    The DiceTcbInfo and SPDM Evidence formats can be translated to CoMID.
    The concise evidence format is native to CoMID.  This profile
