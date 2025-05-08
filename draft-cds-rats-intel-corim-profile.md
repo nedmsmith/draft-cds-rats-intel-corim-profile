@@ -224,6 +224,7 @@ This profile uses the following media types:
 * "application/eat+cwt; eat_profile=2.16.840.1.113741.1.16.1"
 * "application/rim+cbor" (TBA)
 * "application/rim+cbor" (TBA); profile=2.16.840.1.113741.1.16.1"
+* "application/ce+cbor"; profile=2.16.840.1.113741.1.16.1"
 
 This profile uses the following content formats:
 
