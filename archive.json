@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-06T01:39:43.413027+00:00",
+  "timestamp": "2025-05-08T01:40:49.276830+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -222,15 +222,15 @@
       "id": "I_kwDOJvkHy860uMXC",
       "title": "Add PCK certificate extensions as claims",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/58",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "deeglaze",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Verifying a TDX quote means checking the signatures along the collateral of PCK certificate back to Intel. https://api.portal.trustedservices.intel.com/content/documentation.html\n\nThe PPID claim in particular is important for a CSP to claim locality of specific machines in particular data centers.\nIs here an appropriate place to state how the PCK certificate should be translated into concise evidence / CoMID format for conditional endorsement triple purposes?",
       "createdAt": "2025-04-30T17:34:04Z",
-      "updatedAt": "2025-05-05T18:22:09Z",
-      "closedAt": null,
+      "updatedAt": "2025-05-07T00:23:12Z",
+      "closedAt": "2025-05-07T00:23:12Z",
       "comments": [
         {
           "author": "nedmsmith",
@@ -259,6 +259,13 @@
           "body": "The ideal lifespan of a platform identifier is the total length of ownership for the package so long as there's a way to irrevocably destroy owner secrets for after-market sales. I'm not sure what correspondence the current platform identifier claim has to the PCK PPID, but as long as we have something along those lines, we should be good.",
           "createdAt": "2025-05-05T18:22:08Z",
           "updatedAt": "2025-05-05T18:22:08Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "The `platform-instance-id` is probably the best identifier for this purpose. `Platform` refers to the components that must work together to have a fully formed TCB. Upon first boot the combination of components (CPU, memory, etc) are recognized and an identifer is created that represents this combination. It is also known by the acronym PIID. The PPID is available on legacy systems, as is PIID, but PIID is supported longer term. Owner secrets are removed whenever PIID is reset. Changes to the TCB can cause PIID to be reset. This is good for security, but it also assumes the platform change control anticipates which changes might result in a TCB change.",
+          "createdAt": "2025-05-06T20:54:14Z",
+          "updatedAt": "2025-05-06T20:54:14Z"
         }
       ]
     }
@@ -2791,9 +2798,9 @@
     {
       "number": 52,
       "id": "PR_kwDOJvkHy86RJYop",
-      "title": "Add uint range",
+      "title": "Incorporate int ranges and min-svn",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/52",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -2802,14 +2809,14 @@
       "labels": [],
       "body": "Defines tagged-uint-range patterned after tagged-int-range in corim. It's used in use cases where a numeric expression that evaluates greater-than-or-equal such as tcb-eval-num.",
       "createdAt": "2025-04-02T20:21:11Z",
-      "updatedAt": "2025-04-08T20:31:33Z",
+      "updatedAt": "2025-05-06T23:29:35Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "a87a25262bedd89219c641c85b993d3574aa58ff",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "add-uint-range",
       "headRefOid": "7ba026a07ba96019eda30090a5df46fd453fb4f9",
-      "closedAt": null,
+      "closedAt": "2025-05-06T23:29:35Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -3135,6 +3142,149 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 59,
+      "id": "PR_kwDOJvkHy86VL8D2",
+      "title": "Add int range",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/59",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Incorporate `raw-int` and `int-range` for `tee-tcb-comp-svn`, `tee-isvsvn`, and `tcb-eval-num`.",
+      "createdAt": "2025-05-07T00:10:20Z",
+      "updatedAt": "2025-05-07T18:34:58Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "56686b6da391ffbfada83680c24dcf3dfa2fde89",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "add-int-range",
+      "headRefOid": "1817183e5ddeba2ed2aef26db8c842b13e605e0e",
+      "closedAt": "2025-05-07T18:34:50Z",
+      "mergedAt": "2025-05-07T18:34:50Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4"
+      },
+      "comments": [
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@nedmsmith Have you scoped the impact on concise-evidence library, due to this change ?\r\n\r\nWill it not break the same, as now the fundamental type has been modified?",
+          "createdAt": "2025-05-07T10:12:22Z",
+          "updatedAt": "2025-05-07T10:12:22Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": " > Will it not break the same, as now the fundamental type has been modified?\r\n\r\nNo. The additional type options are added via `/=`. Implementations that depend on prior typing still work.",
+          "createdAt": "2025-05-07T17:48:05Z",
+          "updatedAt": "2025-05-07T17:48:05Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86oP0ac",
+          "commit": {
+            "abbreviatedOid": "1817183"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM!",
+          "createdAt": "2025-05-07T17:59:04Z",
+          "updatedAt": "2025-05-07T17:59:04Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "id": "PR_kwDOJvkHy86VUZxV",
+      "title": "Pceid as int",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/60",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "adds examples for pceid using `mkey`=80, as `raw-int` and added uint as a possible type for -80 code point.",
+      "createdAt": "2025-05-07T18:18:31Z",
+      "updatedAt": "2025-05-07T18:29:08Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "56686b6da391ffbfada83680c24dcf3dfa2fde89",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "pceid-as-int",
+      "headRefOid": "d88e7ec2eb90e196b27e5f6b9219d6b9b8e8e598",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 61,
+      "id": "PR_kwDOJvkHy86VUwIo",
+      "title": "remove instance-id",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/61",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Removed instance-id which was a precursor to platform-instance-id",
+      "createdAt": "2025-05-07T19:04:00Z",
+      "updatedAt": "2025-05-07T19:04:14Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "rm-instance-id",
+      "headRefOid": "bc2bfa8d8dd682dd997515c55fad4a4cd3dd6fa1",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 62,
+      "id": "PR_kwDOJvkHy86VU1wW",
+      "title": "Added 32-byte piid example",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/62",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Clarified explanitory text in markdown and updated mkey example to show variable length platform instance identifier.",
+      "createdAt": "2025-05-07T19:17:08Z",
+      "updatedAt": "2025-05-07T19:17:35Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "32-byte-piid",
+      "headRefOid": "1927bcf19b51ed500fcd7e56901477c11d455846",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
