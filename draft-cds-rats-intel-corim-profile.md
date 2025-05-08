@@ -207,7 +207,7 @@ Additionally, dynamic insertion or removal of a component may result in composit
 
 This profile applies to Reference Values from a CoRIM manifest that a Verifier uses to process Evidence.
 
-Profile identifier structures are defined by CoRIM {{-corim}}, EAT {{-eat}} and Concise Evidence {{-tcg-ce}}.
+Profile identifier structures are defined by CoRIM {{-corim}}, EAT {{-eat}} and Concise Evidence (CoEV) {{-tcg-ce}}.
 
 ## Intel Profile {#sec-intel-profile}
 
@@ -265,7 +265,7 @@ Keys are identified using key identifiers, public key, or certificate digests as
 
 Evidence may be integrity protected in various ways including: certificates {{-x509}}, SPDM transcript {{-spdm}}, and CBOR web token (CWT) {{-cwt}}.
 Evidence contained in a certificate may be encoded using `DiceTcbInfo` and `DiceTcbInfoSeq` {{-dice-attest}}.
-Evidence contained in an SPDM payload may be encoded using the SPDM `Measurement Block` {{-spdm}}. Evidence may be formatted as `concise-evidence` {{-tcg-ce}} and included in an alias certificate or an SPDM Measurement Manifest.
+Evidence contained in an SPDM payload may be encoded using the SPDM `Measurement Block` {{-spdm}}. Evidence may be formatted as `concise-evidence` {{-tcg-ce}} which may be encapsulated by alias certificates, SPDM Measurement Manifests, or EAT tokens.
 
 The `DiceTcbInfo` and SPDM Evidence formats can be translated to CoMID.
 The concise evidence format is native to CoMID.
