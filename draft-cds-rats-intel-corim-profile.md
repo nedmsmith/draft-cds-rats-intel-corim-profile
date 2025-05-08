@@ -150,15 +150,16 @@ This profile describes extensions and restrictions placed on Reference Values, E
 that support attestation capabilities of Intel products containing Intel(R) SGX(TM) or Intel(R) TDX(TM) technology, or Intel(R) products that contain
 DICE {{-dice}} root of trust, DICE layers {{-dice-layer}}, or modules that implement SPDM {{-spdm}}.
 
-The CoRIM specifications {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements that form the foundation for the extensions defined in this profile.
-{{-corim}} contains a foundational representation for Attester actual state that Evidence, as specified by {{-dice-attest}}, {{-tcg-ce}}, and {{-spdm}}, Reference Values, and Endorsements can map to that helps ensure compatibility with a broad spectrum of Verifier implementations.
-The Reference Values extensions in this profile describe reference state that can be expressed as set membership or value ranges.
-This profile defines extensions to CoRIM that support appraisal matching that is based on set membership, masked values, and numeric ranges.
+The CoRIM specifications {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements that are the basis for the extensions defined by this profile.
+CoRIM is also a baseline for Evidence
+(as specified by DiceTcbInfo {{-dice-attest}}, concise evidence (CoEV) {{-tcg-ce}}, and Security Protocol and Data Model (SPDM) {{-spdm}}).
+Having a common baseline schema for Reference Values, Endorsements, and Evidence helps ensure compatibility across a  spectrum of implementations.
+
+This profile defines extensions to CoRIM that support appraisal matching that is not strictly exact-match. For example it defines _sets_, _masks_, _time_, and _ranges_.
 
 The baseline CoRIM, as defined by {{-dice-corim}} is a subset of the Intel profile.
-Intel products that implement exclusively to the baseline CoRIM may not rely upon this profile.
-The Intel profile extensions may be generally useful.
-Implementations based on the Intel profile does not necessarily imply an implementation is an Intel product.
+Intel products that implement exclusively the baseline CoRIM do not need this profile.
+Implementations based on the Intel profile do not necessarily imply an association with Intel products.
 
 This profile extends CoMID `measurement-values-map`, as defined by {{-dice-corim}} (see also {{-corim}}), with measurement types that are unique to Intel products.
 Some measurement types are specific to Reference Values where multiple reference states may be included in reference manifests.
@@ -218,24 +219,29 @@ The profile identifier for the Intel Profile is the OID:
 
 ## Profile Specific Media and Content Types
 
-This profile uses the following media types:
+This profile utilizes and/or defines the following media types:
 
 * "application/eat+cwt"
 * "application/eat+cwt; eat_profile=2.16.840.1.113741.1.16.1"
-* "application/rim+cbor" (TBA)
-* "application/rim+cbor" (TBA); profile=2.16.840.1.113741.1.16.1"
+* "application/rim+cbor" (TBA CoRIM)
+* "application/rim+cbor" (TBA CoRIM); profile=2.16.840.1.113741.1.16.1"
+* "application/ce+cbor"
 * "application/ce+cbor"; profile=2.16.840.1.113741.1.16.1"
+* "application/toc+cbor"
+* "application/toc+cbor"; profile=2.16.840.1.113741.1.16.1"
 
-This profile uses the following content formats:
+This profile utilizes and/or defines the following content format identifiers (C-F ID):
 
 | Content Type                                                 | C-F ID | TN Function |
 | ------------------------------------------------------------ | ------ | ----------- |
 | "application/eat+cwt"                                        | 263    | 1668547081  |
 | "application/eat+cwt; eat_profile=2.16.840.1.113741.1.16.1"  | 10005  | 1668556861  |
-| "application/toc+cbor"                                       | 10570  | 1668557428  |
 | "application/ce+cbor"                                        | 10571  | 1668557429  |
+| "application/ce+cbor"; profile=2.16.840.1.113741.1.16.1"     | TBA    | TBA         |
+| "application/toc+cbor"                                       | 10570  | 1668557428  |
+| "application/toc+cbor"; profile=2.16.840.1.113741.1.16.1"    | TBA    | TBA         |
 
-This profile uses the following top level CBOR tags (not already listed):
+This profile utilizes the following CoRIM and concise evidence (CoEV) CBOR tags:
 
 * 501, 570, 571
 
