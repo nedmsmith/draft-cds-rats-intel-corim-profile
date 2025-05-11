@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-08T01:40:49.276830+00:00",
+  "timestamp": "2025-05-11T01:45:19.513488+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -268,6 +268,22 @@
           "updatedAt": "2025-05-06T20:54:14Z"
         }
       ]
+    },
+    {
+      "number": 64,
+      "id": "I_kwDOJvkHy8610W_5",
+      "title": "Request CBOR tag for operators",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/64",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The CBOR tags for operators: 60010, 60020, and 60021 have not been officiall allocated by IANA. \nThese can be allocated from the vendors specific regeon. ",
+      "createdAt": "2025-05-08T23:59:22Z",
+      "updatedAt": "2025-05-09T00:00:40Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -3279,6 +3295,32 @@
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "32-byte-piid",
       "headRefOid": "1927bcf19b51ed500fcd7e56901477c11d455846",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 63,
+      "id": "PR_kwDOJvkHy86Vf7Km",
+      "title": "Coev profile",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/63",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Did an editing pass and incorporated profile definitions for content-format and media-types.",
+      "createdAt": "2025-05-08T22:05:13Z",
+      "updatedAt": "2025-05-08T22:05:13Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "coev-profile",
+      "headRefOid": "a6d518c1f4cb40b06f53ba8792b3226b96b09739",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
