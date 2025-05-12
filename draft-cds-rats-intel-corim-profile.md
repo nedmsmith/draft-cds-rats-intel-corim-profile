@@ -366,12 +366,8 @@ The operator definition identifies the additional operands and their data types.
 A Verifier forms an expression using Evidence as the first operand, obtains the operator from the first entry in
 the expression array, and any remaining array entries are operands.
 
-This document describes operations using *infix* notation where the first operand, *operand_1*, is obtained from Evidence,
-followed by the operator, followed by any remaining operands: *operand_2*, *operand_3*, etc...
-
-For example:
-
-* From Evidence: `operand_1`, from Reference Values: `[ operator, operand_2, operand_3, ... ]`.
+This profile describes operations using *infix* notation where the first operand, *operand_1*, is obtained from Evidence,
+followed by the operator, followed by any remaining operands: *operand_2*, *operand_3*..., taken from Reference Values.
 
 Expression records are CBOR tagged to indicate the following CBOR is to be evaluated as an expression.
 Expression statements found in Reference Values informs the Verifier that Evidence is needed to complete
@@ -385,12 +381,13 @@ For example:
 
 ### Expression Operators {#sec-expression-operators}
 
-There are two classes of operators as follows:
+There are three CBOR tagged operators as follows:
 
-1. **Numeric**: The `numeric` operand can be an integer, unsigned integer, or floading point value.
-1. **Set**: The `set` operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
-The position of the items in a set is unordered, while the position of items in an array within a set
-is ordered.
+1. **60010-TBA**: A `numeric` expression with a numeric operator ({{sec-numeric-expressions}}) followed by a numeric operand: integer, unsigned integer, or floading point.
+1. **60020-TBA**: A set of digests operator ({{sec-set-expressions}}) followed by a set of digests operand which is an array of `digests`.
+1. **60021-TBA**: A set of strings operator ({{sec-set-expressions}}) followed by a set of strings operand which is an array of `tstr`.
+
+The position of items in a set is not significant.
 
 #### Equivalence Operator {#sec-equivalance-operator}
 
@@ -399,15 +396,18 @@ Evidence values are identical to Reference Values.
 
 ### Numeric Expressions {#sec-numeric-expressions}
 
+Numeric expressions consist of an Evidence operand (Evidence_Operand) and an array containing a numeric operator and a numeric operand (Reference_Operand).
+
 Numeric operators apply to values that are integers, unsigned integers or floating point numbers.
 There are four numeric operators:
 
-1.  **greater-than** (gt),
-1.  **greater-than-or-equal** (ge),
-1.  **less-than** (lt),
-1.  **less-than-or-equal** (le).
+1.  **equal** (`op.eq`),
+1.  **greater-than** (`op.gt`),
+1.  **greater-than-or-equal** (`op.ge`),
+1.  **less-than** (`op.lt`),
+1.  **less-than-or-equal** (`op.le`).
 
-The equals operator is not defined because an exact match rule is the default rule when an Evidence value is identical to a Reference Value.
+Equivalence semantics can be achieved without using an expression with the `op.eq` operator by using the same data type for both Evidence and Reference Value.
 
 The numeric operator data type definitions are as follows:
 
@@ -415,30 +415,25 @@ The numeric operator data type definitions are as follows:
 {::include cddl/numeric-type.cddl}
 ~~~
 
-A numeric expression is an array containing a numeric operator and a numeric operand.
-The operand contains a numeric Reference Value that is matched with a numeric Evidence value.
-
 Evidence and Reference Values MUST be the same numeric type. For example, if a Reference Value numeric type is
 `integer`, then the Evidence numeric value must also be `integer`.
 
-This profile defines four macro numeric expressions, one for each numeric operator:
+This profile defines four numeric expressions, one for each numeric operator:
 
 * `tagged-numeric-gt`,
 * `tagged-numeric-ge`,
 * `tagged-numeric-lt`,
 * `tagged-numeric-le`.
 
-In each case, the numeric operator is used to evaluate a Reference Value operand against an Evidence value operand
-that is obtained from Evidence.
+In each case, the numeric operator is used to evaluate a Reference Value operand against an Evidence value operand.
 
-If the expression is read using *infix* notation, the first operand is Evidence, followed by the operator,
-followed by the Reference Value operand.
+The expression is evaluated using *infix* notation where Evidence_Operand is the left-hand-side of the numeric operator and the Reference_Operand is the right-hand-side.
 
 Example:
 
-* <`evidence_numeric`> <`le`> <`reference_numeric`>
+* The expression ( 7 `op.le` 9 ) evaluates to TRUE.
 
-The numeric expression definitions are as follows:
+The numeric type definition is as follows:
 
 ~~~ cddl
 {::include cddl/numeric-expr.cddl}
@@ -446,52 +441,35 @@ The numeric expression definitions are as follows:
 
 ### Set Expressions {#sec-set-expressions}
 
-Set operators allow Reference Values, that are expressed as a set, to be compared with Evidence that
-is expressed as either a primitive value or a set.
+Set expressions consist of an Evidence operand (Evidence_Operand) and an array containing a set operator and a set operand (Reference_Set_Operand).
 
-Set expression statements have two forms:
+Sets have two operators:
 
-1. A binary relation between a primitive object 'O' and a set 'S', and
-1. A binary relation between two sets, an Evidence set 'S1' and a Reference Values set 'S2'.
-
-The first form, relation between an object and a set, has two operators:
-
-* **member** and
-* **not-member**.
-
-The Evidence object 'O' is evaluated with the Reference Values set 'S'.
-
-The `op.member` and `op.not-member` operators expect a Reverence Value set as *operand_2* and a primitive Evidence
-value as *operand_1*. Evaluation tests whether *operand_1* is a member of the set *operand_2*.
+* **op.mem** - operand_1 is a member of the set operand_2.
+* **op.nmem** - operand_1 is NOT a member of the set operand_2.
 
 Example:
 
-* <`evidence-value`> <`set-operator`> <`reference-set`>
+* The expression ("fox" `op.mem` [ "cat", "dog", "fox" ]) evaluates to TRUE.
 
-The set data type definitions are defined as follows:
+The set type is as follows:
 
 ~~~ cddl
 {::include cddl/set-type.cddl}
 ~~~
 
-A set expression array contins a set operator followed by a set of Reference Values.
+The set expression array contins a set operator followed by an array of values which are the members of a set of Reference Values.
 The set is defined by `set-type`.
 
-The set expression type definitions are as follows:
+The set expression definitions are as follows:
 
 ~~~ cddl
 {::include cddl/set-expr.cddl}
 ~~~
 
-Examples:
+The Evidence_Operand MUST NOT be nil.
 
-* <`evidence_object`> <`member`> <`reference_set`>
-
-* <`evidence_object`> <`not-member`> <`reference_set`>
-
-The Evidence object MUST NOT be nil.
-
-The Reference Values set may be the empty set.
+The Reference_Set_Operand MAY be the empty set - e.g. `[ ]`.
 
 ##  Measurement Extensions {#sec-measurement-extensions}
 
@@ -779,7 +757,7 @@ A Reference Value forms the operator and remaining operands:
 
 * \[expression operator, reference value operand, etc...\]
 
-For example, if a numeric Reference Value is 14, and the expressions operator is `gt` the Reference Value might contain the Claim: `#6.60010([ 1, 14])`.
+For example, if a numeric Reference Value is 14, and the expressions operator is `gt` the Reference Value might contain the Claim: `#6.60010-TBA([ 1, 14])`.
 Given Evidence contains the value: 15.
 The in-fix construction of the equation would be: `15 gt 14`.
 The Verifier evaluates whether `15` is greater-than `14`.
@@ -852,11 +830,11 @@ The security of this profile depends on the security considerations of the vario
 
 IANA is requested to allocate the following tags in the CBOR Tags registry {{!IANA.cbor-tags}}, preferably with the CBOR tag value requested.
 
-|     Tag | Data Item           | Semantics                                                     | Reference |
-|     --- | ---------           | ---------                                                     | --------- |
-|   60010 | `tag`               | Numeric Expressions, see {{sec-numeric-expressions}}          | {{&SELF}} |
-|   60020 | `tag`               | Set digest Expressions, see  {{sec-set-expressions}}          | {{&SELF}} |
-|   60021 | `tag`               | Set tstr Expressions, see  {{sec-set-expressions}}            | {{&SELF}} |
+|    Tag    | Data Item           | Semantics                                                     | Reference |
+| -------   | ---------           | ---------                                                     | --------- |
+| 60010-TBA | `tag`               | Numeric Expressions, see {{sec-numeric-expressions}}          | {{&SELF}} |
+| 60020-TBA | `tag`               | Set digest Expressions, see  {{sec-set-expressions}}          | {{&SELF}} |
+| 60021-TBA | `tag`               | Set tstr Expressions, see  {{sec-set-expressions}}            | {{&SELF}} |
 
 {: #tbl-iana-intel-profile-reg-items title="Intel Profile Tag Registration Code Points"}
 
