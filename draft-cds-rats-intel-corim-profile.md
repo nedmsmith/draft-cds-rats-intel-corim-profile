@@ -368,15 +368,17 @@ the expression array.
 This profile describes operations using *infix* notation where the first operand, *operand_1*, is obtained from Evidence,
 followed by the operator, followed by any remaining operands: *operand_2*, *operand_3*..., taken from Reference Values.
 
-Expression records are CBOR tagged to indicate the values following the CBOR tag are to be evaluated as an expression.
+Expressions statements are CBOR tagged to indicate the values following the CBOR tag are to be evaluated as an expression equation.
 Expression statements found in Reference Values informs the Verifier that Evidence is needed to complete
-the expression equation. Appraisal processing MUST evaluate the expression.
+the expression equation.
 
 Expressions are CBOR tagged to disambiguate the type of expression. See {{sec-iana-considerations}}.
 
 For example:
 
 * `60010_TBA([ operator, operand_2, operand_3, ... ])`.
+
+Appraisal processing MUST evaluate expression equations to comply with this profile.
 
 ### Expression Operators {#sec-expression-operators}
 
@@ -437,6 +439,7 @@ The numeric type definition is as follows:
 ~~~ cddl
 {::include cddl/numeric-expr.cddl}
 ~~~
+
 
 ### Set Expressions {#sec-set-expressions}
 
