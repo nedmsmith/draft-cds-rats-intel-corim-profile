@@ -83,8 +83,6 @@ etime = #6.1001({* (int/tstr) => any})
 duration = #6.1002({* (int/tstr) => any})
 period = #6.1003([~etime/null, ~etime/null, ?~duration])
 
-member = 6
-not-member = 7
 set-operators /= op.mem 
 set-operators /= op.nmem
 
