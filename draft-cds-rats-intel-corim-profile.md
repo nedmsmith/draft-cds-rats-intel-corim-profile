@@ -430,7 +430,7 @@ The expression is evaluated using *infix* notation where Evidence_Operand is the
 
 Example:
 
-* The expression ( 7 `op.le` 9 ) evaluates to TRUE.
+* The expression: `( 7 `op.le` 9 )` evaluates to TRUE.
 
 The numeric type definition is as follows:
 
@@ -449,7 +449,7 @@ Sets have two operators:
 
 Example:
 
-* The expression ("fox" `op.mem` [ "cat", "dog", "fox" ]) evaluates to TRUE.
+* The expression: `("fox" `op.mem` [ "cat", "dog", "fox" ])` evaluates to TRUE.
 
 The set type is as follows:
 
