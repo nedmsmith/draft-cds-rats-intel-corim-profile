@@ -498,11 +498,10 @@ Table of Contents
    the operator, followed by any remaining operands: _operand_2_,
    _operand_3_..., taken from Reference Values.
 
-   Expression records are CBOR tagged to indicate the values following
-   the CBOR tag are to be evaluated as an expression.  Expression
-   statements found in Reference Values informs the Verifier that
-   Evidence is needed to complete the expression equation.  Appraisal
-   processing MUST evaluate the expression.
+   Expressions statements are CBOR tagged to indicate the values
+   following the CBOR tag are to be evaluated as an expression equation.
+   Expression statements found in Reference Values informs the Verifier
+   that Evidence is needed to complete the expression equation.
 
    Expressions are CBOR tagged to disambiguate the type of expression.
    See Section 12.
@@ -510,6 +509,9 @@ Table of Contents
    For example:
 
    *  60010_TBA([ operator, operand_2, operand_3, ... ]).
+
+   Appraisal processing MUST evaluate expression equations to comply
+   with this profile.
 
 8.2.1.  Expression Operators
 
