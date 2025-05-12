@@ -1670,25 +1670,24 @@ $masked-value-type /= $raw-value-type-choice
         <h3 id="name-expressions">
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-expressions" class="section-name selfRef">Expressions</a>
         </h3>
-<p id="section-8.2-1">Expressions are used to specify richer Reference Values measurements that expect non-exact matching semantics.
-The Reference Value expression instructs the Verifier regarding matching parameters,
-such as greater-than or less-than, ranges, sets, etc. Typically, the Evidence value is one operand of an expression
-and the Reference Value contains the operator and additional operands.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
-<p id="section-8.2-2">The operator and remaining operands are contained in an array.
-Expression arrays have an operator followed by zero or more operands.
+<p id="section-8.2-1">Expressions can be used with Reference Values or Endorsement conditions.
+Matching is applied using an operator and operands.
+There are two types of operators, numeric: such as greater-than or less-than,
+and sets: such as set membership.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-2">Expressions are an array containing an operator followed by zero or more operands.
 The operator definition identifies the additional operands and their data types.
-A Verifier forms an expression using Evidence as the first operand, obtains the operator from the first entry in
-the expression array, and any remaining array entries are operands.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
+A Verifier forms an expression using Evidence as the first operand and obtains the operator from the first entry in
+the expression array.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
 <p id="section-8.2-3">This profile describes operations using <em>infix</em> notation where the first operand, <em>operand_1</em>, is obtained from Evidence,
 followed by the operator, followed by any remaining operands: <em>operand_2</em>, <em>operand_3</em>..., taken from Reference Values.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
-<p id="section-8.2-4">Expression records are CBOR tagged to indicate the following CBOR is to be evaluated as an expression.
+<p id="section-8.2-4">Expression records are CBOR tagged to indicate the values following the CBOR tag are to be evaluated as an expression.
 Expression statements found in Reference Values informs the Verifier that Evidence is needed to complete
 the expression equation. Appraisal processing <span class="bcp14">MUST</span> evaluate the expression.<a href="#section-8.2-4" class="pilcrow">¶</a></p>
-<p id="section-8.2-5">This profile anticipates use of the CBOR tag <code>#6.600XX</code> to identify expression arrays. See <a href="#sec-iana-considerations" class="auto internal xref">Section 12</a>.<a href="#section-8.2-5" class="pilcrow">¶</a></p>
+<p id="section-8.2-5">Expressions are CBOR tagged to disambiguate the type of expression. See <a href="#sec-iana-considerations" class="auto internal xref">Section 12</a>.<a href="#section-8.2-5" class="pilcrow">¶</a></p>
 <p id="section-8.2-6">For example:<a href="#section-8.2-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.2-7.1">
-            <p id="section-8.2-7.1.1"><code>#6.600XX([ operator, operand_2, operand_3, ... ])</code>.<a href="#section-8.2-7.1.1" class="pilcrow">¶</a></p>
+            <p id="section-8.2-7.1.1"><code>60010_TBA([ operator, operand_2, operand_3, ... ])</code>.<a href="#section-8.2-7.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div id="sec-expression-operators">
