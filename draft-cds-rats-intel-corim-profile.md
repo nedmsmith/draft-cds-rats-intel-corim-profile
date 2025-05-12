@@ -895,11 +895,11 @@ The security of this profile depends on the security considerations of the vario
 
 IANA is requested to allocate the following tags in the CBOR Tags registry {{!IANA.cbor-tags}}, preferably with the CBOR tag value requested.
 
-|     Tag | Data Item           | Semantics                                                     | Reference |
-|     --- | ---------           | ---------                                                     | --------- |
-|   60010 | `tag`               | Numeric Expressions, see {{sec-numeric-expressions}}          | {{&SELF}} |
-|   60020 | `tag`               | Set digest Expressions, see  {{sec-set-expressions}}          | {{&SELF}} |
-|   60021 | `tag`               | Set tstr Expressions, see  {{sec-set-expressions}}            | {{&SELF}} |
+|     Tag | Data Item   | Semantics                                                     | Reference |
+|     --- | ---------   | ---------                                                     | --------- |
+|   60010 | `tag`       | Array containing a numeric expression, see {{sec-numeric-expressions}}    | {{&SELF}} |
+|   60020 | `tag`       | Array containing a set of digest expression, see  {{sec-set-expressions}} | {{&SELF}} |
+|   60021 | `tag`       | Array containing a set of tstr expression, see  {{sec-set-expressions}}   | {{&SELF}} |
 
 {: #tbl-iana-intel-profile-reg-items title="Intel Profile Tag Registration Code Points"}
 
