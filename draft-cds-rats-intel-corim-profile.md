@@ -493,49 +493,6 @@ The Evidence object MUST NOT be nil.
 
 The Reference Values set may be the empty set.
 
-The second form, a relation between two sets, has three operators:
-
-* **subset**,
-* **superset**,
-* **disjoint**.
-
-The fist set, S1 is Evidence and set, S2 is the Reference Values set.
-
-The `subset`, `superset`, and `disjoint` operators test whether an Evidence set value
-satisfies a set operation, given a Reverence Value set.
-
-Examples:
-
-* <`evidence_set`> <`subset`> <`reference_set`>
-
-* <`evidence_set`> <`superset`> <`reference_set`>
-
-* <`evidence_set`> <`disjoint`> <`reference_set`>
-
-The Reference Values and Evidence sets may be the empty set.
-
-The set of sets data type definitions are as follows:
-
-~~~ cddl
-{::include cddl/set-of-set-type.cddl}
-~~~
-
-For `subset`, every member in the Evidence set 'S1', MUST map to a member in the Reference Values set 'S2'.
-The Evidence set, 'S1', MAY be a proper subset of 'S2'. For example, if every member in set 'S1' maps to every member
-in set 'S2' then matching is successful. A successful result produces the set 'S1'.
-
-For `superset`, every member in the Reference Values set 'S2', MUST map to a member in the Evidence set 'S1'.
-A successful result produces the set 'S1'.
-
-For `disjoint`, every member in the Evidence set 'S1' MUST NOT map to any member in the Reference Values
-set 'S2'. A successful result produces the empty set.
-
-The set of sets expression definitions are as follows:
-
-~~~ cddl
-{::include cddl/set-of-set-expr.cddl}
-~~~
-
 ##  Measurement Extensions {#sec-measurement-extensions}
 
 This profile extends the CoMID `measurement-values-map` with additional code point definitions,
