@@ -460,7 +460,7 @@ The set type is as follows:
 {::include cddl/set-type.cddl}
 ~~~
 
-The set expression array contins a set operator followed by an array of values which are the members of a set of Reference Values.
+The set expression array contains a set operator followed by an array of values which are the members of a set of Reference Values.
 The set is defined by `set-type`.
 
 The set expression definitions are as follows:
