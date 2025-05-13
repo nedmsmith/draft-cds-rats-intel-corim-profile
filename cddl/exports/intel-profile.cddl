@@ -181,6 +181,7 @@ $$measurement-values-map-extension //= (
   &(tee.pceid: -80) => $tee-pceid-type
 )
 $tee-pceid-type /= tstr
+$tee-pceid-type /= uint
 
 $$measurement-values-map-extension //= (
   &(tee.isvsvn: -73) => $tee-svn-type

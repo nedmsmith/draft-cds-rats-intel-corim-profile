@@ -673,7 +673,7 @@ Alternatively, the TEE model may be encoded using `mkey` where `mkey` contains t
 
 The `tee.pceid` extension enables the Attester to report the PCEID as Evidence and the RVP to assert an exact-match Reference Value.
 
-The `$tee-pceid-type` is a string.
+The `$tee-pceid-type` is a string or a uint. As string, PCEID is a four character decimal value such as "0000".
 
 The `$tee-pceid-type` is an exact match measurement.
 
@@ -681,7 +681,8 @@ The `$tee-pceid-type` is an exact match measurement.
 {::include cddl/tee-pceid-type.cddl}
 ~~~
 
-Alternatively, the PCEID may be encoded using `mkey` where `mkey` contains the non-negative `tee.pceid` and `mval`.`name` contains the `$tee-pceid-type` value.
+Alternatively, the PCEID may be encoded using `mkey` where `mkey` contains the non-negative `tee.pceid` and `mval`.`name` (code point 11) contains the string representation.
+Or, `mval`.`raw-int` (code point 15) contains the integer representation.
 
 ### The tee.isvsvn Measurement Extension {#sec-tee-svn-type}
 
