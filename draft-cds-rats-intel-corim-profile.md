@@ -390,7 +390,7 @@ Expressions are CBOR tagged to disambiguate the type of expression. See {{sec-ia
 
 For example:
 
-* `60010_TBA([ operator, operand_2, operand_3, ... ])`.
+* `#6.CBOR_Tag([ operator, operand_2, operand_3, ... ])`.
 
 Appraisal processing MUST evaluate expression equations to comply with this profile.
 
@@ -398,9 +398,9 @@ Appraisal processing MUST evaluate expression equations to comply with this prof
 
 There are three CBOR tagged operators as follows:
 
-1. **60010-TBA**: A `numeric` expression with a numeric operator ({{sec-numeric-expressions}}) followed by a numeric operand: integer, unsigned integer, or floading point.
-1. **60020-TBA**: A set of digests operator ({{sec-set-expressions}}) followed by a set of digests operand which is an array of `digests`.
-1. **60021-TBA**: A set of strings operator ({{sec-set-expressions}}) followed by a set of strings operand which is an array of `tstr`.
+1. **60010**: A `numeric` expression with a numeric operator ({{sec-numeric-expressions}}) followed by a numeric operand: integer, unsigned integer, or floading point.
+1. **60020**: A set of digests operator ({{sec-set-expressions}}) followed by a set of digests operand which is an array of `digests`.
+1. **60021**: A set of strings operator ({{sec-set-expressions}}) followed by a set of strings operand which is an array of `tstr`.
 
 The position of items in a set is not significant.
 
@@ -762,7 +762,7 @@ A Reference Value forms the operator and remaining operands:
 
 * \[expression operator, reference value operand, etc...\]
 
-For example, if a numeric Reference Value is 14, and the expressions operator is `gt` the Reference Value might contain the Claim: `#6.60010-TBA([ 1, 14])`.
+For example, if a numeric Reference Value is 14, and the expressions operator is `gt` the Reference Value might contain the Claim: `#6.60010([ 1, 14])`.
 Given Evidence contains the value: 15.
 The in-fix construction of the equation would be: `15 gt 14`.
 The Verifier evaluates whether `15` is greater-than `14`.
@@ -833,13 +833,13 @@ The security of this profile depends on the security considerations of the vario
 
 # IANA Considerations {#sec-iana-considerations}
 
-IANA is requested to allocate the following tags in the CBOR Tags registry {{!IANA.cbor-tags}}, preferably with the CBOR tag value requested.
+IANA has allocated the following tags in the CBOR Tags registry {{!IANA.cbor-tags}}.
 
-|    Tag    | Data Item   | Semantics                                                     | Reference |
-| -------   | ---------   | ---------                                                     | --------- |
-| 60010-TBA | `tag`       | Array containing a numeric expression, see {{sec-numeric-expressions}}    | {{&SELF}} |
-| 60020-TBA | `tag`       | Array containing a set of digest expression, see  {{sec-set-expressions}} | {{&SELF}} |
-| 60021-TBA | `tag`       | Array containing a set of tstr expression, see  {{sec-set-expressions}}   | {{&SELF}} |
+|    Tag #  | Data Item   | Semantics                                               | Reference |
+| -------   | ---------   | ---------                                               | --------- |
+| 60010 | array | Contains a numeric expression, see {{sec-numeric-expressions}}    | {{&SELF}} |
+| 60020 | array | Contains a set of digest expression, see  {{sec-set-expressions}} | {{&SELF}} |
+| 60021 | array | Contains a set of tstr expression, see  {{sec-set-expressions}}   | {{&SELF}} |
 
 
 {: #tbl-iana-intel-profile-reg-items title="Intel Profile Tag Registration Code Points"}
