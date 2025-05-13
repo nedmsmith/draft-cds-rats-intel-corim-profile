@@ -1062,7 +1062,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Beaney, et al.</td>
-<td class="center">Expires 8 November 2025</td>
+<td class="center">Expires 14 November 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1075,12 +1075,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-cds-rats-intel-corim-profile-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-07" class="published">7 May 2025</time>
+<time datetime="2025-05-13" class="published">13 May 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-11-08">8 November 2025</time></dd>
+<dd class="expires"><time datetime="2025-11-14">14 November 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1154,7 +1154,7 @@ Parser implementations can recognize the Intel profile by profile identifier val
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1670,49 +1670,45 @@ $masked-value-type /= $raw-value-type-choice
         <h3 id="name-expressions">
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-expressions" class="section-name selfRef">Expressions</a>
         </h3>
-<p id="section-8.2-1">Expressions are used to specify richer Reference Values measurements that expect non-exact matching semantics.
-The Reference Value expression instructs the Verifier regarding matching parameters,
-such as greater-than or less-than, ranges, sets, etc. Typically, the Evidence value is one operand of an expression
-and the Reference Value contains the operator and additional operands.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
-<p id="section-8.2-2">The operator and remaining operands are contained in an array.
-Expression arrays have an operator followed by zero or more operands.
+<p id="section-8.2-1">Expressions can be used with Reference Values or Endorsement conditions.
+Matching is applied using an operator and operands.
+There are two types of operators, numeric: such as greater-than or less-than,
+and sets: such as set membership.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-2">Expressions are an array containing an operator followed by zero or more operands.
 The operator definition identifies the additional operands and their data types.
-A Verifier forms an expression using Evidence as the first operand, obtains the operator from the first entry in
-the expression array, and any remaining array entries are operands.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
-<p id="section-8.2-3">This document describes operations using <em>infix</em> notation where the first operand, <em>operand_1</em>, is obtained from Evidence,
-followed by the operator, followed by any remaining operands: <em>operand_2</em>, <em>operand_3</em>, etc...<a href="#section-8.2-3" class="pilcrow">¶</a></p>
-<p id="section-8.2-4">For example:<a href="#section-8.2-4" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-8.2-5.1">
-            <p id="section-8.2-5.1.1">From Evidence: <code>operand_1</code>, from Reference Values: <code>[ operator, operand_2, operand_3, ... ]</code>.<a href="#section-8.2-5.1.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="section-8.2-6">Expression records are CBOR tagged to indicate the following CBOR is to be evaluated as an expression.
+A Verifier forms an expression using Evidence as the first operand and obtains the operator from the first entry in
+the expression array.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.2-3">This profile describes operations using <em>infix</em> notation where the first operand, <em>operand_1</em>, is obtained from Evidence,
+followed by the operator, followed by any remaining operands: <em>operand_2</em>, <em>operand_3</em>..., taken from Reference Values.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
+<p id="section-8.2-4">Expressions statements are CBOR tagged to indicate the values following the CBOR tag are to be evaluated as an expression equation.
 Expression statements found in Reference Values informs the Verifier that Evidence is needed to complete
-the expression equation. Appraisal processing <span class="bcp14">MUST</span> evaluate the expression.<a href="#section-8.2-6" class="pilcrow">¶</a></p>
-<p id="section-8.2-7">This profile anticipates use of the CBOR tag <code>#6.600XX</code> to identify expression arrays. See <a href="#sec-iana-considerations" class="auto internal xref">Section 12</a>.<a href="#section-8.2-7" class="pilcrow">¶</a></p>
-<p id="section-8.2-8">For example:<a href="#section-8.2-8" class="pilcrow">¶</a></p>
+the expression equation.<a href="#section-8.2-4" class="pilcrow">¶</a></p>
+<p id="section-8.2-5">Expressions are CBOR tagged to disambiguate the type of expression. See <a href="#sec-iana-considerations" class="auto internal xref">Section 12</a>.<a href="#section-8.2-5" class="pilcrow">¶</a></p>
+<p id="section-8.2-6">For example:<a href="#section-8.2-6" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-8.2-9.1">
-            <p id="section-8.2-9.1.1"><code>#6.600XX([ operator, operand_2, operand_3, ... ])</code>.<a href="#section-8.2-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.2-7.1">
+            <p id="section-8.2-7.1.1"><code>60010_TBA([ operator, operand_2, operand_3, ... ])</code>.<a href="#section-8.2-7.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
+<p id="section-8.2-8">Appraisal processing <span class="bcp14">MUST</span> evaluate expression equations to comply with this profile.<a href="#section-8.2-8" class="pilcrow">¶</a></p>
 <div id="sec-expression-operators">
 <section id="section-8.2.1">
           <h4 id="name-expression-operators">
 <a href="#section-8.2.1" class="section-number selfRef">8.2.1. </a><a href="#name-expression-operators" class="section-name selfRef">Expression Operators</a>
           </h4>
-<p id="section-8.2.1-1">There are two classes of operators as follows:<a href="#section-8.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.1-1">There are three CBOR tagged operators as follows:<a href="#section-8.2.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-8.2.1-2">
 <li id="section-8.2.1-2.1">
-              <p id="section-8.2.1-2.1.1"><strong>Numeric</strong>: The <code>numeric</code> operand can be an integer, unsigned integer, or floading point value.<a href="#section-8.2.1-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-8.2.1-2.1.1"><strong>60010-TBA</strong>: A <code>numeric</code> expression with a numeric operator (<a href="#sec-numeric-expressions" class="auto internal xref">Section 8.2.2</a>) followed by a numeric operand: integer, unsigned integer, or floading point.<a href="#section-8.2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-8.2.1-2.2">
-              <p id="section-8.2.1-2.2.1"><strong>Set</strong>: The <code>set</code> operand can be an set (array) of any primitive value or a set of arrays containing any primitive value.
-The position of the items in a set is unordered, while the position of items in an array within a set
-is ordered.<a href="#section-8.2.1-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-8.2.1-2.2.1"><strong>60020-TBA</strong>: A set of digests operator (<a href="#sec-set-expressions" class="auto internal xref">Section 8.2.3</a>) followed by a set of digests operand which is an array of <code>digests</code>.<a href="#section-8.2.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-8.2.1-2.3">
+              <p id="section-8.2.1-2.3.1"><strong>60021-TBA</strong>: A set of strings operator (<a href="#sec-set-expressions" class="auto internal xref">Section 8.2.3</a>) followed by a set of strings operand which is an array of <code>tstr</code>.<a href="#section-8.2.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
+<p id="section-8.2.1-3">The position of items in a set is not significant.<a href="#section-8.2.1-3" class="pilcrow">¶</a></p>
 <div id="sec-equivalance-operator">
 <section id="section-8.2.1.1">
             <h5 id="name-equivalence-operator">
@@ -1729,25 +1725,29 @@ Evidence values are identical to Reference Values.<a href="#section-8.2.1.1-1" c
           <h4 id="name-numeric-expressions">
 <a href="#section-8.2.2" class="section-number selfRef">8.2.2. </a><a href="#name-numeric-expressions" class="section-name selfRef">Numeric Expressions</a>
           </h4>
-<p id="section-8.2.2-1">Numeric operators apply to values that are integers, unsigned integers or floating point numbers.
-There are four numeric operators:<a href="#section-8.2.2-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-8.2.2-2">
-<li id="section-8.2.2-2.1">
-              <p id="section-8.2.2-2.1.1"><strong>greater-than</strong> (gt),<a href="#section-8.2.2-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-1">Numeric expressions consist of an Evidence operand (Evidence_Operand) and an array containing a numeric operator and a numeric operand (Reference_Operand).<a href="#section-8.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-2">Numeric operators apply to values that are integers, unsigned integers or floating point numbers.
+There are four numeric operators:<a href="#section-8.2.2-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-8.2.2-3">
+<li id="section-8.2.2-3.1">
+              <p id="section-8.2.2-3.1.1"><strong>equal</strong> (<code>op.eq</code>),<a href="#section-8.2.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-8.2.2-2.2">
-              <p id="section-8.2.2-2.2.1"><strong>greater-than-or-equal</strong> (ge),<a href="#section-8.2.2-2.2.1" class="pilcrow">¶</a></p>
+            <li id="section-8.2.2-3.2">
+              <p id="section-8.2.2-3.2.1"><strong>greater-than</strong> (<code>op.gt</code>),<a href="#section-8.2.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-8.2.2-2.3">
-              <p id="section-8.2.2-2.3.1"><strong>less-than</strong> (lt),<a href="#section-8.2.2-2.3.1" class="pilcrow">¶</a></p>
+            <li id="section-8.2.2-3.3">
+              <p id="section-8.2.2-3.3.1"><strong>greater-than-or-equal</strong> (<code>op.ge</code>),<a href="#section-8.2.2-3.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-8.2.2-2.4">
-              <p id="section-8.2.2-2.4.1"><strong>less-than-or-equal</strong> (le).<a href="#section-8.2.2-2.4.1" class="pilcrow">¶</a></p>
+            <li id="section-8.2.2-3.4">
+              <p id="section-8.2.2-3.4.1"><strong>less-than</strong> (<code>op.lt</code>),<a href="#section-8.2.2-3.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-8.2.2-3.5">
+              <p id="section-8.2.2-3.5.1"><strong>less-than-or-equal</strong> (<code>op.le</code>).<a href="#section-8.2.2-3.5.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-8.2.2-3">The equals operator is not defined because an exact match rule is the default rule when an Evidence value is identical to a Reference Value.<a href="#section-8.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-8.2.2-4">The numeric operator data type definitions are as follows:<a href="#section-8.2.2-4" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.2.2-5">
+<p id="section-8.2.2-4">Equivalence semantics can be achieved without using an expression with the <code>op.eq</code> operator by using the same data type for both Evidence and Reference Value.<a href="#section-8.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-5">The numeric operator data type definitions are as follows:<a href="#section-8.2.2-5" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.2-6">
 <pre>
 numeric-type = integer / unsigned / float
 numeric-operators /= op.gt
@@ -1756,13 +1756,11 @@ numeric-operators /= op.lt
 numeric-operators /= op.le
 numeric-expression = [ numeric-operators, numeric-type ]
 tagged-numeric-expression = #6.60010(numeric-expression)
-</pre><a href="#section-8.2.2-5" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.2-6" class="pilcrow">¶</a>
 </div>
-<p id="section-8.2.2-6">A numeric expression is an array containing a numeric operator and a numeric operand.
-The operand contains a numeric Reference Value that is matched with a numeric Evidence value.<a href="#section-8.2.2-6" class="pilcrow">¶</a></p>
 <p id="section-8.2.2-7">Evidence and Reference Values <span class="bcp14">MUST</span> be the same numeric type. For example, if a Reference Value numeric type is
 <code>integer</code>, then the Evidence numeric value must also be <code>integer</code>.<a href="#section-8.2.2-7" class="pilcrow">¶</a></p>
-<p id="section-8.2.2-8">This profile defines four macro numeric expressions, one for each numeric operator:<a href="#section-8.2.2-8" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-8">This profile defines four numeric expressions, one for each numeric operator:<a href="#section-8.2.2-8" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.2.2-9.1">
               <p id="section-8.2.2-9.1.1"><code>tagged-numeric-gt</code>,<a href="#section-8.2.2-9.1.1" class="pilcrow">¶</a></p>
@@ -1777,17 +1775,15 @@ The operand contains a numeric Reference Value that is matched with a numeric Ev
               <p id="section-8.2.2-9.4.1"><code>tagged-numeric-le</code>.<a href="#section-8.2.2-9.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-8.2.2-10">In each case, the numeric operator is used to evaluate a Reference Value operand against an Evidence value operand
-that is obtained from Evidence.<a href="#section-8.2.2-10" class="pilcrow">¶</a></p>
-<p id="section-8.2.2-11">If the expression is read using <em>infix</em> notation, the first operand is Evidence, followed by the operator,
-followed by the Reference Value operand.<a href="#section-8.2.2-11" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-10">In each case, the numeric operator is used to evaluate a Reference Value operand against an Evidence value operand.<a href="#section-8.2.2-10" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-11">The expression is evaluated using <em>infix</em> notation where Evidence_Operand is the left-hand-side of the numeric operator and the Reference_Operand is the right-hand-side.<a href="#section-8.2.2-11" class="pilcrow">¶</a></p>
 <p id="section-8.2.2-12">Example:<a href="#section-8.2.2-12" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.2.2-13.1">
-              <p id="section-8.2.2-13.1.1">&lt;<code>evidence_numeric</code>&gt; &lt;<code>le</code>&gt; &lt;<code>reference_numeric</code>&gt;<a href="#section-8.2.2-13.1.1" class="pilcrow">¶</a></p>
+              <p id="section-8.2.2-13.1.1">The expression: <code>( 7 </code>op.le<code> 9 )</code> evaluates to TRUE.<a href="#section-8.2.2-13.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-8.2.2-14">The numeric expression definitions are as follows:<a href="#section-8.2.2-14" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-14">The numeric type definition is as follows:<a href="#section-8.2.2-14" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.2.2-15">
 <pre>
 tagged-numeric-gt = #6.60010( [
@@ -1811,40 +1807,25 @@ tagged-numeric-le = #6.60010( [
           <h4 id="name-set-expressions">
 <a href="#section-8.2.3" class="section-number selfRef">8.2.3. </a><a href="#name-set-expressions" class="section-name selfRef">Set Expressions</a>
           </h4>
-<p id="section-8.2.3-1">Set operators allow Reference Values, that are expressed as a set, to be compared with Evidence that
-is expressed as either a primitive value or a set.<a href="#section-8.2.3-1" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-2">Set expression statements have two forms:<a href="#section-8.2.3-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-8.2.3-3">
-<li id="section-8.2.3-3.1">
-              <p id="section-8.2.3-3.1.1">A binary relation between a primitive object 'O' and a set 'S', and<a href="#section-8.2.3-3.1.1" class="pilcrow">¶</a></p>
+<p id="section-8.2.3-1">Set expressions consist of an Evidence operand (Evidence_Operand) and an array containing a set operator and a set operand (Reference_Set_Operand).<a href="#section-8.2.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.3-2">Sets have two operators:<a href="#section-8.2.3-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8.2.3-3.1">
+              <p id="section-8.2.3-3.1.1"><strong>op.mem</strong> - operand_1 is a member of the set operand_2.<a href="#section-8.2.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-8.2.3-3.2">
-              <p id="section-8.2.3-3.2.1">A binary relation between two sets, an Evidence set 'S1' and a Reference Values set 'S2'.<a href="#section-8.2.3-3.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.2.3-3.2">
+              <p id="section-8.2.3-3.2.1"><strong>op.nmem</strong> - operand_1 is NOT a member of the set operand_2.<a href="#section-8.2.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          </ol>
-<p id="section-8.2.3-4">The first form, relation between an object and a set, has two operators:<a href="#section-8.2.3-4" class="pilcrow">¶</a></p>
+          </ul>
+<p id="section-8.2.3-4">Example:<a href="#section-8.2.3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.2.3-5.1">
-              <p id="section-8.2.3-5.1.1"><strong>member</strong> and<a href="#section-8.2.3-5.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-8.2.3-5.2">
-              <p id="section-8.2.3-5.2.1"><strong>not-member</strong>.<a href="#section-8.2.3-5.2.1" class="pilcrow">¶</a></p>
+              <p id="section-8.2.3-5.1.1">The expression: <code>("fox" </code>op.mem<code> [ "cat", "dog", "fox" ])</code> evaluates to TRUE.<a href="#section-8.2.3-5.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-8.2.3-6">The Evidence object 'O' is evaluated with the Reference Values set 'S'.<a href="#section-8.2.3-6" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-7">The <code>op.member</code> and <code>op.not-member</code> operators expect a Reverence Value set as <em>operand_2</em> and a primitive Evidence
-value as <em>operand_1</em>. Evaluation tests whether <em>operand_1</em> is a member of the set <em>operand_2</em>.<a href="#section-8.2.3-7" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-8">Example:<a href="#section-8.2.3-8" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-8.2.3-9.1">
-              <p id="section-8.2.3-9.1.1">&lt;<code>evidence-value</code>&gt; &lt;<code>set-operator</code>&gt; &lt;<code>reference-set</code>&gt;<a href="#section-8.2.3-9.1.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-<p id="section-8.2.3-10">The set data type definitions are defined as follows:<a href="#section-8.2.3-10" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.2.3-11">
+<p id="section-8.2.3-6">The set type is as follows:<a href="#section-8.2.3-6" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.3-7">
 <pre>
-member = 6
-not-member = 7
 set-operators /= op.mem
 set-operators /= op.nmem
 
@@ -1855,12 +1836,12 @@ tagged-set-digest-expression = #6.60020( set-digest-expression )
 set-tstr-type /= [ * tstr ]
 set-tstr-expression = [ set-operators, set-tstr-type ]
 tagged-set-tstr-expression = #6.60021( set-tstr-expression )
-</pre><a href="#section-8.2.3-11" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.3-7" class="pilcrow">¶</a>
 </div>
-<p id="section-8.2.3-12">A set expression array contins a set operator followed by a set of Reference Values.
-The set is defined by <code>set-type</code>.<a href="#section-8.2.3-12" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-13">The set expression type definitions are as follows:<a href="#section-8.2.3-13" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.2.3-14">
+<p id="section-8.2.3-8">The set expression array contains a set operator followed by an array of values which are the members of a set of Reference Values.
+The set is defined by <code>set-type</code>.<a href="#section-8.2.3-8" class="pilcrow">¶</a></p>
+<p id="section-8.2.3-9">The set expression definitions are as follows:<a href="#section-8.2.3-9" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-8.2.3-10">
 <pre>
 tagged-exp-digest-member = #6.60020([
     op.mem .within set-operators, set-digest-type ])
@@ -1873,80 +1854,10 @@ tagged-exp-tstr-member = #6.60021([
 
 tagged-exp-tstr-not-member = #6.60021([
     op.nmem .within set-operators, set-tstr-type ])
-</pre><a href="#section-8.2.3-14" class="pilcrow">¶</a>
+</pre><a href="#section-8.2.3-10" class="pilcrow">¶</a>
 </div>
-<p id="section-8.2.3-15">Examples:<a href="#section-8.2.3-15" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-8.2.3-16.1">
-              <p id="section-8.2.3-16.1.1">&lt;<code>evidence_object</code>&gt; &lt;<code>member</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-8.2.3-16.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-8.2.3-16.2">
-              <p id="section-8.2.3-16.2.1">&lt;<code>evidence_object</code>&gt; &lt;<code>not-member</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-8.2.3-16.2.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-<p id="section-8.2.3-17">The Evidence object <span class="bcp14">MUST NOT</span> be nil.<a href="#section-8.2.3-17" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-18">The Reference Values set may be the empty set.<a href="#section-8.2.3-18" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-19">The second form, a relation between two sets, has three operators:<a href="#section-8.2.3-19" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-8.2.3-20.1">
-              <p id="section-8.2.3-20.1.1"><strong>subset</strong>,<a href="#section-8.2.3-20.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-8.2.3-20.2">
-              <p id="section-8.2.3-20.2.1"><strong>superset</strong>,<a href="#section-8.2.3-20.2.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-8.2.3-20.3">
-              <p id="section-8.2.3-20.3.1"><strong>disjoint</strong>.<a href="#section-8.2.3-20.3.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-<p id="section-8.2.3-21">The fist set, S1 is Evidence and set, S2 is the Reference Values set.<a href="#section-8.2.3-21" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-22">The <code>subset</code>, <code>superset</code>, and <code>disjoint</code> operators test whether an Evidence set value
-satisfies a set operation, given a Reverence Value set.<a href="#section-8.2.3-22" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-23">Examples:<a href="#section-8.2.3-23" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-8.2.3-24.1">
-              <p id="section-8.2.3-24.1.1">&lt;<code>evidence_set</code>&gt; &lt;<code>subset</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-8.2.3-24.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-8.2.3-24.2">
-              <p id="section-8.2.3-24.2.1">&lt;<code>evidence_set</code>&gt; &lt;<code>superset</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-8.2.3-24.2.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-8.2.3-24.3">
-              <p id="section-8.2.3-24.3.1">&lt;<code>evidence_set</code>&gt; &lt;<code>disjoint</code>&gt; &lt;<code>reference_set</code>&gt;<a href="#section-8.2.3-24.3.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-<p id="section-8.2.3-25">The Reference Values and Evidence sets may be the empty set.<a href="#section-8.2.3-25" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-26">The set of sets data type definitions are as follows:<a href="#section-8.2.3-26" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.2.3-27">
-<pre>
-; The CDDL here needs to be fixed, Ned to work on this
-subset = 8
-superset = 9
-disjoint = 10
-set-of-set-type = [ * [ + any ]]
-set-of-set-operator = subset / superset / disjoint
-set-of-set-expression = [ set-of-set-operator, set-of-set-type ]
-tagged-set-of-set-expression = #6.60020(set-of-set-expression)
-</pre><a href="#section-8.2.3-27" class="pilcrow">¶</a>
-</div>
-<p id="section-8.2.3-28">For <code>subset</code>, every member in the Evidence set 'S1', <span class="bcp14">MUST</span> map to a member in the Reference Values set 'S2'.
-The Evidence set, 'S1', <span class="bcp14">MAY</span> be a proper subset of 'S2'. For example, if every member in set 'S1' maps to every member
-in set 'S2' then matching is successful. A successful result produces the set 'S1'.<a href="#section-8.2.3-28" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-29">For <code>superset</code>, every member in the Reference Values set 'S2', <span class="bcp14">MUST</span> map to a member in the Evidence set 'S1'.
-A successful result produces the set 'S1'.<a href="#section-8.2.3-29" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-30">For <code>disjoint</code>, every member in the Evidence set 'S1' <span class="bcp14">MUST NOT</span> map to any member in the Reference Values
-set 'S2'. A successful result produces the empty set.<a href="#section-8.2.3-30" class="pilcrow">¶</a></p>
-<p id="section-8.2.3-31">The set of sets expression definitions are as follows:<a href="#section-8.2.3-31" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-8.2.3-32">
-<pre>
-tagged-exp-subset = #6.60010([
-    subset .within set-of-set-operator, set-of-set-type ])
-
-tagged-exp-superset = #6.60010([
-    superset .within set-of-set-operator, set-of-set-type ])
-
-tagged-exp-disjoint = #6.60010([
-    disjoint .within set-of-set-operator, set-of-set-type ])
-</pre><a href="#section-8.2.3-32" class="pilcrow">¶</a>
-</div>
+<p id="section-8.2.3-11">The Evidence_Operand <span class="bcp14">MUST NOT</span> be nil.<a href="#section-8.2.3-11" class="pilcrow">¶</a></p>
+<p id="section-8.2.3-12">The Reference_Set_Operand <span class="bcp14">MAY</span> be the empty set - e.g. <code>[ ]</code>.<a href="#section-8.2.3-12" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2376,7 +2287,7 @@ A Reference Value forms the operator and remaining operands:<a href="#section-9-
           <p id="section-9-2.1.1">[expression operator, reference value operand, etc...]<a href="#section-9-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-9-3">For example, if a numeric Reference Value is 14, and the expressions operator is <code>gt</code> the Reference Value might contain the Claim: <code>#6.60010([ 1, 14])</code>.
+<p id="section-9-3">For example, if a numeric Reference Value is 14, and the expressions operator is <code>gt</code> the Reference Value might contain the Claim: <code>#6.60010-TBA([ 1, 14])</code>.
 Given Evidence contains the value: 15.
 The in-fix construction of the equation would be: <code>15 gt 14</code>.
 The Verifier evaluates whether <code>15</code> is greater-than <code>14</code>.<a href="#section-9-3" class="pilcrow">¶</a></p>
@@ -2496,7 +2407,7 @@ that the Relying Party and Verifier both support the extensions defined in this 
         </thead>
         <tbody>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">60010</td>
+            <td class="text-left" rowspan="1" colspan="1">60010-TBA</td>
             <td class="text-left" rowspan="1" colspan="1">
               <code>tag</code>
 </td>
@@ -2505,7 +2416,7 @@ that the Relying Party and Verifier both support the extensions defined in this 
             <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">60020</td>
+            <td class="text-left" rowspan="1" colspan="1">60020-TBA</td>
             <td class="text-left" rowspan="1" colspan="1">
               <code>tag</code>
 </td>
@@ -2514,7 +2425,7 @@ that the Relying Party and Verifier both support the extensions defined in this 
             <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">60021</td>
+            <td class="text-left" rowspan="1" colspan="1">60021-TBA</td>
             <td class="text-left" rowspan="1" colspan="1">
               <code>tag</code>
 </td>
@@ -2735,8 +2646,6 @@ etime = #6.1001({* (int/tstr) =&gt; any})
 duration = #6.1002({* (int/tstr) =&gt; any})
 period = #6.1003([~etime/null, ~etime/null, ?~duration])
 
-member = 6
-not-member = 7
 set-operators /= op.mem
 set-operators /= op.nmem
 
@@ -2759,23 +2668,6 @@ tagged-exp-tstr-member = #6.60021([
 
 tagged-exp-tstr-not-member = #6.60021([
     op.nmem .within set-operators, set-tstr-type ])
-
-subset = 8
-superset = 9
-disjoint = 10
-set-of-set-type = [ * [ + any ]]
-set-of-set-operator = subset / superset / disjoint
-set-of-set-expression = [ set-of-set-operator, set-of-set-type ]
-tagged-set-of-set-expression = #6.60020(set-of-set-expression)
-
-tagged-exp-subset = #6.60010([
-    subset .within set-of-set-operator, set-of-set-type ])
-
-tagged-exp-superset = #6.60010([
-    superset .within set-of-set-operator, set-of-set-type ])
-
-tagged-exp-disjoint = #6.60010([
-    disjoint .within set-of-set-operator, set-of-set-type ])
 
 $masked-value-type /= ~tagged-bytes
 $masked-value-type /= $raw-value-type-choice
@@ -2847,9 +2739,6 @@ op.lt=3
 op.le=4
 op.mem=6
 op.nmem=7
-op.sub=8
-op.sup=9
-op.dif=10
 
 $$measurement-values-map-extension //= (
   &amp;(tee.pceid: -80) =&gt; $tee-pceid-type
