@@ -2184,7 +2184,7 @@ $tee-model-type /= tstr
 <a href="#section-8.3.11" class="section-number selfRef">8.3.11. </a><a href="#name-the-teepceid-measurement-ex" class="section-name selfRef">The tee.pceid Measurement Extension</a>
           </h4>
 <p id="section-8.3.11-1">The <code>tee.pceid</code> extension enables the Attester to report the PCEID as Evidence and the RVP to assert an exact-match Reference Value.<a href="#section-8.3.11-1" class="pilcrow">¶</a></p>
-<p id="section-8.3.11-2">The <code>$tee-pceid-type</code> is a string.<a href="#section-8.3.11-2" class="pilcrow">¶</a></p>
+<p id="section-8.3.11-2">The <code>$tee-pceid-type</code> is a string or a uint. As string, PCEID is a four character decimal value such as "0000".<a href="#section-8.3.11-2" class="pilcrow">¶</a></p>
 <p id="section-8.3.11-3">The <code>$tee-pceid-type</code> is an exact match measurement.<a href="#section-8.3.11-3" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-8.3.11-4">
 <pre>
@@ -2192,9 +2192,11 @@ $$measurement-values-map-extension //= (
   &amp;(tee.pceid: -80) =&gt; $tee-pceid-type
 )
 $tee-pceid-type /= tstr
+$tee-pceid-type /= uint
 </pre><a href="#section-8.3.11-4" class="pilcrow">¶</a>
 </div>
-<p id="section-8.3.11-5">Alternatively, the PCEID may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.pceid</code> and <code>mval</code>.<code>name</code> contains the <code>$tee-pceid-type</code> value.<a href="#section-8.3.11-5" class="pilcrow">¶</a></p>
+<p id="section-8.3.11-5">Alternatively, the PCEID may be encoded using <code>mkey</code> where <code>mkey</code> contains the non-negative <code>tee.pceid</code> and <code>mval</code>.<code>name</code> (code point 11) contains the string representation.
+Or, <code>mval</code>.<code>raw-int</code> (code point 15) contains the integer representation.<a href="#section-8.3.11-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-tee-svn-type">
@@ -2796,6 +2798,7 @@ $$measurement-values-map-extension //= (
   &amp;(tee.pceid: -80) =&gt; $tee-pceid-type
 )
 $tee-pceid-type /= tstr
+$tee-pceid-type /= uint
 
 $$measurement-values-map-extension //= (
   &amp;(tee.isvsvn: -73) =&gt; $tee-svn-type
