@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-11T01:45:19.513488+00:00",
+  "timestamp": "2025-05-13T01:41:30.195175+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -3310,11 +3310,13 @@
       "state": "OPEN",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
-      "assignees": [],
+      "assignees": [
+        "nedmsmith"
+      ],
       "labels": [],
       "body": "Did an editing pass and incorporated profile definitions for content-format and media-types.",
       "createdAt": "2025-05-08T22:05:13Z",
-      "updatedAt": "2025-05-08T22:05:13Z",
+      "updatedAt": "2025-05-12T18:01:02Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
@@ -3327,6 +3329,96 @@
       "mergeCommit": null,
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 65,
+      "id": "PR_kwDOJvkHy86V3EQx",
+      "title": "Udate IANA section to match CBOR Tags request",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/65",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "CBOR Tags registry is requested to assign 60010, 60020, and 60021",
+      "createdAt": "2025-05-12T15:35:55Z",
+      "updatedAt": "2025-05-12T18:00:38Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "iana-section",
+      "headRefOid": "d4832c96883ec48eec5a68b8ac877f14a0a46647",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 66,
+      "id": "PR_kwDOJvkHy86V4NMf",
+      "title": "Remove set of set",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/66",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "This PR removes set-of-set section and cddl. The Expression section is reworded.",
+      "createdAt": "2025-05-12T18:00:04Z",
+      "updatedAt": "2025-05-13T01:08:09Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "remove-set-of-set",
+      "headRefOid": "52a158c7c4ea04671a3069d1848c79acff4a21c0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86o-wBz",
+          "commit": {
+            "abbreviatedOid": "52a158c"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-13T01:06:35Z",
+          "updatedAt": "2025-05-13T01:06:35Z",
+          "comments": [
+            {
+              "originalPosition": 164,
+              "body": "spelling: contains",
+              "createdAt": "2025-05-13T01:06:35Z",
+              "updatedAt": "2025-05-13T01:06:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJvkHy86o-wXC",
+          "commit": {
+            "abbreviatedOid": "52a158c"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks OK, just that 1 minor spelling",
+          "createdAt": "2025-05-13T01:08:09Z",
+          "updatedAt": "2025-05-13T01:08:09Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
