@@ -1,8 +1,0 @@
-; The CDDL here needs to be fixed, Ned to work on this
-subset = 8
-superset = 9
-disjoint = 10
-set-of-set-type = [ * [ + any ]]
-set-of-set-operator = subset / superset / disjoint
-set-of-set-expression = [ set-of-set-operator, set-of-set-type ]
-tagged-set-of-set-expression = #6.60020(set-of-set-expression)
