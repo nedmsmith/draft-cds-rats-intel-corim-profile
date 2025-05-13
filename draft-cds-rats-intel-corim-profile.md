@@ -150,15 +150,16 @@ This profile describes extensions and restrictions placed on Reference Values, E
 that support attestation capabilities of Intel products containing Intel(R) SGX(TM) or Intel(R) TDX(TM) technology, or Intel(R) products that contain
 DICE {{-dice}} root of trust, DICE layers {{-dice-layer}}, or modules that implement SPDM {{-spdm}}.
 
-The CoRIM specifications {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements that form the foundation for the extensions defined in this profile.
-{{-corim}} contains a foundational representation for Attester actual state that Evidence, as specified by {{-dice-attest}}, {{-tcg-ce}}, and {{-spdm}}, Reference Values, and Endorsements can map to that helps ensure compatibility with a broad spectrum of Verifier implementations.
-The Reference Values extensions in this profile describe reference state that can be expressed as set membership or value ranges.
-This profile defines extensions to CoRIM that support appraisal matching that is based on set membership, masked values, and numeric ranges.
+The CoRIM specifications {{-dice-corim}} and {{-corim}} define a baseline schema for Reference Values and Endorsements that are the basis for the extensions defined by this profile.
+CoRIM is also a baseline for Evidence
+(as specified by DiceTcbInfo {{-dice-attest}}, concise evidence (CoEV) {{-tcg-ce}}, and Security Protocol and Data Model (SPDM) {{-spdm}}).
+Having a common baseline schema for Reference Values, Endorsements, and Evidence helps ensure compatibility across a  spectrum of implementations.
+
+This profile defines extensions to CoRIM that support appraisal matching that is not strictly exact-match. For example it defines _sets_, _masks_, _time_, and _ranges_.
 
 The baseline CoRIM, as defined by {{-dice-corim}} is a subset of the Intel profile.
-Intel products that implement exclusively to the baseline CoRIM may not rely upon this profile.
-The Intel profile extensions may be generally useful.
-Implementations based on the Intel profile does not necessarily imply an implementation is an Intel product.
+Intel products that implement exclusively the baseline CoRIM do not need this profile.
+Implementations based on the Intel profile do not necessarily imply an association with Intel products.
 
 This profile extends CoMID `measurement-values-map`, as defined by {{-dice-corim}} (see also {{-corim}}), with measurement types that are unique to Intel products.
 Some measurement types are specific to Reference Values where multiple reference states may be included in reference manifests.
@@ -206,7 +207,7 @@ Additionally, dynamic insertion or removal of a component may result in composit
 
 This profile applies to Reference Values from a CoRIM manifest that a Verifier uses to process Evidence.
 
-Profile identifier structures are defined by CoRIM {{-corim}}, EAT {{-eat}} and Concise Evidence {{-tcg-ce}}.
+Profile identifier structures are defined by CoRIM {{-corim}}, EAT {{-eat}} and Concise Evidence (CoEV) {{-tcg-ce}}.
 
 ## Intel Profile {#sec-intel-profile}
 
@@ -218,7 +219,7 @@ The profile identifier for the Intel Profile is the OID:
 
 ## Media Types, Content Formats, and CBOR Tags
 
-This profile uses the following media types:
+This profile utilizes and/or defines the following media types:
 
 * "application/eat+cwt"
 * "application/eat+cwt;eat_profile=2.16.840.1.113741.1.16.1"
@@ -229,7 +230,7 @@ This profile uses the following media types:
 * "application/ce+cbor"
 * "application/ce+cbor;profile=2.16.840.1.113741.1.16.1"
 
-This profile uses the following content formats:
+This profile utilizes and/or defines the following content format identifiers (C-F ID):
 
 | Content Format                                               | C-F ID | TN Function |
 | ------------------------------------------------------------ | ------ | ----------- |
@@ -271,7 +272,7 @@ Keys are identified using key identifiers, public key, or certificate digests as
 
 Evidence may be integrity protected in various ways including: certificates {{-x509}}, SPDM transcript {{-spdm}}, and CBOR web token (CWT) {{-cwt}}.
 Evidence contained in a certificate may be encoded using `DiceTcbInfo` and `DiceTcbInfoSeq` {{-dice-attest}}.
-Evidence contained in an SPDM payload may be encoded using the SPDM `Measurement Block` {{-spdm}}. Evidence may be formatted as `concise-evidence` {{-tcg-ce}} and included in an alias certificate or an SPDM Measurement Manifest.
+Evidence contained in an SPDM payload may be encoded using the SPDM `Measurement Block` {{-spdm}}. Evidence may be formatted as `concise-evidence` {{-tcg-ce}} which may be encapsulated by alias certificates, SPDM Measurement Manifests, or EAT tokens.
 
 The `DiceTcbInfo` and SPDM Evidence formats can be translated to CoMID.
 The concise evidence format is native to CoMID.
