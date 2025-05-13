@@ -1736,7 +1736,7 @@ the expression equation.<a href="#section-8.2-4" class="pilcrow">¶</a></p>
 <p id="section-8.2-6">For example:<a href="#section-8.2-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.2-7.1">
-            <p id="section-8.2-7.1.1"><code>60010_TBA([ operator, operand_2, operand_3, ... ])</code>.<a href="#section-8.2-7.1.1" class="pilcrow">¶</a></p>
+            <p id="section-8.2-7.1.1"><code>#6.CBOR_Tag([ operator, operand_2, operand_3, ... ])</code>.<a href="#section-8.2-7.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-8.2-8">Appraisal processing <span class="bcp14">MUST</span> evaluate expression equations to comply with this profile.<a href="#section-8.2-8" class="pilcrow">¶</a></p>
@@ -1748,13 +1748,13 @@ the expression equation.<a href="#section-8.2-4" class="pilcrow">¶</a></p>
 <p id="section-8.2.1-1">There are three CBOR tagged operators as follows:<a href="#section-8.2.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-8.2.1-2">
 <li id="section-8.2.1-2.1">
-              <p id="section-8.2.1-2.1.1"><strong>60010-TBA</strong>: A <code>numeric</code> expression with a numeric operator (<a href="#sec-numeric-expressions" class="auto internal xref">Section 8.2.2</a>) followed by a numeric operand: integer, unsigned integer, or floading point.<a href="#section-8.2.1-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-8.2.1-2.1.1"><strong>60010</strong>: A <code>numeric</code> expression with a numeric operator (<a href="#sec-numeric-expressions" class="auto internal xref">Section 8.2.2</a>) followed by a numeric operand: integer, unsigned integer, or floading point.<a href="#section-8.2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-8.2.1-2.2">
-              <p id="section-8.2.1-2.2.1"><strong>60020-TBA</strong>: A set of digests operator (<a href="#sec-set-expressions" class="auto internal xref">Section 8.2.3</a>) followed by a set of digests operand which is an array of <code>digests</code>.<a href="#section-8.2.1-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-8.2.1-2.2.1"><strong>60020</strong>: A set of digests operator (<a href="#sec-set-expressions" class="auto internal xref">Section 8.2.3</a>) followed by a set of digests operand which is an array of <code>digests</code>.<a href="#section-8.2.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-8.2.1-2.3">
-              <p id="section-8.2.1-2.3.1"><strong>60021-TBA</strong>: A set of strings operator (<a href="#sec-set-expressions" class="auto internal xref">Section 8.2.3</a>) followed by a set of strings operand which is an array of <code>tstr</code>.<a href="#section-8.2.1-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-8.2.1-2.3.1"><strong>60021</strong>: A set of strings operator (<a href="#sec-set-expressions" class="auto internal xref">Section 8.2.3</a>) followed by a set of strings operand which is an array of <code>tstr</code>.<a href="#section-8.2.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 <p id="section-8.2.1-3">The position of items in a set is not significant.<a href="#section-8.2.1-3" class="pilcrow">¶</a></p>
@@ -2319,7 +2319,7 @@ A Reference Value forms the operator and remaining operands:<a href="#section-9-
           <p id="section-9-2.1.1">[expression operator, reference value operand, etc...]<a href="#section-9-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-9-3">For example, if a numeric Reference Value is 14, and the expressions operator is <code>gt</code> the Reference Value might contain the Claim: <code>#6.60010-TBA([ 1, 14])</code>.
+<p id="section-9-3">For example, if a numeric Reference Value is 14, and the expressions operator is <code>gt</code> the Reference Value might contain the Claim: <code>#6.60010([ 1, 14])</code>.
 Given Evidence contains the value: 15.
 The in-fix construction of the equation would be: <code>15 gt 14</code>.
 The Verifier evaluates whether <code>15</code> is greater-than <code>14</code>.<a href="#section-9-3" class="pilcrow">¶</a></p>
@@ -2426,12 +2426,12 @@ that the Relying Party and Verifier both support the extensions defined in this 
       <h2 id="name-iana-considerations">
 <a href="#section-12" class="section-number selfRef">12. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-12-1">IANA is requested to allocate the following tags in the CBOR Tags registry <span>[<a href="#IANA.cbor-tags" class="cite xref">IANA.cbor-tags</a>]</span>, preferably with the CBOR tag value requested.<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-12-1">IANA has allocated the following tags in the CBOR Tags registry <span>[<a href="#IANA.cbor-tags" class="cite xref">IANA.cbor-tags</a>]</span>.<a href="#section-12-1" class="pilcrow">¶</a></p>
 <table class="center" id="table-4">
         <caption><a href="#table-4" class="selfRef">Table 4</a></caption>
 <thead>
           <tr>
-            <th class="text-left" rowspan="1" colspan="1">Tag</th>
+            <th class="text-left" rowspan="1" colspan="1">Tag #</th>
             <th class="text-left" rowspan="1" colspan="1">Data Item</th>
             <th class="text-left" rowspan="1" colspan="1">Semantics</th>
             <th class="text-left" rowspan="1" colspan="1">Reference</th>
@@ -2439,29 +2439,23 @@ that the Relying Party and Verifier both support the extensions defined in this 
         </thead>
         <tbody>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">60010-TBA</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <code>tag</code>
-</td>
-            <td class="text-left" rowspan="1" colspan="1">Array containing a numeric expression, see <a href="#sec-numeric-expressions" class="auto internal xref">Section 8.2.2</a>
+            <td class="text-left" rowspan="1" colspan="1">60010</td>
+            <td class="text-left" rowspan="1" colspan="1">array</td>
+            <td class="text-left" rowspan="1" colspan="1">Contains a numeric expression, see <a href="#sec-numeric-expressions" class="auto internal xref">Section 8.2.2</a>
 </td>
             <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">60020-TBA</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <code>tag</code>
-</td>
-            <td class="text-left" rowspan="1" colspan="1">Array containing a set of digest expression, see  <a href="#sec-set-expressions" class="auto internal xref">Section 8.2.3</a>
+            <td class="text-left" rowspan="1" colspan="1">60020</td>
+            <td class="text-left" rowspan="1" colspan="1">array</td>
+            <td class="text-left" rowspan="1" colspan="1">Contains a set of digest expression, see  <a href="#sec-set-expressions" class="auto internal xref">Section 8.2.3</a>
 </td>
             <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">60021-TBA</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <code>tag</code>
-</td>
-            <td class="text-left" rowspan="1" colspan="1">Array containing a set of tstr expression, see  <a href="#sec-set-expressions" class="auto internal xref">Section 8.2.3</a>
+            <td class="text-left" rowspan="1" colspan="1">60021</td>
+            <td class="text-left" rowspan="1" colspan="1">array</td>
+            <td class="text-left" rowspan="1" colspan="1">Contains a set of tstr expression, see  <a href="#sec-set-expressions" class="auto internal xref">Section 8.2.3</a>
 </td>
             <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
           </tr>
