@@ -83,8 +83,6 @@ etime = #6.1001({* (int/tstr) => any})
 duration = #6.1002({* (int/tstr) => any})
 period = #6.1003([~etime/null, ~etime/null, ?~duration])
 
-member = 6
-not-member = 7
 set-operators /= op.mem 
 set-operators /= op.nmem
 
@@ -107,23 +105,6 @@ tagged-exp-tstr-member = #6.60021([
     
 tagged-exp-tstr-not-member = #6.60021([
     op.nmem .within set-operators, set-tstr-type ])
-
-subset = 8
-superset = 9
-disjoint = 10
-set-of-set-type = [ * [ + any ]]
-set-of-set-operator = subset / superset / disjoint
-set-of-set-expression = [ set-of-set-operator, set-of-set-type ]
-tagged-set-of-set-expression = #6.60020(set-of-set-expression)
-
-tagged-exp-subset = #6.60010([
-    subset .within set-of-set-operator, set-of-set-type ])
-
-tagged-exp-superset = #6.60010([
-    superset .within set-of-set-operator, set-of-set-type ])
-    
-tagged-exp-disjoint = #6.60010([
-    disjoint .within set-of-set-operator, set-of-set-type ])
 
 $masked-value-type /= ~tagged-bytes
 $masked-value-type /= $raw-value-type-choice
@@ -189,9 +170,6 @@ op.lt=3
 op.le=4
 op.mem=6
 op.nmem=7
-op.sub=8
-op.sup=9
-op.dif=10
 
 $$measurement-values-map-extension //= (
   &(tee.pceid: -80) => $tee-pceid-type
@@ -203,20 +181,23 @@ $$measurement-values-map-extension //= (
 )
 $tee-svn-type /= svn-type .within numeric-type
 $tee-svn-type /= tagged-numeric-ge
+$tee-svn-type /= tagged-int-range
+$tee-svn-type /= tagged-min-svn
 
 $$measurement-values-map-extension //= (
   &(tee.tcb-comp-svn: -125) => $tee-tcb-comp-svn-type
 )
-$tee-tcb-comp-svn-type /= 
-  [ 16*16 svn-type .within numeric-type ]
-$tee-tcb-comp-svn-type /= 
-  [ 16*16 tagged-numeric-ge ]
+$tee-tcb-comp-svn-type /= [ 16*16 svn-type .within numeric-type ]
+$tee-tcb-comp-svn-type /= [ 16*16 tagged-numeric-ge ]
+$tee-tcb-comp-svn-type /= [ 16*16 tagged-int-range ]
+$tee-tcb-comp-svn-type /= [ 16*16 tagged-min-svn ]
 
 $$measurement-values-map-extension //= (
   &(tee-tcb-eval-num: -86) => $tee-tcb-eval-num-type
 )
 $tee-tcb-eval-num-type /= uint .within numeric-type
 $tee-tcb-eval-num-type /= tagged-numeric-ge
+$tee-tcb-eval-num-type /= tagged-int-range
 
 $$measurement-values-map-extension //= (
   &(tee.tcbstatus: -88) => $tee-tcbstatus-type

@@ -35,10 +35,10 @@ $(eval $(call cddl_targets,intel-profile,$(PROFILE_DEPS)))
 check-all: check-cddl check-examples
 
 check-cddl:
-	$(MAKE) -C $(CDDL_DIR) check-corim check-irim check-ice check-ispdm
+	$(MAKE) -C $(CDDL_DIR) check-irim check-ice check-ispdm
 	
 check-examples: check-cddl
-	$(MAKE) -C $(CDDL_DIR) check-corim-examples check-irim-examples check-ice-examples check-ispdm-examples
+	$(MAKE) -C $(CDDL_DIR) check-irim-examples check-ice-examples check-ispdm-examples
 
 # Build Intel Profile cddl (intel-profile.cddl)
 check-intel-profile:

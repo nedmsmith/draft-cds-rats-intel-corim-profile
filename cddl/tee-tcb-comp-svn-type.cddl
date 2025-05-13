@@ -1,7 +1,7 @@
 $$measurement-values-map-extension //= (
   &(tee.tcb-comp-svn: -125) => $tee-tcb-comp-svn-type
 )
-$tee-tcb-comp-svn-type /= 
-  [ 16*16 svn-type .within numeric-type ]
-$tee-tcb-comp-svn-type /= 
-  [ 16*16 tagged-numeric-ge ]
+$tee-tcb-comp-svn-type /= [ 16*16 svn-type .within numeric-type ]
+$tee-tcb-comp-svn-type /= [ 16*16 tagged-numeric-ge ]
+$tee-tcb-comp-svn-type /= [ 16*16 tagged-int-range ]
+$tee-tcb-comp-svn-type /= [ 16*16 tagged-min-svn ]

@@ -14,7 +14,6 @@
           / measurement-map / {
             / mval / 1 : / measurement-values-map / { 
               / tcbdate / -72 : "2023-06-09T00:00:00Z", / *** ~tdate *** /
-              / isvsvn / -73 : 60010([ / op.ge / 2, 6 ]),
               / mrsigner / -84 : 60020([ / member / 6, 
                 [
                   [ / digest-type / 
@@ -31,19 +30,54 @@
               / advisory-ids /  -89 : 60021([ /member/ 6, [ "INTEL-SA-00078", "INTEL-SA-00079"  ]]),
               / isvprodid / -85 : 1
             }
-          },
-          / measurement-map / {
-            / mkey / 0 : 1,
-            / mval / 1 : / measurement-values-map / {
-              / advisory-ids /  -89 : [ ],
-              / tcbstatus /  -88 : [ ]
+          }, 
+          / *** tcb-eval-num examples ***/
+            / measurement-map / {
+            / mkey / 0 : 86 / tcb-eval-num as exact match /,
+            / mval / 1 : / measurement-values-map / { 
+              / tcb-eval-num / -86 : 11
             }
           },
-           / measurement-map / {
-            / mkey / 0 : 2,
-            / mval / 1 : / measurement-values-map / {
-              / advisory-ids /  -89 : 60021([ /not-member/ 7, [ "NOT-AN-SA" ]]),
-              / tcbstatus /  -89 : 60021([ /not-member/ 7, [ "OutOfDate", "SWHardeningNeeded", "ConfigurationNeeded" ]])
+          / measurement-map / {
+            / mkey / 0 : 86 / tcb-eval-num as tagged-int-range /,
+            / mval / 1 : / measurement-values-map / { 
+              / tcb-eval-num / -86 : 564([/min:/ 11, /max:/ null ]) 
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : 86 / tcb-eval-num as tagged-numeric-ge /,
+            / mval / 1 : / measurement-values-map / { 
+              / tcb-eval-num / -86 : 60010([ / op.ge / 2, 11 ]) 
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : 86, / tcb-eval-num /
+            / mval / 1 : / measurement-values-map / { 
+              / raw-int / 15 : 564([/min:/ 11, /max:/ null ])  
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : 73 / isvsvn as int-range /,
+            / mval / 1 : {
+              / isvsvn / -73 : 564([/min:/ 6, /max:/ null ])
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : 73 / isvsvn as tagged-numeric-ge /,
+            / mval / 1 : {
+              / isvsvn / -73 : 60010([2, 6 ])
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : 73, / isvsvn as min-svn/ 
+            / mval / 1 : {
+              / svn / 1 : 553(6)
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : 73 /isvsvn as svn-type-choice/,
+            / mval / 1 : {
+              / svn / 1 : 6
             }
           }
         ]
@@ -57,11 +91,6 @@
           }
         },
         [
-          / measurement-map / {
-            / mval / 1 : / measurement-values-map / { 
-              / tcb-eval-num / -86 : 11 / *** endorsement *** / 
-            }
-          },
           / measurement-map / {
             / mkey / 0 : "mask examples simple",
             / mval / 1 : / measurement-values-map / { 
@@ -81,6 +110,20 @@
             / mkey / 0 : 81, / mask examples tagged-masked-raw-value /
             / mval / 1 : / measurement-values-map / { 
               / raw-value / 4 : 563([ h'00000000', h'FBFFFFFF' ])
+            }
+          },
+          / measurement-map / {
+            / mkey / 0 : 1,
+            / mval / 1 : / measurement-values-map / {
+              / advisory-ids /  -89 : [ ],
+              / tcbstatus /  -88 : [ ]
+            }
+          },
+           / measurement-map / {
+            / mkey / 0 : 2,
+            / mval / 1 : / measurement-values-map / {
+              / advisory-ids /  -89 : 60021([ /not-member/ 7, [ "NOT-AN-SA" ]]),
+              / tcbstatus /  -89 : 60021([ /not-member/ 7, [ "OutOfDate", "SWHardeningNeeded", "ConfigurationNeeded" ]])
             }
           }
         ]
