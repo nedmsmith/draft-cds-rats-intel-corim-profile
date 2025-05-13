@@ -1,5 +1,3 @@
-member = 6
-not-member = 7
 set-operators /= op.mem 
 set-operators /= op.nmem
 
