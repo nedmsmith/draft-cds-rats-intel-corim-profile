@@ -1205,18 +1205,19 @@ Table of Contents
    registry [IANA.cbor-tags], preferably with the CBOR tag value
    requested.
 
-      +===========+===========+=========================+===========+
-      | Tag       | Data Item | Semantics               | Reference |
-      +===========+===========+=========================+===========+
-      | 60010-TBA | tag       | Numeric Expressions,    | RFCthis   |
-      |           |           | see Section 8.2.2       |           |
-      +-----------+-----------+-------------------------+-----------+
-      | 60020-TBA | tag       | Set digest Expressions, | RFCthis   |
-      |           |           | see Section 8.2.3       |           |
-      +-----------+-----------+-------------------------+-----------+
-      | 60021-TBA | tag       | Set tstr Expressions,   | RFCthis   |
-      |           |           | see Section 8.2.3       |           |
-      +-----------+-----------+-------------------------+-----------+
+    +===========+======+==================================+===========+
+    | Tag       | Data | Semantics                        | Reference |
+    |           | Item |                                  |           |
+    +===========+======+==================================+===========+
+    | 60010-TBA | tag  | Array containing a numeric       | RFCthis   |
+    |           |      | expression, see Section 8.2.2    |           |
+    +-----------+------+----------------------------------+-----------+
+    | 60020-TBA | tag  | Array containing a set of digest | RFCthis   |
+    |           |      | expression, see Section 8.2.3    |           |
+    +-----------+------+----------------------------------+-----------+
+    | 60021-TBA | tag  | Array containing a set of tstr   | RFCthis   |
+    |           |      | expression, see Section 8.2.3    |           |
+    +-----------+------+----------------------------------+-----------+
 
                                   Table 3
 
