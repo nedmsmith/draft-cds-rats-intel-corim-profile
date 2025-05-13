@@ -216,27 +216,40 @@ The profile identifier for the Intel Profile is the OID:
 
 `2.16.840.1.113741.1.16.1`
 
-## Profile Specific Media and Content Types
+## Media Types, Content Formats, and CBOR Tags
 
 This profile uses the following media types:
 
 * "application/eat+cwt"
-* "application/eat+cwt; eat_profile=2.16.840.1.113741.1.16.1"
-* "application/rim+cbor" (TBA)
-* "application/rim+cbor" (TBA); profile=2.16.840.1.113741.1.16.1"
+* "application/eat+cwt;eat_profile=2.16.840.1.113741.1.16.1"
+* "application/rim+cbor"
+* "application/rim+cbor";profile=2.16.840.1.113741.1.16.1"
+* "application/toc+cbor"
+* "application/toc+cbor;profile=2.16.840.1.113741.1.16.1"
+* "application/ce+cbor"
+* "application/ce+cbor;profile=2.16.840.1.113741.1.16.1"
 
 This profile uses the following content formats:
 
-| Content Type                                                 | C-F ID | TN Function |
+| Content Format                                               | C-F ID | TN Function |
 | ------------------------------------------------------------ | ------ | ----------- |
 | "application/eat+cwt"                                        | 263    | 1668547081  |
-| "application/eat+cwt; eat_profile=2.16.840.1.113741.1.16.1"  | 10005  | 1668556861  |
+| "application/eat+cwt;eat_profile=2.16.840.1.113741.1.16.1"   | 10005  | 1668556861  |
 | "application/toc+cbor"                                       | 10570  | 1668557428  |
 | "application/ce+cbor"                                        | 10571  | 1668557429  |
+| "application/toc+cbor;profile=2.16.840.1.113741.1.16.1"      | 10572  | 1668557430  |
+| "application/ce+cbor;profile=2.16.840.1.113741.1.16.1"       | 10573  | 1668557431  |
 
-This profile uses the following top level CBOR tags (not already listed):
+This profile uses the following CBOR tags:
 
-* 501, 570, 571
+| CBOR Tag  | Description |
+| --------- | ----------- |
+| 501       | Concise Reference Integrity Manifest - (CoRIM) |
+| 570       | Concise Table of Contents - (CoTOC) |
+| 571       | Concise Evidence - (CoEv) |
+| 60010     | Numeric expression |
+| 60020     | Set of digests expression |
+| 60021     | Set of strings expression |
 
 # Attester Anatomy
 
