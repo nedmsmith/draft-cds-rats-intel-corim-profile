@@ -5,13 +5,13 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 14 November 2025                                ARM Corporation
+Expires: 16 November 2025                                ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                             13 May 2025
+                                                             15 May 2025
 
 
                   Intel Profile for Remote Attestation
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 November 2025.
+   This Internet-Draft will expire on 16 November 2025.
 
 Copyright Notice
 
@@ -660,12 +660,13 @@ Table of Contents
 
    set-operators /= op.mem
    set-operators /= op.nmem
+   set-type<T> = [ * T ]
 
-   set-digest-type /= [ * digest ]
+   set-digest-type /= set-type<digest>
    set-digest-expression = [ set-operators, set-digest-type ]
    tagged-set-digest-expression = #6.60020( set-digest-expression )
 
-   set-tstr-type /= [ * tstr ]
+   set-tstr-type /= set-type<tstr>
    set-tstr-expression = [ set-operators, set-tstr-type ]
    tagged-set-tstr-expression = #6.60021( set-tstr-expression )
 
@@ -1463,12 +1464,13 @@ Appendix B.  Full Intel Profile CDDL
 
    set-operators /= op.mem
    set-operators /= op.nmem
+   set-type<T> = [ * T ]
 
-   set-digest-type /= [ * digest ]
+   set-digest-type /= set-type<digest>
    set-digest-expression = [ set-operators, set-digest-type ]
    tagged-set-digest-expression = #6.60020( set-digest-expression )
 
-   set-tstr-type /= [ * tstr ]
+   set-tstr-type /= set-type<tstr>
    set-tstr-expression = [ set-operators, set-tstr-type ]
    tagged-set-tstr-expression = #6.60021( set-tstr-expression )
 
