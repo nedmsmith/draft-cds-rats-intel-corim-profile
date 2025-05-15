@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-13T01:41:30.195175+00:00",
+  "timestamp": "2025-05-15T01:38:35.152243+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -107,15 +107,15 @@
       "id": "I_kwDOJvkHy86eVynA",
       "title": "Prefer mkey over redefining measurement values types?",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/30",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "deeglaze",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Given that we've restored multiplicity to measurements, it seems prudent to avoid re-specifying types of measurements for measured fields and instead use mkey numbers to represent the field, no?\r\n\r\nThinking from the perspective of tooling, it would be much simpler to give insights about reference values if folks stick to the standard types, and we can just have a mapping of class-id + mkey => colloquial measured field name, and visualization of particular values would not need any further enlightenment.\r\n\r\nI'm wondering if we can try to avoid new profiles for every kind of attestation technology when they're not expressing fundamentally new concepts. The expression language you have here is something else.\r\n\r\nExample:\r\n\r\n```\r\n$$measurement-values-map-extension //= (\r\n     &(tee.pceid: -80) => $tee-pceid-type\r\n   )\r\n   $tee-pceid-type /= tstr\r\n```\r\ncould be\r\n\r\n> tee.pceid from TDQUOTE is transformed to\r\n```\r\n[/ mkey: / 0: 80, / mval: / 1: {/ name: / 11: tee.pceid}]\r\n```",
       "createdAt": "2024-11-13T19:15:44Z",
-      "updatedAt": "2025-03-25T18:18:21Z",
-      "closedAt": null,
+      "updatedAt": "2025-05-13T20:31:46Z",
+      "closedAt": "2025-05-13T20:31:46Z",
       "comments": [
         {
           "author": "nedmsmith",
@@ -154,7 +154,7 @@
       "id": "I_kwDOJvkHy86vrh56",
       "title": "Uniform approach for date time and epoch markers",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/46",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -165,8 +165,8 @@
       "labels": [],
       "body": "There are primitives for time, date (tdate), and epoch markers that have overlapping semantics. It might make sense to combine them into a more comprehensive approach where a simple timestamp can be considered a simplified epoch marker where secure time / synchronized clocks are assumed (out of scope).\n\nThe epoch markers expression type can treat grace seconds as optional. By populating epoch-id with a timestamp value, the current simple use case for timestamps can be accommodated. \n\nOnly one CBOR expression type 60030 is needed to handle the various forms for expressing epochs. \n\n",
       "createdAt": "2025-03-25T18:23:16Z",
-      "updatedAt": "2025-03-27T17:18:16Z",
-      "closedAt": null,
+      "updatedAt": "2025-05-13T19:58:17Z",
+      "closedAt": "2025-05-13T19:58:16Z",
       "comments": [
         {
           "author": "yogeshbdeshpande",
@@ -188,6 +188,13 @@
           "body": "There is an issue in the epoch-markers repo that suggests that cbor-epoch-id isn't needed (https://github.com/ietf-rats/draft-birkholz-rats-epoch-marker/issues/36). If eliminated, time, tdate, and etime are elevated to epoch-id definitions:\n```\n$tagged-epoch-id /= tdate\n$tagged-epoch-id /= time\n$tagged-epoch-id /= etime\n```\nThe epoch markers draft doesn't define operators per se for each epoch-id form. Instead, the CBOR tag implies semantics for its use. For example, given the following expression:\n```\ntagged-exp-epochm-ge = #6.60032([ op.ge, epoch-marker ])\n$tagged-epoch-id /= #6.26991( epoch-grace-time)\n```\nThe epoch `time` signifies a meridian epoch and grace-period can be either +/- seconds from the meridian. Hence, the expression operator op.ge/op.le isn't needed.\n\nAll of the epoch-ids can be defined in such a way that there is no need for an expression abstraction.",
           "createdAt": "2025-03-27T17:18:15Z",
           "updatedAt": "2025-03-27T17:18:15Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "fixed by #45, #47, and #49 ",
+          "createdAt": "2025-05-13T19:58:16Z",
+          "updatedAt": "2025-05-13T19:58:16Z"
         }
       ]
     },
@@ -196,7 +203,7 @@
       "id": "I_kwDOJvkHy86wPIcb",
       "title": "TDX profile does not need Mask Expressions",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/48",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "yogeshbdeshpande",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -205,8 +212,8 @@
       "labels": [],
       "body": "Mask as defined in base [CoRIM specification](https://datatracker.ietf.org/doc/draft-ietf-rats-corim/)\n\nis always matched exactly.\n\nThere is no need for an expression into the Mask based types.\n\nExamples include:\nTEE-TCB-STATUS \nTEE-MISC-SELECT\n\nThere are all, masks which exactly need to appear in an identical fashion in Evidence and Reference Value and they are an Exact Match\n\nThe Intel Profile needs to be tidied up to use the mask type from Base Spec and remove Mask Expressions altogether!\n",
       "createdAt": "2025-03-28T17:27:39Z",
-      "updatedAt": "2025-03-28T22:55:58Z",
-      "closedAt": null,
+      "updatedAt": "2025-05-13T19:57:20Z",
+      "closedAt": "2025-05-13T19:57:20Z",
       "comments": [
         {
           "author": "nedmsmith",
@@ -214,6 +221,13 @@
           "body": "One option is to continue using the negative code point (for example `&(tee.attributes: -82)` ) and define `$tee-attributes-type = tagged-masked-raw-value`.  This can still be matched to Evidence expressed as `bytes`. The  `value` and `mask` in `tagged-masked-raw-value` corresponds to the `value` and `mask` in `mask-expression`. The operator is not needed.\n\nAnother option is to use mkey with a value of `82` and use `&(raw-value: 4)` to specify the `value` and `mask` using `tagged-masked-raw-value` for Reference Values and `tagged-bytes` for Evidence.",
           "createdAt": "2025-03-28T22:55:09Z",
           "updatedAt": "2025-03-28T22:55:09Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "Fixed by #50 ",
+          "createdAt": "2025-05-13T19:57:20Z",
+          "updatedAt": "2025-05-13T19:57:20Z"
         }
       ]
     },
@@ -274,16 +288,24 @@
       "id": "I_kwDOJvkHy8610W_5",
       "title": "Request CBOR tag for operators",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/issues/64",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "The CBOR tags for operators: 60010, 60020, and 60021 have not been officiall allocated by IANA. \nThese can be allocated from the vendors specific regeon. ",
       "createdAt": "2025-05-08T23:59:22Z",
-      "updatedAt": "2025-05-09T00:00:40Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-05-13T19:55:20Z",
+      "closedAt": "2025-05-13T19:55:19Z",
+      "comments": [
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "body": "fixed by #65 ",
+          "createdAt": "2025-05-13T19:55:19Z",
+          "updatedAt": "2025-05-13T19:55:19Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -3223,7 +3245,7 @@
       "id": "PR_kwDOJvkHy86VUZxV",
       "title": "Pceid as int",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/60",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -3232,26 +3254,42 @@
       "labels": [],
       "body": "adds examples for pceid using `mkey`=80, as `raw-int` and added uint as a possible type for -80 code point.",
       "createdAt": "2025-05-07T18:18:31Z",
-      "updatedAt": "2025-05-07T18:29:08Z",
+      "updatedAt": "2025-05-13T17:56:17Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "56686b6da391ffbfada83680c24dcf3dfa2fde89",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "pceid-as-int",
       "headRefOid": "d88e7ec2eb90e196b27e5f6b9219d6b9b8e8e598",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-05-13T17:56:17Z",
+      "mergedAt": "2025-05-13T17:56:17Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "227419d51d207681069a49b412480a66a61e6ff3"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86pI2d1",
+          "commit": {
+            "abbreviatedOid": "d88e7ec"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-13T17:55:15Z",
+          "updatedAt": "2025-05-13T17:55:15Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 61,
       "id": "PR_kwDOJvkHy86VUwIo",
       "title": "remove instance-id",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/61",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -3260,17 +3298,19 @@
       "labels": [],
       "body": "Removed instance-id which was a precursor to platform-instance-id",
       "createdAt": "2025-05-07T19:04:00Z",
-      "updatedAt": "2025-05-07T19:04:14Z",
+      "updatedAt": "2025-05-13T19:53:51Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
-      "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
+      "baseRefOid": "e4aa78ad6431de3d63dde6237a335b8c48d2a0d1",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "rm-instance-id",
-      "headRefOid": "bc2bfa8d8dd682dd997515c55fad4a4cd3dd6fa1",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "b5f8d6b379343e29dd1c81f427f847ada25b7b96",
+      "closedAt": "2025-05-13T19:53:51Z",
+      "mergedAt": "2025-05-13T19:53:51Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "43920047844bf52fed0d42fea8cccf01d615eee4"
+      },
       "comments": [],
       "reviews": []
     },
@@ -3279,7 +3319,7 @@
       "id": "PR_kwDOJvkHy86VU1wW",
       "title": "Added 32-byte piid example",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/62",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -3288,17 +3328,19 @@
       "labels": [],
       "body": "Clarified explanitory text in markdown and updated mkey example to show variable length platform instance identifier.",
       "createdAt": "2025-05-07T19:17:08Z",
-      "updatedAt": "2025-05-07T19:17:35Z",
+      "updatedAt": "2025-05-13T17:21:28Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "32-byte-piid",
       "headRefOid": "1927bcf19b51ed500fcd7e56901477c11d455846",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-05-13T17:21:28Z",
+      "mergedAt": "2025-05-13T17:21:28Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "766bd345a66b443f42801f0172569e94c60c4f74"
+      },
       "comments": [],
       "reviews": []
     },
@@ -3307,7 +3349,7 @@
       "id": "PR_kwDOJvkHy86Vf7Km",
       "title": "Coev profile",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/63",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -3316,17 +3358,19 @@
       "labels": [],
       "body": "Did an editing pass and incorporated profile definitions for content-format and media-types.",
       "createdAt": "2025-05-08T22:05:13Z",
-      "updatedAt": "2025-05-12T18:01:02Z",
+      "updatedAt": "2025-05-13T17:37:50Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
-      "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
+      "baseRefOid": "eec1622380ab3680123224ba62b0f4b71cf9ee1f",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "coev-profile",
-      "headRefOid": "a6d518c1f4cb40b06f53ba8792b3226b96b09739",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "59f0d3415f49df7c0be2c17c2e60b63ee2e79b49",
+      "closedAt": "2025-05-13T17:37:49Z",
+      "mergedAt": "2025-05-13T17:37:49Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "e4aa78ad6431de3d63dde6237a335b8c48d2a0d1"
+      },
       "comments": [],
       "reviews": []
     },
@@ -3335,7 +3379,7 @@
       "id": "PR_kwDOJvkHy86V3EQx",
       "title": "Udate IANA section to match CBOR Tags request",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/65",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -3344,17 +3388,19 @@
       "labels": [],
       "body": "CBOR Tags registry is requested to assign 60010, 60020, and 60021",
       "createdAt": "2025-05-12T15:35:55Z",
-      "updatedAt": "2025-05-12T18:00:38Z",
+      "updatedAt": "2025-05-13T17:20:24Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
-      "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
+      "baseRefOid": "ec1e57810428b210c919ba9b2ede952bd5c8e62c",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "iana-section",
-      "headRefOid": "d4832c96883ec48eec5a68b8ac877f14a0a46647",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "d667ef810760fe79dcedfc7ed8a4b5ae523ed43a",
+      "closedAt": "2025-05-13T17:20:24Z",
+      "mergedAt": "2025-05-13T17:20:24Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "e0c4d9c1de6de0e88d2b71fc7b0f4ae954412a45"
+      },
       "comments": [],
       "reviews": []
     },
@@ -3363,7 +3409,7 @@
       "id": "PR_kwDOJvkHy86V4NMf",
       "title": "Remove set of set",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/66",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -3372,17 +3418,19 @@
       "labels": [],
       "body": "This PR removes set-of-set section and cddl. The Expression section is reworded.",
       "createdAt": "2025-05-12T18:00:04Z",
-      "updatedAt": "2025-05-13T01:08:09Z",
+      "updatedAt": "2025-05-13T17:08:03Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "remove-set-of-set",
-      "headRefOid": "52a158c7c4ea04671a3069d1848c79acff4a21c0",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "ce54d3becea09f668874029b8a9603d5b5a22a8c",
+      "closedAt": "2025-05-13T17:08:03Z",
+      "mergedAt": "2025-05-13T17:08:03Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "ec1e57810428b210c919ba9b2ede952bd5c8e62c"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3417,8 +3465,130 @@
           "createdAt": "2025-05-13T01:08:09Z",
           "updatedAt": "2025-05-13T01:08:09Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJvkHy86pH6an",
+          "commit": {
+            "abbreviatedOid": "52a158c"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-13T16:26:11Z",
+          "updatedAt": "2025-05-13T16:26:25Z",
+          "comments": [
+            {
+              "originalPosition": 164,
+              "body": "```suggestion\r\nThe set expression array contains a set operator followed by an array of values which are the members of a set of Reference Values.\r\n```",
+              "createdAt": "2025-05-13T16:26:11Z",
+              "updatedAt": "2025-05-13T16:26:25Z"
+            }
+          ]
         }
       ]
+    },
+    {
+      "number": 67,
+      "id": "PR_kwDOJvkHy86WBzb4",
+      "title": "Update section 4 with recently assigned IANA values",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/67",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-05-13T15:59:03Z",
+      "updatedAt": "2025-05-13T17:22:51Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "9a080ef227c2da95acef9598c5be4fc3364b9fc4",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "add-CF",
+      "headRefOid": "cdf4753a4f82cc38f3f5def73d3b57322763f922",
+      "closedAt": "2025-05-13T17:22:51Z",
+      "mergedAt": "2025-05-13T17:22:51Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "eec1622380ab3680123224ba62b0f4b71cf9ee1f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 68,
+      "id": "PR_kwDOJvkHy86WDxnU",
+      "title": "Remove \"_TBA\" cbor tags",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/68",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Reword IANA Considerations section to reflect CBOR Tag assignments.",
+      "createdAt": "2025-05-13T20:20:49Z",
+      "updatedAt": "2025-05-13T20:39:57Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "43920047844bf52fed0d42fea8cccf01d615eee4",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "remove-TBA",
+      "headRefOid": "1410e34fc3fdc125fa76f1c0663b6183d7837804",
+      "closedAt": "2025-05-13T20:39:56Z",
+      "mergedAt": "2025-05-13T20:39:56Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "95295191a794057aa826c7ca84040e32975e38cf"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86pKWrR",
+          "commit": {
+            "abbreviatedOid": "1410e34"
+          },
+          "author": "jdbeaney",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-13T20:38:25Z",
+          "updatedAt": "2025-05-13T20:38:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 69,
+      "id": "PR_kwDOJvkHy86WPD3z",
+      "title": "add set-type macro",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/69",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Use set-type macro to enable extensibility for other types",
+      "createdAt": "2025-05-14T23:31:50Z",
+      "updatedAt": "2025-05-14T23:31:51Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "95295191a794057aa826c7ca84040e32975e38cf",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "set-type-macro",
+      "headRefOid": "6177110d784b26adc5a6d3c4f010e695cd6bc01f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
