@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-15T01:38:35.152243+00:00",
+  "timestamp": "2025-05-18T01:46:36.575855+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -3567,7 +3567,7 @@
       "id": "PR_kwDOJvkHy86WPD3z",
       "title": "add set-type macro",
       "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/69",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -3576,19 +3576,79 @@
       "labels": [],
       "body": "Use set-type macro to enable extensibility for other types",
       "createdAt": "2025-05-14T23:31:50Z",
-      "updatedAt": "2025-05-14T23:31:51Z",
+      "updatedAt": "2025-05-15T02:06:43Z",
       "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "baseRefName": "main",
       "baseRefOid": "95295191a794057aa826c7ca84040e32975e38cf",
       "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
       "headRefName": "set-type-macro",
       "headRefOid": "6177110d784b26adc5a6d3c4f010e695cd6bc01f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-05-15T02:06:34Z",
+      "mergedAt": "2025-05-15T02:06:34Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "76c876f795e67978d1042ec0363fd3878a3ad3f7"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86pZO-L",
+          "commit": {
+            "abbreviatedOid": "6177110"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-15T02:05:57Z",
+          "updatedAt": "2025-05-15T02:05:57Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 70,
+      "id": "PR_kwDOJvkHy86WY4uh",
+      "title": "Update tee-digest-type.cddl",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/70",
+      "state": "MERGED",
+      "author": "nedmsmith",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "set-digest-type is the same as digests-type",
+      "createdAt": "2025-05-15T21:00:49Z",
+      "updatedAt": "2025-05-16T01:45:56Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "76c876f795e67978d1042ec0363fd3878a3ad3f7",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "cleanup-digest-type",
+      "headRefOid": "b2ac823616259bfd30bc49b8d4efcb6b78f1f1e6",
+      "closedAt": "2025-05-16T01:45:51Z",
+      "mergedAt": "2025-05-16T01:45:51Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "1aad2821c19b845a8802fb831ab47c9fd69b5f98"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86pl9tr",
+          "commit": {
+            "abbreviatedOid": "b2ac823"
+          },
+          "author": "fchinchilla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-16T01:35:49Z",
+          "updatedAt": "2025-05-16T01:35:49Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
