@@ -5,13 +5,13 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 17 November 2025                                ARM Corporation
+Expires: 1 December 2025                                 ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
                                                                 N. Smith
                                                        Intel Corporation
-                                                             16 May 2025
+                                                             30 May 2025
 
 
                   Intel Profile for Remote Attestation
@@ -22,8 +22,8 @@ Abstract
    This document is a profile of various IETF and TCG standards that
    support remote attestation.  The profile supports Intel-specific
    adaptations and extensions for Evidence, Endorsements and Reference
-   Values.  This profile describes apticulareplication of CoRIM, EAT,
-   CMW, TCG concise evidence, and TCG DICE specifications.  In
+   Values.  This profile describes a particular application of CoRIM,
+   EAT, CMW, TCG concise evidence, and TCG DICE specifications.  In
    particular, CoRIM is extended to define measurement types that are
    unique to Intel and defines Reference Values types that support
    matching Evidence based on range and subset comparison.  Multiple
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 November 2025.
+   This Internet-Draft will expire on 1 December 2025.
 
 Copyright Notice
 
@@ -1274,9 +1274,9 @@ Table of Contents
    [I-D.ietf-rats-msg-wrap]
               Birkholz, H., Smith, N., Fossati, T., Tschofenig, H., and
               D. Glaze, "RATS Conceptual Messages Wrapper (CMW)", Work
-              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-13,
-              15 April 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-msg-wrap-13>.
+              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-14,
+              21 May 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-rats-msg-wrap-14>.
 
    [IANA.cbor-tags]
               IANA, "Concise Binary Object Representation (CBOR) Tags",
