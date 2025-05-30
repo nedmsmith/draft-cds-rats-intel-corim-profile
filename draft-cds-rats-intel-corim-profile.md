@@ -134,7 +134,7 @@ entity:
 
 This document is a profile of various IETF and TCG standards that support remote attestation.
 The profile supports Intel-specific adaptations and extensions for Evidence, Endorsements and Reference Values.
-This profile describes apticulareplication of CoRIM, EAT, CMW, TCG concise evidence, and TCG DICE specifications.
+This profile describes a particular application of CoRIM, EAT, CMW, TCG concise evidence, and TCG DICE specifications.
 In particular, CoRIM is extended to define measurement types that are unique to Intel and defines Reference Values types that support matching Evidence based on range and subset comparison.
 Multiple Evidence formats are anticipated, based on IETF and TCG specifications.
 Evidence formats are mapped to Reference Values expressions based on CoRIM and CoRIM extensions found in this profile.
