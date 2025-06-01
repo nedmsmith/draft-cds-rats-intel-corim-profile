@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-18T01:46:36.575855+00:00",
+  "timestamp": "2025-06-01T01:58:35.847313+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -3646,6 +3646,48 @@
           "body": "",
           "createdAt": "2025-05-16T01:35:49Z",
           "updatedAt": "2025-05-16T01:35:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 71,
+      "id": "PR_kwDOJvkHy86YSEzo",
+      "title": "Fix funky typo",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/71",
+      "state": "MERGED",
+      "author": "steven-bellock",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This took a while to decode. We had an NVIDIA slack thread devoted to it.",
+      "createdAt": "2025-05-30T14:12:02Z",
+      "updatedAt": "2025-05-30T15:23:44Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "1aad2821c19b845a8802fb831ab47c9fd69b5f98",
+      "headRepository": "steven-bellock/draft-cds-rats-intel-corim-profile",
+      "headRefName": "patch-1",
+      "headRefOid": "f8830409d8742368b009db887bc2a03eddd8ec0d",
+      "closedAt": "2025-05-30T15:22:50Z",
+      "mergedAt": "2025-05-30T15:22:50Z",
+      "mergedBy": "nedmsmith",
+      "mergeCommit": {
+        "oid": "fc7acc86395da39192a7c2567b012178479df5aa"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86rwgzg",
+          "commit": {
+            "abbreviatedOid": "f883040"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-30T14:58:12Z",
+          "updatedAt": "2025-05-30T14:58:13Z",
           "comments": []
         }
       ]
