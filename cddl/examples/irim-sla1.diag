@@ -5,10 +5,11 @@
   / triples / 4 : {
     / membership-triples / 5 : [
       [ 
-        / 41434D45204D4158 are the bytes for "ACME MAX". Any one of the 3 lines below passes the CDDL checks /
-        / domain   { 0 : { 0 : 560(h'41434D45204D4158') } },  /
-        / domain / { 1 : 560(h'41434D45204D4158') }, 
-        / domain   { 2 : 560(h'41434D45204D4158') }, /
+        / domain-type is an environment-map /  { 
+          / class / 0 : { 
+            / class-id / 0 : 111(h'6086480100') / tagged-oid-type for 2.16.840.1.0 (a fake, but valid OID for "ACME MAX") /
+          } 
+        },
         [
           / environment-map / {
             / ** env0 ** /
