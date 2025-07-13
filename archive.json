@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-01T01:58:35.847313+00:00",
+  "timestamp": "2025-07-13T01:58:00.481403+00:00",
   "repo": "nedmsmith/draft-cds-rats-intel-corim-profile",
   "labels": [
     {
@@ -3688,6 +3688,46 @@
           "body": "",
           "createdAt": "2025-05-30T14:58:12Z",
           "updatedAt": "2025-05-30T14:58:13Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 72,
+      "id": "PR_kwDOJvkHy86eZJJ3",
+      "title": "Update to cddl-draft-ietf-rats-corim-08 release",
+      "url": "https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile/pull/72",
+      "state": "OPEN",
+      "author": "fchinchilla",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-10T23:16:17Z",
+      "updatedAt": "2025-07-11T20:56:38Z",
+      "baseRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "baseRefName": "main",
+      "baseRefOid": "fc7acc86395da39192a7c2567b012178479df5aa",
+      "headRepository": "nedmsmith/draft-cds-rats-intel-corim-profile",
+      "headRefName": "fchinchilla-svn",
+      "headRefOid": "3cc1f8aa265d792f5a3a92405a18cd0ed4cee369",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJvkHy86zhs6z",
+          "commit": {
+            "abbreviatedOid": "3cc1f8a"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-07-11T20:56:38Z",
+          "updatedAt": "2025-07-11T20:56:38Z",
           "comments": []
         }
       ]
