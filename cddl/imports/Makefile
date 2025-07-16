@@ -17,6 +17,7 @@ check:: get-$(COEV)
 REPO := https://github.com/ietf-rats-wg/
 DL := draft-ietf-rats-corim/releases/download/
 TAG := cddl-8c267cd
+TAG := cddl-draft-ietf-rats-corim-08
 $(eval $(call get_cddl_release,$(CORIM),$(REPO),$(DL),$(TAG)))
 CLEANFILES += $(CORIM).cddl
 

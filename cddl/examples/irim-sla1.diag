@@ -5,7 +5,11 @@
   / triples / 4 : {
     / membership-triples / 5 : [
       [ 
-        / domain / "ACME MAX",
+        / domain-type is an environment-map /  { 
+          / class / 0 : { 
+            / class-id / 0 : 111(h'6086480100') / tagged-oid-type for 2.16.840.1.0 (a fake, but valid OID for "ACME MAX") /
+          } 
+        },
         [
           / environment-map / {
             / ** env0 ** /
