@@ -20,8 +20,8 @@ venue:
   type: "Working Group"
   mail: "rats@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/rats/"
-  github: "nedmsmith/draft-cds-rats-intel-corim-profile"
-  latest: "https://nedmsmith.github.io/draft-cds-rats-intel-corim-profile/draft-cds-rats-intel-corim-profile.html"
+  github: "fchinchilla/draft-cds-rats-intel-corim-profile"
+  latest: "https://fchinchilla.github.io/draft-cds-rats-intel-corim-profile/draft-cds-rats-intel-corim-profile.html"
 
 stand_alone: yes
 pi:
@@ -54,8 +54,12 @@ author:
   email: vincent.r.scarlata@intel.com
 - ins: N. Smith
   fullname: Ned Smith
+  organization: Independent
+  email: ned.smith.ietf@outlook.com
+- ins: F. Chinchilla
+  fullname: Francisco J. Chinchilla
   organization: Intel Corporation
-  email: ned.smith@intel.com
+  email: francisco.j.chinchilla@intel.com
 
 normative:
   I-D.ietf-rats-corim: corim
@@ -848,7 +852,7 @@ IANA has allocated the following tags in the CBOR Tags registry {{!IANA.cbor-tag
 
 # Acknowledgments
 
-The authors wish to thank Shanwei Cen, Piotr Zmijewski, Francisco J. Chinchilla and Dionna Amalie Glaze for their valuable contributions.
+The authors wish to thank Shanwei Cen, Piotr Zmijewski, and Dionna Amalie Glaze for their valuable contributions.
 
 # Full Intel Profile CDDL
 
