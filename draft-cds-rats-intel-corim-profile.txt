@@ -5,13 +5,16 @@
 Remote ATtestation ProcedureS                                  J. Beaney
 Internet-Draft                                         Intel Corporation
 Intended status: Informational                              Y. Deshpande
-Expires: 14 May 2026                                     ARM Corporation
+Expires: 3 June 2026                                     ARM Corporation
                                                                A. Draper
                                                       Altera Corporation
                                                              V. Scarlata
-                                                                N. Smith
                                                        Intel Corporation
-                                                        10 November 2025
+                                                                N. Smith
+                                                             Independent
+                                                           F. Chinchilla
+                                                       Intel Corporation
+                                                        30 November 2025
 
 
                   Intel Profile for Remote Attestation
@@ -45,8 +48,8 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://nedmsmith.github.io/draft-cds-rats-intel-corim-profile/draft-
-   cds-rats-intel-corim-profile.html.  Status information for this
+   https://fchinchilla.github.io/draft-cds-rats-intel-corim-profile/
+   draft-cds-rats-intel-corim-profile.html.  Status information for this
    document may be found at https://datatracker.ietf.org/doc/draft-cds-
    rats-intel-corim-profile/.
 
@@ -56,7 +59,7 @@ About This Document
    Subscribe at https://www.ietf.org/mailman/listinfo/rats/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/nedmsmith/draft-cds-rats-intel-corim-profile.
+   https://github.com/fchinchilla/draft-cds-rats-intel-corim-profile.
 
 Status of This Memo
 
@@ -73,7 +76,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 May 2026.
+   This Internet-Draft will expire on 3 June 2026.
 
 Copyright Notice
 
@@ -1274,9 +1277,9 @@ Table of Contents
    [I-D.ietf-rats-msg-wrap]
               Birkholz, H., Smith, N., Fossati, T., Tschofenig, H., and
               D. Glaze, "RATS Conceptual Messages Wrapper (CMW)", Work
-              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-19,
-              17 October 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-msg-wrap-19>.
+              in Progress, Internet-Draft, draft-ietf-rats-msg-wrap-21,
+              18 November 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-msg-wrap-21>.
 
    [IANA.cbor-tags]
               IANA, "Concise Binary Object Representation (CBOR) Tags",
@@ -1372,8 +1375,8 @@ Table of Contents
 
 Appendix A.  Acknowledgments
 
-   The authors wish to thank Shanwei Cen, Piotr Zmijewski, Francisco J.
-   Chinchilla and Dionna Amalie Glaze for their valuable contributions.
+   The authors wish to thank Shanwei Cen, Piotr Zmijewski, and Dionna
+   Amalie Glaze for their valuable contributions.
 
 Appendix B.  Full Intel Profile CDDL
 
@@ -1619,5 +1622,10 @@ Authors' Addresses
 
 
    Ned Smith
+   Independent
+   Email: ned.smith.ietf@outlook.com
+
+
+   Francisco J. Chinchilla
    Intel Corporation
-   Email: ned.smith@intel.com
+   Email: francisco.j.chinchilla@intel.com
