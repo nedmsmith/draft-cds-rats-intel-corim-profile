@@ -40,14 +40,14 @@ author:
   fullname: James D. Beaney
   organization: Intel Corporation
   email: james.d.beaney@intel.com
+- ins: F. Chinchilla
+  fullname: Francisco J. Chinchilla
+  organization: Intel Corporation
+  email: francisco.j.chinchilla@intel.com
 - ins: Y. Deshpande
   fullname: Yogesh Deshpande
   organization: ARM Corporation
   email: yogesh.deshpande@arm.com
-- ins: A. Draper
-  fullname: Andrew Draper
-  organization: Altera Corporation
-  email: andrew.draper@altera.com
 - ins: V. Scarlata
   fullname: Vincent R. Scarlata
   organization: Intel Corporation
@@ -56,10 +56,6 @@ author:
   fullname: Ned Smith
   organization: Independent
   email: ned.smith.ietf@outlook.com
-- ins: F. Chinchilla
-  fullname: Francisco J. Chinchilla
-  organization: Intel Corporation
-  email: francisco.j.chinchilla@intel.com
 
 normative:
   I-D.ietf-rats-corim: corim
@@ -852,7 +848,7 @@ IANA has allocated the following tags in the CBOR Tags registry {{!IANA.cbor-tag
 
 # Acknowledgments
 
-The authors wish to thank Shanwei Cen, Piotr Zmijewski, and Dionna Amalie Glaze for their valuable contributions.
+The authors wish to thank Shanwei Cen, Andrew Draper, and Dionna Amalie Glaze, and Piotr Zmijewski for their valuable contributions.
 
 # Full Intel Profile CDDL
 
