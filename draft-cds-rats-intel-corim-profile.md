@@ -848,7 +848,7 @@ IANA has allocated the following tags in the CBOR Tags registry {{!IANA.cbor-tag
 
 # Acknowledgments
 
-The authors wish to thank Shanwei Cen, Andrew Draper, and Dionna Amalie Glaze, and Piotr Zmijewski for their valuable contributions.
+The authors wish to thank Shanwei Cen, Andrew Draper, Dionna Amalie Glaze, and Piotr Zmijewski for their valuable contributions.
 
 # Full Intel Profile CDDL
 
